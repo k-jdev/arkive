@@ -1,5 +1,13 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "motion/react";
 import { RiArrowRightSLine } from "@remixicon/react";
+import {
+  featuresContainer,
+  featuresBlock,
+  featuresImage,
+} from "@/lib/animations";
 
 interface FeatureBlockProps {
   label: string;
@@ -21,8 +29,10 @@ function FeatureBlock({
   imageLeft = false,
 }: FeatureBlockProps) {
   const textCol = (
-    <div className="flex flex-col gap-5 justify-center flex-1 min-w-0">
-      {/* Label */}
+    <motion.div
+      variants={featuresBlock}
+      className="flex flex-col gap-5 justify-center flex-1 min-w-0"
+    >
       <p
         className="font-[590] text-(--figma-accent-9) [font-family:var(--figma-font-text)]"
         style={{
@@ -34,7 +44,6 @@ function FeatureBlock({
         {label}
       </p>
 
-      {/* Heading + description */}
       <div className="flex flex-col gap-5">
         <h2
           className="font-[590] tracking-[-0.4px] text-(--figma-neutral-12) [font-family:var(--figma-font-text)]"
@@ -54,19 +63,23 @@ function FeatureBlock({
         </p>
       </div>
 
-      {/* Button */}
-      <button
+      <motion.button
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.97 }}
         type="button"
         className="flex items-center justify-center h-10 rounded-full w-fit transition-opacity hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-medium [font-family:var(--figma-font-text)]"
       >
         {buttonLabel}
         <RiArrowRightSLine size={18} aria-hidden="true" />
-      </button>
-    </div>
+      </motion.button>
+    </motion.div>
   );
 
   const imageCol = (
-    <div className="relative w-[58%] shrink-0 rounded-2xl overflow-hidden">
+    <motion.div
+      variants={featuresImage}
+      className="relative w-[58%] shrink-0 rounded-2xl overflow-hidden"
+    >
       <Image
         src={imageSrc}
         alt={imageAlt}
@@ -74,11 +87,17 @@ function FeatureBlock({
         height={450}
         className="w-full h-auto"
       />
-    </div>
+    </motion.div>
   );
 
   return (
-    <div className="flex flex-col md:flex-row items-center gap-16 w-full max-w-[1280px] mx-auto">
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+      variants={featuresContainer}
+      className="flex flex-col md:flex-row items-center gap-16 w-full max-w-[1280px] mx-auto"
+    >
       {imageLeft ? (
         <>
           {imageCol}
@@ -90,7 +109,7 @@ function FeatureBlock({
           {imageCol}
         </>
       )}
-    </div>
+    </motion.div>
   );
 }
 

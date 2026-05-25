@@ -116,6 +116,15 @@
   --figma-font-size-5: 20px;
   --figma-line-height-5: 28px;
   --figma-letter-spacing-5: -0.08px;
+  --figma-font-size-1: 12px;
+  --figma-line-height-1: 16px;
+  --figma-letter-spacing-1: 0.04px;
+  --figma-font-size-7: 28px;
+  --figma-line-height-7: 36px;
+  --figma-letter-spacing-7: -0.12px;
+  --figma-font-size-6: 24px;
+  --figma-line-height-6: 30px;
+  --figma-letter-spacing-6: -0.1px;
 
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

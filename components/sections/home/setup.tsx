@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { RiArrowRightSLine } from "@remixicon/react";
 import { claudeIcon, gptIcon, grokIcon, geminiIcon } from "@/public/icons";
+import { setupHeader, setupCard, EASE } from "@/lib/animations";
 
 const AI_ICONS = [
   { src: claudeIcon, alt: "Claude" },
@@ -16,17 +17,26 @@ export default function Setup() {
   return (
     <section className="w-full bg-white py-12 md:py-16 px-4 md:px-20">
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
-        <h2
+        <motion.h2
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={setupHeader}
           className="font-[590] tracking-[-0.4px] text-(--figma-neutral-12) [font-family:var(--figma-font-text)]"
           style={{ fontSize: "clamp(32px, 3.3vw, 48px)", lineHeight: 0.9 }}
         >
           {`Set up your Arkive in < 1 minute.`}
-        </h2>
+        </motion.h2>
 
         <div className="flex flex-col gap-5">
-          <div className="relative w-full rounded-3xl overflow-hidden bg-[#f9f9fb] md:h-110.25">
-            {/* Content — absolute on desktop, flex col on mobile */}
-            <div className="relative md:absolute md:left-36 md:top-1/2 md:-translate-y-1/2 flex flex-col gap-6 md:gap-8 px-6 md:px-0 pt-8 md:pt-0 pb-6 md:pb-0 md:w-90">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={setupCard}
+            className="relative w-full rounded-3xl overflow-hidden bg-[#f9f9fb] md:h-[clamp(360px,23vw,441px)]"
+          >
+            <div className="relative md:absolute md:left-[clamp(40px,7.5vw,144px)] md:top-1/2 md:-translate-y-1/2 flex flex-col gap-6 md:gap-8 px-6 md:px-0 pt-8 md:pt-0 pb-6 md:pb-0 md:w-[clamp(290px,18.75vw,360px)]">
               <p
                 className="[font-family:var(--figma-font-text)] text-[clamp(20px,5vw,28px)]"
                 style={{
@@ -43,34 +53,31 @@ export default function Setup() {
               </p>
 
               <div className="flex flex-wrap items-center gap-4">
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
                   type="button"
                   className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-(--figma-spacing-4) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-12) text-(--figma-neutral-1) font-regular [font-family:var(--figma-font-text)]"
                 >
                   Get started
-                </button>
+                </motion.button>
 
                 <div className="flex items-center">
                   {AI_ICONS.map((icon, i) => (
                     <motion.div
                       key={icon.alt}
-                      className="relative shrink-0 size-8.5 rounded-full overflow-hidden bg-white border border-[rgba(187,187,187,0.26)]"
+                      className="relative shrink-0 size-8.5 rounded-full overflow-hidden"
                       initial={{ opacity: 0, x: -12, scale: 0.7 }}
                       whileInView={{ opacity: 1, x: 0, scale: 1 }}
                       viewport={{ once: true, margin: "-80px" }}
                       transition={{
                         delay: i * 0.12,
                         duration: 0.45,
-                        ease: [0.25, 1, 0.5, 1],
+                        ease: EASE,
                       }}
                       animate={{
                         marginRight: i < 3 ? "-10.665px" : "0",
                         zIndex: 4 - i,
-                      }}
-                      whileHover={{
-                        marginRight: "6px",
-                        zIndex: 10,
-                        transition: { duration: 0.25, ease: "easeOut" },
                       }}
                     >
                       <Image
@@ -89,7 +96,7 @@ export default function Setup() {
             {/* Right side — MacBook + Terminal */}
             <div className="relative md:absolute right-0 top-0 md:h-full w-full md:w-[55%]">
               {/* MacBook — centered vertically */}
-              <div className="relative md:absolute px-6 md:px-0 md:top-1/2 md:-translate-y-1/2 md:right-8 w-full md:w-[90%] max-w-140 mx-auto md:mx-0">
+              <div className="relative md:absolute px-6 md:px-0 md:top-1/2 md:-translate-y-1/2 md:right-[clamp(12px,1.7vw,32px)] w-full md:w-[90%] max-w-140 mx-auto md:mx-0">
                 <Image
                   src="/sections/setup/macbook.png"
                   alt="MacBook"
@@ -111,10 +118,16 @@ export default function Setup() {
                 />
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 2 — Documentation */}
-          <div className="w-full rounded-3xl bg-[#f9f9fb] px-5 md:px-6 py-5 flex flex-wrap justify-between items-center gap-3 md:gap-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={setupCard}
+            className="w-full rounded-3xl bg-[#f9f9fb] px-5 md:px-6 py-5 flex flex-wrap justify-between items-center gap-3 md:gap-4"
+          >
             <div className="flex items-center gap-4 md:gap-6">
               {" "}
               {/* Icon */}
@@ -142,8 +155,10 @@ export default function Setup() {
             </div>
 
             {/* Documentation link */}
-            <a
+            <motion.a
               href="#"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               className="flex items-center gap-0.5 shrink-0 font-regular text-(--figma-accent-9) [font-family:var(--figma-font-text)] hover:opacity-75 transition-opacity"
               style={{
                 fontSize: "var(--figma-font-size-3)",
@@ -153,8 +168,8 @@ export default function Setup() {
             >
               Documentation
               <RiArrowRightSLine size={18} aria-hidden="true" />
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
         </div>
       </div>
     </section>
