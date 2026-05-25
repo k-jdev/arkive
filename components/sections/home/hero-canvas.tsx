@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-// ---- config (matches hero-bg.html) ----
 const W = 1920;
 const H = 1080;
 const SPACING = 60;

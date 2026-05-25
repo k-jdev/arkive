@@ -43,14 +43,14 @@ export default function Hero() {
           <div className="flex flex-wrap items-center justify-center gap-2">
             <button
               type="button"
-              className="flex items-center justify-center h-10 rounded-full transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-(--figma-spacing-4) gap-(--figma-spacing-3) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-12) text-(--figma-neutral-1) font-[510] [font-family:var(--figma-font-text)]"
+              className="flex items-center justify-center h-10 rounded-full transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-(--figma-spacing-4) gap-(--figma-spacing-3) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-12) text-(--figma-neutral-1) font-normal [font-family:var(--figma-font-text)]"
             >
               Get started
             </button>
 
             <button
               type="button"
-              className="flex items-center justify-center h-10 rounded-full transition-opacity hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-[rgba(0,0,51,0.06)] text-(--figma-neutral-12) font-[510] [font-family:var(--figma-font-text)]"
+              className="flex items-center justify-center h-10 rounded-full transition-opacity hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-[rgba(0,0,51,0.06)] text-(--figma-neutral-12) font-normal [font-family:var(--figma-font-text)]"
             >
               Project DeFi
               <RiArrowRightSLine size={18} aria-hidden="true" />
@@ -94,12 +94,11 @@ export default function Hero() {
           }}
         >
           <p
-            className="max-w-[90%] md:max-w-[69%] text-white font-[510] [font-family:var(--figma-font-text)] tracking-[-0.4px]"
+            className="max-w-[95%] md:max-w-[82%] text-white font-light [font-family:var(--figma-font-text)] tracking-[-0.4px]"
             style={{ fontSize: "clamp(18px, 5vw, 48px)", lineHeight: 1.15 }}
           >
             The future of AI is one where context is owned, compounding, and
-            understood across models.{" "}
-            <span className="text-white/60">Arkive makes this possible.</span>
+            understood across models. Arkive makes this possible.
           </p>
 
           <Image
@@ -107,7 +106,7 @@ export default function Hero() {
             alt="Arkive"
             width={58}
             height={46}
-            className="w-10 md:w-14.5 h-auto invert"
+            className="w-10 md:w-14.5 h-auto invert mt-4 md:mt-8"
           />
         </motion.div>
       </section>

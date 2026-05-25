@@ -26,7 +26,7 @@ export default function Setup() {
         <div className="flex flex-col gap-5">
           <div className="relative w-full rounded-3xl overflow-hidden bg-[#f9f9fb] md:h-110.25">
             {/* Content — absolute on desktop, flex col on mobile */}
-            <div className="relative md:absolute md:left-36 md:top-1/2 md:-translate-y-1/2 flex flex-col gap-6 md:gap-8 px-6 md:px-0 pt-8 md:pt-0 pb-6 md:pb-0 md:w-77.25">
+            <div className="relative md:absolute md:left-36 md:top-1/2 md:-translate-y-1/2 flex flex-col gap-6 md:gap-8 px-6 md:px-0 pt-8 md:pt-0 pb-6 md:pb-0 md:w-90">
               <p
                 className="[font-family:var(--figma-font-text)] text-[clamp(20px,5vw,28px)]"
                 style={{
@@ -34,10 +34,10 @@ export default function Setup() {
                   letterSpacing: "-0.12px",
                 }}
               >
-                <span className="font-[510] text-[rgba(0,5,9,0.89)]">
+                <span className="font-medium text-[rgba(0,5,9,0.89)]">
                   {"Connect the Arkive MCP "}
                 </span>
-                <span className="font-[510] text-[rgba(0,5,29,0.45)]">
+                <span className="font-medium text-[rgba(0,5,29,0.45)]">
                   to your model of choice in seconds.
                 </span>
               </p>
@@ -45,7 +45,7 @@ export default function Setup() {
               <div className="flex flex-wrap items-center gap-4">
                 <button
                   type="button"
-                  className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-(--figma-spacing-4) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-12) text-(--figma-neutral-1) font-[510] [font-family:var(--figma-font-text)]"
+                  className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-(--figma-spacing-4) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-12) text-(--figma-neutral-1) font-regular [font-family:var(--figma-font-text)]"
                 >
                   Get started
                 </button>
@@ -114,35 +114,37 @@ export default function Setup() {
           </div>
 
           {/* Card 2 — Documentation */}
-          <div className="w-full rounded-3xl bg-[#f9f9fb] px-5 md:px-6 py-5 flex flex-wrap items-center gap-3 md:gap-4">
-            {/* Icon */}
-            <div className="shrink-0 size-10 rounded-xl overflow-hidden">
-              <Image
-                src="/sections/setup/install.png"
-                alt="Arkive install"
-                width={40}
-                height={40}
-                className="w-full h-full object-cover"
-              />
+          <div className="w-full rounded-3xl bg-[#f9f9fb] px-5 md:px-6 py-5 flex flex-wrap justify-between items-center gap-3 md:gap-4">
+            <div className="flex items-center gap-4 md:gap-6">
+              {" "}
+              {/* Icon */}
+              <div className="shrink-0 size-10 rounded-xl overflow-hidden">
+                <Image
+                  src="/sections/setup/install.png"
+                  alt="Arkive install"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* Text */}
+              <p
+                className="flex-1 font-normal text-(--figma-neutral-12) [font-family:var(--figma-font-text)] max-w-xl"
+                style={{
+                  fontSize: "var(--figma-font-size-3)",
+                  lineHeight: "var(--figma-line-height-3)",
+                  letterSpacing: "var(--figma-letter-spacing-3)",
+                }}
+              >
+                Read our docs on how to transfer context from your model to the
+                new standard for context-capture.
+              </p>
             </div>
-
-            {/* Text */}
-            <p
-              className="flex-1 font-normal text-(--figma-neutral-12) [font-family:var(--figma-font-text)]"
-              style={{
-                fontSize: "var(--figma-font-size-3)",
-                lineHeight: "var(--figma-line-height-3)",
-                letterSpacing: "var(--figma-letter-spacing-3)",
-              }}
-            >
-              Read our docs on how to transfer context from your model to the
-              new standard for context-capture.
-            </p>
 
             {/* Documentation link */}
             <a
               href="#"
-              className="flex items-center gap-0.5 shrink-0 font-[510] text-(--figma-accent-9) [font-family:var(--figma-font-text)] hover:opacity-75 transition-opacity"
+              className="flex items-center gap-0.5 shrink-0 font-regular text-(--figma-accent-9) [font-family:var(--figma-font-text)] hover:opacity-75 transition-opacity"
               style={{
                 fontSize: "var(--figma-font-size-3)",
                 lineHeight: "var(--figma-line-height-3)",

@@ -40,8 +40,8 @@ const STEP = CARD_WIDTH + CARD_GAP;
 export default function Slider() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
-  // Stop when last card aligns to left edge of the grid (same position as first card)
-  const maxOffset = STEP * (SLIDES.length - 1);
+  // Stop with ~one extra card width visible on the right
+  const maxOffset = STEP * (SLIDES.length - 1) - CARD_WIDTH;
 
   // Drag state
   const dragStart = useRef<number | null>(null);
@@ -101,8 +101,6 @@ export default function Slider() {
     touchStart.current = null;
   };
 
-  const activeIndex = Math.round(offset / STEP);
-
   return (
     <section className="w-full bg-white py-16 overflow-hidden">
       <div className="max-w-7xl mx-auto px-20">
@@ -115,14 +113,14 @@ export default function Slider() {
             >
               Project DeFi.
             </h2>
-            <p className="font-[510] text-(--figma-neutral-alpha-10) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) [font-family:var(--figma-font-text)]">
+            <p className="font-medium text-(--figma-neutral-alpha-10) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) [font-family:var(--figma-font-text)]">
               Arkive applied to trading.
             </p>
           </div>
 
           <button
             type="button"
-            className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-[510] [font-family:var(--figma-font-text)]"
+            className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-regular [font-family:var(--figma-font-text)]"
           >
             Learn more
             <RiArrowRightSLine size={18} aria-hidden="true" />
@@ -182,7 +180,7 @@ export default function Slider() {
               </div>
 
               {/* Caption */}
-              <p className="px-4 font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)]">
+              <p className="px-4 font-regular text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)]">
                 <span style={{ color: "rgba(0,5,9,0.89)" }}>
                   {slide.boldText}{" "}
                 </span>
@@ -201,7 +199,7 @@ export default function Slider() {
           <button
             type="button"
             onClick={prev}
-            disabled={activeIndex === 0}
+            disabled={offset <= 0}
             aria-label="Previous slide"
             className="flex items-center justify-center w-10 h-10 rounded-full bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) transition-opacity hover:opacity-75 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
           >
@@ -210,7 +208,7 @@ export default function Slider() {
           <button
             type="button"
             onClick={next}
-            disabled={activeIndex === SLIDES.length - 1}
+            disabled={offset + STEP > maxOffset}
             aria-label="Next slide"
             className="flex items-center justify-center w-10 h-10 rounded-full bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) transition-opacity hover:opacity-75 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
           >
