@@ -2,17 +2,18 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* SF Pro Text */
+/* SF Pro Text — WOFF2 (subset: Latin + Cyrillic) */
 @font-face {
   font-family: "SF Pro Text";
-  src: url("/fonts/SF-Pro-Text-Light.otf") format("opentype");
+  src: url("/fonts/SF-Pro-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "SF Pro Text";
-  src: url("/fonts/SF-Pro-Text-Regular.otf") format("opentype");
+  src: url("/fonts/SF-Pro-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -20,7 +21,7 @@
 
 @font-face {
   font-family: "SF Pro Text";
-  src: url("/fonts/SF-Pro-Text-Medium.otf") format("opentype");
+  src: url("/fonts/SF-Pro-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -28,7 +29,7 @@
 
 @font-face {
   font-family: "SF Pro Text";
-  src: url("/fonts/SF-Pro-Text-Semibold.otf") format("opentype");
+  src: url("/fonts/SF-Pro-Semibold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -36,7 +37,7 @@
 
 @font-face {
   font-family: "SF Pro Text";
-  src: url("/fonts/SF-Pro-Text-Bold.otf") format("opentype");
+  src: url("/fonts/SF-Pro-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
