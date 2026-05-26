@@ -26,7 +26,13 @@
   font-style: normal;
   font-display: swap;
 }
-
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("/fonts/SF-Pro-Medium.woff2") format("woff2");
+  font-weight: 510;
+  font-style: normal;
+  font-display: swap;
+}
 @font-face {
   font-family: "SF Pro Text";
   src: url("/fonts/SF-Pro-Semibold.woff2") format("woff2");

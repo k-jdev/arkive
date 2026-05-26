@@ -51,6 +51,10 @@ export default function HeroCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Respect reduced motion preference
+    const reducedMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const reduced = reducedMedia.matches;
+
     let mouseXs = W / 2,
       mouseYs = H / 2;
     let targetX = W / 2,
@@ -85,6 +89,19 @@ export default function HeroCanvas() {
         if (j < rows)
           linkDefs.push({ source: idxFn(i, j), target: idxFn(i, j + 1) });
       }
+    }
+
+    // Static render for reduced motion — no simulation, no interactivity
+    if (reduced) {
+      ctx.fillStyle = BG_COLOR;
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = `rgba(255,255,255,${NODE_DIM / 255})`;
+      for (const n of nodes) {
+        ctx.beginPath();
+        ctx.arc(n.rx, n.ry, BASE_R, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      return;
     }
 
     function homeForce(alpha: number) {
@@ -312,6 +329,8 @@ export default function HeroCanvas() {
         ref={canvasRef}
         width={W}
         height={H}
+        role="img"
+        aria-label="Interactive particle network visualization"
         className="block w-full h-full"
         style={{ display: "block" }}
       />

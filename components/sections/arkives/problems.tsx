@@ -62,7 +62,7 @@ const CARDS: ProblemCard[] = [
 
 export default function ArkivesProblems() {
   return (
-    <section className="w-full bg-[#f9f9fb]">
+    <section data-header-theme="light" className="w-full bg-[#f9f9fb]">
       <motion.div
         initial="hidden"
         whileInView="visible"

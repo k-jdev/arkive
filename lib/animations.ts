@@ -87,7 +87,7 @@ export const heroDarkEnter: Variants = {
 export const featuresContainer: Variants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.12 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
   },
 };
 
@@ -214,5 +214,26 @@ export const journalCard: Variants = {
     x: 0,
     opacity: 1,
     transition: { duration: 0.5, ease: EASE },
+  },
+};
+
+// ── Reduced motion (accessibility) ───────────────────────
+import { motionTokens } from "./motion-tokens";
+
+/** Item-level safe variant — opacity-only, fast, no transforms */
+export const safeFade: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: motionTokens.duration.fast },
+  },
+};
+
+/** Container-level safe variant — instant, no stagger */
+export const safeContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: motionTokens.duration.instant },
   },
 };

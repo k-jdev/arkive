@@ -8,7 +8,10 @@ import {
   sliderHeader,
   sliderCardsContainer,
   sliderCard,
+  safeFade,
+  safeContainer,
 } from "@/lib/animations";
+import { usePrefersReducedMotion } from "@/lib/motion-config";
 
 interface SlideItem {
   id: number;
@@ -27,12 +30,14 @@ const SLIDES: SlideItem[] = [
   },
   {
     id: 2,
+    imageSrc: "/sections/slider/card2.png",
     boldText: "Lorem ipsum dolortasd.",
     dimText:
       "Trade with any frontier AI across on-chain markets, with full Arkive context behind every decision.",
   },
   {
     id: 3,
+    imageSrc: "/sections/slider/card3.png",
     boldText: "Lorem ipsum dolortasd.",
     dimText:
       "Trade with any frontier AI across on-chain markets, with full Arkive context behind every decision.",
@@ -43,6 +48,8 @@ const CARD_WIDTH = 558;
 const CARD_GAP = 20;
 
 export default function Slider() {
+  const reduced = usePrefersReducedMotion();
+
   const {
     offset,
     prev,
@@ -64,12 +71,17 @@ export default function Slider() {
   });
 
   return (
-    <section className="w-full bg-white py-16 overflow-hidden">
+    <section
+      data-header-theme="light"
+      className="w-full bg-white pt-36 overflow-hidden"
+      role="region"
+      aria-label="Projects showcase"
+    >
       <motion.div
         initial="hidden"
-        whileInView="visible"
+        whileInView={reduced ? undefined : "visible"}
         viewport={{ once: true, margin: "-60px" }}
-        variants={sliderHeader}
+        variants={reduced ? safeFade : sliderHeader}
         className="max-w-7xl mx-auto px-20"
       >
         {/* Header row */}
@@ -77,7 +89,7 @@ export default function Slider() {
           <div className="flex flex-col gap-2">
             <h2
               className="font-[590] tracking-[-0.4px] [font-family:var(--figma-font-text)] bg-linear-to-r from-[#1C2024] to-[#0080FF] bg-clip-text text-transparent"
-              style={{ fontSize: "clamp(36px, 4vw, 56px)", lineHeight: 1 }}
+              style={{ fontSize: "clamp(36px, 4vw, 56px)" }}
             >
               Project DeFi.
             </h2>
@@ -87,8 +99,8 @@ export default function Slider() {
           </div>
 
           <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
+            whileHover={reduced ? undefined : { scale: 1.03 }}
+            whileTap={reduced ? undefined : { scale: 0.97 }}
             type="button"
             className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-regular [font-family:var(--figma-font-text)]"
           >
@@ -101,9 +113,9 @@ export default function Slider() {
       {/* Slider track — full bleed */}
       <motion.div
         initial="hidden"
-        whileInView="visible"
+        whileInView={reduced ? undefined : "visible"}
         viewport={{ once: true, margin: "-60px" }}
-        variants={sliderCardsContainer}
+        variants={reduced ? safeContainer : sliderCardsContainer}
         className="select-none cursor-grab active:cursor-grabbing"
         style={{
           paddingLeft: "max(80px, calc((100vw - 1280px) / 2 + 80px))",
@@ -131,7 +143,7 @@ export default function Slider() {
           {SLIDES.map((slide) => (
             <motion.div
               key={slide.id}
-              variants={sliderCard}
+              variants={reduced ? safeFade : sliderCard}
               className="flex flex-col gap-4 shrink-0"
               style={{ width: `${CARD_WIDTH}px` }}
             >
@@ -170,8 +182,8 @@ export default function Slider() {
       <div className="max-w-7xl mx-auto px-20">
         <div className="flex items-center justify-end gap-2 mt-8">
           <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.94 }}
+            whileHover={reduced ? undefined : { scale: 1.08 }}
+            whileTap={reduced ? undefined : { scale: 0.94 }}
             type="button"
             onClick={prev}
             disabled={offset <= 0}
@@ -181,8 +193,8 @@ export default function Slider() {
             <RiArrowLeftSLine size={20} aria-hidden="true" />
           </motion.button>
           <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.94 }}
+            whileHover={reduced ? undefined : { scale: 1.08 }}
+            whileTap={reduced ? undefined : { scale: 0.94 }}
             type="button"
             onClick={next}
             disabled={offset + step > maxOffset}

@@ -40,12 +40,24 @@ export default function Header() {
 
   useEffect(() => {
     const onScroll = () => {
-      setDark(window.scrollY > window.innerHeight * 0.6);
+      const sections = document.querySelectorAll("[data-header-theme]");
+      const headerH = 72;
+      let theme: string | null = null;
+
+      for (const section of sections) {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= headerH && rect.bottom > headerH) {
+          theme = section.getAttribute("data-header-theme");
+          break;
+        }
+      }
+
+      setDark(theme === "dark");
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [pathname]);
 
   return (
     <motion.header
@@ -53,10 +65,8 @@ export default function Header() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
       className={[
-        "fixed top-0 left-0 right-0 z-50 backdrop-blur-xl transition-colors duration-500 [font-family:var(--figma-font-text)]",
-        dark
-          ? "bg-black/60 text-white"
-          : "bg-white/70 text-(--figma-neutral-12)",
+        "fixed top-0 left-0 right-0 z-50 transition-colors duration-500 [font-family:var(--figma-font-text)]",
+        dark ? "bg-black text-white" : "bg-white text-(--figma-neutral-12)",
       ].join(" ")}
     >
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-[clamp(16px,4.17vw,80px)] py-2">
@@ -92,11 +102,6 @@ export default function Header() {
                       href={item.href}
                       className={[
                         "flex items-center justify-center h-8 rounded-full transition-colors gap-(--figma-spacing-2) px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
-                        pathname === item.href
-                          ? dark
-                            ? "bg-white/15"
-                            : "bg-black/8"
-                          : "",
                         dark
                           ? "hover:bg-white/10 focus-visible:ring-white/30"
                           : "hover:bg-black/5 focus-visible:ring-black/20",
@@ -213,10 +218,10 @@ export default function Header() {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: EASE }}
             className={[
-              "lg:hidden border-t backdrop-blur-xl overflow-hidden",
+              "lg:hidden border-t overflow-hidden",
               dark
-                ? "border-white/10 bg-black/80 text-white"
-                : "border-black/5 bg-white/95 text-(--figma-neutral-12)",
+                ? "border-white/10 bg-black text-white"
+                : "border-black/5 bg-white text-(--figma-neutral-12)",
             ].join(" ")}
             aria-label="Mobile navigation"
           >
@@ -235,11 +240,6 @@ export default function Header() {
                       onClick={() => setOpen(false)}
                       className={[
                         "flex items-center justify-between w-full h-10 px-3 rounded-lg transition-colors text-(length:--figma-font-size-2) leading-(--figma-line-height-2) font-normal",
-                        pathname === item.href
-                          ? dark
-                            ? "bg-white/15"
-                            : "bg-black/8"
-                          : "",
                         dark
                           ? "hover:bg-white/10"
                           : "hover:bg-black/5 text-(--figma-neutral-12)",

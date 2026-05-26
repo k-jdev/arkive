@@ -7,7 +7,10 @@ import {
   featuresContainer,
   featuresBlock,
   featuresImage,
+  safeFade,
+  safeContainer,
 } from "@/lib/animations";
+import { usePrefersReducedMotion } from "@/lib/motion-config";
 
 interface FeatureBlockProps {
   label: string;
@@ -28,9 +31,11 @@ function FeatureBlock({
   imageAlt,
   imageLeft = false,
 }: FeatureBlockProps) {
+  const reduced = usePrefersReducedMotion();
+
   const textCol = (
     <motion.div
-      variants={featuresBlock}
+      variants={reduced ? safeFade : featuresBlock}
       className="flex flex-col gap-5 justify-center flex-1 min-w-0"
     >
       <p
@@ -64,9 +69,10 @@ function FeatureBlock({
       </div>
 
       <motion.button
-        whileHover={{ scale: 1.03 }}
-        whileTap={{ scale: 0.97 }}
+        whileHover={reduced ? undefined : { scale: 1.03 }}
+        whileTap={reduced ? undefined : { scale: 0.97 }}
         type="button"
+        aria-label={`${buttonLabel}: ${heading}`}
         className="flex items-center justify-center h-10 rounded-full w-fit transition-opacity hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-medium [font-family:var(--figma-font-text)]"
       >
         {buttonLabel}
@@ -77,7 +83,7 @@ function FeatureBlock({
 
   const imageCol = (
     <motion.div
-      variants={featuresImage}
+      variants={reduced ? safeFade : featuresImage}
       className="relative w-full md:w-[58%] shrink-0 rounded-2xl overflow-hidden"
     >
       <Image
@@ -93,9 +99,9 @@ function FeatureBlock({
   return (
     <motion.div
       initial="hidden"
-      whileInView="visible"
+      whileInView={reduced ? undefined : "visible"}
       viewport={{ once: true, margin: "-80px" }}
-      variants={featuresContainer}
+      variants={reduced ? safeContainer : featuresContainer}
       className="flex flex-col md:flex-row items-center gap-8 md:gap-16 w-full max-w-7xl mx-auto"
     >
       {/* on mobile: text always first, image below; on desktop: respect imageLeft */}
@@ -122,7 +128,10 @@ function FeatureBlock({
 
 export default function Features() {
   return (
-    <section className="w-full bg-white flex flex-col gap-12 md:gap-16 px-4 md:px-20 py-12 md:py-16 items-center">
+    <section
+      data-header-theme="light"
+      className="w-full bg-white flex flex-col gap-12 md:gap-24 px-4 md:px-20 py-24 md:py-32 items-center"
+    >
       <FeatureBlock
         label="Arkives"
         heading="Portable knowledge trees understood by all models."

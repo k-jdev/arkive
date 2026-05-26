@@ -66,7 +66,7 @@ function AvatarStack() {
 
 export default function ArkivesModels() {
   return (
-    <section className="w-full px-5 md:px-[80px] ">
+    <section data-header-theme="dark" className="w-full px-5 md:px-[80px] ">
       <div className="max-w-[1440px] rounded-[24px] bg-black w-full mx-auto px-6 md:px-[144px] py-[60px] md:py-[100px]">
         {/* ── Header row ────────────────────────────────── */}
         <motion.div

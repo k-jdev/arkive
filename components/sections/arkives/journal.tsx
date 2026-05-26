@@ -8,8 +8,6 @@ import {
   RiArrowDownSLine,
   RiArrowRightSLine,
   RiFileTextLine,
-  RiCloseLine,
-  RiAddLine,
 } from "@remixicon/react";
 import { SLIDER_ICONS } from "@/public/icons";
 
@@ -232,7 +230,7 @@ export default function ArkivesJournal() {
   }, []);
 
   return (
-    <section className="w-full bg-white md:px-[80px]">
+    <section data-header-theme="light" className="w-full bg-white md:px-[80px]">
       <div className="max-w-[1440px] mx-auto px-4 md:px-0 py-16 md:py-24">
         {/* ── Header ─────────────────────────────────── */}
         <motion.div
@@ -244,17 +242,13 @@ export default function ArkivesJournal() {
         >
           <h2
             className="font-[590] text-[32px] md:text-[48px] leading-[0.9] tracking-[-0.4px] text-center [font-family:var(--figma-font-text)]"
-            style={{
-              color: "var(--figma-neutral-12)",
-            }}
+            style={{ color: "var(--figma-neutral-12)" }}
           >
             The loop that compounds.
           </h2>
           <p
             className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) text-center max-w-[500px] [font-family:var(--figma-font-text)]"
-            style={{
-              color: "rgba(0,5,9,0.89)",
-            }}
+            style={{ color: "rgba(0,5,9,0.89)" }}
           >
             An Arkive&apos;s structure enables compounding intelligence.
           </p>
@@ -290,7 +284,7 @@ export default function ArkivesJournal() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Scroll buttons — desktop: left vertical, mobile: below cards */}
+          {/* Scroll buttons — desktop */}
           <div className="hidden md:flex absolute left-8 top-1/2 -translate-y-1/2 flex-col gap-4 z-10">
             <button
               type="button"
@@ -322,9 +316,9 @@ export default function ArkivesJournal() {
 
           {/* Cards */}
           <div className="relative md:absolute md:left-[88px] md:top-1/2 md:-translate-y-1/2 px-4 md:px-0 py-10 md:py-0">
-            <div className="flex flex-col gap-3 w-full md:w-[381px]">
+            <div className="flex flex-col gap-3 items-start">
               {JOURNAL_ITEMS.map((item, index) => {
-                const isExpanded = index === activeIndex;
+                const isActive = index === activeIndex;
 
                 return (
                   <motion.div
@@ -338,7 +332,9 @@ export default function ArkivesJournal() {
                       delay: 0.3 + index * 0.08,
                       ease: [0.25, 1, 0.5, 1],
                     }}
-                    className="bg-[#f0f0f3] rounded-[18px] overflow-hidden shrink-0 cursor-pointer"
+                    className={`bg-[#f0f0f3] overflow-hidden shrink-0 cursor-pointer transition-[width,border-radius] duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+                      isActive ? "rounded-[18px] w-full" : "rounded-full"
+                    }`}
                   >
                     <div className="flex items-center gap-3 px-6 md:px-8 h-[60px] shrink-0">
                       <Image
@@ -351,44 +347,39 @@ export default function ArkivesJournal() {
                       />
                       <p
                         className="font-[510] text-(length:--figma-font-size-6) leading-(--figma-line-height-6) tracking-(--figma-letter-spacing-6) shrink-0 [font-family:var(--figma-font-text)]"
-                        style={{
-                          color: "rgba(0,5,9,0.89)",
-                        }}
+                        style={{ color: "rgba(0,5,9,0.89)" }}
                       >
                         {item.label}
                       </p>
                     </div>
 
-                    <motion.div
-                      initial={false}
-                      animate={{
-                        height: isExpanded ? "auto" : 0,
-                        opacity: isExpanded ? 1 : 0,
-                      }}
-                      transition={{
-                        height: { duration: 0.4, ease: [0.25, 1, 0.5, 1] },
-                        opacity: {
-                          duration: isExpanded ? 0.3 : 0.15,
-                          delay: isExpanded ? 0.1 : 0,
-                        },
-                      }}
-                      style={{ overflow: "hidden" }}
-                    >
-                      <p
-                        className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) px-6 md:px-8 pb-6 [font-family:var(--figma-font-text)]"
-                        style={{
-                          color: "rgba(0,7,27,0.5)",
-                        }}
-                      >
-                        {item.description}
-                      </p>
-                    </motion.div>
+                    <AnimatePresence initial={false}>
+                      {isActive && item.description && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{
+                            height: { duration: 0.35, ease: [0.25, 1, 0.5, 1] },
+                            opacity: { duration: 0.25, delay: 0.05 },
+                          }}
+                          style={{ overflow: "hidden" }}
+                        >
+                          <p
+                            className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) px-6 md:px-8 pb-6 [font-family:var(--figma-font-text)]"
+                            style={{ color: "rgba(0,7,27,0.5)" }}
+                          >
+                            {item.description}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </motion.div>
                 );
               })}
             </div>
 
-            {/* Mobile scroll buttons — row below cards */}
+            {/* Mobile scroll buttons */}
             <div className="flex md:hidden justify-center gap-4 mt-6">
               <button
                 type="button"

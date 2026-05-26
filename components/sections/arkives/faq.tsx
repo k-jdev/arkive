@@ -55,8 +55,8 @@ export default function ArkivesFaq() {
   };
 
   return (
-    <section className="w-full bg-white">
-      <div className="w-full mx-auto px-[clamp(16px,4.17vw,80px)] pt-20 md:pt-31 pb-16 md:pb-24">
+    <section data-header-theme="light" className="w-full bg-white">
+      <div className="max-w-[1440px] mx-auto px-[clamp(16px,4.17vw,80px)] md:px-0 pt-20 md:pt-31 pb-16 md:pb-24">
         {/* ── Header ─────────────────────────────────── */}
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
