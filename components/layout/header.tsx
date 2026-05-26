@@ -164,7 +164,12 @@ export default function Header() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             type="button"
-            className="flex items-center justify-center h-8 rounded-full transition-colors hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) bg-(--figma-neutral-12) text-(--figma-neutral-1) font-normal"
+            className={[
+              "flex items-center justify-center h-8 rounded-full transition-colors hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
+              dark
+                ? "bg-white text-black focus-visible:ring-white/30"
+                : "bg-(--figma-neutral-12) text-(--figma-neutral-1) focus-visible:ring-black/30",
+            ].join(" ")}
           >
             Get started
           </motion.button>

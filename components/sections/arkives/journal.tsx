@@ -321,18 +321,10 @@ export default function ArkivesJournal() {
                 const isActive = index === activeIndex;
 
                 return (
-                  <motion.div
+                  <div
                     key={item.label}
                     onClick={() => setActiveIndex(index)}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.45,
-                      delay: 0.3 + index * 0.08,
-                      ease: [0.25, 1, 0.5, 1],
-                    }}
-                    className={`bg-[#f0f0f3] overflow-hidden shrink-0 cursor-pointer transition-[width,border-radius] duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+                    className={`bg-[#f0f0f3] overflow-hidden shrink-0 cursor-pointer ${
                       isActive ? "rounded-[18px] w-full" : "rounded-full"
                     }`}
                   >
@@ -353,28 +345,15 @@ export default function ArkivesJournal() {
                       </p>
                     </div>
 
-                    <AnimatePresence initial={false}>
-                      {isActive && item.description && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{
-                            height: { duration: 0.35, ease: [0.25, 1, 0.5, 1] },
-                            opacity: { duration: 0.25, delay: 0.05 },
-                          }}
-                          style={{ overflow: "hidden" }}
-                        >
-                          <p
-                            className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) px-6 md:px-8 pb-6 [font-family:var(--figma-font-text)]"
-                            style={{ color: "rgba(0,7,27,0.5)" }}
-                          >
-                            {item.description}
-                          </p>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
+                    {isActive && item.description && (
+                      <p
+                        className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) px-6 md:px-8 pb-6 [font-family:var(--figma-font-text)]"
+                        style={{ color: "rgba(0,7,27,0.5)" }}
+                      >
+                        {item.description}
+                      </p>
+                    )}
+                  </div>
                 );
               })}
             </div>
