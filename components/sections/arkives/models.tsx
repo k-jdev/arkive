@@ -201,7 +201,7 @@ export default function ArkivesModels() {
           variants={arkivesHeader}
           className="flex flex-col md:flex-row items-center justify-between gap-4 w-full mt-10 bg-[#18191b] rounded-[18px] px-6 md:px-10 py-6"
         >
-          <p className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) text-[rgba(252,253,255,0.94)] w-full md:w-[511px] [font-family:var(--figma-font-text)]">
+          <p className="font-normal text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) text-[rgba(252,253,255,0.94)] w-full md:w-[511px] [font-family:var(--figma-font-text)]">
             Read our docs on how to transfer context from your model to the new
             standard for context-capture.
           </p>

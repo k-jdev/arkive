@@ -243,7 +243,7 @@ export default function ArkivesJournal() {
 
   return (
     <section data-header-theme="light" className="w-full bg-white md:px-[80px]">
-      <div className="max-w-[1440px] mx-auto px-4 md:px-0 py-16 md:py-24">
+      <div className="max-w-[1440px] mx-auto px-4 md:px-0 py-16 md:py-40">
         {/* ── Header ─────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
