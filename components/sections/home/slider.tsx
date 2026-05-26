@@ -99,10 +99,8 @@ export default function Slider() {
           </div>
 
           <motion.button
-            whileHover={reduced ? undefined : { scale: 1.03 }}
-            whileTap={reduced ? undefined : { scale: 0.97 }}
             type="button"
-            className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-regular [font-family:var(--figma-font-text)]"
+            className="flex items-center justify-center h-10 rounded-full shrink-0 transition-colors hover:bg-[rgba(0,0,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-regular [font-family:var(--figma-font-text)]"
           >
             Learn more
             <RiArrowRightSLine size={18} aria-hidden="true" />
@@ -182,24 +180,20 @@ export default function Slider() {
       <div className="max-w-7xl mx-auto px-20">
         <div className="flex items-center justify-end gap-2 mt-8">
           <motion.button
-            whileHover={reduced ? undefined : { scale: 1.08 }}
-            whileTap={reduced ? undefined : { scale: 0.94 }}
             type="button"
             onClick={prev}
             disabled={offset <= 0}
             aria-label="Previous slide"
-            className="flex items-center justify-center w-10 h-10 rounded-full bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) transition-opacity hover:opacity-75 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) transition-colors hover:bg-[rgba(0,0,51,0.12)] disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
           >
             <RiArrowLeftSLine size={20} aria-hidden="true" />
           </motion.button>
           <motion.button
-            whileHover={reduced ? undefined : { scale: 1.08 }}
-            whileTap={reduced ? undefined : { scale: 0.94 }}
             type="button"
             onClick={next}
             disabled={offset + step > maxOffset}
             aria-label="Next slide"
-            className="flex items-center justify-center w-10 h-10 rounded-full bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) transition-opacity hover:opacity-75 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) transition-colors hover:bg-[rgba(0,0,51,0.12)] disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
           >
             <RiArrowRightSLine size={20} aria-hidden="true" />
           </motion.button>

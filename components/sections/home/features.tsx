@@ -18,6 +18,7 @@ interface FeatureBlockProps {
   description: string;
   buttonLabel: string;
   imageSrc: string;
+  imageSrcMobile?: string;
   imageAlt: string;
   imageLeft?: boolean;
 }
@@ -28,6 +29,7 @@ function FeatureBlock({
   description,
   buttonLabel,
   imageSrc,
+  imageSrcMobile,
   imageAlt,
   imageLeft = false,
 }: FeatureBlockProps) {
@@ -69,11 +71,9 @@ function FeatureBlock({
       </div>
 
       <motion.button
-        whileHover={reduced ? undefined : { scale: 1.03 }}
-        whileTap={reduced ? undefined : { scale: 0.97 }}
         type="button"
         aria-label={`${buttonLabel}: ${heading}`}
-        className="flex items-center justify-center h-10 rounded-full w-fit transition-opacity hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-medium [font-family:var(--figma-font-text)]"
+        className="flex items-center justify-center h-10 rounded-full w-fit transition-colors hover:bg-[rgba(0,0,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-medium [font-family:var(--figma-font-text)]"
       >
         {buttonLabel}
         <RiArrowRightSLine size={18} aria-hidden="true" />
@@ -91,8 +91,17 @@ function FeatureBlock({
         alt={imageAlt}
         width={702}
         height={450}
-        className="w-full h-auto"
+        className="hidden md:block w-full h-auto"
       />
+      {imageSrcMobile && (
+        <Image
+          src={imageSrcMobile}
+          alt={imageAlt}
+          width={390}
+          height={844}
+          className="block md:hidden w-full h-auto"
+        />
+      )}
     </motion.div>
   );
 
@@ -138,6 +147,7 @@ export default function Features() {
         description="An Arkive is a portable knowledge tree. It connects to any AI, compounding context and user memory across models."
         buttonLabel="Learn more"
         imageSrc="/sections/arkives/card.png"
+        imageSrcMobile="/sections/practices/mobile/arkive-mobile.png"
         imageAlt="Arkive — portable knowledge tree UI"
         imageLeft={false}
       />
@@ -148,6 +158,7 @@ export default function Features() {
         description="Whether it's trading, research, writing, or anything else, a practice connects to an Arkive's core, adapting it to that domain."
         buttonLabel="Explore Practices"
         imageSrc="/sections/practices/card.png"
+        imageSrcMobile="/sections/practices/mobile/practices-mobile.png"
         imageAlt="Practices — domain-specific Arkive extension"
         imageLeft={true}
       />

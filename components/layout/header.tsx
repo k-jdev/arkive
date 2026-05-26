@@ -65,7 +65,7 @@ export default function Header() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
       className={[
-        "fixed top-0 left-0 right-0 z-50 transition-colors duration-500 [font-family:var(--figma-font-text)]",
+        "fixed top-0 left-0 right-0 z-50 transition-colors duration-300 [font-family:var(--figma-font-text)]",
         dark ? "bg-black text-white" : "bg-white text-(--figma-neutral-12)",
       ].join(" ")}
     >
@@ -81,7 +81,6 @@ export default function Header() {
             aria-label="Arkive home"
             className="shrink-0"
             variants={headerItem}
-            whileHover={{ scale: 1.04 }}
           >
             <Image
               src="/icons/logo.svg"
@@ -101,10 +100,10 @@ export default function Header() {
                     <Link
                       href={item.href}
                       className={[
-                        "flex items-center justify-center h-8 rounded-full transition-colors gap-(--figma-spacing-2) px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
+                        "flex items-center justify-center h-8 rounded-full transition-colors duration-300 gap-(--figma-spacing-2) px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
                         dark
-                          ? "hover:bg-white/10 focus-visible:ring-white/30"
-                          : "hover:bg-black/5 focus-visible:ring-black/20",
+                          ? "text-white hover:bg-white/10 focus-visible:ring-white/30"
+                          : "text-(--figma-neutral-12) hover:bg-black/5 focus-visible:ring-black/20",
                         "focus-visible:outline-none focus-visible:ring-2",
                       ].join(" ")}
                     >
@@ -117,7 +116,7 @@ export default function Header() {
                     <button
                       type="button"
                       className={[
-                        "flex items-center justify-center h-8 rounded-full transition-colors gap-(--figma-spacing-2) px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
+                        "flex items-center justify-center h-8 rounded-full transition-colors duration-300 gap-(--figma-spacing-2) px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
                         dark
                           ? "hover:bg-white/10 focus-visible:ring-white/30"
                           : "hover:bg-black/5 focus-visible:ring-black/20",
@@ -137,7 +136,7 @@ export default function Header() {
                 <button
                   type="button"
                   className={[
-                    "flex items-center justify-center h-8 rounded-full transition-colors gap-(--figma-spacing-2) px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
+                    "flex items-center justify-center h-8 rounded-full transition-colors duration-300 gap-(--figma-spacing-2) px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
                     dark
                       ? "hover:bg-white/10 focus-visible:ring-white/30"
                       : "hover:bg-black/5 focus-visible:ring-black/20",
@@ -161,14 +160,12 @@ export default function Header() {
         >
           <motion.button
             variants={headerItem}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
             type="button"
             className={[
-              "flex items-center justify-center h-8 rounded-full transition-colors hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
+              "flex items-center justify-center h-8 rounded-full transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
               dark
-                ? "bg-white text-black focus-visible:ring-white/30"
-                : "bg-(--figma-neutral-12) text-(--figma-neutral-1) focus-visible:ring-black/30",
+                ? "bg-white text-black hover:bg-[#e6e6e6] focus-visible:ring-white/30"
+                : "bg-(--figma-neutral-12) text-(--figma-neutral-1) hover:opacity-90 focus-visible:ring-black/30",
             ].join(" ")}
           >
             Get started
@@ -177,8 +174,6 @@ export default function Header() {
           <motion.button
             variants={headerItem}
             onClick={() => setOpen(!open)}
-            whileHover={{ scale: 1.06 }}
-            whileTap={{ scale: 0.94 }}
             className={[
               "lg:hidden flex items-center justify-center size-8 rounded-full focus-visible:outline-none focus-visible:ring-2",
               dark
@@ -244,10 +239,10 @@ export default function Header() {
                       href={item.href}
                       onClick={() => setOpen(false)}
                       className={[
-                        "flex items-center justify-between w-full h-10 px-3 rounded-lg transition-colors text-(length:--figma-font-size-2) leading-(--figma-line-height-2) font-normal",
+                        "flex items-center justify-between w-full h-10 px-3 rounded-lg transition-colors duration-300 text-(length:--figma-font-size-2) leading-(--figma-line-height-2) font-normal",
                         dark
-                          ? "hover:bg-white/10"
-                          : "hover:bg-black/5 text-(--figma-neutral-12)",
+                          ? "text-white hover:bg-white/10"
+                          : "text-(--figma-neutral-12) hover:bg-black/5",
                       ].join(" ")}
                     >
                       <span>{item.label}</span>
@@ -260,7 +255,7 @@ export default function Header() {
                       type="button"
                       onClick={() => setOpen(false)}
                       className={[
-                        "flex items-center justify-between w-full h-10 px-3 rounded-lg transition-colors text-(length:--figma-font-size-2) leading-(--figma-line-height-2) font-normal",
+                        "flex items-center justify-between w-full h-10 px-3 rounded-lg transition-colors duration-300 text-(length:--figma-font-size-2) leading-(--figma-line-height-2) font-normal",
                         dark
                           ? "hover:bg-white/10"
                           : "hover:bg-black/5 text-(--figma-neutral-12)",
@@ -285,7 +280,7 @@ export default function Header() {
                 <button
                   type="button"
                   className={[
-                    "flex items-center justify-between w-full h-10 px-3 rounded-lg transition-colors text-(length:--figma-font-size-2) leading-(--figma-line-height-2) font-normal",
+                    "flex items-center justify-between w-full h-10 px-3 rounded-lg transition-colors duration-300 text-(length:--figma-font-size-2) leading-(--figma-line-height-2) font-normal",
                     dark
                       ? "hover:bg-white/10"
                       : "hover:bg-black/5 text-(--figma-neutral-12)",

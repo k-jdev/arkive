@@ -82,7 +82,7 @@ export default function ArkivesModels() {
 
           <button
             type="button"
-            className="flex items-center justify-center h-10 px-(--figma-spacing-4) rounded-full bg-[#212225] text-[#edeef0] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) font-[510] whitespace-nowrap shrink-0 [font-family:var(--figma-font-text)]"
+            className="flex items-center justify-center h-10 px-(--figma-spacing-4) rounded-full bg-[#212225] text-[#edeef0] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) font-[510] whitespace-nowrap shrink-0 transition-colors hover:bg-[#2a2b2e] [font-family:var(--figma-font-text)]"
           >
             Get started
           </button>
@@ -208,7 +208,7 @@ export default function ArkivesModels() {
 
           <button
             type="button"
-            className="flex items-center justify-center h-10 px-(--figma-spacing-4) rounded-full bg-[#edeef0] text-[#111113] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) font-[510] whitespace-nowrap shrink-0 [font-family:var(--figma-font-text)]"
+            className="flex items-center justify-center h-10 px-(--figma-spacing-4) rounded-full bg-[#edeef0] text-[#111113] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) font-[510] whitespace-nowrap shrink-0 transition-colors hover:bg-[#d9dadd] [font-family:var(--figma-font-text)]"
           >
             Get started
           </button>

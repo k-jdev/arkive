@@ -60,10 +60,8 @@ export default function Setup() {
 
               <div className="flex flex-wrap items-center gap-4">
                 <motion.button
-                  whileHover={reduced ? undefined : { scale: 1.03 }}
-                  whileTap={reduced ? undefined : { scale: 0.97 }}
                   type="button"
-                  className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-(--figma-spacing-4) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-12) text-(--figma-neutral-1) font-regular [font-family:var(--figma-font-text)]"
+                  className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-(--figma-spacing-4) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-12) text-(--figma-neutral-1) font-regular [font-family:var(--figma-font-text)]"
                 >
                   Get started
                 </motion.button>
@@ -169,9 +167,7 @@ export default function Setup() {
             {/* Documentation link */}
             <motion.a
               href="#"
-              whileHover={reduced ? undefined : { scale: 1.03 }}
-              whileTap={reduced ? undefined : { scale: 0.97 }}
-              className="flex items-center gap-0.5 shrink-0 font-regular text-(--figma-accent-9) [font-family:var(--figma-font-text)] hover:opacity-75 transition-opacity"
+              className="flex items-center gap-0.5 shrink-0 font-regular text-(--figma-accent-9) [font-family:var(--figma-font-text)] hover:text-(--figma-accent-10) transition-colors"
               style={{
                 fontSize: "var(--figma-font-size-3)",
                 lineHeight: "var(--figma-line-height-3)",

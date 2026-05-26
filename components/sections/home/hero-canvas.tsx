@@ -17,7 +17,7 @@ const LINK_ITERATIONS = 10;
 const HOME_STRENGTH = 0.06;
 const VELOCITY_DECAY = 0.32;
 const ALPHA_TARGET_DRAG = 0.35;
-const BG_COLOR = "#0A0A0A";
+const BG_COLOR = "#000000";
 const NODE_DIM = 70;
 const NODE_BRIGHT = 255;
 const LINE_ALPHA = 210;
@@ -51,7 +51,15 @@ export default function HeroCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Respect reduced motion preference
+    // High-DPI rendering — backing buffer matches device pixels so the small
+    // dots and thin cloth lines render crisp instead of blurry on retina/scaled.
+    // Drawing code stays in logical W × H space because of ctx.scale().
+    const DPR = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
+    canvas.width = W * DPR;
+    canvas.height = H * DPR;
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+    ctx.scale(DPR, DPR);
     const reducedMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
     const reduced = reducedMedia.matches;
 
