@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -20,11 +22,12 @@ import {
 interface NavItem {
   label: string;
   hasDropdown?: boolean;
+  href?: string;
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Home", hasDropdown: true },
-  { label: "Arkives & Practices", hasDropdown: true },
+  { label: "Home", href: "/" },
+  { label: "Arkives & Practices", hasDropdown: true, href: "/arkives" },
   { label: "Trade Project" },
   { label: "Research" },
   { label: "Docs" },
@@ -33,6 +36,7 @@ const NAV_ITEMS: NavItem[] = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => {
@@ -83,21 +87,44 @@ export default function Header() {
             <ul className="flex items-center gap-(--figma-spacing-2)">
               {NAV_ITEMS.map((item) => (
                 <motion.li key={item.label} variants={headerItem}>
-                  <button
-                    type="button"
-                    className={[
-                      "flex items-center justify-center h-8 rounded-full transition-colors gap-(--figma-spacing-2) px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
-                      dark
-                        ? "hover:bg-white/10 focus-visible:ring-white/30"
-                        : "hover:bg-black/5 focus-visible:ring-black/20",
-                      "focus-visible:outline-none focus-visible:ring-2",
-                    ].join(" ")}
-                  >
-                    <span className="whitespace-nowrap">{item.label}</span>
-                    {item.hasDropdown && (
-                      <RiArrowDownSLine size={16} aria-hidden="true" />
-                    )}
-                  </button>
+                  {item.href ? (
+                    <Link
+                      href={item.href}
+                      className={[
+                        "flex items-center justify-center h-8 rounded-full transition-colors gap-(--figma-spacing-2) px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
+                        pathname === item.href
+                          ? dark
+                            ? "bg-white/15"
+                            : "bg-black/8"
+                          : "",
+                        dark
+                          ? "hover:bg-white/10 focus-visible:ring-white/30"
+                          : "hover:bg-black/5 focus-visible:ring-black/20",
+                        "focus-visible:outline-none focus-visible:ring-2",
+                      ].join(" ")}
+                    >
+                      <span className="whitespace-nowrap">{item.label}</span>
+                      {item.hasDropdown && (
+                        <RiArrowDownSLine size={16} aria-hidden="true" />
+                      )}
+                    </Link>
+                  ) : (
+                    <button
+                      type="button"
+                      className={[
+                        "flex items-center justify-center h-8 rounded-full transition-colors gap-(--figma-spacing-2) px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
+                        dark
+                          ? "hover:bg-white/10 focus-visible:ring-white/30"
+                          : "hover:bg-black/5 focus-visible:ring-black/20",
+                        "focus-visible:outline-none focus-visible:ring-2",
+                      ].join(" ")}
+                    >
+                      <span className="whitespace-nowrap">{item.label}</span>
+                      {item.hasDropdown && (
+                        <RiArrowDownSLine size={16} aria-hidden="true" />
+                      )}
+                    </button>
+                  )}
                 </motion.li>
               ))}
 
@@ -202,21 +229,44 @@ export default function Header() {
             >
               {NAV_ITEMS.map((item) => (
                 <motion.li key={item.label} variants={headerMobileItem}>
-                  <button
-                    type="button"
-                    onClick={() => setOpen(false)}
-                    className={[
-                      "flex items-center justify-between w-full h-10 px-3 rounded-lg transition-colors text-(length:--figma-font-size-2) leading-(--figma-line-height-2) font-normal",
-                      dark
-                        ? "hover:bg-white/10"
-                        : "hover:bg-black/5 text-(--figma-neutral-12)",
-                    ].join(" ")}
-                  >
-                    <span>{item.label}</span>
-                    {item.hasDropdown && (
-                      <RiArrowDownSLine size={16} aria-hidden="true" />
-                    )}
-                  </button>
+                  {item.href ? (
+                    <Link
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className={[
+                        "flex items-center justify-between w-full h-10 px-3 rounded-lg transition-colors text-(length:--figma-font-size-2) leading-(--figma-line-height-2) font-normal",
+                        pathname === item.href
+                          ? dark
+                            ? "bg-white/15"
+                            : "bg-black/8"
+                          : "",
+                        dark
+                          ? "hover:bg-white/10"
+                          : "hover:bg-black/5 text-(--figma-neutral-12)",
+                      ].join(" ")}
+                    >
+                      <span>{item.label}</span>
+                      {item.hasDropdown && (
+                        <RiArrowDownSLine size={16} aria-hidden="true" />
+                      )}
+                    </Link>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setOpen(false)}
+                      className={[
+                        "flex items-center justify-between w-full h-10 px-3 rounded-lg transition-colors text-(length:--figma-font-size-2) leading-(--figma-line-height-2) font-normal",
+                        dark
+                          ? "hover:bg-white/10"
+                          : "hover:bg-black/5 text-(--figma-neutral-12)",
+                      ].join(" ")}
+                    >
+                      <span>{item.label}</span>
+                      {item.hasDropdown && (
+                        <RiArrowDownSLine size={16} aria-hidden="true" />
+                      )}
+                    </button>
+                  )}
                 </motion.li>
               ))}
               <motion.li

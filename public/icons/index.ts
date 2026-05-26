@@ -12,8 +12,18 @@ import noticeIcon from "./notice.svg";
 import recordIcon from "./record.svg";
 import learnIcon from "./learn.svg";
 
+import logo from "./logo.svg";
+import logoWhite from "./logo-white.svg";
+import logoBlue from "./logo-blue.svg";
+
+import downloadIcon from "./download.svg";
+
 export { claudeIcon, gptIcon, grokIcon, geminiIcon };
 
 export const ARKIVES_ICONS = { folderLockIcon, nodeTreeIcon, pullRequestIcon };
 
 export const SLIDER_ICONS = { focusIcon, noticeIcon, recordIcon, learnIcon };
+
+export const LOGO_COLORS = { logo, logoWhite, logoBlue };
+
+export { downloadIcon };

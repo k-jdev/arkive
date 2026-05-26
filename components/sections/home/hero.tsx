@@ -103,9 +103,9 @@ export default function Hero() {
 
       <section className="relative w-full h-[120svh] bg-white overflow-hidden">
         <motion.div
-          className="absolute inset-0 bg-[#0A0A0A]"
+          className="absolute inset-0 bg-[#0A0A0A] overflow-hidden"
           style={{
-            clipPath: `inset(0 ${25 * (1 - p)}% 0 ${25 * (1 - p)}%)`,
+            clipPath: `inset(0 ${25 * (1 - p)}% 0 ${25 * (1 - p)}% round ${48 * Math.max(0, 1 - Math.pow(p, 8))}px)`,
           }}
         >
           <HeroCanvas />

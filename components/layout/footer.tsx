@@ -3,6 +3,8 @@
 import { motion } from "motion/react";
 import { RiArrowRightSLine } from "@remixicon/react";
 import { footerContainer, footerItem } from "@/lib/animations";
+import { LOGO_COLORS } from "@/public/icons";
+import Image from "next/image";
 
 interface FooterLinkGroup {
   title: string;
@@ -65,21 +67,14 @@ export default function Footer() {
       >
         {/* Row 1 — Logo left, columns right */}
         <div className="flex flex-col md:flex-row justify-between gap-16">
-          {/* Logo */}
           <motion.div variants={footerItem}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="40"
-              height="32"
-              viewBox="0 0 40 32"
-              fill="none"
-              aria-label="Arkive"
-            >
-              <path
-                d="M26.0645 3.00098V15.0469H38.9981V28.1504H25.8946V15.1592C18.8335 15.2197 13.128 20.9766 13.1279 28.0693C13.128 28.0885 13.1288 28.1078 13.1289 28.127H1.00002C0.999975 28.1078 1.00002 28.0885 1.00002 28.0693C1.00002 14.2243 12.1959 3.00006 26.0069 3C26.0261 3 26.0453 3.00093 26.0645 3.00098Z"
-                fill="#1C2024"
-              />
-            </svg>
+            <Image
+              src={LOGO_COLORS.logo}
+              alt=""
+              width={36}
+              height={36}
+              aria-hidden="true"
+            />
           </motion.div>
 
           {/* 3 link columns */}
@@ -91,7 +86,7 @@ export default function Footer() {
               <motion.div
                 key={group.title}
                 variants={footerItem}
-                className="flex flex-col gap-4 w-[190px]"
+                className="flex flex-col gap-4 w-47.5"
               >
                 <h3 className="font-[510] text-[20px] leading-7 tracking-[-0.08px] text-(--figma-neutral-12) [font-family:var(--figma-font-text)]">
                   {group.title}
@@ -113,8 +108,8 @@ export default function Footer() {
           </nav>
         </div>
 
-        {/* Row 2 — Subscribe left, socials right */}
-        <div className="flex flex-col md:flex-row justify-between items-start mt-20">
+        {/* Row 2 — Subscribe left */}
+        <div className="mt-20">
           <motion.a
             variants={footerItem}
             href="#"
@@ -123,30 +118,34 @@ export default function Footer() {
             Subscribe to newsletter
             <RiArrowRightSLine size={16} aria-hidden="true" />
           </motion.a>
-
-          <motion.div
-            variants={footerItem}
-            className="flex items-center gap-4 mt-4 md:mt-0"
-          >
-            {SOCIAL_LINKS.map((label) => (
-              <a
-                key={label}
-                href="#"
-                className="flex items-center justify-center h-8 px-2 text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) text-(--figma-neutral-12) [font-family:var(--figma-font-text)] hover:opacity-60 transition-opacity rounded-md"
-              >
-                {label}
-              </a>
-            ))}
-          </motion.div>
         </div>
 
-        {/* Row 3 — Copyright left */}
-        <motion.p
+        {/* Row 3 — mirrors Row 1: copyright where logo was, socials under Arkive column */}
+        <motion.div
           variants={footerItem}
-          className="text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) text-(--figma-neutral-12) [font-family:var(--figma-font-text)] mt-6"
+          className="flex flex-col md:flex-row justify-between items-center gap-16 mt-6"
         >
-          &copy; Arkive 2026
-        </motion.p>
+          <p className="text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) text-(--figma-neutral-12) [font-family:var(--figma-font-text)]">
+            &copy; Arkive 2026
+          </p>
+
+          {/* mirrors the nav flex — socials in first slot, remaining slots empty */}
+          <div className="flex flex-wrap gap-x-10 gap-y-8">
+            <div className="flex items-center gap-4 w-47.5">
+              {SOCIAL_LINKS.map((label) => (
+                <a
+                  key={label}
+                  href="#"
+                  className="text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) text-(--figma-neutral-12) [font-family:var(--figma-font-text)] hover:opacity-60 transition-opacity"
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
+            <div className="w-47.5" />
+            <div className="w-47.5" />
+          </div>
+        </motion.div>
       </motion.div>
     </footer>
   );

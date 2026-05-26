@@ -78,7 +78,7 @@ function FeatureBlock({
   const imageCol = (
     <motion.div
       variants={featuresImage}
-      className="relative w-[58%] shrink-0 rounded-2xl overflow-hidden"
+      className="relative w-full md:w-[58%] shrink-0 rounded-2xl overflow-hidden"
     >
       <Image
         src={imageSrc}
@@ -96,26 +96,33 @@ function FeatureBlock({
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
       variants={featuresContainer}
-      className="flex flex-col md:flex-row items-center gap-16 w-full max-w-[1280px] mx-auto"
+      className="flex flex-col md:flex-row items-center gap-8 md:gap-16 w-full max-w-7xl mx-auto"
     >
-      {imageLeft ? (
-        <>
-          {imageCol}
-          {textCol}
-        </>
-      ) : (
-        <>
-          {textCol}
-          {imageCol}
-        </>
-      )}
+      {/* on mobile: text always first, image below; on desktop: respect imageLeft */}
+      <div className="contents md:hidden">
+        {textCol}
+        {imageCol}
+      </div>
+      <div className="hidden md:contents">
+        {imageLeft ? (
+          <>
+            {imageCol}
+            {textCol}
+          </>
+        ) : (
+          <>
+            {textCol}
+            {imageCol}
+          </>
+        )}
+      </div>
     </motion.div>
   );
 }
 
 export default function Features() {
   return (
-    <section className="w-full bg-white flex flex-col gap-16 px-20 py-16 items-center">
+    <section className="w-full bg-white flex flex-col gap-12 md:gap-16 px-4 md:px-20 py-12 md:py-16 items-center">
       <FeatureBlock
         label="Arkives"
         heading="Portable knowledge trees understood by all models."

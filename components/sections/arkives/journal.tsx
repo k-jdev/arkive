@@ -17,6 +17,13 @@ import { SLIDER_ICONS } from "@/public/icons";
 const JOURNAL_BG = "/sections/journal-bg.png";
 const JOURNAL_PREVIEW = "/sections/journal-preview.png";
 
+const JOURNAL_BACKGROUNDS = [
+  "/sections/journal/record.png",
+  "/sections/journal/notice.png",
+  "/sections/journal/learn.png",
+  "/sections/journal/improve.png",
+];
+
 // ── Types ────────────────────────────────────────────────
 
 interface JournalItem {
@@ -225,65 +232,66 @@ export default function ArkivesJournal() {
   }, []);
 
   return (
-    <section className="w-full bg-white">
-      <div className="max-w-[1440px] mx-auto px-[clamp(16px,4.17vw,80px)] py-24">
+    <section className="w-full bg-white md:px-[80px]">
+      <div className="max-w-[1440px] mx-auto px-4 md:px-0 py-16 md:py-24">
         {/* ── Header ─────────────────────────────────── */}
-        <div className="flex flex-col items-center gap-4 mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+          className="flex flex-col items-center gap-4 mb-8 md:mb-10"
+        >
           <h2
-            className="font-[590] text-[48px] leading-[0.9] tracking-[-0.4px] text-center whitespace-nowrap"
+            className="font-[590] text-[32px] md:text-[48px] leading-[0.9] tracking-[-0.4px] text-center [font-family:var(--figma-font-text)]"
             style={{
               color: "var(--figma-neutral-12)",
-              fontFamily: "var(--figma-font-text)",
             }}
           >
             The loop that compounds.
           </h2>
           <p
-            className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) text-center max-w-[500px]"
+            className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) text-center max-w-[500px] [font-family:var(--figma-font-text)]"
             style={{
               color: "rgba(0,5,9,0.89)",
-              fontFamily: "var(--figma-font-text)",
             }}
           >
             An Arkive&apos;s structure enables compounding intelligence.
           </p>
-        </div>
+        </motion.div>
 
         {/* ── Content Block ──────────────────────────── */}
-        <div className="relative h-[550px] rounded-[24px] bg-[#f9f9fb] overflow-clip">
-          {/* Decorative background images */}
-          <div
-            className="absolute -rotate-90"
-            style={{ left: 540, top: 337, width: 539, height: 510 }}
-          >
-            <div className="relative w-[510px] h-[539px]">
+        <motion.div
+          initial={{ opacity: 0, y: 32, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1], delay: 0.15 }}
+          className="relative md:h-[550px] rounded-[24px] overflow-clip bg-[#F9F9FB]"
+        >
+          {/* Animated background images */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={JOURNAL_BACKGROUNDS[activeIndex]}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.28, ease: [0.25, 1, 0.5, 1] }}
+              className="absolute inset-0 hidden md:block"
+            >
               <Image
-                src={JOURNAL_BG}
+                src={JOURNAL_BACKGROUNDS[activeIndex]}
                 alt=""
                 fill
-                className="object-cover scale-x-[-1]"
-                sizes="510px"
+                className="object-cover"
+                sizes="1440px"
                 aria-hidden="true"
+                priority
               />
-            </div>
-          </div>
-          <div
-            className="absolute"
-            style={{ left: 796, top: -380, width: 499, height: 624 }}
-          >
-            <Image
-              src={JOURNAL_BG}
-              alt=""
-              fill
-              className="object-cover"
-              sizes="499px"
-              aria-hidden="true"
-            />
-          </div>
+            </motion.div>
+          </AnimatePresence>
 
-          {/* Left — scroll buttons + card stack */}
-          {/* Scroll buttons — independently centered */}
-          <div className="absolute left-8 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-10">
+          {/* Scroll buttons — desktop: left vertical, mobile: below cards */}
+          <div className="hidden md:flex absolute left-8 top-1/2 -translate-y-1/2 flex-col gap-4 z-10">
             <button
               type="button"
               aria-label="Previous step"
@@ -302,166 +310,105 @@ export default function ArkivesJournal() {
             </button>
           </div>
 
-          {/* Cards — independently centered */}
-          <div className="absolute left-[88px] top-1/2 -translate-y-1/2">
-            <div className="flex flex-col gap-3 w-[381px]">
+          {/* Mobile background image */}
+          <Image
+            src={JOURNAL_BACKGROUNDS[activeIndex]}
+            alt=""
+            fill
+            className="object-cover md:hidden"
+            sizes="100vw"
+            aria-hidden="true"
+          />
+
+          {/* Cards */}
+          <div className="relative md:absolute md:left-[88px] md:top-1/2 md:-translate-y-1/2 px-4 md:px-0 py-10 md:py-0">
+            <div className="flex flex-col gap-3 w-full md:w-[381px]">
               {JOURNAL_ITEMS.map((item, index) => {
                 const isExpanded = index === activeIndex;
 
                 return (
-                  <div
+                  <motion.div
                     key={item.label}
                     onClick={() => setActiveIndex(index)}
-                    className={`bg-[#f0f0f3] rounded-[18px] overflow-clip shrink-0 cursor-pointer transition-[height] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-                      isExpanded ? "h-auto" : "h-[60px]"
-                    }`}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.45,
+                      delay: 0.3 + index * 0.08,
+                      ease: [0.25, 1, 0.5, 1],
+                    }}
+                    className="bg-[#f0f0f3] rounded-[18px] overflow-hidden shrink-0 cursor-pointer"
                   >
-                    <div
-                      className={`flex flex-col gap-4 px-8 py-6 ${
-                        isExpanded ? "" : "justify-center h-[60px]"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3 shrink-0">
-                        <Image
-                          src={item.icon}
-                          alt=""
-                          width={24}
-                          height={24}
-                          aria-hidden="true"
-                          className="shrink-0"
-                        />
-                        <p
-                          className="font-[510] text-(length:--figma-font-size-6) leading-(--figma-line-height-6) tracking-(--figma-letter-spacing-6) whitespace-nowrap shrink-0"
-                          style={{
-                            color: "rgba(0,5,9,0.89)",
-                            fontFamily: "var(--figma-font-text)",
-                          }}
-                        >
-                          {item.label}
-                        </p>
-                      </div>
-
-                      <AnimatePresence>
-                        {isExpanded && item.description && (
-                          <motion.p
-                            key="desc"
-                            initial={{ opacity: 0, y: 8, filter: "blur(4px)" }}
-                            animate={{
-                              opacity: 1,
-                              y: 0,
-                              filter: "blur(0px)",
-                            }}
-                            exit={{
-                              opacity: 0,
-                              y: -4,
-                              filter: "blur(2px)",
-                              transition: { duration: 0.15 },
-                            }}
-                            transition={{
-                              duration: 0.45,
-                              ease: [0.25, 1, 0.5, 1],
-                              delay: 0.1,
-                            }}
-                            className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3)"
-                            style={{
-                              color: "rgba(0,7,27,0.5)",
-                              fontFamily: "var(--figma-font-text)",
-                            }}
-                          >
-                            {item.description}
-                          </motion.p>
-                        )}
-                      </AnimatePresence>
+                    <div className="flex items-center gap-3 px-6 md:px-8 h-[60px] shrink-0">
+                      <Image
+                        src={item.icon}
+                        alt=""
+                        width={24}
+                        height={24}
+                        aria-hidden="true"
+                        className="shrink-0"
+                      />
+                      <p
+                        className="font-[510] text-(length:--figma-font-size-6) leading-(--figma-line-height-6) tracking-(--figma-letter-spacing-6) shrink-0 [font-family:var(--figma-font-text)]"
+                        style={{
+                          color: "rgba(0,5,9,0.89)",
+                        }}
+                      >
+                        {item.label}
+                      </p>
                     </div>
-                  </div>
+
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: isExpanded ? "auto" : 0,
+                        opacity: isExpanded ? 1 : 0,
+                      }}
+                      transition={{
+                        height: { duration: 0.4, ease: [0.25, 1, 0.5, 1] },
+                        opacity: {
+                          duration: isExpanded ? 0.3 : 0.15,
+                          delay: isExpanded ? 0.1 : 0,
+                        },
+                      }}
+                      style={{ overflow: "hidden" }}
+                    >
+                      <p
+                        className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) px-6 md:px-8 pb-6 [font-family:var(--figma-font-text)]"
+                        style={{
+                          color: "rgba(0,7,27,0.5)",
+                        }}
+                      >
+                        {item.description}
+                      </p>
+                    </motion.div>
+                  </motion.div>
                 );
               })}
             </div>
-          </div>
 
-          {/* Right — Terminal / File-tree UI */}
-          <div className="absolute left-[calc(50%+320px)] top-[calc(50%+111.5px)] -translate-x-1/2 -translate-y-1/2 w-[739px] rounded-[16px] overflow-clip">
-            {/* Browser chrome / tabs */}
-            <div className="bg-[#212225] border border-[rgba(255,255,255,0.07)] flex items-center justify-between px-[13px] py-[10px] rounded-t-[16px]">
-              <div className="flex items-center gap-0">
-                <RiArrowRightSLine size={20} className="text-[#777b84]" />
-                <RiArrowRightSLine size={20} className="text-[#777b84]" />
-                <RiArrowRightSLine size={20} className="text-[#777b84]" />
-              </div>
-              <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-[7px]">
-                <div className="size-[17px] rounded bg-[#0022ff] flex items-center justify-center">
-                  <span className="text-[10px] text-white font-semibold leading-none">
-                    A
-                  </span>
-                </div>
-                <span
-                  className="font-normal text-[15px] leading-[20px] text-white tracking-[0.05px] whitespace-nowrap"
-                  style={{ fontFamily: "var(--figma-font-text)" }}
-                >
-                  Arkive
-                </span>
-              </div>
-              <div /> {/* spacer for centering */}
-            </div>
-
-            {/* Main terminal area */}
-            <div className="flex bg-[#18191b] border-x border-b border-[rgba(255,255,255,0.13)] h-[595px]">
-              {/* File tree panel */}
-              <div className="shrink-0 w-[305px] pt-[20px] pb-4 border-r border-[#313131] overflow-hidden">
-                <div className="flex flex-col gap-[6px]">
-                  {FILE_TREE.map((item) => (
-                    <FileTreeNode key={item.name} item={item} />
-                  ))}
-                </div>
-              </div>
-
-              {/* Content preview panel */}
-              <div className="flex-1 relative overflow-hidden border-l border-[#313131]">
-                {/* Tab bar */}
-                <div className="flex items-center gap-1">
-                  <div className="bg-[#0d0d0d] flex items-center gap-[10px] px-[11px] py-[6px]">
-                    <div className="flex items-center gap-[5px]">
-                      <RiFileTextLine size={16} className="text-white/70" />
-                      <span
-                        className="font-normal text-[14px] leading-[1.4] text-white tracking-[0.05px] whitespace-nowrap"
-                        style={{ fontFamily: "var(--font-mono)" }}
-                      >
-                        2026-05-17.md
-                      </span>
-                    </div>
-                    <RiCloseLine size={16} className="text-white/50" />
-                  </div>
-                  <button
-                    type="button"
-                    aria-label="New tab"
-                    className="flex items-center justify-center size-[16px]"
-                  >
-                    <RiAddLine size={16} className="text-white/30" />
-                  </button>
-                </div>
-
-                {/* Content area */}
-                <div className="relative w-full h-full">
-                  <Image
-                    src={JOURNAL_PREVIEW}
-                    alt=""
-                    fill
-                    className="object-cover"
-                    sizes="434px"
-                    aria-hidden="true"
-                  />
-                  {/* Left shadow overlay */}
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      boxShadow: "inset 42px 0px 92px 0px rgba(0,0,0,0.06)",
-                    }}
-                  />
-                </div>
-              </div>
+            {/* Mobile scroll buttons — row below cards */}
+            <div className="flex md:hidden justify-center gap-4 mt-6">
+              <button
+                type="button"
+                aria-label="Previous step"
+                onClick={goUp}
+                className="flex items-center justify-center size-10 rounded-full bg-[#f0f0f3] hover:bg-[#e8e8ec] transition-colors"
+              >
+                <RiArrowUpSLine size={18} aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                aria-label="Next step"
+                onClick={goDown}
+                className="flex items-center justify-center size-10 rounded-full bg-[#f0f0f3] hover:bg-[#e8e8ec] transition-colors"
+              >
+                <RiArrowDownSLine size={18} aria-hidden="true" />
+              </button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

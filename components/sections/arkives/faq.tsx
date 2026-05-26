@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { RiArrowDownSLine } from "@remixicon/react";
 
 // ── Types ────────────────────────────────────────────────
@@ -16,16 +16,18 @@ interface FaqItem {
 const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Does the AI learn from previous trades?",
-    answer: "",
+    answer:
+      "Yes. Every trade, outcome, and annotation is stored in your Arkive. The AI references past decisions to surface patterns and improve future recommendations — it gets smarter the more you use it.",
   },
   {
     question: "Can I organize research by topic?",
-    answer: "",
+    answer:
+      "Absolutely. You can structure your Arkive with folders, tags, and custom taxonomies — just like a filesystem. Group by sector, thesis, asset class, or any dimension that fits your workflow.",
   },
   {
     question: "What happens when context gets too large?",
     answer:
-      "Every conversation, thesis, and market observation can be stored into your persistent research layer. Your AI builds context over time instead of starting from zero every session.",
+      "Arkive automatically summarizes and prunes stale context while preserving critical signals. You set the retention rules — the system keeps what matters and archives the rest.",
   },
   {
     question: "What happens when context gets too large?",
@@ -33,11 +35,13 @@ const FAQ_ITEMS: FaqItem[] = [
   },
   {
     question: "Is my research private?",
-    answer: "",
+    answer:
+      "Yes. Your Arkive runs locally by default. Nothing leaves your machine unless you explicitly configure a sync endpoint. You own your data, always.",
   },
   {
     question: "Can I revisit old market theses?",
-    answer: "",
+    answer:
+      "Every thesis is timestamped and preserved. You can browse your archive chronologically, search by keyword, or filter by outcome — so past reasoning is always one click away.",
   },
 ];
 
@@ -52,74 +56,114 @@ export default function ArkivesFaq() {
 
   return (
     <section className="w-full bg-white">
-      <div className="max-w-[1440px] mx-auto px-[clamp(16px,4.17vw,80px)] pt-31 pb-24">
+      <div className="w-full mx-auto px-[clamp(16px,4.17vw,80px)] pt-20 md:pt-31 pb-16 md:pb-24">
         {/* ── Header ─────────────────────────────────── */}
-        <h2
+        <motion.h2
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
           className="font-[590] text-[48px] leading-[0.9] tracking-[-0.4px] [font-family:var(--figma-font-text)]"
           style={{ color: "var(--figma-neutral-12)" }}
         >
           FAQ
-        </h2>
+        </motion.h2>
 
         {/* ── FAQ Items ──────────────────────────────── */}
-        <div className="mt-[83px] border-t border-[rgba(0,0,0,0.09)]">
+        <div className="mt-10 md:mt-[83px] border-t border-[rgba(0,0,0,0.09)]">
           {FAQ_ITEMS.map((item, index) => {
             const isOpen = openIndex === index;
             const hasAnswer = !!item.answer;
 
             return (
-              <div key={index} className="border-b border-[rgba(0,0,0,0.09)]">
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.4,
+                  delay: 0.2 + index * 0.06,
+                  ease: [0.25, 1, 0.5, 1],
+                }}
+                className="border-b border-[rgba(0,0,0,0.09)]"
+              >
                 <button
                   type="button"
                   onClick={() => toggleItem(index)}
-                  className={`w-full flex gap-[56px] py-6 text-left ${
-                    isOpen && hasAnswer ? "items-start" : "items-center"
-                  }`}
+                  className="w-full flex items-center justify-between gap-4 py-6 text-left group"
                 >
-                  {/* ── Text block (question + answer) ─── */}
-                  <div className="flex-1 flex items-center gap-[80px] min-w-px">
-                    {/* Question */}
-                    <span
-                      className={`font-[510] text-(length:--figma-font-size-5) leading-(--figma-line-height-5) tracking-(--figma-letter-spacing-5) [font-family:var(--figma-font-text)] [font-feature-settings:'wdth'_100] ${
-                        isOpen && hasAnswer ? "" : "whitespace-nowrap"
-                      }`}
-                      style={{ color: "var(--figma-neutral-12)" }}
-                    >
-                      {item.question}
-                    </span>
+                  {/* ── Question + answer ─────────────── */}
+                  <div className="flex-1 min-w-0">
+                    <div className="grid grid-cols-1 xl:grid-cols-[1fr_601px] gap-2 xl:gap-[80px] items-start">
+                      <span
+                        className="font-[510] text-(length:--figma-font-size-5) leading-(--figma-line-height-5) tracking-(--figma-letter-spacing-5) [font-family:var(--figma-font-text)]"
+                        style={{ color: "var(--figma-neutral-12)" }}
+                      >
+                        {item.question}
+                      </span>
 
-                    {/* Answer / empty spacer */}
-                    <div className="w-[601px] shrink-0">
-                      {isOpen && hasAnswer ? (
+                      {/* Desktop answer */}
+                      <div className="hidden xl:block">
+                        <AnimatePresence mode="wait">
+                          {isOpen && hasAnswer && (
+                            <motion.p
+                              key="answer"
+                              initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                              animate={{
+                                height: "auto",
+                                opacity: 1,
+                                marginTop: 0,
+                              }}
+                              exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                              transition={{
+                                height: {
+                                  duration: 0.4,
+                                  ease: [0.25, 1, 0.5, 1],
+                                },
+                                opacity: { duration: 0.25 },
+                              }}
+                              className="overflow-hidden font-normal text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) [font-family:var(--figma-font-text)]"
+                              style={{ color: "var(--figma-neutral-12)" }}
+                            >
+                              {item.answer}
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </div>
+
+                    {/* Mobile answer */}
+                    <AnimatePresence>
+                      {isOpen && hasAnswer && (
                         <motion.p
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
+                          key="answer-mobile"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
                           transition={{
-                            duration: 0.3,
+                            duration: 0.35,
                             ease: [0.25, 1, 0.5, 1],
                           }}
-                          className="font-normal text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) [font-family:var(--figma-font-text)] [font-feature-settings:'wdth'_100]"
+                          className="xl:hidden overflow-hidden font-normal text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) [font-family:var(--figma-font-text)] mt-3"
                           style={{ color: "var(--figma-neutral-12)" }}
                         >
                           {item.answer}
                         </motion.p>
-                      ) : (
-                        <div className="h-10" />
                       )}
-                    </div>
+                    </AnimatePresence>
                   </div>
 
-                  {/* ── Arrow icon ────────────────────── */}
+                  {/* ── Arrow ──────────────────────── */}
                   <div
-                    className="flex items-center justify-center size-8 rounded-[6px] shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                    style={{
-                      transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                    }}
+                    className={`flex items-center justify-center size-8 shrink-0 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+                      isOpen ? "rotate-180" : "rotate-0"
+                    }`}
                   >
                     <RiArrowDownSLine size={16} aria-hidden="true" />
                   </div>
                 </button>
-              </div>
+              </motion.div>
             );
           })}
         </div>
