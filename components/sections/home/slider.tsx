@@ -89,11 +89,11 @@ export default function Slider() {
           <div className="flex flex-col gap-2">
             <h2
               className="font-[590] tracking-[-0.4px] [font-family:var(--figma-font-text)] bg-linear-to-r from-[#1C2024] to-[#0080FF] bg-clip-text text-transparent"
-              style={{ fontSize: "clamp(36px, 4vw, 56px)" }}
+              style={{ fontSize: "clamp(36px, 4vw, 72px)" }}
             >
               Project DeFi.
             </h2>
-            <p className="font-medium text-(--figma-neutral-alpha-10) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) [font-family:var(--figma-font-text)]">
+            <p className="font-medium text-(--figma-neutral-alpha-10) text-(length:--figma-font-size-3) md:text-[24px] leading-(--figma-line-height-3) [font-family:var(--figma-font-text)]">
               Arkive applied to trading.
             </p>
           </div>
