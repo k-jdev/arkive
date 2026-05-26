@@ -27,7 +27,7 @@ const JOURNAL_BACKGROUNDS = [
 interface JournalItem {
   icon: string;
   label: string;
-  description?: string;
+  description?: { text: string; bold?: boolean }[];
 }
 
 interface FileTreeItem {
@@ -46,23 +46,35 @@ const JOURNAL_ITEMS: JournalItem[] = [
   {
     icon: SLIDER_ICONS.recordIcon,
     label: "Record",
-    description: "Raw data, conversations, & outcomes stored the journal.",
+    description: [
+      { text: "Raw data, conversations, & outcomes stored " },
+      { text: "the journal.", bold: true },
+    ],
   },
   {
     icon: SLIDER_ICONS.noticeIcon,
     label: "Notice",
-    description:
-      "Patterns and anomalies surface automatically from the record.",
+    description: [
+      {
+        text: "Patterns, anomalies, & previous reasoning from the journal, surfaced as ",
+      },
+      { text: "insights.", bold: true },
+    ],
   },
   {
     icon: SLIDER_ICONS.learnIcon,
     label: "Learn",
-    description: "Every outcome refines the system's understanding over time.",
+    description: [
+      { text: "Accepted insights become new " },
+      { text: "skills,", bold: true },
+      { text: " and update current " },
+      { text: "context.", bold: true },
+    ],
   },
   {
     icon: SLIDER_ICONS.focusIcon,
     label: "Improve",
-    description: "Insights feed back into decisions, compounding edge.",
+    description: [{ text: "Sharper reasoning after every cycle." }],
   },
 ];
 
@@ -325,10 +337,16 @@ export default function ArkivesJournal() {
                     key={item.label}
                     onClick={() => setActiveIndex(index)}
                     className={`bg-[#f0f0f3] overflow-hidden shrink-0 cursor-pointer ${
-                      isActive ? "rounded-[18px] w-full" : "rounded-full"
+                      isActive
+                        ? "rounded-[18px] w-full md:w-[380px]"
+                        : "rounded-full"
                     }`}
                   >
-                    <div className="flex items-center gap-3 px-6 md:px-8 h-[60px] shrink-0">
+                    <div
+                      className={`flex items-center gap-3 shrink-0 h-[60px] ${
+                        isActive ? "px-8 py-3" : "px-6 py-3"
+                      }`}
+                    >
                       <Image
                         src={item.icon}
                         alt=""
@@ -347,10 +365,21 @@ export default function ArkivesJournal() {
 
                     {isActive && item.description && (
                       <p
-                        className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) px-6 md:px-8 pb-6 [font-family:var(--figma-font-text)]"
+                        className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) px-8 pb-6 [font-family:var(--figma-font-text)]"
                         style={{ color: "rgba(0,7,27,0.5)" }}
                       >
-                        {item.description}
+                        {item.description.map((seg, i) => (
+                          <span
+                            key={i}
+                            style={
+                              seg.bold
+                                ? { color: "rgba(0,5,9,0.89)" }
+                                : undefined
+                            }
+                          >
+                            {seg.text}
+                          </span>
+                        ))}
                       </p>
                     )}
                   </div>
