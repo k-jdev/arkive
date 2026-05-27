@@ -2,49 +2,11 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* SF Pro Text — WOFF2 (subset: Latin + Cyrillic) */
+/* SF Pro — Variable Font (supports wght 100–900) */
 @font-face {
   font-family: "SF Pro Text";
-  src: url("/fonts/SF-Pro-Light.woff2") format("woff2");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Text";
-  src: url("/fonts/SF-Pro-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Text";
-  src: url("/fonts/SF-Pro-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "SF Pro Text";
-  src: url("/fonts/SF-Pro-Medium.woff2") format("woff2");
-  font-weight: 510;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "SF Pro Text";
-  src: url("/fonts/SF-Pro-Semibold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Text";
-  src: url("/fonts/SF-Pro-Bold.woff2") format("woff2");
-  font-weight: 700;
+  src: url("/fonts/SF-Pro.ttf") format("truetype-variations");
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }

@@ -53,8 +53,8 @@ function AvatarStack() {
             <Image
               src={a.icon}
               alt={a.alt}
-              width={a.alt === "Gemini" ? 25.625 : 30}
-              height={a.alt === "Gemini" ? 25.625 : 30}
+              width={a.alt === "Gemini" ? 40.625 : 40}
+              height={a.alt === "Gemini" ? 40.625 : 40}
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
             />
           </motion.div>

@@ -107,7 +107,7 @@ export default function Hero() {
         initial="hidden"
         animate="visible"
         variants={reduced ? safeFade : heroImageReveal}
-        className="absolute pointer-events-none top-[calc(100svh-260px)] md:top-[calc(100svh-340px)] left-1/2 w-[92vw] md:w-[min(65vw,1200px)] z-10"
+        className="absolute pointer-events-none top-[calc(100svh-clamp(200px,30svh,340px))] left-1/2 w-[92vw] md:w-[min(65vw,1200px)] z-10"
         style={{
           x: "-50%",
           y: reduced || isMobile ? 0 : p * 80,

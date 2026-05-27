@@ -62,7 +62,7 @@ const CARDS: ProblemCard[] = [
 
 export default function ArkivesProblems() {
   return (
-    <section data-header-theme="light" className="w-full bg-[#f9f9fb] mt-20">
+    <section data-header-theme="light" className="w-full bg-[#f9f9fb]">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -78,13 +78,13 @@ export default function ArkivesProblems() {
 
         <motion.div
           variants={arkivesCardsContainer}
-          className="flex flex-col md:flex-row gap-5 mt-10"
+          className="flex flex-col md:flex-row md:flex-wrap gap-5 mt-10"
         >
           {CARDS.map((card) => (
             <motion.div
               key={card.number}
               variants={arkivesCard}
-              className="flex-1 min-w-0 bg-white rounded-3xl overflow-clip px-8 py-6 flex flex-col gap-16"
+              className="flex-1 min-w-[320px] bg-white rounded-3xl overflow-clip px-8 py-6 flex flex-col justify-between gap-16"
             >
               <div className="flex flex-col gap-4">
                 <Image
