@@ -45,8 +45,6 @@ const FAQ_ITEMS: FaqItem[] = [
   },
 ];
 
-// ── Main Component ───────────────────────────────────────
-
 export default function ArkivesFaq() {
   const [openIndex, setOpenIndex] = useState<number | null>(2);
 
