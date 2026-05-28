@@ -120,17 +120,18 @@ export default function Footer() {
           </motion.a>
         </div>
 
-        {/* Row 3 — mirrors Row 1: copyright where logo was, socials under Arkive column */}
+        {/* Row 3 — mobile: socials left + copyright right; desktop: copyright left + socials under Arkive column */}
         <motion.div
           variants={footerItem}
-          className="flex flex-col md:flex-row justify-between items-center gap-16 mt-6"
+          className="flex flex-row md:flex-row justify-between items-center gap-16 mt-6"
         >
-          <p className="text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) text-(--figma-neutral-12) [font-family:var(--figma-font-text)]">
+          {/* Desktop copyright (left), hidden on mobile */}
+          <p className="hidden md:block text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) text-(--figma-neutral-12) [font-family:var(--figma-font-text)]">
             &copy; Arkive 2026
           </p>
 
-          {/* mirrors the nav flex — socials in first slot, remaining slots empty */}
-          <div className="flex flex-wrap gap-x-10 gap-y-8">
+          {/* Socials — always left */}
+          <div className="hidden md:flex flex-wrap gap-x-10 gap-y-8">
             <div className="flex items-center gap-4 w-47.5">
               {SOCIAL_LINKS.map((label) => (
                 <a
@@ -145,6 +146,24 @@ export default function Footer() {
             <div className="w-47.5" />
             <div className="w-47.5" />
           </div>
+
+          {/* Mobile: socials left */}
+          <div className="flex md:hidden items-center gap-4">
+            {SOCIAL_LINKS.map((label) => (
+              <a
+                key={label}
+                href="#"
+                className="text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) text-(--figma-neutral-12) [font-family:var(--figma-font-text)] hover:opacity-60 transition-opacity"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+
+          {/* Mobile copyright (right) */}
+          <p className="md:hidden text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) text-(--figma-neutral-12) [font-family:var(--figma-font-text)]">
+            &copy; Arkive 2026
+          </p>
         </motion.div>
       </motion.div>
     </footer>
