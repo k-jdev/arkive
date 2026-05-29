@@ -21,7 +21,7 @@ const HeroCanvas = dynamic(() => import("./hero-canvas"), { ssr: false });
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [scrollY, setScrollY] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
   const reduced = usePrefersReducedMotion();
 
   useEffect(() => {
@@ -114,7 +114,7 @@ export default function Hero() {
         }}
       >
         <Image
-          src="/sections/hero/hero-main.png"
+          src="/sections/hero/hero-main.webp"
           alt="Arkive app view"
           width={860}
           height={553}
@@ -124,13 +124,14 @@ export default function Hero() {
           className="hidden md:block w-full h-auto rounded-xl shadow-2xl"
         />
         <Image
-          src="/sections/hero/hero-mobile.png"
+          src="/sections/hero/hero-mobile.webp"
           alt="Arkive app view"
           width={390}
           height={844}
           priority
+          fetchPriority="high"
           decoding="sync"
-          sizes="92vw"
+          sizes="100vw"
           className="block md:hidden w-full h-auto rounded-xl "
         />
       </motion.div>

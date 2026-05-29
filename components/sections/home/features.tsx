@@ -144,14 +144,15 @@ export default function Features() {
     <section
       data-header-theme="light"
       className="w-full bg-white flex flex-col gap-12 md:gap-24 px-4 md:px-20 py-24 md:py-32 items-center"
+      style={{ contentVisibility: "auto", containIntrinsicSize: "auto 500px" }}
     >
       <FeatureBlock
         label="Arkives"
         heading="Portable knowledge trees understood by all models."
         description="An Arkive is a portable knowledge tree. It connects to any AI, compounding context and user memory across models."
         buttonLabel="Learn more"
-        imageSrc="/sections/arkives/card.png"
-        imageSrcMobile="/sections/practices/mobile/arkive-mobile.png"
+        imageSrc="/sections/arkives/card.webp"
+        imageSrcMobile="/sections/practices/mobile/arkive-mobile.webp"
         imageAlt="Arkive — portable knowledge tree UI"
         imageLeft={false}
       />
@@ -161,8 +162,8 @@ export default function Features() {
         heading="Extend an Arkive into any domain."
         description="Whether it's trading, research, writing, or anything else, a practice connects to an Arkive's core, adapting it to that domain."
         buttonLabel="Explore Practices"
-        imageSrc="/sections/practices/card.png"
-        imageSrcMobile="/sections/practices/mobile/practices-mobile.png"
+        imageSrc="/sections/practices/card.webp"
+        imageSrcMobile="/sections/practices/mobile/practices-mobile.webp"
         imageAlt="Practices — domain-specific Arkive extension"
         imageLeft={true}
       />

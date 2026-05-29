@@ -23,21 +23,21 @@ interface SlideItem {
 const SLIDES: SlideItem[] = [
   {
     id: 1,
-    imageSrc: "/sections/slider/card.png",
+    imageSrc: "/sections/slider/card.webp",
     boldText: "Lorem ipsum dolortasd.",
     dimText:
       "Trade with any frontier AI across on-chain markets, with full Arkive context behind every decision.",
   },
   {
     id: 2,
-    imageSrc: "/sections/slider/card2.png",
+    imageSrc: "/sections/slider/card2.webp",
     boldText: "Lorem ipsum dolortasd.",
     dimText:
       "Trade with any frontier AI across on-chain markets, with full Arkive context behind every decision.",
   },
   {
     id: 3,
-    imageSrc: "/sections/slider/card3.png",
+    imageSrc: "/sections/slider/card3.webp",
     boldText: "Lorem ipsum dolortasd.",
     dimText:
       "Trade with any frontier AI across on-chain markets, with full Arkive context behind every decision.",
@@ -76,6 +76,7 @@ export default function Slider() {
       className="w-full bg-white pt-36 overflow-hidden"
       role="region"
       aria-label="Projects showcase"
+      style={{ contentVisibility: "auto", containIntrinsicSize: "auto 500px" }}
     >
       <motion.div
         initial="hidden"

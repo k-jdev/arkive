@@ -12,14 +12,14 @@ import {
 import { SLIDER_ICONS } from "@/public/icons";
 
 // ── Assets ───────────────────────────────────────────────
-const JOURNAL_BG = "/sections/journal-bg.png";
-const JOURNAL_PREVIEW = "/sections/journal-preview.png";
+const JOURNAL_BG = "/sections/journal-bg.webp";
+const JOURNAL_PREVIEW = "/sections/journal-preview.webp";
 
 const JOURNAL_BACKGROUNDS = [
-  "/sections/journal/record.png",
-  "/sections/journal/notice.png",
-  "/sections/journal/learn.png",
-  "/sections/journal/improve.png",
+  "/sections/journal/record.webp",
+  "/sections/journal/notice.webp",
+  "/sections/journal/learn.webp",
+  "/sections/journal/improve.webp",
 ];
 
 // ── Types ────────────────────────────────────────────────

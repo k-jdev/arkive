@@ -21,6 +21,7 @@ export default function Setup() {
     <section
       data-header-theme="light"
       className="w-full bg-white py-12 md:py-48 px-4 md:px-20"
+      style={{ contentVisibility: "auto", containIntrinsicSize: "auto 500px" }}
     >
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
         <motion.h2
@@ -110,7 +111,7 @@ export default function Setup() {
               {/* MacBook — centered vertically */}
               <div className="relative md:absolute px-6 md:px-0 md:top-1/2 md:-translate-y-1/2 md:right-[clamp(12px,1.7vw,32px)] w-full md:w-[90%] max-w-140 mx-auto md:mx-0">
                 <Image
-                  src="/sections/setup/macbook.png"
+                  src="/sections/setup/macbook.webp"
                   alt="MacBook"
                   width={560}
                   height={340}
@@ -123,7 +124,7 @@ export default function Setup() {
               {/* Terminal — anchored to card bottom */}
               <div className="relative md:absolute bottom-0 right-0 w-full md:w-[58%] z-10 shadow-xl md:rounded-tl-xl overflow-hidden">
                 <Image
-                  src="/sections/setup/terminal.png"
+                  src="/sections/setup/terminal.webp"
                   alt="Terminal"
                   width={500}
                   height={160}
@@ -148,7 +149,7 @@ export default function Setup() {
               {/* Icon */}
               <div className="shrink-0 size-10 rounded-xl overflow-hidden">
                 <Image
-                  src="/sections/setup/install.png"
+                  src="/sections/setup/install.webp"
                   alt="Arkive install"
                   width={40}
                   height={40}
