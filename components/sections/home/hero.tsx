@@ -119,6 +119,8 @@ export default function Hero() {
           width={860}
           height={553}
           priority
+          decoding="sync"
+          sizes="(min-width: 768px) 65vw, 92vw"
           className="hidden md:block w-full h-auto rounded-xl shadow-2xl"
         />
         <Image
@@ -127,6 +129,8 @@ export default function Hero() {
           width={390}
           height={844}
           priority
+          decoding="sync"
+          sizes="92vw"
           className="block md:hidden w-full h-auto rounded-xl "
         />
       </motion.div>

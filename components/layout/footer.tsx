@@ -73,6 +73,8 @@ export default function Footer() {
               alt=""
               width={36}
               height={36}
+              loading="lazy"
+              sizes="36px"
               aria-hidden="true"
             />
           </motion.div>

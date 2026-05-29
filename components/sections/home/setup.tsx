@@ -95,6 +95,8 @@ export default function Setup() {
                         alt={icon.alt}
                         width={34}
                         height={34}
+                        loading="lazy"
+                        sizes="34px"
                         className="w-full h-full object-contain p-1"
                       />
                     </motion.div>
@@ -112,8 +114,9 @@ export default function Setup() {
                   alt="MacBook"
                   width={560}
                   height={340}
+                  loading="lazy"
+                  sizes="(min-width: 768px) 50vw, 90vw"
                   className="w-full h-auto"
-                  priority
                 />
               </div>
 
@@ -124,6 +127,8 @@ export default function Setup() {
                   alt="Terminal"
                   width={500}
                   height={160}
+                  loading="lazy"
+                  sizes="(min-width: 768px) 30vw, 90vw"
                   className="w-full h-auto"
                 />
               </div>
@@ -147,6 +152,8 @@ export default function Setup() {
                   alt="Arkive install"
                   width={40}
                   height={40}
+                  loading="lazy"
+                  sizes="40px"
                   className="w-full h-full object-cover"
                 />
               </div>

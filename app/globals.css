@@ -2,15 +2,6 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* SF Pro — Variable Font (supports wght 100–900) */
-@font-face {
-  font-family: "SF Pro Text";
-  src: url("/fonts/SF-Pro.ttf") format("truetype-variations");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -60,12 +51,12 @@
 
 :root {
   /* Fonts */
-  --font-sans: "SF Pro Text", system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-sf-pro), system-ui, -apple-system, sans-serif;
   --font-mono:
     ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
   /* Figma design tokens */
-  --figma-font-text: "SF Pro Text", sans-serif;
+  --figma-font-text: var(--font-sf-pro), sans-serif;
   --figma-font-size-2: 14px;
   --figma-line-height-2: 20px;
   --figma-letter-spacing-2: 0px;

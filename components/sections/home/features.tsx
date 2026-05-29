@@ -91,6 +91,8 @@ function FeatureBlock({
         alt={imageAlt}
         width={702}
         height={450}
+        loading="lazy"
+        sizes="(min-width: 768px) 58vw, 100vw"
         className="hidden md:block w-full h-auto"
       />
       {imageSrcMobile && (
@@ -99,6 +101,8 @@ function FeatureBlock({
           alt={imageAlt}
           width={390}
           height={844}
+          loading="lazy"
+          sizes="100vw"
           className="block md:hidden w-full h-auto"
         />
       )}
