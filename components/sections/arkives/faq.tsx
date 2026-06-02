@@ -59,9 +59,9 @@ export default function ArkivesFaq() {
   return (
     <section data-header-theme="light" className="w-full bg-white">
       <div className="max-w-[1440px] mx-auto px-[clamp(16px,4.17vw,80px)] pt-20 md:pt-64 pb-16 md:pb-24">
-        <div className="flex flex-col md:flex-row gap-10 md:gap-16">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
           {/* ── Header (left) ─────────────────────────── */}
-          <div className="flex flex-col items-start gap-6 md:w-[380px] md:shrink-0">
+          <div className="flex flex-col items-start gap-6 lg:w-[380px] lg:shrink-0">
             <div>
               <h2
                 className="font-[590] text-[48px] leading-[0.9] tracking-[-0.4px] text-[#1c2024]"

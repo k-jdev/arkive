@@ -77,7 +77,7 @@ function AvatarStack() {
 export default function ArkivesModels() {
   return (
     <section data-header-theme="white" className="w-full px-5 md:px-[80px]">
-      <div className="max-w-[1440px] rounded-[24px] bg-[#f9f9fb] w-full mx-auto px-6 md:px-[144px] py-[60px] md:py-[100px] flex flex-col gap-10">
+      <div className="max-w-[1440px] rounded-[24px] bg-[#f9f9fb] w-full mx-auto px-6 lg:px-[80px] xl:px-[144px] py-[60px] md:py-[100px] flex flex-col gap-10">
         {/* ── Header row ────────────────────────────────── */}
         <motion.div
           initial="hidden"
@@ -238,9 +238,9 @@ export default function ArkivesModels() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={arkivesHeader}
-          className="flex flex-col md:flex-row items-center justify-between gap-6 w-full bg-white rounded-[18px] px-10 py-6"
+          className="flex flex-col lg:flex-row items-center justify-between gap-6 w-full bg-white rounded-[18px] px-6 sm:px-10 py-6"
         >
-          <div className="flex items-center gap-6">
+          <div className="flex flex-col sm:flex-row items-center gap-6 w-full lg:w-auto">
             <Image
               src="/sections/setup/install.webp"
               alt=""
@@ -250,7 +250,7 @@ export default function ArkivesModels() {
               draggable={false}
             />
             <p
-              className="font-[510] text-base leading-6 tracking-[0px] text-[rgba(0,5,9,0.89)] w-full md:w-[511px]"
+              className="font-[510] text-base leading-6 tracking-[0px] text-[rgba(0,5,9,0.89)] w-full lg:max-w-[511px] flex-1 text-center sm:text-left"
               style={{
                 fontFamily: "var(--figma-font-text)",
                 fontVariationSettings: '"wdth" 100',

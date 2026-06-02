@@ -147,7 +147,7 @@ export default function AnimatedPrompt() {
               type="button"
               onClick={isTyping ? undefined : () => setCategoryIndex(i)}
               initial={reduced ? undefined : { opacity: 0, scale: 0.92 }}
-              animate={{ opacity: 1, scale: 1 }}
+              animate={{ opacity: isActive ? 1 : 0.5, scale: 1 }}
               transition={
                 reduced
                   ? undefined
@@ -157,7 +157,7 @@ export default function AnimatedPrompt() {
                       ease: motionTokens.easing.smooth,
                     }
               }
-              whileHover={reduced ? undefined : { scale: 1.05 }}
+              whileHover={reduced ? undefined : { scale: 1.05, opacity: 1 }}
               whileTap={reduced ? undefined : { scale: 0.96 }}
               className="px-[13px] py-[5px] rounded-[20px] text-xs leading-none font-medium border border-transparent transition-all duration-150 cursor-pointer"
               style={{
