@@ -55,6 +55,7 @@ function AvatarStack() {
               width={a.alt === "Gemini" ? 40.625 : 40}
               height={a.alt === "Gemini" ? 40.625 : 40}
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              draggable={false}
             />
           </motion.div>
         ))}
@@ -86,7 +87,7 @@ export default function ArkivesModels() {
           className="flex items-center justify-between w-full"
         >
           <h2
-            className="font-[590] text-[#1c2024] text-[48px] leading-[0.9] tracking-[-0.4px] whitespace-nowrap"
+            className="font-[590] text-[#1c2024] text-[clamp(32px,4vw,48px)] leading-[1.0] tracking-[-0.4px]"
             style={{
               fontFamily: "var(--figma-font-text)",
               fontVariationSettings: '"wdth" 100',
@@ -139,6 +140,7 @@ export default function ArkivesModels() {
                     width={21.37}
                     height={21.37}
                     className="relative z-10 shrink-0"
+                    draggable={false}
                   />
                   <div
                     className="absolute inset-0 rounded-full pointer-events-none"
@@ -154,7 +156,7 @@ export default function ArkivesModels() {
             {/* Text below */}
             <div className="flex flex-col items-center gap-2 text-center w-full">
               <p
-                className="font-[590] text-[#1c2024] text-[36px] text-nowrap leading-[0.9] tracking-[-0.4px] w-full"
+                className="font-[590] text-[#1c2024] text-[36px] leading-[0.9] tracking-[-0.4px] w-full"
                 style={{
                   fontFamily: "var(--figma-font-text)",
                   fontVariationSettings: '"wdth" 100',
@@ -224,6 +226,7 @@ export default function ArkivesModels() {
                 width={318}
                 height={135}
                 className="w-full h-auto"
+                draggable={false}
               />
             </div>
           </motion.div>
@@ -244,6 +247,7 @@ export default function ArkivesModels() {
               width={64}
               height={48}
               className="h-[48px] w-[64px] rounded-lg object-cover shrink-0"
+              draggable={false}
             />
             <p
               className="font-[510] text-base leading-6 tracking-[0px] text-[rgba(0,5,9,0.89)] w-full md:w-[511px]"

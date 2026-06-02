@@ -23,10 +23,8 @@ export default function PracticesCreating() {
   return (
     <section className="w-full bg-white py-[60px] md:py-[100px]">
       <div className="max-w-[1440px] mx-auto px-[clamp(16px,4.17vw,80px)] flex flex-col gap-10">
-
         {/* ── Main Top Area: Image left, Text right ── */}
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
-          
           {/* Left: Big Image */}
           <motion.div
             initial="hidden"
@@ -42,6 +40,7 @@ export default function PracticesCreating() {
                 className="w-full h-auto object-cover"
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 priority
+                draggable={false}
               />
             </div>
           </motion.div>
@@ -87,7 +86,9 @@ export default function PracticesCreating() {
                     key={icon.alt}
                     className="relative shrink-0 size-[34px] rounded-full overflow-hidden bg-white border border-[#bbbbbb42]"
                     initial={
-                      reduced ? { opacity: 1 } : { opacity: 0, x: -12, scale: 0.7 }
+                      reduced
+                        ? { opacity: 1 }
+                        : { opacity: 0, x: -12, scale: 0.7 }
                     }
                     whileInView={
                       reduced ? undefined : { opacity: 1, x: 0, scale: 1 }
@@ -106,13 +107,13 @@ export default function PracticesCreating() {
                       height={34}
                       loading="lazy"
                       className="w-full h-full object-cover"
+                      draggable={false}
                     />
                   </motion.div>
                 ))}
               </div>
             </div>
           </motion.div>
-
         </div>
 
         {/* ── Bottom Card (Figma 511-20526) ── */}
@@ -132,11 +133,16 @@ export default function PracticesCreating() {
                 width={48}
                 height={48}
                 className="object-contain"
+                draggable={false}
               />
             </div>
             {/* Text */}
             <p className="flex-1 font-[510] text-[16px] leading-[24px] [font-family:var(--figma-font-text)] max-w-[550px] text-[rgba(0,5,9,0.89)]">
-              Project DeFi <span style={{ color: "rgba(0,7,27,0.5)" }}>is Arkive’s first core practice, core practices are created by the Arkive team and are optimized for their respective domain.</span>
+              Project DeFi{" "}
+              <span style={{ color: "rgba(0,7,27,0.5)" }}>
+                is Arkive’s first core practice, core practices are created by
+                the Arkive team and are optimized for their respective domain.
+              </span>
             </p>
           </div>
 
@@ -150,7 +156,6 @@ export default function PracticesCreating() {
             <RiArrowRightSLine size={18} aria-hidden="true" />
           </motion.a>
         </motion.div>
-
       </div>
     </section>
   );

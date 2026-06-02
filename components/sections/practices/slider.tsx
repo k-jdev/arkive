@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { useSlider } from "@/lib/use-slider";
@@ -51,11 +52,39 @@ const SLIDES: SlideItem[] = [
   },
 ];
 
-const CARD_WIDTH = 558;
+const DESKTOP_CARD_WIDTH = 558;
 const CARD_GAP = 20;
 
 export default function PracticesSlider() {
   const reduced = usePrefersReducedMotion();
+
+  const [cardWidth, setCardWidth] = useState(DESKTOP_CARD_WIDTH);
+  const [paddingLeft, setPaddingLeft] = useState(24);
+  const [paddingRight, setPaddingRight] = useState(24);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      const mobile = w < 768;
+      setIsMobile(mobile);
+      if (mobile) {
+        const cw = Math.min(DESKTOP_CARD_WIDTH, Math.max(280, w - 48));
+        setCardWidth(cw);
+        const pl = (w - cw) / 2;
+        setPaddingLeft(pl);
+        setPaddingRight(pl);
+      } else {
+        setCardWidth(DESKTOP_CARD_WIDTH);
+        const pl = (15.694 * w) / 100;
+        setPaddingLeft(pl);
+        setPaddingRight(24);
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const {
     offset,
@@ -69,8 +98,9 @@ export default function PracticesSlider() {
     isDragging,
   } = useSlider({
     slidesCount: SLIDES.length,
-    cardWidth: CARD_WIDTH,
+    cardWidth,
     cardGap: CARD_GAP,
+    peek: isMobile ? 0 : cardWidth,
   });
 
   return (
@@ -86,7 +116,7 @@ export default function PracticesSlider() {
         whileInView={reduced ? undefined : "visible"}
         viewport={{ once: true, margin: "-60px" }}
         variants={reduced ? safeFade : sliderHeader}
-        className="max-w-[1440px] mx-auto px-6 md:px-[80px]"
+        className="px-6 md:pl-[15.694vw]"
       >
         <div className="flex items-end justify-between mb-10">
           <h2
@@ -106,8 +136,8 @@ export default function PracticesSlider() {
         variants={reduced ? safeContainer : sliderCardsContainer}
         className="select-none cursor-grab active:cursor-grabbing"
         style={{
-          paddingLeft: "max(24px, calc((100vw - 1280px) / 2))",
-          paddingRight: "max(24px, calc((100vw - 1280px) / 2))",
+          paddingLeft: `${paddingLeft}px`,
+          paddingRight: `${paddingRight}px`,
         }}
         onMouseDown={(e) => onMouseDown(e.clientX)}
         onMouseMove={(e) => onMouseMove(e.clientX)}
@@ -133,12 +163,12 @@ export default function PracticesSlider() {
               key={slide.id}
               variants={reduced ? safeFade : sliderCard}
               className="flex flex-col gap-4 shrink-0"
-              style={{ width: `${CARD_WIDTH}px` }}
+              style={{ width: `${cardWidth}px` }}
             >
               {/* Card image */}
               <div
-                className="rounded-[24px] overflow-hidden bg-[#f9f9fb] flex items-center justify-center relative border border-black/[0.04]"
-                style={{ height: "360px" }}
+                className="rounded-[24px] overflow-hidden bg-[#f9f9fb] flex items-center justify-center relative border border-black/[0.04] w-full"
+                style={{ aspectRatio: "558 / 360" }}
               >
                 <Image
                   src={slide.imageSrc}

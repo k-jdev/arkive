@@ -154,6 +154,7 @@ export default function ArkivesJournal() {
                   sizes="100vw"
                   aria-hidden="true"
                   priority
+                  draggable={false}
                 />
               </motion.div>
             </AnimatePresence>
@@ -224,6 +225,7 @@ export default function ArkivesJournal() {
                         height={24}
                         aria-hidden="true"
                         className="shrink-0"
+                        draggable={false}
                       />
                       <p
                         className="font-[510] text-(length:--figma-font-size-6) leading-(--figma-line-height-6) tracking-(--figma-letter-spacing-6) shrink-0 [font-family:var(--figma-font-text)]"

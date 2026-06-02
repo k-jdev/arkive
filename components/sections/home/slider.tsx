@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
@@ -44,11 +45,39 @@ const SLIDES: SlideItem[] = [
   },
 ];
 
-const CARD_WIDTH = 558;
+const DESKTOP_CARD_WIDTH = 558;
 const CARD_GAP = 20;
 
 export default function Slider() {
   const reduced = usePrefersReducedMotion();
+
+  const [cardWidth, setCardWidth] = useState(DESKTOP_CARD_WIDTH);
+  const [paddingLeft, setPaddingLeft] = useState(80);
+  const [paddingRight, setPaddingRight] = useState(80);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      const mobile = w < 768;
+      setIsMobile(mobile);
+      if (mobile) {
+        const cw = Math.min(DESKTOP_CARD_WIDTH, Math.max(280, w - 48));
+        setCardWidth(cw);
+        const pl = (w - cw) / 2;
+        setPaddingLeft(pl);
+        setPaddingRight(pl);
+      } else {
+        setCardWidth(DESKTOP_CARD_WIDTH);
+        const pl = Math.max(80, (w - 1280) / 2 + 80);
+        setPaddingLeft(pl);
+        setPaddingRight(pl);
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const {
     offset,
@@ -66,8 +95,9 @@ export default function Slider() {
     maxOffset,
   } = useSlider({
     slidesCount: SLIDES.length,
-    cardWidth: CARD_WIDTH,
+    cardWidth,
     cardGap: CARD_GAP,
+    peek: isMobile ? 0 : cardWidth,
   });
 
   return (
@@ -117,8 +147,8 @@ export default function Slider() {
         variants={reduced ? safeContainer : sliderCardsContainer}
         className="select-none cursor-grab active:cursor-grabbing"
         style={{
-          paddingLeft: "max(80px, calc((100vw - 1280px) / 2 + 80px))",
-          paddingRight: "max(80px, calc((100vw - 1280px) / 2 + 80px))",
+          paddingLeft: `${paddingLeft}px`,
+          paddingRight: `${paddingRight}px`,
         }}
         onMouseDown={(e) => onMouseDown(e.clientX)}
         onMouseMove={(e) => onMouseMove(e.clientX)}
@@ -144,19 +174,18 @@ export default function Slider() {
               key={slide.id}
               variants={reduced ? safeFade : sliderCard}
               className="flex flex-col gap-4 shrink-0"
-              style={{ width: `${CARD_WIDTH}px` }}
+              style={{ width: `${cardWidth}px` }}
             >
               {/* Card image */}
               <div
-                className="rounded-3xl overflow-hidden bg-[#f9f9fb]"
-                style={{ height: "340px" }}
+                className="rounded-3xl overflow-hidden bg-[#f9f9fb] w-full relative"
+                style={{ aspectRatio: "558 / 340" }}
               >
                 {slide.imageSrc ? (
                   <Image
                     src={slide.imageSrc}
                     alt={slide.boldText}
-                    width={558}
-                    height={340}
+                    fill
                     loading="lazy"
                     sizes="558px"
                     className="w-full h-full object-cover pointer-events-none"

@@ -99,6 +99,7 @@ export default function Setup() {
                         loading="lazy"
                         sizes="34px"
                         className="w-full h-full object-contain p-1"
+                        draggable={false}
                       />
                     </motion.div>
                   ))}
@@ -118,6 +119,7 @@ export default function Setup() {
                   loading="lazy"
                   sizes="(min-width: 768px) 50vw, 90vw"
                   className="w-full h-auto"
+                  draggable={false}
                 />
               </div>
 
@@ -131,6 +133,7 @@ export default function Setup() {
                   loading="lazy"
                   sizes="(min-width: 768px) 30vw, 90vw"
                   className="w-full h-auto"
+                  draggable={false}
                 />
               </div>
             </div>
@@ -156,6 +159,7 @@ export default function Setup() {
                   loading="lazy"
                   sizes="40px"
                   className="w-full h-full object-cover"
+                  draggable={false}
                 />
               </div>
               {/* Text */}

@@ -76,19 +76,20 @@ export default function Footer() {
               loading="lazy"
               sizes="36px"
               aria-hidden="true"
+              draggable={false}
             />
           </motion.div>
 
           {/* 3 link columns */}
           <nav
             aria-label="Footer navigation"
-            className="flex flex-wrap gap-x-10 gap-y-8"
+            className="grid grid-cols-2 md:flex md:flex-wrap gap-x-10 gap-y-8"
           >
             {LINK_GROUPS.map((group) => (
               <motion.div
                 key={group.title}
                 variants={footerItem}
-                className="flex flex-col gap-4 w-47.5"
+                className="flex flex-col gap-4 w-full md:w-47.5"
               >
                 <h3 className="font-[510] text-[20px] leading-7 tracking-[-0.08px] text-(--figma-neutral-12) [font-family:var(--figma-font-text)]">
                   {group.title}

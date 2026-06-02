@@ -4,9 +4,18 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { RiArrowRightSLine } from "@remixicon/react";
 import { DOMAINS_IMAGES } from "@/public/sections/domains";
-import { domainsHeader } from "@/lib/animations";
+import {
+  domainsHeader,
+  domainsCardsContainer,
+  domainsCard,
+  safeFade,
+  safeContainer,
+} from "@/lib/animations";
+import { usePrefersReducedMotion } from "@/lib/motion-config";
 
 export default function PracticesDomains() {
+  const reduced = usePrefersReducedMotion();
+
   return (
     <section data-header-theme="white" className="w-full">
       <div className="w-full bg-[#f9f9fb]">
@@ -49,9 +58,16 @@ export default function PracticesDomains() {
             </motion.div>
 
             {/* ── Правая область: коллаж ── */}
-            <div className="flex-1 relative w-full lg:h-[660px] min-h-[400px]">
+            <motion.div
+              initial="hidden"
+              whileInView={reduced ? undefined : "visible"}
+              viewport={{ once: true, margin: "-60px" }}
+              variants={reduced ? safeContainer : domainsCardsContainer}
+              className="flex-1 relative w-full lg:h-[660px] min-h-[400px]"
+            >
               {/* Граф-сетка — Figma: group at x:636 y:161 w:708 h:505 */}
-              <div
+              <motion.div
+                variants={reduced ? safeFade : domainsCard}
                 className="absolute pointer-events-none overflow-hidden"
                 style={{
                   left: 0,
@@ -66,11 +82,13 @@ export default function PracticesDomains() {
                   fill
                   className="object-contain object-left-top"
                   sizes="(max-width: 1024px) 100vw, 60vw"
+                  draggable={false}
                 />
-              </div>
+              </motion.div>
 
               {/* Gym — Figma: x:856 y:87.7 w:199 h:199 → left:30.4% top:12.4% w:27.5% */}
-              <div
+              <motion.div
+                variants={reduced ? safeFade : domainsCard}
                 className="absolute aspect-square rounded-[8px] overflow-hidden shadow-lg z-10"
                 style={{ left: "30.4%", top: "12.4%", width: "27.5%" }}
               >
@@ -80,11 +98,13 @@ export default function PracticesDomains() {
                   fill
                   className="object-cover"
                   sizes="28vw"
+                  draggable={false}
                 />
-              </div>
+              </motion.div>
 
               {/* Consistency — Figma: x:1018 y:125 w:277 h:217 → left:52.8% top:17.7% w:38.3% */}
-              <div
+              <motion.div
+                variants={reduced ? safeFade : domainsCard}
                 className="absolute rounded-[8px] overflow-hidden shadow-lg z-20"
                 style={{ left: "52.8%", top: "17.7%", width: "38.3%" }}
               >
@@ -94,11 +114,13 @@ export default function PracticesDomains() {
                   width={277}
                   height={217}
                   className="w-full h-auto"
+                  draggable={false}
                 />
-              </div>
+              </motion.div>
 
               {/* Work — Figma: x:791 y:356 w:282 h:221 → left:21.4% top:50.4% w:38.9% */}
-              <div
+              <motion.div
+                variants={reduced ? safeFade : domainsCard}
                 className="absolute rounded-[8px] overflow-hidden shadow-lg z-30"
                 style={{ left: "21.4%", top: "50.4%", width: "38.9%" }}
               >
@@ -108,11 +130,13 @@ export default function PracticesDomains() {
                   width={282}
                   height={221}
                   className="w-full h-auto"
+                  draggable={false}
                 />
-              </div>
+              </motion.div>
 
               {/* Watch — Figma: x:995 y:411 w:277 h:207 → left:49.6% top:58.2% w:38.3% */}
-              <div
+              <motion.div
+                variants={reduced ? safeFade : domainsCard}
                 className="absolute rounded-[8px] overflow-hidden shadow-lg z-40"
                 style={{ left: "49.6%", top: "58.2%", width: "38.3%" }}
               >
@@ -122,11 +146,13 @@ export default function PracticesDomains() {
                   width={277}
                   height={207}
                   className="w-full h-auto"
+                  draggable={false}
                 />
-              </div>
+              </motion.div>
 
               {/* INDEX/PATH — Figma: x:902 y:225 w:316 → left:36.7% top:31.9% w:43.6% */}
-              <div
+              <motion.div
+                variants={reduced ? safeFade : domainsCard}
                 className="absolute rounded-[8px] overflow-hidden shadow-2xl z-50"
                 style={{ left: "36.7%", top: "31.9%", width: "43.6%" }}
               >
@@ -136,16 +162,13 @@ export default function PracticesDomains() {
                   width={316}
                   height={180}
                   className="w-full h-auto"
+                  draggable={false}
                 />
-              </div>
-            </div>
-            {/* right panel */}
+              </motion.div>
+            </motion.div>
           </div>
-          {/* flex container */}
         </div>
-        {/* max-w-[1440px] */}
       </div>
-      {/* bg-[#f9f9fb] full-width */}
     </section>
   );
 }

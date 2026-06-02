@@ -1,59 +1,104 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "motion/react";
+import { usePrefersReducedMotion } from "@/lib/motion-config";
 import tradingFolderImg from "@/public/sections/structure/trading-folder.png";
 import researchFolderImg from "@/public/sections/structure/research-folder.png";
 import healthFolderImg from "@/public/sections/structure/health-folder.png";
 
 /* ─── Table data ─────────────────────────────────────────────────── */
 const DOMAINS = [
-  { key: "trading",  label: "Trading",  img: tradingFolderImg  },
+  { key: "trading", label: "Trading", img: tradingFolderImg },
   { key: "research", label: "Research", img: researchFolderImg },
-  { key: "health",   label: "Health",   img: healthFolderImg   },
+  { key: "health", label: "Health", img: healthFolderImg },
 ] as const;
 
 const ROWS = [
   {
     label: "Journal",
-    trading:  "trades, conversations",
+    trading: "trades, conversations",
     research: "sources, notes",
-    health:   "sleep, training",
+    health: "sleep, training",
   },
   {
     label: "Insights",
-    trading:  "surfaced patterns",
+    trading: "surfaced patterns",
     research: "surfaced patterns",
-    health:   "surfaced patterns",
+    health: "surfaced patterns",
   },
   {
     label: "Skills",
-    trading:  "exit discipline",
+    trading: "exit discipline",
     research: "citation rules",
-    health:   "recovery rules",
+    health: "recovery rules",
   },
   {
     label: "Context",
-    trading:  "rules, positions",
+    trading: "rules, positions",
     research: "open questions",
-    health:   "goals, limits",
+    health: "goals, limits",
   },
-] as const;
+ ] as const;
 
 /* ─── Shared style tokens (from Figma) ───────────────────────────── */
 const ROW_BORDER = "rgba(0, 0, 0, 0.09)";
 const CELL_COLOR = "rgba(0, 5, 29, 0.45)";
 const LABEL_COL_W = 291; // px — Figma layout_100FRH width
 
+// ─── Animation variants ──────────────────────────────────────────
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const rowVariants = {
+  hidden: {
+    opacity: 0,
+    x: -48,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.65,
+      ease: [0.25, 1, 0.5, 1] as const,
+    },
+  },
+};
+
 export default function PracticesStructure() {
+  const reduced = usePrefersReducedMotion();
+
   return (
     <section className="w-full py-[60px] md:py-[100px]">
       <div className="max-w-[1440px] mx-auto px-[clamp(16px,4.17vw,80px)] flex flex-col items-center gap-[64px]">
-
         {/* ── Header (Figma 507-19167) ── */}
-        <div className="flex flex-col items-center gap-4 text-center max-w-[600px]">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{
+            hidden: { y: 24, opacity: 0 },
+            visible: {
+              y: 0,
+              opacity: 1,
+              transition: { duration: 0.6, ease: [0.25, 1, 0.5, 1] },
+            },
+          }}
+          className="flex flex-col items-center gap-4 text-center max-w-[600px]"
+        >
           <h2
             className="font-[590] text-[clamp(32px,3.33vw,48px)] leading-[0.9] text-[#1C2024] [font-family:var(--figma-font-text)]"
-            style={{ letterSpacing: "-0.83%", fontVariationSettings: '"wdth" 100' }}
+            style={{
+              letterSpacing: "-0.83%",
+              fontVariationSettings: '"wdth" 100',
+            }}
           >
             A Universal Structure.
           </h2>
@@ -61,22 +106,25 @@ export default function PracticesStructure() {
             className="font-[510] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]"
             style={{ color: "rgba(0, 5, 9, 0.89)" }}
           >
-            Every practice learns the same way. Four parts, shaped to
-            what each domain needs.
+            Every practice learns the same way. Four parts, shaped to what each
+            domain needs.
           </p>
-        </div>
+        </motion.div>
 
-        {/* ── Table (Figma 509-19587, w:1280) ── */}
-        {/* Horizontally scrollable on small screens */}
-        <div className="w-full overflow-x-auto">
+        <motion.div
+          initial="hidden"
+          whileInView={reduced ? undefined : "visible"}
+          viewport={{ once: true, margin: "-100px" }}
+          variants={reduced ? { visible: {} } : containerVariants}
+          className="w-full overflow-x-auto"
+        >
           <div className="min-w-[640px] w-full max-w-[1280px] mx-auto">
-
             {/* Domain header row — border-bottom */}
-            <div
+            <motion.div
+              variants={reduced ? { hidden: { opacity: 0 }, visible: { opacity: 1 } } : rowVariants}
               className="flex items-stretch"
               style={{ borderBottom: `1px solid ${ROW_BORDER}` }}
             >
-              {/* Spacer matching label column — Figma: layout_E4EG7Q, w:291, p:24 32 24 0 */}
               <div style={{ width: LABEL_COL_W, flexShrink: 0 }} />
 
               {DOMAINS.map((d) => (
@@ -90,6 +138,7 @@ export default function PracticesStructure() {
                     width={92}
                     height={92}
                     className="object-contain"
+                    draggable={false}
                   />
                   <span
                     className="font-[510] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]"
@@ -99,12 +148,13 @@ export default function PracticesStructure() {
                   </span>
                 </div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Data rows — height:88px, border-bottom */}
             {ROWS.map((row) => (
-              <div
+              <motion.div
                 key={row.label}
+                variants={reduced ? { hidden: { opacity: 0 }, visible: { opacity: 1 } } : rowVariants}
                 className="flex items-center"
                 style={{
                   height: 88,
@@ -118,7 +168,10 @@ export default function PracticesStructure() {
                 >
                   <span
                     className="font-[510] text-[clamp(20px,1.94vw,28px)] leading-[1.286] [font-family:var(--figma-font-text)] text-[#1C2024]"
-                    style={{ letterSpacing: "-0.43%", fontVariationSettings: '"wdth" 100' }}
+                    style={{
+                      letterSpacing: "-0.43%",
+                      fontVariationSettings: '"wdth" 100',
+                    }}
                   >
                     {row.label}
                   </span>
@@ -153,12 +206,10 @@ export default function PracticesStructure() {
                     {row.health}
                   </span>
                 </div>
-              </div>
+              </motion.div>
             ))}
-
           </div>
-        </div>
-
+        </motion.div>
       </div>
     </section>
   );

@@ -93,6 +93,7 @@ export default function ArkivesProblems() {
                   width={36}
                   height={36}
                   aria-hidden="true"
+                  draggable={false}
                 />
 
                 <p

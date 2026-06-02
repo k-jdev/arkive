@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   RiArrowDownSLine,
@@ -27,7 +27,7 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Arkives & Practices", hasDropdown: true, href: "/arkives" },
+  { label: "Arkives & Practices", hasDropdown: true },
   { label: "Trade Project" },
   { label: "Research" },
   { label: "Docs" },
@@ -36,7 +36,25 @@ const NAV_ITEMS: NavItem[] = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+
+  useEffect(() => {
+    setDropdownOpen(false);
+    setMobileDropdownOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -89,14 +107,74 @@ export default function Header() {
               height={32}
               priority
               className={dark ? "invert" : ""}
+              draggable={false}
             />
           </motion.a>
 
           <nav aria-label="Main navigation" className="hidden lg:block">
             <ul className="flex items-center gap-(--figma-spacing-2)">
               {NAV_ITEMS.map((item) => (
-                <motion.li key={item.label} variants={headerItem}>
-                  {item.href ? (
+                <motion.li key={item.label} variants={headerItem} className="relative">
+                  {item.label === "Arkives & Practices" ? (
+                    <div ref={dropdownRef}>
+                      <button
+                        type="button"
+                        onClick={() => setDropdownOpen(!dropdownOpen)}
+                        className={[
+                          "flex items-center justify-center h-8 rounded-full transition-colors duration-300 gap-(--figma-spacing-2) px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
+                          dark
+                            ? "hover:bg-white/10 focus-visible:ring-white/30 text-white"
+                            : "hover:bg-black/5 focus-visible:ring-black/20 text-(--figma-neutral-12)",
+                          "focus-visible:outline-none focus-visible:ring-2",
+                        ].join(" ")}
+                      >
+                        <span className="whitespace-nowrap">{item.label}</span>
+                        <RiArrowDownSLine
+                          size={16}
+                          aria-hidden="true"
+                          className={["transition-transform duration-200", dropdownOpen ? "rotate-180" : ""].join(" ")}
+                        />
+                      </button>
+
+                      <AnimatePresence>
+                        {dropdownOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                            transition={{ duration: 0.15, ease: EASE }}
+                            className={[
+                              "absolute top-full left-1/2 -translate-x-1/2 mt-2 w-40 py-1.5 rounded-2xl shadow-xl border overflow-hidden backdrop-blur-md",
+                              dark
+                                ? "bg-black/90 border-white/10 text-white"
+                                : "bg-white/95 border-black/5 text-(--figma-neutral-12)",
+                            ].join(" ")}
+                          >
+                            <Link
+                              href="/arkives"
+                              onClick={() => setDropdownOpen(false)}
+                              className={[
+                                "flex items-center h-9 px-4 text-(length:--figma-font-size-2) font-normal transition-colors",
+                                dark ? "hover:bg-white/10 text-white" : "hover:bg-black/5 text-(--figma-neutral-12)",
+                              ].join(" ")}
+                            >
+                              Arkives
+                            </Link>
+                            <Link
+                              href="/practices"
+                              onClick={() => setDropdownOpen(false)}
+                              className={[
+                                "flex items-center h-9 px-4 text-(length:--figma-font-size-2) font-normal transition-colors",
+                                dark ? "hover:bg-white/10 text-white" : "hover:bg-black/5 text-(--figma-neutral-12)",
+                              ].join(" ")}
+                            >
+                              Practices
+                            </Link>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : item.href ? (
                     <Link
                       href={item.href}
                       className={[
@@ -234,7 +312,66 @@ export default function Header() {
             >
               {NAV_ITEMS.map((item) => (
                 <motion.li key={item.label} variants={headerMobileItem}>
-                  {item.href ? (
+                  {item.label === "Arkives & Practices" ? (
+                    <div>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setMobileDropdownOpen(!mobileDropdownOpen);
+                        }}
+                        className={[
+                          "flex items-center justify-between w-full h-10 px-3 rounded-lg transition-colors duration-300 text-(length:--figma-font-size-2) leading-(--figma-line-height-2) font-normal",
+                          dark
+                            ? "text-white hover:bg-white/10"
+                            : "hover:bg-black/5 text-(--figma-neutral-12)",
+                        ].join(" ")}
+                      >
+                        <span>{item.label}</span>
+                        <RiArrowDownSLine
+                          size={16}
+                          aria-hidden="true"
+                          className={["transition-transform duration-200", mobileDropdownOpen ? "rotate-180" : ""].join(" ")}
+                        />
+                      </button>
+                      <AnimatePresence>
+                        {mobileDropdownOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="flex flex-col pl-4 gap-1 overflow-hidden"
+                          >
+                            <Link
+                              href="/arkives"
+                              onClick={() => setOpen(false)}
+                              className={[
+                                "flex items-center w-full h-9 px-3 rounded-lg transition-colors duration-300 text-(length:--figma-font-size-2) font-normal",
+                                dark
+                                  ? "text-white/80 hover:bg-white/10"
+                                  : "text-(--figma-neutral-12)/80 hover:bg-black/5",
+                              ].join(" ")}
+                            >
+                              Arkives
+                            </Link>
+                            <Link
+                              href="/practices"
+                              onClick={() => setOpen(false)}
+                              className={[
+                                "flex items-center w-full h-9 px-3 rounded-lg transition-colors duration-300 text-(length:--figma-font-size-2) font-normal",
+                                dark
+                                  ? "text-white/80 hover:bg-white/10"
+                                  : "text-(--figma-neutral-12)/80 hover:bg-black/5",
+                              ].join(" ")}
+                            >
+                              Practices
+                            </Link>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : item.href ? (
                     <Link
                       href={item.href}
                       onClick={() => setOpen(false)}

@@ -123,6 +123,7 @@ export default function Hero() {
           sizes="(min-width: 768px) 65vw, 92vw"
           className="hidden md:block w-full h-auto rounded-xl shadow-2xl"
           unoptimized
+          draggable={false}
         />
         <Image
           src="/sections/hero/hero-mobile.webp"
@@ -134,6 +135,7 @@ export default function Hero() {
           decoding="sync"
           sizes="100vw"
           className="block md:hidden w-full h-auto rounded-xl "
+          draggable={false}
         />
       </motion.div>
 

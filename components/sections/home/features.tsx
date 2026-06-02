@@ -98,6 +98,7 @@ function FeatureBlock({
           loading="lazy"
           sizes="(min-width: 768px) 58vw, 100vw"
           className="hidden md:block w-full h-auto"
+          draggable={false}
         />
         {imageSrcMobile && (
           <Image
@@ -108,6 +109,7 @@ function FeatureBlock({
             loading="lazy"
             sizes="100vw"
             className="block md:hidden w-full h-auto"
+            draggable={false}
           />
         )}
       </div>
