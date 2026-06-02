@@ -217,6 +217,33 @@ export const journalCard: Variants = {
   },
 };
 
+// ── Domains ─────────────────────────────────────────────
+export const domainsHeader: Variants = {
+  hidden: { y: 32, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.6, ease: EASE },
+  },
+};
+
+export const domainsCardsContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.12, delayChildren: 0.3 },
+  },
+};
+
+export const domainsCard: Variants = {
+  hidden: { y: 36, opacity: 0, scale: 0.96 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.55, ease: EASE },
+  },
+};
+
 // ── Reduced motion (accessibility) ───────────────────────
 import { motionTokens } from "./motion-tokens";
 

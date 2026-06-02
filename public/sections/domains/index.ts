@@ -1,0 +1,15 @@
+import consistencyDomain from "./consistency.webp";
+import graphDomain from "./graph.webp";
+import gymDomain from "./gym.webp";
+import indexDomain from "./index.webp";
+import watchDomain from "./watch.webp";
+import workDomain from "./work.webp";
+
+export const DOMAINS_IMAGES = {
+  consistencyDomain,
+  graphDomain,
+  gymDomain,
+  indexDomain,
+  watchDomain,
+  workDomain,
+};
