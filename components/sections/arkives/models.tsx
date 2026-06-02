@@ -8,13 +8,13 @@ import {
   grokIcon,
   geminiIcon,
   downloadIcon,
-  LOGO_COLORS,
 } from "@/public/icons";
 import {
   arkivesHeader,
   arkivesCardsContainer,
   arkivesCard,
 } from "@/lib/animations";
+import { RiAddFill } from "@remixicon/react";
 
 // ── Avatar stack sub-component ───────────────────────────┐
 
@@ -28,7 +28,7 @@ const AI_AVATARS = [
 function AvatarStack() {
   return (
     <div className="flex items-center">
-      <div className="flex items-center">
+      <div className="flex items-center isolate">
         {AI_AVATARS.map((a, i) => (
           <motion.div
             key={a.alt}
@@ -40,12 +40,11 @@ function AvatarStack() {
               delay: a.delay,
               ease: [0.25, 1, 0.5, 1],
             }}
-            className="overflow-hidden relative"
+            className="overflow-hidden relative shrink-0"
             style={{
               width: 40,
               height: 40,
               borderRadius: "50%",
-
               marginRight: i < 3 ? -12.547 : 0,
               zIndex: a.z,
             }}
@@ -59,6 +58,16 @@ function AvatarStack() {
             />
           </motion.div>
         ))}
+        {/* + Add button */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.35, delay: 0.4, ease: [0.25, 1, 0.5, 1] }}
+          className="relative  ml-[-12.547px] size-[40px] rounded-full bg-[#F0F0F3] flex items-center justify-center opacity-50 shrink-0"
+        >
+          <RiAddFill className="text-[#000714] opacity-50" size={16} />
+        </motion.div>
       </div>
     </div>
   );
@@ -66,26 +75,25 @@ function AvatarStack() {
 
 export default function ArkivesModels() {
   return (
-    <section data-header-theme="dark" className="w-full px-5 md:px-[80px] ">
-      <div className="max-w-[1440px] rounded-[24px] bg-black w-full mx-auto px-6 md:px-[144px] py-[60px] md:py-[100px]">
+    <section data-header-theme="white" className="w-full px-5 md:px-[80px]">
+      <div className="max-w-[1440px] rounded-[24px] bg-[#f9f9fb] w-full mx-auto px-6 md:px-[144px] py-[60px] md:py-[100px] flex flex-col gap-10">
         {/* ── Header row ────────────────────────────────── */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={arkivesHeader}
-          className="flex items-center justify-between w-full mb-10"
+          className="flex items-center justify-between w-full"
         >
-          <h2 className="font-[590] text-white text-[48px] leading-[0.9] tracking-[-0.4px] [font-family:var(--figma-font-text)]">
-            Lorem ipsum.
-          </h2>
-
-          <button
-            type="button"
-            className="flex items-center justify-center h-10 px-(--figma-spacing-4) rounded-full bg-[#212225] text-[#edeef0] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) font-[510] whitespace-nowrap shrink-0 transition-colors hover:bg-[#2a2b2e] [font-family:var(--figma-font-text)]"
+          <h2
+            className="font-[590] text-[#1c2024] text-[48px] leading-[0.9] tracking-[-0.4px] whitespace-nowrap"
+            style={{
+              fontFamily: "var(--figma-font-text)",
+              fontVariationSettings: '"wdth" 100',
+            }}
           >
-            Get started
-          </button>
+            Built into the standard.
+          </h2>
         </motion.div>
 
         {/* ── Cards row ─────────────────────────────────── */}
@@ -99,26 +107,28 @@ export default function ArkivesModels() {
           {/* ── Card 1 — Always yours ─────────────────────── */}
           <motion.div
             variants={arkivesCard}
-            className="w-full xl:w-[317px] h-[280px] bg-[#18191b] rounded-[18px] flex flex-col items-center justify-center gap-4 px-[55px] py-8 overflow-hidden xl:shrink-0"
+            className="w-full xl:w-[317px] h-[280px] bg-white rounded-[18px] flex flex-col items-center justify-center gap-4 px-[55px] py-8 overflow-hidden xl:shrink-0"
           >
             {/* Decorative circles + Export button */}
             <div className="grid grid-cols-1 grid-rows-1 place-items-start leading-none relative">
               <div className="col-start-1 row-start-1 w-[188px] h-[92px] rounded-full border border-[#30a46c] opacity-10" />
-              <div className="col-start-1 row-start-1 w-[170px] h-[78px] rounded-full border border-[#30a46c] opacity-22 ml-[9px] mt-[7px]" />
+              <div className="col-start-1 row-start-1 w-[170px] h-[78px] rounded-full border border-[#30a46c] opacity-[0.22] ml-[9px] mt-[7px]" />
               <div className="col-start-1 row-start-1 w-[152px] h-[62px] rounded-full border border-[#30a46c] opacity-40 ml-[18px] mt-[15px]" />
 
               {/* Export floating button */}
               <div className="col-start-1 row-start-1 ml-[27.33px] mt-[22.5px]">
                 <button
                   type="button"
-                  className="relative flex items-center gap-[14.247px] h-[47.489px] px-[18.995px] rounded-full bg-[#30a46c] text-white text-[19px] font-[510] leading-[28.493px] tracking-[0px] [font-family:var(--figma-font-text)] shadow-[inset_3px_3px_4px_0px_rgba(255,255,255,0.18),inset_-3px_-1px_4px_0px_rgba(0,0,0,0.18)]"
+                  className="relative flex items-center gap-[14.247px] h-[47.489px] px-[18.995px] rounded-full bg-[#30a46c] text-white text-[19px] font-[510] leading-[28.493px] tracking-normal"
                   style={{
+                    fontFamily: "var(--figma-font-text)",
+                    fontVariationSettings: '"wdth" 100',
                     filter: [
-                      "drop-shadow(0px 53.425px 7.717px rgba(30,118,75,0.01))",
-                      "drop-shadow(0px 34.429px 7.123px rgba(30,118,75,0.07))",
-                      "drop-shadow(0px 18.995px 5.936px rgba(30,118,75,0.22))",
-                      "drop-shadow(0px 8.311px 4.155px rgba(30,118,75,0.38))",
-                      "drop-shadow(0px 2.374px 2.374px rgba(30,118,75,0.44))",
+                      "drop-shadow(0px 54px 7.5px rgba(48,164,108,0))",
+                      "drop-shadow(0px 34px 7px rgba(48,164,108,0.03))",
+                      "drop-shadow(0px 19px 6px rgba(48,164,108,0.09))",
+                      "drop-shadow(0px 9px 4.5px rgba(48,164,108,0.15))",
+                      "drop-shadow(0px 2px 2.5px rgba(48,164,108,0.17))",
                     ].join(" "),
                   }}
                 >
@@ -130,17 +140,36 @@ export default function ArkivesModels() {
                     height={21.37}
                     className="relative z-10 shrink-0"
                   />
+                  <div
+                    className="absolute inset-0 rounded-full pointer-events-none"
+                    style={{
+                      boxShadow:
+                        "inset 3px 3px 4px 0px rgba(255,255,255,0.18), inset -3px -1px 4px 0px rgba(0,0,0,0.18)",
+                    }}
+                  />
                 </button>
               </div>
             </div>
 
             {/* Text below */}
             <div className="flex flex-col items-center gap-2 text-center w-full">
-              <p className="font-[590] text-white text-[36px] text-nowrap leading-[0.9] tracking-[-0.4px] w-full [font-family:var(--figma-font-text)]">
+              <p
+                className="font-[590] text-[#1c2024] text-[36px] text-nowrap leading-[0.9] tracking-[-0.4px] w-full"
+                style={{
+                  fontFamily: "var(--figma-font-text)",
+                  fontVariationSettings: '"wdth" 100',
+                }}
+              >
                 Always yours
               </p>
-              <p className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) text-[rgba(229,237,253,0.48)] w-full [font-family:var(--figma-font-text)]">
-                By design
+              <p
+                className="font-[510] text-base leading-6 tracking-[0px] text-[rgba(0,7,27,0.5)] w-full"
+                style={{
+                  fontFamily: "var(--figma-font-text)",
+                  fontVariationSettings: '"wdth" 100',
+                }}
+              >
+                Portable by design
               </p>
             </div>
           </motion.div>
@@ -148,48 +177,55 @@ export default function ArkivesModels() {
           {/* ── Card 2 — Understood by leading models ─────── */}
           <motion.div
             variants={arkivesCard}
-            className="flex-1 min-w-0 h-[280px] bg-[#18191b] rounded-[18px] flex flex-col justify-between p-8 overflow-hidden"
+            className="flex-1 min-w-0 h-[280px] bg-white rounded-[18px] flex flex-col justify-between p-8 overflow-hidden"
           >
-            <div className="font-[510] text-[28px] leading-[36px] tracking-[-0.12px] text-[rgba(223,235,253,0.43)] [font-family:var(--figma-font-text)]">
-              <p className="leading-[36px] mb-0 text-[rgba(252,253,255,0.94)]">
+            <div
+              className="font-[510] text-[28px] leading-[36px] tracking-[-0.12px]"
+              style={{
+                fontFamily: "var(--figma-font-text)",
+                fontVariationSettings: '"wdth" 100',
+              }}
+            >
+              <p className="leading-[36px] mb-0 text-[rgba(0,5,9,0.89)]">
                 Understood
               </p>
-              <p className="leading-[36px] mb-0">by any of the</p>
-              <p className="leading-[36px]">leading models</p>
+              <p className="leading-[36px] mb-0 text-[rgba(0,5,29,0.45)]">
+                by any of the
+              </p>
+              <p className="leading-[36px] text-[rgba(0,5,29,0.45)]">
+                leading models
+              </p>
             </div>
 
             <AvatarStack />
           </motion.div>
 
-          {/* ── Card 3 — The standard ──────────────────────── */}
+          {/* ── Card 3 — Collaborative across users ────────── */}
           <motion.div
             variants={arkivesCard}
-            className="flex-1 min-w-0 h-[280px] bg-[#272a2d] rounded-[18px] flex flex-col justify-between p-8 overflow-hidden"
+            className="w-full xl:w-[318px] h-[280px] bg-white rounded-[18px] flex flex-col justify-between pt-[54px] pb-8 px-8 overflow-hidden xl:shrink-0 relative"
           >
-            <div className="font-[510] text-[28px] leading-[36px] tracking-[-0.12px] text-[rgba(223,235,253,0.43)] [font-family:var(--figma-font-text)]">
-              <p className="leading-[36px] mb-0 text-[rgba(252,253,255,0.94)]">
-                The standard
-              </p>
-              <p className="leading-[36px]">for compounding context</p>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.45,
-                delay: 0.2,
-                ease: [0.25, 1, 0.5, 1],
+            <p
+              className="font-[510] text-[24px] leading-[30px] tracking-[-0.1px] text-[rgba(0,5,9,0.89)]"
+              style={{
+                fontFamily: "var(--figma-font-text)",
+                fontVariationSettings: '"wdth" 100',
               }}
             >
+              Collaborative{" "}
+              <span className="text-[rgba(0,5,9,0.89)]">across users</span> in
+              real time
+            </p>
+
+            <div className="-ml-8 -mr-8 -mb-8 pr-8">
               <Image
-                src={LOGO_COLORS.logoWhite}
-                alt="Arkive"
-                width={40}
-                height={32}
+                src="/sections/models/uptodate.webp"
+                alt="Collaborative across users"
+                width={318}
+                height={135}
+                className="w-full h-auto"
               />
-            </motion.div>
+            </div>
           </motion.div>
         </motion.div>
 
@@ -199,16 +235,35 @@ export default function ArkivesModels() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={arkivesHeader}
-          className="flex flex-col md:flex-row items-center justify-between gap-4 w-full mt-10 bg-[#18191b] rounded-[18px] px-6 md:px-10 py-6"
+          className="flex flex-col md:flex-row items-center justify-between gap-6 w-full bg-white rounded-[18px] px-10 py-6"
         >
-          <p className="font-normal text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) text-[rgba(252,253,255,0.94)] w-full md:w-[511px] [font-family:var(--figma-font-text)]">
-            Read our docs on how to transfer context from your model to the new
-            standard for context-capture.
-          </p>
+          <div className="flex items-center gap-6">
+            <Image
+              src="/sections/setup/install.webp"
+              alt=""
+              width={64}
+              height={48}
+              className="h-[48px] w-[64px] rounded-lg object-cover shrink-0"
+            />
+            <p
+              className="font-[510] text-base leading-6 tracking-[0px] text-[rgba(0,5,9,0.89)] w-full md:w-[511px]"
+              style={{
+                fontFamily: "var(--figma-font-text)",
+                fontVariationSettings: '"wdth" 100',
+              }}
+            >
+              Read our docs on how to transfer context from your model to the
+              new standard for context-capture.
+            </p>
+          </div>
 
           <button
             type="button"
-            className="flex items-center justify-center h-10 px-(--figma-spacing-4) rounded-full bg-[#edeef0] text-[#111113] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) font-[510] whitespace-nowrap shrink-0 transition-colors hover:bg-[#d9dadd] [font-family:var(--figma-font-text)]"
+            className="flex items-center justify-center gap-1 h-[48px] px-6 rounded-full bg-[#1c2024] text-[#fcfcfd] text-[18px] leading-[26px] tracking-[-0.04px] font-[510] whitespace-nowrap shrink-0 transition-colors hover:bg-[#2d3035]"
+            style={{
+              fontFamily: "var(--figma-font-text)",
+              fontVariationSettings: '"wdth" 100',
+            }}
           >
             Get started
           </button>

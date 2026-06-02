@@ -335,11 +335,6 @@ export default function ArkivesJournal() {
 
           {/* ── Cards ── */}
           <div className="relative md:absolute md:left-[88px] md:top-1/2 md:-translate-y-1/2 px-4 md:px-0 py-10 md:py-0">
-            {/*
-              initial={false} → no animation on first render.
-              Each card uses `layout` so motion/react handles the
-              pill→card shape transition automatically via spring.
-            */}
             <div className="flex flex-col gap-3 items-start">
               {JOURNAL_ITEMS.map((item, index) => {
                 const isActive = index === activeIndex;
@@ -348,14 +343,6 @@ export default function ArkivesJournal() {
                     key={item.label}
                     onClick={() => setActiveIndex(index)}
                     className="bg-[#f0f0f3] overflow-hidden shrink-0 cursor-pointer"
-                    /*
-                      Animate borderRadius between pill (999) and card (18).
-                      Width is fixed via CSS classes — NOT animated — so rapid
-                      clicks never cause the "stretched pill" glitch.
-                      Height grows naturally because overflow:hidden clips
-                      the description until it's fully in, and we animate
-                      the description's own height via maxHeight.
-                    */
                     animate={{
                       borderRadius: isActive ? 18 : 18,
                     }}

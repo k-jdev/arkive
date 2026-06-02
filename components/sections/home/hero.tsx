@@ -122,6 +122,7 @@ export default function Hero() {
           decoding="sync"
           sizes="(min-width: 768px) 65vw, 92vw"
           className="hidden md:block w-full h-auto rounded-xl shadow-2xl"
+          unoptimized
         />
         <Image
           src="/sections/hero/hero-mobile.webp"

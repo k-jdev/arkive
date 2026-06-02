@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { RiArrowDownSLine } from "@remixicon/react";
+import {
+  RiArrowDownSLine,
+  RiArrowUpSLine,
+  RiArrowRightSLine,
+} from "@remixicon/react";
 
 // ── Types ────────────────────────────────────────────────
 
@@ -27,7 +31,7 @@ const FAQ_ITEMS: FaqItem[] = [
   {
     question: "What happens when context gets too large?",
     answer:
-      "Arkive automatically summarizes and prunes stale context while preserving critical signals. You set the retention rules — the system keeps what matters and archives the rest.",
+      "Every conversation, thesis, and market observation can be stored into your persistent research layer. Your AI builds context over time instead of starting from zero every session.",
   },
   {
     question: "What happens when context gets too large?",
@@ -55,115 +59,124 @@ export default function ArkivesFaq() {
   return (
     <section data-header-theme="light" className="w-full bg-white">
       <div className="max-w-[1440px] mx-auto px-[clamp(16px,4.17vw,80px)] pt-20 md:pt-64 pb-16 md:pb-24">
-        {/* ── Header ─────────────────────────────────── */}
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
-          className="font-[590] text-[48px] leading-[0.9] tracking-[-0.4px] text-center [font-family:var(--figma-font-text)]"
-          style={{ color: "var(--figma-neutral-12)" }}
-        >
-          FAQ
-        </motion.h2>
-
-        {/* ── FAQ Items ──────────────────────────────── */}
-        <div className="mt-10 md:mt-[83px] border-t border-[rgba(0,0,0,0.09)]">
-          {FAQ_ITEMS.map((item, index) => {
-            const isOpen = openIndex === index;
-            const hasAnswer = !!item.answer;
-
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -16 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.4,
-                  delay: 0.2 + index * 0.06,
-                  ease: [0.25, 1, 0.5, 1],
+        <div className="flex flex-col md:flex-row gap-10 md:gap-16">
+          {/* ── Header (left) ─────────────────────────── */}
+          <div className="flex flex-col items-start gap-6 md:w-[380px] md:shrink-0">
+            <div>
+              <h2
+                className="font-[590] text-[48px] leading-[0.9] tracking-[-0.4px] text-[#1c2024]"
+                style={{
+                  fontFamily: "var(--figma-font-text)",
+                  fontVariationSettings: '"wdth" 100',
                 }}
-                className="border-b border-[rgba(0,0,0,0.09)]"
               >
-                <button
-                  type="button"
-                  onClick={() => toggleItem(index)}
-                  className="w-full flex items-center justify-between gap-4 py-6 text-left group"
-                >
-                  {/* ── Question + answer ─────────────── */}
-                  <div className="flex-1 min-w-0">
-                    <div className="grid grid-cols-1 xl:grid-cols-[1fr_601px] gap-2 xl:gap-[80px] items-start">
-                      <span
-                        className="font-[510] text-(length:--figma-font-size-5) leading-(--figma-line-height-5) tracking-(--figma-letter-spacing-5) [font-family:var(--figma-font-text)]"
-                        style={{ color: "var(--figma-neutral-12)" }}
-                      >
-                        {item.question}
-                      </span>
+                Any questions?
+              </h2>
+              <h2
+                className="font-[590] text-[48px] leading-[0.9] tracking-[-0.4px] text-[#b9bbc6]"
+                style={{
+                  fontFamily: "var(--figma-font-text)",
+                  fontVariationSettings: '"wdth" 100',
+                }}
+              >
+                We got you.
+              </h2>
+            </div>
 
-                      {/* Desktop answer */}
-                      <div className="hidden xl:block">
-                        <AnimatePresence mode="wait">
+            <button
+              type="button"
+              className="flex items-center gap-1 h-10 px-1 rounded-full text-[#0022ff] text-base leading-6 tracking-normal font-normal whitespace-nowrap shrink-0 transition-colors hover:bg-[#0022ff]/5"
+              style={{
+                fontFamily: "var(--figma-font-text)",
+                fontVariationSettings: '"wdth" 100',
+              }}
+            >
+              Documentation
+              <RiArrowRightSLine size={18} aria-hidden="true" />
+            </button>
+          </div>
+
+          {/* ── FAQ Items (right) ───────────────────────── */}
+          <div className="flex-1 min-w-0 flex flex-col gap-4">
+            {FAQ_ITEMS.map((item, index) => {
+              const isOpen = openIndex === index;
+              const hasAnswer = !!item.answer;
+
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.15 + index * 0.05,
+                    ease: [0.25, 1, 0.5, 1],
+                  }}
+                >
+                  <button
+                    type="button"
+                    onClick={() => toggleItem(index)}
+                    className="w-full bg-[#f9f9fb] rounded-[18px] px-6 md:px-8 py-6 text-left group"
+                  >
+                    <div className="flex items-start gap-4 md:gap-[56px]">
+                      {/* ── Question + answer ─────────────── */}
+                      <div className="flex-1 min-w-0 flex flex-col gap-4">
+                        <span
+                          className="font-[510] text-[20px] md:text-[28px] leading-[28px] md:leading-[36px] tracking-[-0.12px] text-[#1c2024]"
+                          style={{
+                            fontFamily: "var(--figma-font-text)",
+                            fontVariationSettings: '"wdth" 100',
+                          }}
+                        >
+                          {item.question}
+                        </span>
+
+                        {/* Answer — animated expand */}
+                        <AnimatePresence initial={false}>
                           {isOpen && hasAnswer && (
                             <motion.p
                               key="answer"
-                              initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                              animate={{
-                                height: "auto",
-                                opacity: 1,
-                                marginTop: 0,
-                              }}
-                              exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
                               transition={{
                                 height: {
-                                  duration: 0.4,
+                                  duration: 0.35,
                                   ease: [0.25, 1, 0.5, 1],
                                 },
-                                opacity: { duration: 0.25 },
+                                opacity: { duration: 0.2 },
                               }}
-                              className="overflow-hidden font-normal text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) [font-family:var(--figma-font-text)]"
-                              style={{ color: "var(--figma-neutral-12)" }}
+                              className="overflow-hidden font-[510] text-[14px] md:text-base leading-5 md:leading-6 tracking-normal text-[#60646c] max-w-[601px]"
+                              style={{
+                                fontFamily: "var(--figma-font-text)",
+                                fontVariationSettings: '"wdth" 100',
+                              }}
                             >
                               {item.answer}
                             </motion.p>
                           )}
                         </AnimatePresence>
                       </div>
+
+                      {/* ── Chevron ──────────────────────── */}
+                      <div
+                        className={`flex items-center justify-center size-10 shrink-0 transition-all duration-300 ${
+                          isOpen ? "bg-[#f0f0f3] rounded-full" : "rounded-[9px]"
+                        }`}
+                      >
+                        {isOpen ? (
+                          <RiArrowUpSLine size={18} aria-hidden="true" />
+                        ) : (
+                          <RiArrowDownSLine size={18} aria-hidden="true" />
+                        )}
+                      </div>
                     </div>
-
-                    {/* Mobile answer */}
-                    <AnimatePresence>
-                      {isOpen && hasAnswer && (
-                        <motion.p
-                          key="answer-mobile"
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{
-                            duration: 0.35,
-                            ease: [0.25, 1, 0.5, 1],
-                          }}
-                          className="xl:hidden overflow-hidden font-normal text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) [font-family:var(--figma-font-text)] mt-3"
-                          style={{ color: "var(--figma-neutral-12)" }}
-                        >
-                          {item.answer}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {/* ── Arrow ──────────────────────── */}
-                  <div
-                    className={`flex items-center justify-center size-8 shrink-0 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-                      isOpen ? "rotate-180" : "rotate-0"
-                    }`}
-                  >
-                    <RiArrowDownSLine size={16} aria-hidden="true" />
-                  </div>
-                </button>
-              </motion.div>
-            );
-          })}
+                  </button>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

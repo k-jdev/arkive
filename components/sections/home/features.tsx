@@ -11,6 +11,7 @@ import {
   safeContainer,
 } from "@/lib/animations";
 import { usePrefersReducedMotion } from "@/lib/motion-config";
+import AnimatedPrompt from "./animated-prompt";
 
 interface FeatureBlockProps {
   label: string;
@@ -21,6 +22,7 @@ interface FeatureBlockProps {
   imageSrcMobile?: string;
   imageAlt: string;
   imageLeft?: boolean;
+  imageOverlay?: React.ReactNode;
 }
 
 function FeatureBlock({
@@ -32,6 +34,7 @@ function FeatureBlock({
   imageSrcMobile,
   imageAlt,
   imageLeft = false,
+  imageOverlay,
 }: FeatureBlockProps) {
   const reduced = usePrefersReducedMotion();
 
@@ -84,27 +87,34 @@ function FeatureBlock({
   const imageCol = (
     <motion.div
       variants={reduced ? safeFade : featuresImage}
-      className="relative w-full md:w-[58%] shrink-0 rounded-2xl overflow-hidden"
+      className={`relative w-full md:w-[58%] shrink-0 rounded-2xl ${imageOverlay ? "" : "overflow-hidden"}`}
     >
-      <Image
-        src={imageSrc}
-        alt={imageAlt}
-        width={702}
-        height={450}
-        loading="lazy"
-        sizes="(min-width: 768px) 58vw, 100vw"
-        className="hidden md:block w-full h-auto"
-      />
-      {imageSrcMobile && (
+      <div className={imageOverlay ? "overflow-hidden rounded-2xl" : ""}>
         <Image
-          src={imageSrcMobile}
+          src={imageSrc}
           alt={imageAlt}
-          width={390}
-          height={844}
+          width={702}
+          height={450}
           loading="lazy"
-          sizes="100vw"
-          className="block md:hidden w-full h-auto"
+          sizes="(min-width: 768px) 58vw, 100vw"
+          className="hidden md:block w-full h-auto"
         />
+        {imageSrcMobile && (
+          <Image
+            src={imageSrcMobile}
+            alt={imageAlt}
+            width={390}
+            height={844}
+            loading="lazy"
+            sizes="100vw"
+            className="block md:hidden w-full h-auto"
+          />
+        )}
+      </div>
+      {imageOverlay && (
+        <div className="hidden md:flex absolute inset-0 items-center justify-center z-10 p-4">
+          {imageOverlay}
+        </div>
       )}
     </motion.div>
   );
@@ -162,10 +172,11 @@ export default function Features() {
         heading="Extend an Arkive into any domain."
         description="Whether it's trading, research, writing, or anything else, a practice connects to an Arkive's core, adapting it to that domain."
         buttonLabel="Explore Practices"
-        imageSrc="/sections/practices/card.webp"
+        imageSrc="/sections/practices/card-bg.png"
         imageSrcMobile="/sections/practices/mobile/practices-mobile.webp"
         imageAlt="Practices — domain-specific Arkive extension"
         imageLeft={true}
+        imageOverlay={<AnimatedPrompt />}
       />
     </section>
   );
