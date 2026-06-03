@@ -138,41 +138,6 @@ export default function AnimatedPrompt() {
 
   return (
     <div className="flex flex-col gap-5 items-start w-full max-w-[640px]">
-      <div className="bg-[#1c1c1e] rounded-xl px-4 py-3 flex flex-wrap gap-2 w-full">
-        {categories.map((cat, i) => {
-          const isActive = cat.id === activeCategory.id;
-          return (
-            <motion.button
-              key={cat.id}
-              type="button"
-              onClick={isTyping ? undefined : () => setCategoryIndex(i)}
-              initial={reduced ? undefined : { opacity: 0, scale: 0.92 }}
-              animate={{ opacity: isActive ? 1 : 0.5, scale: 1 }}
-              transition={
-                reduced
-                  ? undefined
-                  : {
-                      delay: i * 0.04,
-                      duration: motionTokens.duration.fast,
-                      ease: motionTokens.easing.smooth,
-                    }
-              }
-              whileHover={reduced ? undefined : { scale: 1.05, opacity: 1 }}
-              whileTap={reduced ? undefined : { scale: 0.96 }}
-              className="px-[13px] py-[5px] rounded-[20px] text-xs leading-none font-medium border border-transparent transition-all duration-150 cursor-pointer"
-              style={{
-                fontFamily: "var(--figma-font-text)",
-                background: isActive ? cat.bg : "#2a2a2e",
-                color: isActive ? cat.text : "#888",
-                borderColor: isActive ? cat.text + "55" : "transparent",
-              }}
-            >
-              {cat.label}
-            </motion.button>
-          );
-        })}
-      </div>
-
       <motion.div
         initial={reduced ? undefined : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -185,8 +150,42 @@ export default function AnimatedPrompt() {
                 ease: motionTokens.easing.smooth,
               }
         }
-        className="bg-[#111113] rounded-[14px] px-5 pt-5 pb-[14px] w-full flex flex-col gap-[18px]"
+        className="bg-[#111113] rounded-[14px] px-5 pt-3 pb-[14px] w-full flex flex-col gap-[18px]"
       >
+        <div className="flex flex-wrap gap-2 w-full pb-1">
+          {categories.map((cat, i) => {
+            const isActive = cat.id === activeCategory.id;
+            return (
+              <motion.button
+                key={cat.id}
+                type="button"
+                onClick={isTyping ? undefined : () => setCategoryIndex(i)}
+                initial={reduced ? undefined : { opacity: 0, scale: 0.92 }}
+                animate={{ opacity: isActive ? 1 : 0.5, scale: 1 }}
+                transition={
+                  reduced
+                    ? undefined
+                    : {
+                        delay: i * 0.04,
+                        duration: motionTokens.duration.fast,
+                        ease: motionTokens.easing.smooth,
+                      }
+                }
+                whileHover={reduced ? undefined : { scale: 1.05, opacity: 1 }}
+                whileTap={reduced ? undefined : { scale: 0.96 }}
+                className="px-[13px] py-[5px] rounded-[20px] text-xs leading-none font-medium border border-transparent transition-all duration-150 cursor-pointer"
+                style={{
+                  fontFamily: "var(--figma-font-text)",
+                  background: isActive ? cat.bg : "#2a2a2e",
+                  color: isActive ? cat.text : "#888",
+                  borderColor: isActive ? cat.text + "55" : "transparent",
+                }}
+              >
+                {cat.label}
+              </motion.button>
+            );
+          })}
+        </div>
         <p
           className="text-[15px] leading-[1.55] text-[#e0e0e0] font-normal min-h-[54px]"
           style={{ fontFamily: "var(--figma-font-text)" }}

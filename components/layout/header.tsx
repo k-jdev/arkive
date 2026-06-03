@@ -48,7 +48,10 @@ export default function Header() {
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setDropdownOpen(false);
       }
     };
@@ -114,7 +117,11 @@ export default function Header() {
           <nav aria-label="Main navigation" className="hidden lg:block">
             <ul className="flex items-center gap-(--figma-spacing-2)">
               {NAV_ITEMS.map((item) => (
-                <motion.li key={item.label} variants={headerItem} className="relative">
+                <motion.li
+                  key={item.label}
+                  variants={headerItem}
+                  className="relative"
+                >
                   {item.label === "Arkives & Practices" ? (
                     <div ref={dropdownRef}>
                       <button
@@ -132,7 +139,10 @@ export default function Header() {
                         <RiArrowDownSLine
                           size={16}
                           aria-hidden="true"
-                          className={["transition-transform duration-200", dropdownOpen ? "rotate-180" : ""].join(" ")}
+                          className={[
+                            "transition-transform duration-200",
+                            dropdownOpen ? "rotate-180" : "",
+                          ].join(" ")}
                         />
                       </button>
 
@@ -155,7 +165,9 @@ export default function Header() {
                               onClick={() => setDropdownOpen(false)}
                               className={[
                                 "flex items-center h-9 px-4 text-(length:--figma-font-size-2) font-normal transition-colors",
-                                dark ? "hover:bg-white/10 text-white" : "hover:bg-black/5 text-(--figma-neutral-12)",
+                                dark
+                                  ? "hover:bg-white/10 text-white"
+                                  : "hover:bg-black/5 text-(--figma-neutral-12)",
                               ].join(" ")}
                             >
                               Arkives
@@ -165,7 +177,9 @@ export default function Header() {
                               onClick={() => setDropdownOpen(false)}
                               className={[
                                 "flex items-center h-9 px-4 text-(length:--figma-font-size-2) font-normal transition-colors",
-                                dark ? "hover:bg-white/10 text-white" : "hover:bg-black/5 text-(--figma-neutral-12)",
+                                dark
+                                  ? "hover:bg-white/10 text-white"
+                                  : "hover:bg-black/5 text-(--figma-neutral-12)",
                               ].join(" ")}
                             >
                               Practices
@@ -331,7 +345,10 @@ export default function Header() {
                         <RiArrowDownSLine
                           size={16}
                           aria-hidden="true"
-                          className={["transition-transform duration-200", mobileDropdownOpen ? "rotate-180" : ""].join(" ")}
+                          className={[
+                            "transition-transform duration-200",
+                            mobileDropdownOpen ? "rotate-180" : "",
+                          ].join(" ")}
                         />
                       </button>
                       <AnimatePresence>
