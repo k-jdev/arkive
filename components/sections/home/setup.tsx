@@ -107,9 +107,7 @@ export default function Setup() {
               </div>
             </div>
 
-            {/* Right side — MacBook + Terminal */}
             <div className="relative md:absolute right-0 top-0 md:h-full w-full md:w-[55%]">
-              {/* MacBook — centered vertically */}
               <div className="relative md:absolute px-6 md:px-0 md:top-1/2 md:-translate-y-1/2 md:right-[clamp(12px,1.7vw,32px)] w-full md:w-[90%] max-w-140 mx-auto md:mx-0">
                 <Image
                   src="/sections/setup/macbook.webp"
@@ -123,7 +121,6 @@ export default function Setup() {
                 />
               </div>
 
-              {/* Terminal — anchored to card bottom */}
               <div className="relative md:absolute bottom-0 right-0 w-full md:w-[58%] z-10 shadow-xl md:rounded-tl-xl overflow-hidden">
                 <Image
                   src="/sections/setup/terminal.webp"
@@ -139,7 +136,6 @@ export default function Setup() {
             </div>
           </motion.div>
 
-          {/* Card 2 — Documentation */}
           <motion.div
             initial="hidden"
             whileInView={reduced ? undefined : "visible"}
@@ -148,8 +144,6 @@ export default function Setup() {
             className="w-full rounded-3xl bg-[#f9f9fb] px-5 md:px-6 py-5 flex flex-wrap justify-between items-center gap-3 md:gap-4"
           >
             <div className="flex items-center gap-4 md:gap-6">
-              {" "}
-              {/* Icon */}
               <div className="shrink-0 size-10 rounded-xl overflow-hidden">
                 <Image
                   src="/sections/setup/install.webp"
@@ -162,7 +156,7 @@ export default function Setup() {
                   draggable={false}
                 />
               </div>
-              {/* Text */}
+
               <p
                 className="flex-1 font-normal text-(--figma-neutral-12) [font-family:var(--figma-font-text)] max-w-xl"
                 style={{
@@ -176,7 +170,6 @@ export default function Setup() {
               </p>
             </div>
 
-            {/* Documentation link */}
             <motion.a
               href="#"
               className="flex items-center gap-0.5 shrink-0 font-regular text-(--figma-accent-9) [font-family:var(--figma-font-text)] hover:text-(--figma-accent-10) transition-colors"

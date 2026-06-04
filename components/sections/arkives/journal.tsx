@@ -99,7 +99,6 @@ export default function ArkivesJournal() {
   return (
     <section data-header-theme="light" className="w-full bg-white md:px-20">
       <div className="max-w-360 mx-auto px-4 md:px-0 py-16 md:py-40">
-        {/* ── Header ── */}
         <div className="flex flex-col items-center gap-4 mb-8 md:mb-10">
           <h2
             className="font-[590] text-[32px] md:text-[48px] leading-[0.9] tracking-[-0.4px] text-center [font-family:var(--figma-font-text)]"
@@ -115,9 +114,7 @@ export default function ArkivesJournal() {
           </p>
         </div>
 
-        {/* ── Content block ── */}
         <div className="relative md:h-137.5 rounded-[24px] overflow-clip bg-[#F9F9FB]">
-          {/* Images — right side, single card with switch animation */}
           <div className="absolute inset-0">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
@@ -169,7 +166,6 @@ export default function ArkivesJournal() {
             />
           )}
 
-          {/* ── Scroll buttons — desktop ── */}
           <div className="hidden md:flex absolute left-8 top-1/2 -translate-y-1/2 flex-col gap-4 z-10">
             <motion.button
               type="button"
@@ -195,7 +191,6 @@ export default function ArkivesJournal() {
             </motion.button>
           </div>
 
-          {/* ── Cards ── */}
           <div className="relative md:absolute md:left-22 md:top-1/2 md:-translate-y-1/2 px-4 md:px-0 py-10 md:py-0">
             <div className="flex flex-col gap-3 items-start">
               {JOURNAL_ITEMS.map((item, index) => {
@@ -204,7 +199,7 @@ export default function ArkivesJournal() {
                   <motion.div
                     key={item.label}
                     onClick={() => handleCardClick(index)}
-                    className="bg-[#f0f0f3] overflow-hidden shrink-0 cursor-pointer"
+                    className={`bg-[#f0f0f3] overflow-hidden shrink-0 cursor-pointer ${isActive ? "w-full" : "w-full md:w-40"} rounded-[18px] transition-all duration-300`}
                     animate={{
                       borderRadius: isActive ? 18 : 18,
                     }}
@@ -212,9 +207,8 @@ export default function ArkivesJournal() {
                     whileHover={!isActive ? { scale: 1.02 } : {}}
                     whileTap={!isActive ? { scale: 0.98 } : {}}
                   >
-                    {/* ── Pill / header row ── */}
                     <div
-                      className={`flex items-center gap-3 shrink-0 h-15 transition-[padding] duration-200 ${
+                      className={`flex items-center gap-3 shrink-0 h-15 transition-[padding] duration-200  ${
                         isActive ? "px-8 py-3" : "px-6 py-3"
                       }`}
                     >
@@ -235,7 +229,6 @@ export default function ArkivesJournal() {
                       </p>
                     </div>
 
-                    {/* Description */}
                     <motion.div
                       initial={false}
                       animate={{
@@ -282,7 +275,6 @@ export default function ArkivesJournal() {
               })}
             </div>
 
-            {/* ── Mobile scroll buttons ── */}
             <div className="flex md:hidden justify-center gap-4 mt-6">
               <motion.button
                 type="button"

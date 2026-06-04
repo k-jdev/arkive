@@ -16,8 +16,6 @@ import {
 } from "@/lib/animations";
 import { RiAddFill } from "@remixicon/react";
 
-// ── Avatar stack sub-component ───────────────────────────┐
-
 const AI_AVATARS = [
   { icon: claudeIcon, alt: "Claude", z: 4, bg: "#d97757", delay: 0 },
   { icon: gptIcon, alt: "GPT", z: 3, bg: "#fff", delay: 0.1 },
@@ -59,7 +57,7 @@ function AvatarStack() {
             />
           </motion.div>
         ))}
-        {/* + Add button */}
+
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -78,7 +76,6 @@ export default function ArkivesModels() {
   return (
     <section data-header-theme="white" className="w-full px-5 md:px-[80px]">
       <div className="max-w-[1440px] rounded-[24px] bg-[#f9f9fb] w-full mx-auto px-6 lg:px-[80px] xl:px-[144px] py-[60px] md:py-[100px] flex flex-col gap-10">
-        {/* ── Header row ────────────────────────────────── */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -97,7 +94,6 @@ export default function ArkivesModels() {
           </h2>
         </motion.div>
 
-        {/* ── Cards row ─────────────────────────────────── */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -105,18 +101,15 @@ export default function ArkivesModels() {
           variants={arkivesCardsContainer}
           className="flex flex-col xl:flex-row gap-5 w-full"
         >
-          {/* ── Card 1 — Always yours ─────────────────────── */}
           <motion.div
             variants={arkivesCard}
             className="w-full xl:w-[317px] h-[280px] bg-white rounded-[18px] flex flex-col items-center justify-center gap-4 px-[55px] py-8 overflow-hidden xl:shrink-0"
           >
-            {/* Decorative circles + Export button */}
             <div className="grid grid-cols-1 grid-rows-1 place-items-start leading-none relative">
               <div className="col-start-1 row-start-1 w-[188px] h-[92px] rounded-full border border-[#30a46c] opacity-10" />
               <div className="col-start-1 row-start-1 w-[170px] h-[78px] rounded-full border border-[#30a46c] opacity-[0.22] ml-[9px] mt-[7px]" />
               <div className="col-start-1 row-start-1 w-[152px] h-[62px] rounded-full border border-[#30a46c] opacity-40 ml-[18px] mt-[15px]" />
 
-              {/* Export floating button */}
               <div className="col-start-1 row-start-1 ml-[27.33px] mt-[22.5px]">
                 <button
                   type="button"
@@ -153,7 +146,6 @@ export default function ArkivesModels() {
               </div>
             </div>
 
-            {/* Text below */}
             <div className="flex flex-col items-center gap-2 text-center w-full">
               <p
                 className="font-[590] text-[#1c2024] text-[36px] leading-[0.9] tracking-[-0.4px] w-full"
@@ -176,7 +168,6 @@ export default function ArkivesModels() {
             </div>
           </motion.div>
 
-          {/* ── Card 2 — Understood by leading models ─────── */}
           <motion.div
             variants={arkivesCard}
             className="flex-1 min-w-0 h-[280px] bg-white rounded-[18px] flex flex-col justify-between p-8 overflow-hidden"
@@ -202,7 +193,6 @@ export default function ArkivesModels() {
             <AvatarStack />
           </motion.div>
 
-          {/* ── Card 3 — Collaborative across users ────────── */}
           <motion.div
             variants={arkivesCard}
             className="w-full xl:w-[318px] h-[280px] bg-white rounded-[18px] flex flex-col justify-between pt-[54px] pb-8 px-8 overflow-hidden xl:shrink-0 relative"
@@ -232,7 +222,6 @@ export default function ArkivesModels() {
           </motion.div>
         </motion.div>
 
-        {/* ── Bottom CTA bar ──────────────────────────────── */}
         <motion.div
           initial="hidden"
           whileInView="visible"

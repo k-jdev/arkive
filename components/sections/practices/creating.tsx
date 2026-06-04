@@ -23,9 +23,7 @@ export default function PracticesCreating() {
   return (
     <section className="w-full bg-white py-[60px] md:py-[100px]">
       <div className="max-w-[1440px] mx-auto px-[clamp(16px,4.17vw,80px)] flex flex-col gap-10">
-        {/* ── Main Top Area: Image left, Text right ── */}
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
-          {/* Left: Big Image */}
           <motion.div
             initial="hidden"
             whileInView={reduced ? undefined : "visible"}
@@ -45,7 +43,6 @@ export default function PracticesCreating() {
             </div>
           </motion.div>
 
-          {/* Right: Text content */}
           <motion.div
             initial="hidden"
             whileInView={reduced ? undefined : "visible"}
@@ -116,7 +113,6 @@ export default function PracticesCreating() {
           </motion.div>
         </div>
 
-        {/* ── Bottom Card (Figma 511-20526) ── */}
         <motion.div
           initial="hidden"
           whileInView={reduced ? undefined : "visible"}
@@ -125,7 +121,6 @@ export default function PracticesCreating() {
           className="w-full rounded-[18px] bg-[#F9F9FB] px-6 md:px-10 py-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
         >
           <div className="flex items-center gap-6">
-            {/* Icon */}
             <div className="shrink-0 size-16 rounded-xl bg-white border border-[#F1F1F1] flex items-center justify-center p-2 shadow-sm relative overflow-hidden">
               <Image
                 src={projectImg}
@@ -136,7 +131,7 @@ export default function PracticesCreating() {
                 draggable={false}
               />
             </div>
-            {/* Text */}
+
             <p className="flex-1 font-[510] text-[16px] leading-[24px] [font-family:var(--figma-font-text)] max-w-[550px] text-[rgba(0,5,9,0.89)]">
               Project DeFi{" "}
               <span style={{ color: "rgba(0,7,27,0.5)" }}>
@@ -146,7 +141,6 @@ export default function PracticesCreating() {
             </p>
           </div>
 
-          {/* Link */}
           <motion.a
             href="#"
             className="flex items-center gap-1 shrink-0 font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)] text-[#0022FF] hover:opacity-80 transition-opacity"

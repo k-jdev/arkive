@@ -128,7 +128,6 @@ export default function PracticesSlider() {
         </div>
       </motion.div>
 
-      {/* Slider track — full bleed */}
       <motion.div
         initial="hidden"
         whileInView={reduced ? undefined : "visible"}
@@ -165,7 +164,6 @@ export default function PracticesSlider() {
               className="flex flex-col gap-4 shrink-0"
               style={{ width: `${cardWidth}px` }}
             >
-              {/* Card image */}
               <div
                 className="rounded-[24px] overflow-hidden bg-[#f9f9fb] flex items-center justify-center relative border border-black/[0.04] w-full"
                 style={{ aspectRatio: "558 / 360" }}
@@ -177,10 +175,10 @@ export default function PracticesSlider() {
                   sizes="558px"
                   className="object-cover pointer-events-none"
                   draggable={false}
+                  unoptimized
                 />
               </div>
 
-              {/* Caption */}
               <p className="px-1 font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]">
                 <span style={{ color: "rgba(0,5,9,0.89)", fontWeight: 510 }}>
                   {slide.boldText}{" "}

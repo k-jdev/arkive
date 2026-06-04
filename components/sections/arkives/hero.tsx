@@ -11,10 +11,8 @@ export default function ArkivesHero() {
       data-header-theme="dark"
       className="relative w-full min-h-svh flex flex-col items-center justify-center bg-black overflow-hidden"
     >
-      {/* Canvas background */}
       <HeroCanvas />
 
-      {/* Content */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}

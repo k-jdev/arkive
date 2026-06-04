@@ -39,7 +39,7 @@ const ROWS = [
     research: "open questions",
     health: "goals, limits",
   },
- ] as const;
+] as const;
 
 /* ─── Shared style tokens (from Figma) ───────────────────────────── */
 const ROW_BORDER = "rgba(0, 0, 0, 0.09)";
@@ -78,7 +78,6 @@ export default function PracticesStructure() {
   return (
     <section className="w-full py-[60px] md:py-[100px]">
       <div className="max-w-[1440px] mx-auto px-[clamp(16px,4.17vw,80px)] flex flex-col items-center gap-[64px]">
-        {/* ── Header (Figma 507-19167) ── */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -119,9 +118,12 @@ export default function PracticesStructure() {
           className="w-full overflow-x-auto"
         >
           <div className="min-w-[640px] w-full max-w-[1280px] mx-auto">
-            {/* Domain header row — border-bottom */}
             <motion.div
-              variants={reduced ? { hidden: { opacity: 0 }, visible: { opacity: 1 } } : rowVariants}
+              variants={
+                reduced
+                  ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+                  : rowVariants
+              }
               className="flex items-stretch"
               style={{ borderBottom: `1px solid ${ROW_BORDER}` }}
             >
@@ -150,18 +152,20 @@ export default function PracticesStructure() {
               ))}
             </motion.div>
 
-            {/* Data rows — height:88px, border-bottom */}
             {ROWS.map((row) => (
               <motion.div
                 key={row.label}
-                variants={reduced ? { hidden: { opacity: 0 }, visible: { opacity: 1 } } : rowVariants}
+                variants={
+                  reduced
+                    ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+                    : rowVariants
+                }
                 className="flex items-center"
                 style={{
                   height: 88,
                   borderBottom: `1px solid ${ROW_BORDER}`,
                 }}
               >
-                {/* Row label — Figma: Typography/7/Medium, 28px, #1C2024, p:32 32 32 0 */}
                 <div
                   className="shrink-0 flex items-center pr-8"
                   style={{ width: LABEL_COL_W }}
@@ -177,7 +181,6 @@ export default function PracticesStructure() {
                   </span>
                 </div>
 
-                {/* Trading cell */}
                 <div className="flex-1 flex items-center justify-center pr-8">
                   <span
                     className="text-center font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]"
@@ -187,7 +190,6 @@ export default function PracticesStructure() {
                   </span>
                 </div>
 
-                {/* Research cell */}
                 <div className="flex-1 flex items-center justify-center pr-8">
                   <span
                     className="text-center font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]"
@@ -197,7 +199,6 @@ export default function PracticesStructure() {
                   </span>
                 </div>
 
-                {/* Health cell */}
                 <div className="flex-1 flex items-center justify-center pr-8">
                   <span
                     className="text-center font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]"

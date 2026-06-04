@@ -8,14 +8,10 @@ import {
   RiArrowRightSLine,
 } from "@remixicon/react";
 
-// ── Types ────────────────────────────────────────────────
-
 interface FaqItem {
   question: string;
   answer: string;
 }
-
-// ── Data ─────────────────────────────────────────────────
 
 const FAQ_ITEMS: FaqItem[] = [
   {
@@ -60,7 +56,6 @@ export default function ArkivesFaq() {
     <section data-header-theme="light" className="w-full bg-white">
       <div className="max-w-[1440px] mx-auto px-[clamp(16px,4.17vw,80px)] pt-20 md:pt-64 pb-16 md:pb-24">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
-          {/* ── Header (left) ─────────────────────────── */}
           <div className="flex flex-col items-start gap-6 lg:w-[380px] lg:shrink-0">
             <div>
               <h2
@@ -96,7 +91,6 @@ export default function ArkivesFaq() {
             </button>
           </div>
 
-          {/* ── FAQ Items (right) ───────────────────────── */}
           <div className="flex-1 min-w-0 flex flex-col gap-4">
             {FAQ_ITEMS.map((item, index) => {
               const isOpen = openIndex === index;
@@ -120,7 +114,6 @@ export default function ArkivesFaq() {
                     className="w-full bg-[#f9f9fb] rounded-[18px] px-6 md:px-8 py-6 text-left group"
                   >
                     <div className="flex items-start gap-4 md:gap-[56px]">
-                      {/* ── Question + answer ─────────────── */}
                       <div className="flex-1 min-w-0 flex flex-col gap-4">
                         <span
                           className="font-[510] text-[20px] md:text-[28px] leading-[28px] md:leading-[36px] tracking-[-0.12px] text-[#1c2024]"
@@ -132,7 +125,6 @@ export default function ArkivesFaq() {
                           {item.question}
                         </span>
 
-                        {/* Answer — animated expand */}
                         <AnimatePresence initial={false}>
                           {isOpen && hasAnswer && (
                             <motion.p
@@ -159,7 +151,6 @@ export default function ArkivesFaq() {
                         </AnimatePresence>
                       </div>
 
-                      {/* ── Chevron ──────────────────────── */}
                       <div
                         className={`flex items-center justify-center size-10 shrink-0 transition-all duration-300 ${
                           isOpen ? "bg-[#f0f0f3] rounded-full" : "rounded-[9px]"

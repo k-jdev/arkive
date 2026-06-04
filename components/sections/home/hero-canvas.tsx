@@ -51,9 +51,6 @@ export default function HeroCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // High-DPI rendering — backing buffer matches device pixels so the small
-    // dots and thin cloth lines render crisp instead of blurry on retina/scaled.
-    // Drawing code stays in logical W × H space because of ctx.scale().
     const DPR = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
     canvas.width = W * DPR;
     canvas.height = H * DPR;
@@ -72,7 +69,6 @@ export default function HeroCanvas() {
     let grabbed: SimNode | null = null;
     let rafId: number;
 
-    // Build lattice
     const cols = Math.floor(W / SPACING);
     const rows = Math.floor(H / SPACING);
     const offsetX = (W - cols * SPACING) / 2 + SPACING / 2;
@@ -99,7 +95,6 @@ export default function HeroCanvas() {
       }
     }
 
-    // Static render for reduced motion — no simulation, no interactivity
     if (reduced) {
       ctx.fillStyle = BG_COLOR;
       ctx.fillRect(0, 0, W, H);
@@ -137,7 +132,6 @@ export default function HeroCanvas() {
       .alphaDecay(0.02)
       .stop();
 
-    // Manually tick so we control via rAF
     sim.on("tick", () => {});
 
     function updateMouseFromEvent(e: MouseEvent) {
@@ -205,7 +199,6 @@ export default function HeroCanvas() {
     container.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mouseup", onMouseUp);
 
-    // Get the resolved links after forceLink processes them
     const linkForce = sim.force<d3.ForceLink<SimNode, SimLink>>("link");
 
     function render() {
@@ -222,7 +215,6 @@ export default function HeroCanvas() {
       ctx!.fillStyle = BG_COLOR;
       ctx!.fillRect(0, 0, W, H);
 
-      // Hover constellation
       if (hovering && !dragging) {
         const dists = nodes.map((n, i) => {
           const dx = n.x - mouseXs;
@@ -247,7 +239,6 @@ export default function HeroCanvas() {
         }
       }
 
-      // Cloth mesh
       const meshAlpha = dragging
         ? 1
         : Math.min(1, Math.max(0, (sim.alpha() - 0.02) * 14));
@@ -275,7 +266,6 @@ export default function HeroCanvas() {
         }
       }
 
-      // Dots
       for (const n of nodes) {
         let r = BASE_R;
         let a = NODE_DIM;
@@ -297,7 +287,6 @@ export default function HeroCanvas() {
         ctx!.fill();
       }
 
-      // Cursor dot
       if (hovering) {
         ctx!.fillStyle = "rgba(255,255,255,1)";
         ctx!.beginPath();

@@ -139,7 +139,6 @@ export default function Slider() {
         </div>
       </motion.div>
 
-      {/* Slider track — full bleed */}
       <motion.div
         initial="hidden"
         whileInView={reduced ? undefined : "visible"}

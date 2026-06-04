@@ -129,7 +129,6 @@ function FeatureBlock({
       variants={reduced ? safeContainer : featuresContainer}
       className="flex flex-col md:flex-row items-center gap-8 md:gap-16 w-full max-w-7xl mx-auto"
     >
-      {/* on mobile: text always first, image below; on desktop: respect imageLeft */}
       <div className="contents md:hidden">
         {textCol}
         {imageCol}

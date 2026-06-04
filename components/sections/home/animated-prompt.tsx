@@ -347,7 +347,6 @@ function ThinkingDots() {
     </div>
   );
 }
-// ── Sub: Inline SVG Icons ───────────────────────────────
 
 function PlusIcon() {
   return (

@@ -57,7 +57,6 @@ export default function PracticesDomains() {
               </button>
             </motion.div>
 
-            {/* ── Правая область: коллаж ── */}
             <motion.div
               initial="hidden"
               whileInView={reduced ? undefined : "visible"}
@@ -65,7 +64,6 @@ export default function PracticesDomains() {
               variants={reduced ? safeContainer : domainsCardsContainer}
               className="flex-1 relative w-full lg:h-[660px] min-h-[400px]"
             >
-              {/* Граф-сетка — Figma: group at x:636 y:161 w:708 h:505 */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
                 className="absolute pointer-events-none overflow-hidden"
@@ -86,7 +84,6 @@ export default function PracticesDomains() {
                 />
               </motion.div>
 
-              {/* Gym — Figma: x:856 y:87.7 w:199 h:199 → left:30.4% top:12.4% w:27.5% */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
                 className="absolute aspect-square rounded-[8px] overflow-hidden shadow-lg z-10"
@@ -102,7 +99,6 @@ export default function PracticesDomains() {
                 />
               </motion.div>
 
-              {/* Consistency — Figma: x:1018 y:125 w:277 h:217 → left:52.8% top:17.7% w:38.3% */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
                 className="absolute rounded-[8px] overflow-hidden shadow-lg z-20"
@@ -118,7 +114,6 @@ export default function PracticesDomains() {
                 />
               </motion.div>
 
-              {/* Work — Figma: x:791 y:356 w:282 h:221 → left:21.4% top:50.4% w:38.9% */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
                 className="absolute rounded-[8px] overflow-hidden shadow-lg z-30"
@@ -134,7 +129,6 @@ export default function PracticesDomains() {
                 />
               </motion.div>
 
-              {/* Watch — Figma: x:995 y:411 w:277 h:207 → left:49.6% top:58.2% w:38.3% */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
                 className="absolute rounded-[8px] overflow-hidden shadow-lg z-40"
@@ -150,7 +144,6 @@ export default function PracticesDomains() {
                 />
               </motion.div>
 
-              {/* INDEX/PATH — Figma: x:902 y:225 w:316 → left:36.7% top:31.9% w:43.6% */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
                 className="absolute rounded-[8px] overflow-hidden shadow-2xl z-50"
