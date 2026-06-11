@@ -1,183 +1,193 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 import p5 from "p5";
 
+const TARGET_SLOT = 53;
+const PIXEL = 4;
+const TILE_SIZE = PIXEL * 4;
+
+const BW: number[][][] = [
+  [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    [1, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    [1, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 1, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    [1, 0, 0, 0],
+    [0, 0, 1, 0],
+    [0, 1, 0, 0],
+    [0, 0, 0, 1],
+  ],
+  [
+    [1, 0, 1, 0],
+    [0, 0, 0, 0],
+    [0, 1, 0, 1],
+    [1, 0, 0, 0],
+  ],
+  [
+    [1, 0, 1, 0],
+    [0, 1, 0, 1],
+    [1, 0, 1, 0],
+    [0, 1, 0, 1],
+  ],
+  [
+    [1, 1, 0, 1],
+    [1, 0, 1, 1],
+    [0, 1, 1, 0],
+    [1, 1, 0, 1],
+  ],
+  [
+    [1, 1, 1, 0],
+    [1, 0, 1, 1],
+    [1, 1, 0, 1],
+    [0, 1, 1, 1],
+  ],
+  [
+    [1, 1, 1, 1],
+    [1, 0, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 0, 1],
+  ],
+  [
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+  ],
+];
+
+const BLUE_PAT: number[][][] = [
+  [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    [0, 0, 0, 0],
+    [0, 0, 1, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    [0, 0, 1, 0],
+    [0, 0, 0, 0],
+    [1, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    [0, 0, 1, 0],
+    [1, 0, 0, 0],
+    [0, 0, 0, 0],
+    [1, 0, 0, 0],
+  ],
+  [
+    [0, 1, 0, 0],
+    [1, 0, 0, 0],
+    [1, 0, 0, 0],
+    [0, 0, 0, 1],
+  ],
+  [
+    [0, 1, 0, 1],
+    [1, 0, 1, 0],
+    [0, 1, 0, 1],
+    [1, 0, 1, 0],
+  ],
+  [
+    [0, 0, 1, 0],
+    [0, 1, 0, 0],
+    [1, 0, 0, 1],
+    [0, 0, 1, 0],
+  ],
+  [
+    [0, 0, 0, 1],
+    [0, 1, 0, 0],
+    [0, 0, 1, 0],
+    [1, 0, 0, 0],
+  ],
+  [
+    [0, 0, 0, 0],
+    [0, 1, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 1, 0],
+  ],
+  [
+    [0, 0, 0, 0],
+    [0, 1, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 1],
+  ],
+];
+
+interface Col {
+  x: number;
+  w: number;
+  baseH: number;
+  currentH: number;
+  phaseOffset: number;
+  accentType: number;
+}
+
+function srnd(i: number): number {
+  const s = Math.sin(i * 127.1 + 311.7) * 43758.5453;
+  return s - Math.floor(s);
+}
+
 export default function HeroCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const instanceRef = useRef<p5 | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const sketch = (p: p5) => {
-      let W = 0;
-      let H = 0;
-      let CEILING = 0;
-      let AVAIL_H = 0;
-      let MAX_COL_H = 0;
-      let MIN_COL_H = 0;
-
-      const TARGET_SLOT = 53;
-      const PIXEL = 4;
-
-      const BW: number[][][] = [
-        [
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-        ],
-        [
-          [1, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-        ],
-        [
-          [1, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 1, 0],
-          [0, 0, 0, 0],
-        ],
-        [
-          [1, 0, 0, 0],
-          [0, 0, 1, 0],
-          [0, 1, 0, 0],
-          [0, 0, 0, 1],
-        ],
-        [
-          [1, 0, 1, 0],
-          [0, 0, 0, 0],
-          [0, 1, 0, 1],
-          [1, 0, 0, 0],
-        ],
-        [
-          [1, 0, 1, 0],
-          [0, 1, 0, 1],
-          [1, 0, 1, 0],
-          [0, 1, 0, 1],
-        ],
-        [
-          [1, 1, 0, 1],
-          [1, 0, 1, 1],
-          [0, 1, 1, 0],
-          [1, 1, 0, 1],
-        ],
-        [
-          [1, 1, 1, 0],
-          [1, 0, 1, 1],
-          [1, 1, 0, 1],
-          [0, 1, 1, 1],
-        ],
-        [
-          [1, 1, 1, 1],
-          [1, 0, 1, 1],
-          [1, 1, 1, 1],
-          [1, 1, 0, 1],
-        ],
-        [
-          [1, 1, 1, 1],
-          [1, 1, 1, 1],
-          [1, 1, 1, 1],
-          [1, 1, 1, 1],
-        ],
-      ];
-
-      const BLUE_PAT: number[][][] = [
-        [
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-        ],
-        [
-          [0, 0, 0, 0],
-          [0, 0, 1, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-        ],
-        [
-          [0, 0, 1, 0],
-          [0, 0, 0, 0],
-          [1, 0, 0, 0],
-          [0, 0, 0, 0],
-        ],
-        [
-          [0, 0, 1, 0],
-          [1, 0, 0, 0],
-          [0, 0, 0, 0],
-          [1, 0, 0, 0],
-        ],
-        [
-          [0, 1, 0, 0],
-          [1, 0, 0, 0],
-          [1, 0, 0, 0],
-          [0, 0, 0, 1],
-        ],
-        [
-          [0, 1, 0, 1],
-          [1, 0, 1, 0],
-          [0, 1, 0, 1],
-          [1, 0, 1, 0],
-        ],
-        [
-          [0, 0, 1, 0],
-          [0, 1, 0, 0],
-          [1, 0, 0, 1],
-          [0, 0, 1, 0],
-        ],
-        [
-          [0, 0, 0, 1],
-          [0, 1, 0, 0],
-          [0, 0, 1, 0],
-          [1, 0, 0, 0],
-        ],
-        [
-          [0, 0, 0, 0],
-          [0, 1, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 1, 0],
-        ],
-        [
-          [0, 0, 0, 0],
-          [0, 1, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 1],
-        ],
-      ];
-
-      interface Col {
-        x: number;
-        w: number;
-        baseH: number;
-        currentH: number;
-        phaseOffset: number;
-        breathAmp: number;
-        accentType: number;
-      }
-
+      let W = 0,
+        H = 0,
+        CEILING = 0,
+        MAX_COL_H = 0,
+        MIN_COL_H = 0;
       let cols: Col[] = [];
-      let mouseX = 0;
-      let mouseActive = false;
-      let mouseIdleFrames = 0;
-      let breathT = 0;
-      let lastMouseX = -1;
-
-      function rand01(i: number): number {
-        const s = Math.sin(i * 127.1 + 311.7) * 43758.5453;
-        return s - Math.floor(s);
-      }
+      let mouseX = 0,
+        mouseActive = false,
+        mouseIdleFrames = 0;
+      let breathT = 0,
+        lastMouseX = -1;
+      let bwTiles: p5.Graphics[] = [];
+      let blueTiles: p5.Graphics[] = [];
+      let lastH: Float64Array | null = null;
 
       function computeDims() {
         if (!container) return;
         W = container.clientWidth;
         H = container.clientHeight;
         CEILING = Math.floor(H / 3);
-        AVAIL_H = H - CEILING;
-        MAX_COL_H = AVAIL_H;
-        MIN_COL_H = Math.floor(AVAIL_H * 0.04);
+        MAX_COL_H = H - CEILING;
+        MIN_COL_H = Math.floor(MAX_COL_H * 0.04);
+      }
+
+      function makeTile(pat: number[][], color: string): p5.Graphics {
+        const g = p.createGraphics(TILE_SIZE, TILE_SIZE);
+        g.noSmooth();
+        g.fill(color);
+        g.noStroke();
+        for (let r = 0; r < 4; r++)
+          for (let c = 0; c < 4; c++)
+            if (pat[r][c]) g.rect(c * PIXEL, r * PIXEL, PIXEL, PIXEL);
+        return g;
       }
 
       function buildCols() {
@@ -186,14 +196,13 @@ export default function HeroCanvas() {
         const slotW = W / numCols;
 
         for (let i = 0; i < numCols; i++) {
-          const r = rand01(i);
-          const r2 = rand01(i + 100);
+          const r = srnd(i),
+            r2 = srnd(i + 100);
           const t = i / Math.max(1, numCols - 1);
           let profile = 0.3 + 0.7 * Math.pow(Math.sin(t * Math.PI), 0.4);
           profile += (r - 0.5) * 0.35;
           profile = Math.max(0.12, Math.min(1.0, profile));
           const baseH = MIN_COL_H + (MAX_COL_H - MIN_COL_H) * profile;
-
           const xStart = Math.round(i * slotW);
           const xEnd = i === numCols - 1 ? W : Math.round((i + 1) * slotW);
           const cw = Math.max(PIXEL, xEnd - xStart);
@@ -208,10 +217,22 @@ export default function HeroCanvas() {
             baseH,
             currentH: baseH,
             phaseOffset: r * Math.PI * 2,
-            breathAmp: 0.01 + r * 0.015,
             accentType,
           });
         }
+      }
+
+      function dirty(): boolean {
+        if (!lastH || lastH.length !== cols.length) return true;
+        for (let i = 0; i < cols.length; i++)
+          if (Math.abs(cols[i].currentH - lastH[i]) > 0.3) return true;
+        return false;
+      }
+
+      function saveHeights() {
+        if (!lastH || lastH.length !== cols.length)
+          lastH = new Float64Array(cols.length);
+        for (let i = 0; i < cols.length; i++) lastH[i] = cols[i].currentH;
       }
 
       p.setup = function () {
@@ -219,7 +240,12 @@ export default function HeroCanvas() {
         p.createCanvas(W, H);
         p.pixelDensity(1);
         p.noSmooth();
+        p.frameRate(30);
         mouseX = W / 2;
+
+        bwTiles = BW.map((pt) => makeTile(pt, "#ffffff"));
+        blueTiles = BLUE_PAT.map((pt) => makeTile(pt, "#0708ff"));
+
         buildCols();
       };
 
@@ -227,6 +253,7 @@ export default function HeroCanvas() {
         computeDims();
         p.resizeCanvas(W, H);
         buildCols();
+        lastH = null;
       };
 
       p.draw = function () {
@@ -242,16 +269,8 @@ export default function HeroCanvas() {
           if (mouseIdleFrames > 120) mouseActive = false;
         }
 
-        const ctx = p.drawingContext as CanvasRenderingContext2D;
-
-        // Fast native clear
-        ctx.fillStyle = "#000000";
-        ctx.fillRect(0, 0, W, H);
-
-        for (let ci = 0; ci < cols.length; ci++) {
-          const col = cols[ci];
+        for (const col of cols) {
           const colCenterX = col.x + col.w * 0.5;
-
           let targetH: number;
           if (mouseActive) {
             const dist = Math.abs(colCenterX - mouseX);
@@ -268,22 +287,32 @@ export default function HeroCanvas() {
             const amp = 0.08 + 0.04 * swell;
             targetH = col.baseH * (1.0 + wave * amp);
           }
-
           col.currentH += (targetH - col.currentH) * 0.06;
+        }
+
+        if (!dirty()) return;
+        saveHeights();
+
+        const ctx = (
+          p as unknown as { drawingContext: CanvasRenderingContext2D }
+        ).drawingContext;
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, W, H);
+
+        for (const col of cols) {
           const colH = Math.max(
             MIN_COL_H,
             Math.min(MAX_COL_H, Math.round(col.currentH)),
           );
           const colTop = H - colH;
-
           const heightRatio = (colH - MIN_COL_H) / (MAX_COL_H - MIN_COL_H);
           const numBands = Math.max(
             2,
             Math.round(2 + (BW.length - 2) * heightRatio),
           );
 
-          let accentBandStart = 0;
-          let accentBandEnd = 0;
+          let accentBandStart = 0,
+            accentBandEnd = 0;
           if (col.accentType === 1) {
             accentBandStart = 0;
             accentBandEnd = Math.floor(numBands * 0.35);
@@ -292,48 +321,86 @@ export default function HeroCanvas() {
             accentBandEnd = numBands;
           }
 
-          const colEnd = Math.min(col.x + col.w, W);
-
           for (let bi = 0; bi < numBands; bi++) {
             const levelT = bi / (numBands - 1);
             let levelIdx = Math.round(levelT * (BW.length - 1));
             levelIdx = Math.max(0, Math.min(BW.length - 1, levelIdx));
-            const bwPat = BW[levelIdx];
-            const bluePat = BLUE_PAT[levelIdx];
-
             const bandTop = colTop + Math.floor((bi * colH) / numBands);
             const bandBot =
               bi === numBands - 1
                 ? H
                 : colTop + Math.floor(((bi + 1) * colH) / numBands);
-
             const useAccent =
               col.accentType !== 0 &&
               bi >= accentBandStart &&
               bi < accentBandEnd;
 
-            for (let py = bandTop; py < bandBot; py += PIXEL) {
-              for (let px = col.x; px < colEnd; px += PIXEL) {
-                const row = ((py / PIXEL) | 0) % 4;
-                const col4 = ((px / PIXEL) | 0) % 4;
-                if (useAccent && bluePat[row][col4]) {
-                  ctx.fillStyle = "#0708ff";
-                  ctx.fillRect(px, py, PIXEL, PIXEL);
-                } else if (bwPat[row][col4]) {
-                  ctx.fillStyle = "#ffffff";
-                  ctx.fillRect(px, py, PIXEL, PIXEL);
+            // Clamp column right edge to W to prevent gaps
+            const colRight = Math.min(col.x + col.w, W);
+
+            // Draw white pixels from BW (always)
+            const bwEl = bwTiles[levelIdx].elt as HTMLCanvasElement;
+            for (let py = bandTop; py < bandBot; py += TILE_SIZE) {
+              const dh = Math.min(TILE_SIZE, bandBot - py);
+              for (let px = col.x; px < colRight; px += TILE_SIZE) {
+                ctx.drawImage(
+                  bwEl,
+                  px,
+                  py,
+                  Math.min(TILE_SIZE, colRight - px),
+                  dh,
+                );
+              }
+            }
+
+            // Draw blue pixels from BLUE_PAT on top (accent bands only)
+            if (useAccent) {
+              const blueEl = blueTiles[levelIdx].elt as HTMLCanvasElement;
+              for (let py = bandTop; py < bandBot; py += TILE_SIZE) {
+                const dh = Math.min(TILE_SIZE, bandBot - py);
+                for (let px = col.x; px < colRight; px += TILE_SIZE) {
+                  ctx.drawImage(
+                    blueEl,
+                    px,
+                    py,
+                    Math.min(TILE_SIZE, colRight - px),
+                    dh,
+                  );
                 }
               }
             }
           }
         }
+
+        // Ceiling cover — exactly like original p.fill(0); p.rect(0, 0, W, CEILING);
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, W, CEILING);
       };
+
+      const io = new IntersectionObserver(
+        ([e]) => {
+          if (e.isIntersecting) {
+            p.loop();
+            lastH = null;
+          } else {
+            p.noLoop();
+          }
+        },
+        { threshold: 0 },
+      );
+      io.observe(container);
+
+      (p as unknown as Record<string, unknown>).__cleanup = () =>
+        io.disconnect();
     };
 
-    instanceRef.current = new p5(sketch, container);
+    const instance = new p5(sketch, container!);
 
     return () => {
-      instanceRef.current?.remove();
+      const cleanup = (instance as unknown as Record<string, unknown>)
+        .__cleanup;
+      if (typeof cleanup === "function") cleanup();
+      instance.remove();
     };
   }, []);
 

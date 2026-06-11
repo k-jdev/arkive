@@ -7,21 +7,20 @@ import * as d3 from "d3";
 const BASE_W = 1920;
 const BASE_H = 1080;
 
-// Graph shape — optimized but dense
-const CATEGORIES = 20;
-const CLUSTER_MIN = 8;
-const CLUSTER_MAX = 16;
-const CROSS_LINK_PROB = 0.15;
-const SUB_BRANCH_PROB = 0.15;
+// Graph shape — balanced for perf at 1920px
+const CATEGORIES = 14;
+const CLUSTER_MIN = 6;
+const CLUSTER_MAX = 12;
+const CROSS_LINK_PROB = 0.12;
+const SUB_BRANCH_PROB = 0.08;
 const SUB_BRANCH_MIN = 1;
-const SUB_BRANCH_MAX = 3;
+const SUB_BRANCH_MAX = 2;
 
 // Accent
 const ACCENT_COLOR = "#1F3299";
 const ACCENT_FRACTION = 0.07;
 
 // Visuals
-const BG_COLOR = "#000000";
 const NODE_CENTER = "#747476";
 const NODE_HUB = "#6C6D6F";
 const NODE_LEAF = "#646467";
@@ -48,9 +47,9 @@ const CENTER_GRAVITY = 0.015;
 const BASE_HOVER_RADIUS = 14;
 const BASE_PICK_RADIUS = 22;
 
-// Perf thresholds
-const ALPHA_IDLE = 0.003; // stop rAF when sim settles below this
+// Perf
 const RESIZE_DEBOUNCE = 300; // ms
+const DPR_CAP = 1.5; // cap devicePixelRatio for perf at large viewports
 
 interface GraphNode extends d3.SimulationNodeDatum {
   id: number;
@@ -104,11 +103,8 @@ export default function HeroCanvas() {
     const HOVER_RADIUS = BASE_HOVER_RADIUS * scale;
     const PICK_RADIUS = BASE_PICK_RADIUS * scale;
 
-    const reducedMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const reduced = reducedMedia.matches;
-
-    // DPR capped at 2 for perf
-    const DPR = Math.min(2, Math.max(1, window.devicePixelRatio || 1));
+    // DPR capped for perf — at 1920px, full DPR kills framerate
+    const DPR = Math.min(DPR_CAP, Math.max(1, window.devicePixelRatio || 1));
     canvas.width = W * DPR;
     canvas.height = H * DPR;
     canvas.style.width = W + "px";
@@ -169,19 +165,23 @@ export default function HeroCanvas() {
 
     const center = makeNode(0);
     const categories: GraphNode[] = [];
+    // Leaf index per category for fast cross-linking
+    const catLeaves = new Map<GraphNode, GraphNode[]>();
+
     for (let i = 0; i < CATEGORIES; i++) {
       const cat = makeNode(1);
       const ang = (i / CATEGORIES) * Math.PI * 2;
       cat.x = cx + Math.cos(ang) * 35 * scale;
       cat.y = cy + Math.sin(ang) * 35 * scale;
       categories.push(cat);
+      catLeaves.set(cat, []);
       links.push({ source: center.id, target: cat.id });
     }
 
     for (const cat of categories) {
       const leafCount =
         CLUSTER_MIN + Math.floor(Math.random() * (CLUSTER_MAX - CLUSTER_MIN));
-      const leaves: GraphNode[] = [];
+      const leaves = catLeaves.get(cat)!;
       for (let j = 0; j < leafCount; j++) {
         const leaf = makeNode(2);
         leaf.x = cat.x + (Math.random() - 0.5) * 120 * scale;
@@ -202,38 +202,17 @@ export default function HeroCanvas() {
         }
       }
 
-      // Cross-links — sampled, not exhaustive
+      // Cross-links — O(1) per leaf via pre-built index
       for (const leaf of leaves) {
         if (Math.random() >= CROSS_LINK_PROB) continue;
+        const otherCats = categories.filter((c) => c !== cat);
+        if (otherCats.length === 0) continue;
         const otherCat =
-          categories[Math.floor(Math.random() * categories.length)];
-        if (otherCat === cat) continue;
-        // Pick a random leaf from other cat (fast: pick any link that touches it)
-        const otherLinks = links.filter(
-          (l) =>
-            (typeof l.source === "number"
-              ? l.source
-              : (l.source as GraphNode).id) === otherCat.id ||
-            (typeof l.target === "number"
-              ? l.target
-              : (l.target as GraphNode).id) === otherCat.id,
-        );
-        if (!otherLinks.length) continue;
-        const picked =
-          otherLinks[Math.floor(Math.random() * otherLinks.length)];
-        const tgtId =
-          (typeof picked.source === "number"
-            ? picked.source
-            : (picked.source as GraphNode).id) === otherCat.id
-            ? typeof picked.target === "number"
-              ? picked.target
-              : (picked.target as GraphNode).id
-            : typeof picked.source === "number"
-              ? picked.source
-              : (picked.source as GraphNode).id;
-        if (tgtId !== center.id) {
-          links.push({ source: leaf.id, target: tgtId });
-        }
+          otherCats[Math.floor(Math.random() * otherCats.length)];
+        const otherLeaves = catLeaves.get(otherCat)!;
+        if (otherLeaves.length === 0) continue;
+        const tgt = otherLeaves[Math.floor(Math.random() * otherLeaves.length)];
+        links.push({ source: leaf.id, target: tgt.id });
       }
     }
 
@@ -298,7 +277,13 @@ export default function HeroCanvas() {
             return src.level === 0 ? 1.0 : LINK_STRENGTH;
           }),
       )
-      .force("charge", d3.forceManyBody().strength(CHARGE_STRENGTH))
+      .force(
+        "charge",
+        d3
+          .forceManyBody()
+          .strength(CHARGE_STRENGTH)
+          .distanceMax(200 * scale),
+      )
       .force("radial", radialPullBack)
       .force(
         "collide",
@@ -306,20 +291,49 @@ export default function HeroCanvas() {
       )
       .velocityDecay(VELOCITY_DECAY)
       .alpha(1)
-      .alphaDecay(0.02)
-      .stop(); // Stop d3's internal timer — we tick manually in rAF
+      .alphaDecay(0.08) // fast settle — run synchronously
+      .stop();
 
     center.fx = cx;
     center.fy = cy;
 
+    // ── Run simulation synchronously to completion ──
+    const MAX_TICKS = 150;
+    for (let i = 0; i < MAX_TICKS; i++) {
+      sim.tick();
+      if (sim.alpha() < 0.001) break;
+    }
+
+    const linkForce = sim.force<d3.ForceLink<GraphNode, GraphLink>>("link")!;
+    const resolvedLinks = linkForce.links();
+
+    // Precompute link index per node for O(1) highlight lookups
+    const nodeLinkIndices = new Map<number, number[]>();
+    for (let i = 0; i < resolvedLinks.length; i++) {
+      const s = resolvedLinks[i].source as GraphNode;
+      const t = resolvedLinks[i].target as GraphNode;
+      if (!nodeLinkIndices.has(s.id)) nodeLinkIndices.set(s.id, []);
+      nodeLinkIndices.get(s.id)!.push(i);
+      if (!nodeLinkIndices.has(t.id)) nodeLinkIndices.set(t.id, []);
+      nodeLinkIndices.get(t.id)!.push(i);
+    }
+
+    // Pre-bucket nodes by color for batched drawing
+    const colorBuckets = new Map<string, GraphNode[]>();
+    for (const n of nodes) {
+      const c = n.color;
+      if (!colorBuckets.has(c)) colorBuckets.set(c, []);
+      colorBuckets.get(c)!.push(n);
+    }
+
     // ── Picking ──────────────────────────────────────
     function pickNode(x: number, y: number, radius: number): GraphNode | null {
-      let best: GraphNode | null = null,
-        bestD = radius * radius;
+      let best: GraphNode | null = null;
+      let bestD = radius * radius;
       for (const n of nodes) {
-        const dx = n.x - x,
-          dy = n.y - y,
-          d2 = dx * dx + dy * dy;
+        const dx = n.x - x;
+        const dy = n.y - y;
+        const d2 = dx * dx + dy * dy;
         if (d2 < bestD) {
           bestD = d2;
           best = n;
@@ -335,73 +349,151 @@ export default function HeroCanvas() {
       mouseDirty = true;
     }
 
-    // ── Events ───────────────────────────────────────
+    // ── Pure draw function (zero simulation) ─────────
+    const lw = Math.max(0.5, 0.8 * scale);
+
+    function drawFrame(
+      hlNode: GraphNode | null,
+      grabNode: GraphNode | null,
+      gx: number,
+      gy: number,
+    ) {
+      ctx.clearRect(0, 0, W, H);
+      ctx.lineWidth = lw;
+
+      // Which link indices to highlight
+      const hlLinkSet = new Set<number>();
+      const active = hlNode || grabNode;
+      if (active) {
+        const indices = nodeLinkIndices.get(active.id);
+        if (indices) for (const idx of indices) hlLinkSet.add(idx);
+      }
+
+      // Normal links — one stroke (no offset needed, grabbed links are in hlLinkSet)
+      ctx.strokeStyle = LINK_COLOR;
+      ctx.beginPath();
+      for (let i = 0; i < resolvedLinks.length; i++) {
+        if (hlLinkSet.has(i)) continue;
+        const s = resolvedLinks[i].source as GraphNode;
+        const t = resolvedLinks[i].target as GraphNode;
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(t.x, t.y);
+      }
+      ctx.stroke();
+
+      // Highlighted links — offset endpoints if grabbed
+      if (hlLinkSet.size > 0) {
+        ctx.strokeStyle = LINK_HOVER;
+        ctx.beginPath();
+        for (const i of hlLinkSet) {
+          const s = resolvedLinks[i].source as GraphNode;
+          const t = resolvedLinks[i].target as GraphNode;
+          const sx = grabNode && s === grabNode ? gx : s.x;
+          const sy = grabNode && s === grabNode ? gy : s.y;
+          const tx = grabNode && t === grabNode ? gx : t.x;
+          const ty = grabNode && t === grabNode ? gy : t.y;
+          ctx.moveTo(sx, sy);
+          ctx.lineTo(tx, ty);
+        }
+        ctx.stroke();
+      }
+
+      // Nodes by color batch
+      for (const [color, group] of colorBuckets) {
+        const visible = active ? group.filter((n) => n !== active) : group;
+        if (visible.length === 0) continue;
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        for (const n of visible) {
+          ctx.moveTo(n.x + n.r, n.y);
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        }
+        ctx.fill();
+      }
+
+      // Grabbed node on top (at mouse position)
+      if (grabNode) {
+        ctx.fillStyle = HOVER_NODE_COLOR;
+        ctx.beginPath();
+        ctx.arc(gx, gy, grabNode.r * 1.4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      // Hovered node on top (at its original position)
+      else if (hlNode && hlNode !== grabNode) {
+        ctx.fillStyle = HOVER_NODE_COLOR;
+        ctx.beginPath();
+        ctx.arc(hlNode.x, hlNode.y, hlNode.r * 1.4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // Initial static render
+    drawFrame(null, null, 0, 0);
+
+    // ── Event handlers (no wake, no sim ticks) ───────
     function isInsideBounds(x: number, y: number) {
       return x >= 0 && x <= W && y >= 0 && y <= H;
     }
 
-    function wake() {
-      if (sim.alpha() < ALPHA_IDLE && !dragging && !hovering) {
-        sim.alpha(0.05);
-        sim.alphaTarget(0);
-        // rAF will restart because simAlpha > ALPHA_IDLE
-      }
-    }
-
     function onMouseEnter() {
       hovering = true;
-      wake();
     }
     function onMouseLeave() {
       hovering = false;
-      // Don't reset drag — let mouseup handle it
       if (!dragging) {
         hoverNode = null;
         container.style.cursor = "default";
-        sim.alphaTarget(0);
+        drawFrame(null, null, 0, 0);
       }
     }
     function onGlobalMove(e: MouseEvent) {
       mouseFromCachedRect(e);
-      // Check if mouse is actually over the canvas
+      if (!mouseDirty) return;
+      mouseX = pendingMouseX;
+      mouseY = pendingMouseY;
+      mouseDirty = false;
+
       const rect = cachedRect;
       const mx = e.clientX - rect.left;
       const my = e.clientY - rect.top;
-      if (mx >= 0 && mx <= W && my >= 0 && my <= H) {
-        if (!hovering) {
-          hovering = true;
-        }
-      } else {
-        if (hovering) {
-          hovering = false;
-        }
+      hovering = mx >= 0 && mx <= W && my >= 0 && my <= H;
+
+      if (dragging) {
+        drawFrame(null, grabbed, mouseX, mouseY);
+      } else if (hovering) {
+        const prev = hoverNode;
+        hoverNode = pickNode(mouseX, mouseY, HOVER_RADIUS);
+        if (hoverNode !== prev) drawFrame(hoverNode, null, 0, 0);
+      } else if (hoverNode) {
+        hoverNode = null;
+        drawFrame(null, null, 0, 0);
       }
-      wake();
     }
     function onGlobalMouseDown(e: MouseEvent) {
       mouseFromCachedRect(e);
-      if (!isInsideBounds(pendingMouseX, pendingMouseY)) return;
-      const target = pickNode(pendingMouseX, pendingMouseY, PICK_RADIUS);
-      if (target) {
+      if (!mouseDirty) return;
+      mouseX = pendingMouseX;
+      mouseY = pendingMouseY;
+      mouseDirty = false;
+      if (!isInsideBounds(mouseX, mouseY)) return;
+
+      const target = pickNode(mouseX, mouseY, PICK_RADIUS);
+      if (target && target !== center) {
         dragging = true;
         grabbed = target;
-        grabbed.fx = pendingMouseX;
-        grabbed.fy = pendingMouseY;
         container.style.cursor = "grabbing";
-        sim.alpha(0.3);
-        sim.alphaTarget(0.1);
+        drawFrame(null, grabbed, mouseX, mouseY);
       }
       e.preventDefault();
     }
     function onGlobalMouseUp() {
-      if (grabbed && grabbed !== center) {
-        grabbed.fx = null;
-        grabbed.fy = null;
+      if (grabbed) {
+        // Snap node back to its original position
+        grabbed = null;
       }
-      grabbed = null;
       dragging = false;
       container.style.cursor = "default";
-      sim.alphaTarget(0);
+      drawFrame(hoverNode, null, 0, 0);
     }
 
     container.addEventListener("mouseenter", onMouseEnter);
@@ -410,114 +502,12 @@ export default function HeroCanvas() {
     window.addEventListener("mousedown", onGlobalMouseDown);
     window.addEventListener("mouseup", onGlobalMouseUp);
 
-    // Static render for reduced motion
-    if (reduced) {
-      ctx.fillStyle = BG_COLOR;
-      ctx.fillRect(0, 0, W, H);
-      for (const n of nodes) {
-        ctx.fillStyle = n.color;
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      cleanupRef.current = () => {
-        container.removeEventListener("mouseenter", onMouseEnter);
-        container.removeEventListener("mouseleave", onMouseLeave);
-        window.removeEventListener("mousemove", onGlobalMove);
-        window.removeEventListener("mousedown", onGlobalMouseDown);
-        window.removeEventListener("mouseup", onGlobalMouseUp);
-      };
-      return;
-    }
-
-    // ── Render loop (adaptive) ───────────────────────
-    function isLinkHighlighted(
-      l: d3.SimulationLinkDatum<GraphNode>,
-      node: GraphNode | null,
-    ): boolean {
-      if (!node) return false;
-      return (
-        l.source === node ||
-        l.target === node ||
-        (l.source as GraphNode).id === node.id ||
-        (l.target as GraphNode).id === node.id
-      );
-    }
-
-    let rafId = 0;
-    let running = true;
-    const linkForce = sim.force<d3.ForceLink<GraphNode, GraphLink>>("link")!;
-
-    function render() {
-      if (!running) return;
-
-      // Tick the simulation manually — sync with rAF
-      sim.tick();
-
-      // Process pending mouse position
-      if (mouseDirty) {
-        mouseX = pendingMouseX;
-        mouseY = pendingMouseY;
-        mouseDirty = false;
-        if (!dragging) hoverNode = pickNode(mouseX, mouseY, HOVER_RADIUS);
-      }
-
-      if (dragging && grabbed) {
-        grabbed.fx = mouseX;
-        grabbed.fy = mouseY;
-        // Boost link strength during drag so connected nodes trail more
-        sim.force<d3.ForceLink<GraphNode, GraphLink>>("link")?.strength(0.95);
-      } else {
-        // Restore normal strength
-        sim
-          .force<d3.ForceLink<GraphNode, GraphLink>>("link")
-          ?.strength(LINK_STRENGTH);
-      }
-
-      const simActive = sim.alpha() > ALPHA_IDLE;
-
-      // Only redraw if something changed
-      if (simActive || dragging || hovering) {
-        ctx.fillStyle = BG_COLOR;
-        ctx.fillRect(0, 0, W, H);
-
-        const resolvedLinks = linkForce.links();
-        ctx.lineWidth = Math.max(0.5, 0.8 * scale);
-        for (const l of resolvedLinks) {
-          const hl = isLinkHighlighted(l, hoverNode || grabbed);
-          ctx.strokeStyle = hl ? LINK_HOVER : LINK_COLOR;
-          ctx.beginPath();
-          ctx.moveTo((l.source as GraphNode).x, (l.source as GraphNode).y);
-          ctx.lineTo((l.target as GraphNode).x, (l.target as GraphNode).y);
-          ctx.stroke();
-        }
-
-        for (const n of nodes) {
-          const isHovered = n === hoverNode || n === grabbed;
-          ctx.fillStyle = isHovered ? HOVER_NODE_COLOR : n.color;
-          ctx.beginPath();
-          ctx.arc(n.x, n.y, isHovered ? n.r * 1.4 : n.r, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      // Stop loop if nothing is happening
-      if (!simActive && !dragging && !hovering) {
-        rafId = 0;
-        return;
-      }
-      rafId = requestAnimationFrame(render);
-    }
-    rafId = requestAnimationFrame(render);
-
     // Update cached rect on resize (called from ResizeObserver)
     function onResize() {
       updateCachedRect();
     }
 
     cleanupRef.current = () => {
-      running = false;
-      if (rafId) cancelAnimationFrame(rafId);
       container.removeEventListener("mouseenter", onMouseEnter);
       container.removeEventListener("mouseleave", onMouseLeave);
       window.removeEventListener("mousemove", onGlobalMove);
@@ -564,7 +554,10 @@ export default function HeroCanvas() {
   }, [initGraph]);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 overflow-hidden">
+    <div
+      ref={containerRef}
+      className="absolute inset-0 overflow-hidden bg-black"
+    >
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"

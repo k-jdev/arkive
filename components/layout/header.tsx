@@ -18,7 +18,6 @@ import {
   headerMobileContainer,
   headerMobileItem,
 } from "@/lib/animations";
-
 interface NavItem {
   label: string;
   hasDropdown?: boolean;
