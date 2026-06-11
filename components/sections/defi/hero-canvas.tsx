@@ -171,6 +171,7 @@ export default function HeroCanvas() {
       }
 
       function computeDims() {
+        if (!container) return;
         W = container.clientWidth;
         H = container.clientHeight;
         CEILING = Math.floor(H / 3);
