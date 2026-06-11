@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import { motion } from "motion/react";
-import { RiArrowRightSLine } from "@remixicon/react";
 
 const HeroCanvas = dynamic(() => import("./hero-canvas"), { ssr: false });
 
@@ -10,13 +9,13 @@ export default function ProjectDefiHero() {
   return (
     <section
       data-header-theme="dark"
-      className="relative w-full min-h-svh flex flex-col items-center justify-center bg-black overflow-hidden"
+      className="relative w-full min-h-svh flex flex-col items-center justify-start pt-[calc(54px+15vh)] bg-black overflow-hidden"
     >
       <div className="absolute inset-0 overflow-hidden">
         <HeroCanvas />
       </div>
 
-      <div className="relative z-10 flex flex-col items-center gap-6 text-center px-4 w-[92vw] md:w-[min(52vw,1080px)] pt-[10vh]">
+      <div className="relative z-10 flex flex-col items-center gap-6 text-center px-4 w-[92vw] md:w-[min(52vw,1080px)]">
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -41,18 +40,20 @@ export default function ProjectDefiHero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.25 }}
-          className="flex flex-wrap items-center justify-center gap-3"
+          className="flex gap-2 items-center pointer-events-auto"
         >
           <button
             type="button"
-            className="flex items-center justify-center h-10 rounded-full transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 px-6 gap-2 text-sm leading-5 tracking-normal bg-white text-black font-normal [font-family:var(--figma-font-text)]"
+            className="flex items-center justify-center h-10 rounded-full transition-colors hover:bg-[#d9dadd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 px-6 bg-[#edeef0] text-[#111113] font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)]"
+            style={{ fontVariationSettings: "'wdth' 100" }}
           >
             Get started
           </button>
 
           <button
             type="button"
-            className="flex items-center justify-center h-10 rounded-full transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 px-6 gap-1 text-sm leading-5 tracking-normal border border-white/20 text-white font-normal [font-family:var(--figma-font-text)]"
+            className="flex items-center justify-center h-10 rounded-full transition-colors hover:bg-[rgba(221,234,248,0.14)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 px-6 bg-[rgba(221,234,248,0.08)] text-[#edeef0] font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)]"
+            style={{ fontVariationSettings: "'wdth' 100" }}
           >
             View docs
           </button>
