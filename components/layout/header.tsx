@@ -28,6 +28,7 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Arkives & Practices", hasDropdown: true },
+  { label: "Project DeFi", href: "project-defi" },
   { label: "Trade Project" },
   { label: "Research" },
   { label: "Docs" },
