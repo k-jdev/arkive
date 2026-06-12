@@ -157,24 +157,24 @@ export default function Setup() {
             whileInView={reduced ? undefined : "visible"}
             viewport={{ once: true, margin: "-60px" }}
             variants={reduced ? safeFade : setupCard}
-            className="w-full rounded-3xl bg-[#f9f9fb] px-5 md:px-6 py-5"
+            className="w-full rounded-[18px] bg-[#f9f9fb] p-6 md:px-10 md:py-6"
           >
-            <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
-              <div className="shrink-0 size-10 rounded-xl overflow-hidden self-start md:self-auto">
+            <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-6">
+              <div className="shrink-0 w-16 h-12 rounded-xl overflow-hidden">
                 <Image
                   src="/sections/setup/install.webp"
                   alt="Arkive install"
-                  width={40}
-                  height={40}
+                  width={64}
+                  height={48}
                   loading="lazy"
-                  sizes="40px"
+                  sizes="64px"
                   className="w-full h-full object-cover"
                   draggable={false}
                 />
               </div>
 
               <p
-                className="flex-1 font-normal text-(--figma-neutral-12) [font-family:var(--figma-font-text)] max-w-xl"
+                className="flex-1 font-[510] text-[rgba(0,5,9,0.89)] [font-family:var(--figma-font-text)]"
                 style={{
                   fontSize: "var(--figma-font-size-3)",
                   lineHeight: "var(--figma-line-height-3)",
@@ -184,20 +184,23 @@ export default function Setup() {
                 Read our docs on how to transfer context from your model to the
                 new standard for context-capture.
               </p>
-            </div>
 
-            <motion.a
-              href="#"
-              className="inline-flex items-center gap-0.5 font-regular text-(--figma-accent-9) [font-family:var(--figma-font-text)] hover:text-(--figma-accent-10) transition-colors mt-3 md:mt-0"
-              style={{
-                fontSize: "var(--figma-font-size-3)",
-                lineHeight: "var(--figma-line-height-3)",
-              }}
-              aria-label="Documentation"
-            >
-              Documentation
-              <RiArrowRightSLine size={18} aria-hidden="true" />
-            </motion.a>
+              <motion.a
+                href="#"
+                className="inline-flex items-center gap-1 h-10 px-4 rounded-full bg-transparent font-[400] text-(--figma-accent-9) [font-family:var(--figma-font-text)] hover:opacity-90 transition-opacity shrink-0"
+                style={{
+                  fontSize: "var(--figma-font-size-3)",
+                  lineHeight: "var(--figma-line-height-3)",
+                  letterSpacing: "var(--figma-letter-spacing-3)",
+                }}
+                aria-label="Documentation"
+              >
+                Documentation
+                <div className="relative shrink-0 w-[18px] h-[18px] overflow-hidden">
+                  <RiArrowRightSLine size={18} aria-hidden="true" />
+                </div>
+              </motion.a>
+            </div>
           </motion.div>
         </div>
       </div>

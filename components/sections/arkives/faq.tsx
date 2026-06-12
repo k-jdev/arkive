@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   RiArrowDownSLine,
@@ -44,6 +44,61 @@ const FAQ_ITEMS: FaqItem[] = [
       "Every thesis is timestamped and preserved. You can browse your archive chronologically, search by keyword, or filter by outcome — so past reasoning is always one click away.",
   },
 ];
+
+function AnswerContent({
+  answer,
+  isMobile,
+}: {
+  answer: string;
+  isMobile?: boolean;
+}) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    if (ref.current) {
+      setHeight(ref.current.scrollHeight);
+    }
+  }, [answer]);
+
+  return (
+    <motion.p
+      ref={ref}
+      initial={{ height: 0, opacity: 0, marginTop: 0 }}
+      animate={{
+        height,
+        opacity: 1,
+        marginTop: 16,
+        transition: {
+          height: { duration: 0.35, ease: [0.25, 1, 0.5, 1] },
+          opacity: { duration: 0.25, delay: 0.05 },
+          marginTop: { duration: 0.35, ease: [0.25, 1, 0.5, 1] },
+        },
+      }}
+      exit={{
+        height: 0,
+        opacity: 0,
+        marginTop: 0,
+        transition: {
+          height: { duration: 0.3, ease: [0.55, 0, 0.45, 1] },
+          opacity: { duration: 0.15 },
+          marginTop: { duration: 0.3, ease: [0.55, 0, 0.45, 1] },
+        },
+      }}
+      className={`overflow-hidden font-[510] text-[#60646c] ${
+        isMobile
+          ? "text-[14px] leading-5 tracking-normal"
+          : "text-base leading-6 tracking-normal max-w-[601px]"
+      }`}
+      style={{
+        fontFamily: "var(--figma-font-text)",
+        fontVariationSettings: '"wdth" 100',
+      }}
+    >
+      {answer}
+    </motion.p>
+  );
+}
 
 export default function ArkivesFaq() {
   const [openIndex, setOpenIndex] = useState<number | null>(2);
@@ -126,28 +181,12 @@ export default function ArkivesFaq() {
                         </span>
 
                         <div className="hidden md:block">
-                          <AnimatePresence initial={false}>
+                          <AnimatePresence mode="wait">
                             {isOpen && hasAnswer && (
-                              <motion.p
-                                key="answer-desktop"
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: "auto", opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{
-                                  height: {
-                                    duration: 0.35,
-                                    ease: [0.25, 1, 0.5, 1],
-                                  },
-                                  opacity: { duration: 0.2 },
-                                }}
-                                className="overflow-hidden font-[510] text-base leading-6 tracking-normal text-[#60646c] mt-4 max-w-[601px]"
-                                style={{
-                                  fontFamily: "var(--figma-font-text)",
-                                  fontVariationSettings: '"wdth" 100',
-                                }}
-                              >
-                                {item.answer}
-                              </motion.p>
+                              <AnswerContent
+                                key={`desktop-${index}`}
+                                answer={item.answer}
+                              />
                             )}
                           </AnimatePresence>
                         </div>
@@ -167,28 +206,13 @@ export default function ArkivesFaq() {
                     </div>
 
                     <div className="block md:hidden">
-                      <AnimatePresence initial={false}>
+                      <AnimatePresence mode="wait">
                         {isOpen && hasAnswer && (
-                          <motion.p
-                            key="answer-mobile"
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{
-                              height: {
-                                duration: 0.35,
-                                ease: [0.25, 1, 0.5, 1],
-                              },
-                              opacity: { duration: 0.2 },
-                            }}
-                            className="overflow-hidden w-full font-[510] text-[14px] leading-5 tracking-normal text-[#60646c] mt-4"
-                            style={{
-                              fontFamily: "var(--figma-font-text)",
-                              fontVariationSettings: '"wdth" 100',
-                            }}
-                          >
-                            {item.answer}
-                          </motion.p>
+                          <AnswerContent
+                            key={`mobile-${index}`}
+                            answer={item.answer}
+                            isMobile
+                          />
                         )}
                       </AnimatePresence>
                     </div>

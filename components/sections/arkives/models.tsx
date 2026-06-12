@@ -99,11 +99,11 @@ export default function ArkivesModels() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={arkivesCardsContainer}
-          className="flex flex-col xl:flex-row gap-5 w-full"
+          className="grid grid-cols-1 xl:grid-cols-3 gap-5 w-full"
         >
           <motion.div
             variants={arkivesCard}
-            className="w-full xl:w-[317px] h-[280px] bg-white rounded-[18px] flex flex-col items-center justify-center gap-4 px-[55px] py-8 overflow-hidden xl:shrink-0"
+            className="w-full h-[280px] bg-white rounded-[18px] flex flex-col items-center justify-center gap-4 px-[55px] py-8 overflow-hidden min-w-0"
           >
             <div className="grid grid-cols-1 grid-rows-1 place-items-start leading-none relative">
               <div className="col-start-1 row-start-1 w-[188px] h-[92px] rounded-full border border-[#30a46c] opacity-10" />
@@ -170,7 +170,7 @@ export default function ArkivesModels() {
 
           <motion.div
             variants={arkivesCard}
-            className="w-full xl:flex-1 xl:min-w-0 h-[280px] bg-white rounded-[18px] flex flex-col justify-between p-8 overflow-hidden"
+            className="w-full h-[280px] bg-white rounded-[18px] flex flex-col justify-between p-8 overflow-hidden min-w-0"
           >
             <div
               className="font-[510] text-[28px] leading-[36px] tracking-[-0.12px]"
@@ -195,7 +195,7 @@ export default function ArkivesModels() {
 
           <motion.div
             variants={arkivesCard}
-            className="w-full xl:w-[318px] h-[280px] bg-white rounded-[18px] flex flex-col justify-between pt-[54px] pb-8 px-8 overflow-hidden xl:shrink-0 relative"
+            className="w-full h-[280px] bg-white rounded-[18px] flex flex-col justify-between pt-[54px] pb-8 px-8 overflow-hidden relative min-w-0"
           >
             <p
               className="font-[510] text-[24px] leading-[30px] tracking-[-0.1px] text-[rgba(0,5,9,0.89)]"
@@ -227,43 +227,42 @@ export default function ArkivesModels() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={arkivesHeader}
-          className="flex items-center gap-[14px] md:gap-6 w-full bg-white rounded-[18px] p-4 md:px-6 lg:px-10 md:py-6"
+          className="flex flex-col md:flex-row md:items-center justify-between gap-6 w-full bg-white rounded-[18px] px-6 md:px-10 py-6"
         >
-          <div className="flex items-center gap-2 md:gap-6 flex-1 min-w-0">
-            <Image
-              src="/sections/setup/install.webp"
-              alt=""
-              width={48}
-              height={36}
-              className="size-9 md:size-12 rounded-lg object-cover shrink-0"
-              draggable={false}
-            />
+          <div className="flex items-center gap-6">
+            <div className="shrink-0 w-16 h-12 rounded-xl overflow-hidden">
+              <Image
+                src="/sections/setup/install.webp"
+                alt=""
+                width={64}
+                height={48}
+                className="w-full h-full object-cover"
+                draggable={false}
+              />
+            </div>
             <p
-              className="font-[510] text-xs leading-4 md:text-base md:leading-6 tracking-[0.04px] md:tracking-normal text-[rgba(0,7,27,0.5)]"
+              className="flex-1 font-[510] text-[rgba(0,5,9,0.89)] [font-family:var(--figma-font-text)]"
               style={{
-                fontFamily: "var(--figma-font-text)",
-                fontVariationSettings: '"wdth" 100',
+                fontSize: "var(--figma-font-size-3)",
+                lineHeight: "var(--figma-line-height-3)",
+                letterSpacing: "var(--figma-letter-spacing-3)",
               }}
             >
-              <span className="inline md:hidden">
-                Read our docs on how to transfer context
-              </span>
-              <span className="hidden md:inline">
-                Read our docs on how to transfer context from your model to the
-                new standard for context-capture.
-              </span>
+              Read our docs on how to transfer context from your model to the
+              new standard for context-capture.
             </p>
           </div>
 
           <button
             type="button"
-            className="flex items-center justify-center gap-1 h-8 md:h-12 px-3 md:px-6 rounded-full bg-[#1c2024] text-[#fcfcfd] text-sm md:text-lg leading-5 md:leading-[26px] tracking-[-0.04px] font-[510] whitespace-nowrap shrink-0 transition-colors hover:bg-[#2d3035]"
+            className="inline-flex items-center gap-1 h-10 rounded-full bg-transparent font-[400] text-(--figma-accent-9) [font-family:var(--figma-font-text)] hover:opacity-90 transition-opacity shrink-0 self-start md:self-auto"
             style={{
-              fontFamily: "var(--figma-font-text)",
-              fontVariationSettings: '"wdth" 100',
+              fontSize: "var(--figma-font-size-3)",
+              lineHeight: "var(--figma-line-height-3)",
+              letterSpacing: "var(--figma-letter-spacing-3)",
             }}
           >
-            Get started
+            Documentation
           </button>
         </motion.div>
       </div>

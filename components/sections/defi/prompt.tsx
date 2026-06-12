@@ -5,7 +5,7 @@ import { useRef, useCallback, useEffect } from "react";
 
 // ── Types & Data ──────────────────────────────────────────────
 
-type ItemType = "faded" | "jupiter" | "1inch" | "uniswap";
+type ItemType = "faded" | "jupiter" | "1inch" | "uniswap" | "asteroid" | "blue";
 
 interface DockItemDef {
   id: number;
@@ -21,9 +21,9 @@ const ITEMS: DockItemDef[] = [
   { id: 3, type: "jupiter" },
   { id: 4, type: "1inch" },
   { id: 5, type: "uniswap" },
-  { id: 6, type: "jupiter" },
-  { id: 7, type: "1inch" },
-  { id: 8, type: "uniswap" },
+  { id: 6, type: "asteroid" },
+  { id: 7, type: "blue" },
+  { id: 8, type: "jupiter" },
   { id: 9, type: "1inch" },
   { id: 10, type: "faded", opacity: 0.25 },
   { id: 11, type: "faded", opacity: 0.15, hiddenOn: "md" },
@@ -82,6 +82,20 @@ function getVisuals(type: ItemType): Visuals {
         shadow: "0 4px 12px rgba(0,0,0,0.05)",
         border: "1px solid #f0f0f0",
       };
+    case "asteroid":
+      return {
+        bg: "#1A1A2E",
+        rounded: "14px",
+        shadow: "0 4px 12px rgba(0,0,0,0.15)",
+        border: "none",
+      };
+    case "blue":
+      return {
+        bg: "#0F142E",
+        rounded: "14px",
+        shadow: "0 4px 12px rgba(0,0,0,0.15)",
+        border: "none",
+      };
   }
 }
 
@@ -133,7 +147,7 @@ function DockItem({
               className="object-contain"
             />
           </div>
-        ) : (
+        ) : item.type === "uniswap" ? (
           <div className="relative w-[70%] h-[70%]">
             <Image
               src="/sections/defiPrompt/uniswap.png"
@@ -142,7 +156,25 @@ function DockItem({
               className="object-contain"
             />
           </div>
-        )}
+        ) : item.type === "asteroid" ? (
+          <div className="relative w-[70%] h-[70%]">
+            <Image
+              src="/sections/defiPrompt/asteroid.png"
+              alt="Asteroid"
+              fill
+              className="object-contain"
+            />
+          </div>
+        ) : item.type === "blue" ? (
+          <div className="relative w-[70%] h-[70%]">
+            <Image
+              src="/sections/defiPrompt/blue.png"
+              alt="Blue"
+              fill
+              className="object-contain"
+            />
+          </div>
+        ) : null}
       </div>
     </li>
   );

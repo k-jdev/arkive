@@ -26,10 +26,10 @@ export default function PracticesDomains() {
               whileInView="visible"
               viewport={{ once: true, margin: "-80px" }}
               variants={domainsHeader}
-              className="flex flex-col gap-6 w-full lg:w-[480px] shrink-0"
+              className="flex flex-col w-full lg:w-[480px] shrink-0"
             >
               <p
-                className="font-[590] text-(--figma-accent-9) [font-family:var(--figma-font-text)]"
+                className="font-[590] mb-2 text-(--figma-accent-9) [font-family:var(--figma-font-text)]"
                 style={{
                   fontSize: "var(--figma-font-size-5)",
                   lineHeight: "var(--figma-line-height-5)",
@@ -37,24 +37,26 @@ export default function PracticesDomains() {
                   fontVariationSettings: '"wdth" 100',
                 }}
               >
-                Practices
+                Adaptable
               </p>
+              <div className="flex flex-col gap-6">
+                <h2
+                  className="font-[590] text-[clamp(32px,4vw,48px)] leading-[0.9] tracking-[-0.4px] text-(--figma-neutral-12) [font-family:var(--figma-font-text)]"
+                  style={{ fontVariationSettings: '"wdth" 100' }}
+                >
+                  Practices are domains of life and work. One Arkive fits any
+                  domain.
+                </h2>
 
-              <h2
-                className="font-[590] text-[clamp(32px,4vw,48px)] leading-[0.9] tracking-[-0.4px] text-(--figma-neutral-12) [font-family:var(--figma-font-text)]"
-                style={{ fontVariationSettings: '"wdth" 100' }}
-              >
-                Domains of life and work. One Arkive fits any domain.
-              </h2>
-
-              <button
-                type="button"
-                className="flex items-center justify-center gap-1 h-10 rounded-full w-fit px-(--figma-spacing-4) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)] transition-colors hover:bg-[rgba(0,0,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
-                style={{ fontVariationSettings: '"wdth" 100' }}
-              >
-                Learn more
-                <RiArrowRightSLine size={18} aria-hidden="true" />
-              </button>
+                <button
+                  type="button"
+                  className="flex items-center justify-center gap-1 h-10 rounded-full w-fit px-(--figma-spacing-4) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)] transition-colors hover:bg-[rgba(0,0,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
+                  style={{ fontVariationSettings: '"wdth" 100' }}
+                >
+                  Learn more
+                  <RiArrowRightSLine size={18} aria-hidden="true" />
+                </button>
+              </div>
             </motion.div>
 
             {/* ── Mobile images layout — absolute overlays per Figma ── */}

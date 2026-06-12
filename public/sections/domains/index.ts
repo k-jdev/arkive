@@ -1,7 +1,7 @@
 import consistencyDomain from "./consistency.webp";
 import graphDomain from "./graph.webp";
 import gymDomain from "./gym.webp";
-import indexDomain from "./index.webp";
+import indexDomain from "./index.png";
 import watchDomain from "./watch.webp";
 import workDomain from "./work.webp";
 
