@@ -162,6 +162,7 @@ export default function DefiFeatures() {
         description="Whether it's trading, research, writing, or anything else, a practice connects to an Arkive's core, adapting it to that domain."
         buttonLabel="Get started"
         imageSrc="/sections/defiFeatures/card1.png"
+        imageSrcMobile="/sections/defiFeatures/card1Mobile.png"
         imageAlt="Project DeFi is Arkive's first core practice"
         imageLeft={false}
       />
@@ -172,6 +173,7 @@ export default function DefiFeatures() {
         description="A secure layer for your AI to interact with financial markets. You sign every transaction — nothing goes through without your approval."
         buttonLabel="Go to security"
         imageSrc="/sections/defiFeatures/card2.png"
+        imageSrcMobile="/sections/defiFeatures/card2Mobile.png"
         imageAlt="Stay in control of every AI transaction"
         imageLeft={true}
       />

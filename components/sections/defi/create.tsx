@@ -8,6 +8,7 @@ import { setupHeader, setupCard, EASE, safeFade } from "@/lib/animations";
 import { usePrefersReducedMotion } from "@/lib/motion-config";
 
 import cardImg from "@/public/sections/defiCreate/card.png";
+import cardMobileImg from "@/public/sections/defiCreate/cardMobile.png";
 
 const AI_ICONS = [
   { src: claudeIcon, alt: "Claude" },
@@ -112,9 +113,18 @@ export default function DefiCreate() {
           >
             <div className="w-full rounded-3xl overflow-hidden shadow-sm border border-black/5 bg-[#F9F9FB] ">
               <Image
+                src={cardMobileImg}
+                alt="Create your Arkive DeFi"
+                className="w-full h-auto object-cover rounded-2xl lg:hidden"
+                sizes="100vw"
+                priority
+                draggable={false}
+                unoptimized
+              />
+              <Image
                 src={cardImg}
                 alt="Create your Arkive DeFi"
-                className="w-full h-auto object-cover rounded-2xl"
+                className="hidden w-full h-auto object-cover rounded-2xl lg:block"
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 priority
                 draggable={false}
