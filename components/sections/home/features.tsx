@@ -173,7 +173,7 @@ export default function Features() {
         description="Whether it's trading, research, writing, or anything else, a practice connects to an Arkive's core, adapting it to that domain."
         buttonLabel="Explore Practices"
         imageSrc="/sections/practices/card-bg.png"
-        imageSrcMobile="/sections/practices/mobile/practices-mobile.webp"
+        imageSrcMobile="/sections/practices/mobile/practices-mobile.png"
         imageAlt="Practices — domain-specific Arkive extension"
         imageLeft={true}
         imageOverlay={<AnimatedPrompt />}

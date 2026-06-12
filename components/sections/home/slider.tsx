@@ -102,7 +102,7 @@ export default function Slider() {
   return (
     <section
       data-header-theme="light"
-      className="w-full bg-white pt-36 overflow-hidden"
+      className="w-full bg-white py-36 overflow-hidden"
       role="region"
       aria-label="Projects showcase"
       style={{ contentVisibility: "auto", containIntrinsicSize: "auto 500px" }}

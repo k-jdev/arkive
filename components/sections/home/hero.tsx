@@ -183,7 +183,7 @@ export default function Hero() {
             whileInView={reduced || isMobile ? undefined : "visible"}
             viewport={{ once: true, margin: "-100px" }}
             variants={reduced ? safeFade : heroDarkEnter}
-            className="w-[92vw] md:w-[min(65vw,1200px)] mt-[150px]"
+            className="w-[92vw] md:w-[min(65vw,1200px)] mt-[280px] md:mt-[80px]"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
