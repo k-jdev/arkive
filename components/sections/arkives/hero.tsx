@@ -21,13 +21,13 @@ export default function ArkivesHero() {
       >
         <div className="flex flex-col items-center gap-2">
           <p
-            className="font-[590] text-[length:--figma-font-size-5] leading-[--figma-line-height-5] tracking-[--figma-letter-spacing-5] text-white text-center whitespace-nowrap [font-family:var(--figma-font-text)]"
+            className="font-[590] text-[20px] leading-[--figma-line-height-5] tracking-[--figma-letter-spacing-5] text-white text-center whitespace-nowrap [font-family:var(--figma-font-text)]"
             style={{ fontVariationSettings: "'wdth' 100" }}
           >
             Arkives
           </p>
           <h1
-            className="font-[590] text-[clamp(36px,6vw,60px)] leading-[0.9] tracking-[-0.4px] text-white text-center w-full [font-family:var(--figma-font-text)]"
+            className="font-[590] text-[clamp(42px,6vw,60px)] leading-[0.9] tracking-[-0.4px] text-white text-center w-full [font-family:var(--figma-font-text)]"
             style={{ fontVariationSettings: "'wdth' 100" }}
           >
             Sharper reasoning for AI.

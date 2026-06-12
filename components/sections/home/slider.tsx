@@ -62,11 +62,10 @@ export default function Slider() {
       const mobile = w < 768;
       setIsMobile(mobile);
       if (mobile) {
-        const cw = Math.min(DESKTOP_CARD_WIDTH, Math.max(280, w - 48));
+        const cw = Math.min(DESKTOP_CARD_WIDTH, Math.max(280, w - 32));
         setCardWidth(cw);
-        const pl = (w - cw) / 2;
-        setPaddingLeft(pl);
-        setPaddingRight(pl);
+        setPaddingLeft(16);
+        setPaddingRight(16);
       } else {
         setCardWidth(DESKTOP_CARD_WIDTH);
         const pl = Math.max(80, (w - 1280) / 2 + 80);
@@ -113,25 +112,28 @@ export default function Slider() {
         whileInView={reduced ? undefined : "visible"}
         viewport={{ once: true, margin: "-60px" }}
         variants={reduced ? safeFade : sliderHeader}
-        className="max-w-7xl mx-auto px-20"
+        className="max-w-7xl mx-auto px-4 md:px-20"
       >
         {/* Header row */}
-        <div className="flex items-end justify-between mb-10">
-          <div className="flex flex-col gap-2">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
+          <div className="flex flex-col ">
+            <p className="font-[590] text-(--figma-accent-9) text-[14px] leading-[20px] [font-family:var(--figma-font-text)] md:hidden">
+              Practices
+            </p>
             <h2
-              className="font-[590] tracking-[-0.4px] [font-family:var(--figma-font-text)] bg-linear-to-r from-[#1C2024] to-[#0080FF] bg-clip-text text-transparent"
-              style={{ fontSize: "clamp(36px, 4vw, 72px)" }}
+              className="font-[590] tracking-[-0.4px] [font-family:var(--figma-font-text)] bg-linear-to-r from-[#1C2024] to-[#0080FF] bg-clip-text text-transparent whitespace-nowrap"
+              style={{ fontSize: "clamp(48px, 4vw, 72px)" }}
             >
               Project DeFi.
             </h2>
-            <p className="font-medium text-(--figma-neutral-alpha-10) text-(length:--figma-font-size-3) md:text-[24px] leading-(--figma-line-height-3) [font-family:var(--figma-font-text)]">
+            <p className="font-medium text-(--figma-neutral-alpha-10) text-[18px] md:text-[24px] leading-(--figma-line-height-3) [font-family:var(--figma-font-text)]">
               Arkive applied to trading.
             </p>
           </div>
 
           <motion.button
             type="button"
-            className="flex items-center justify-center h-10 rounded-full shrink-0 transition-colors hover:bg-[rgba(0,0,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-regular [font-family:var(--figma-font-text)]"
+            className="mt-5 md:mt-0 flex items-center justify-center h-10 rounded-full shrink-0 transition-colors hover:bg-[rgba(0,0,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-regular [font-family:var(--figma-font-text)] w-fit"
           >
             Learn more
             <RiArrowRightSLine size={18} aria-hidden="true" />
@@ -208,7 +210,7 @@ export default function Slider() {
       </motion.div>
 
       {/* Nav buttons */}
-      <div className="max-w-7xl mx-auto px-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-20">
         <div className="flex items-center justify-end gap-2 mt-8">
           <motion.button
             type="button"

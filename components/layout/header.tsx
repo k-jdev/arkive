@@ -10,6 +10,10 @@ import {
   RiSearchLine,
   RiMenuLine,
   RiCloseLine,
+  RiDiscordLine,
+  RiTwitterXLine,
+  RiGithubLine,
+  RiTelegramLine,
 } from "@remixicon/react";
 import {
   EASE,
@@ -31,6 +35,21 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Trade Project" },
   { label: "Research" },
   { label: "Docs" },
+];
+
+const MOBILE_NAV_ITEMS: NavItem[] = [
+  { label: "Home", href: "/" },
+  { label: "Arkives & Practices", hasDropdown: true },
+  { label: "Trade Project" },
+  { label: "Research" },
+  { label: "Docs" },
+];
+
+const SOCIAL_LINKS = [
+  { label: "Discord", href: "#", Icon: RiDiscordLine },
+  { label: "Twitter", href: "#", Icon: RiTwitterXLine },
+  { label: "GitHub", href: "#", Icon: RiGithubLine },
+  { label: "Telegram", href: "#", Icon: RiTelegramLine },
 ];
 
 export default function Header() {
@@ -304,51 +323,77 @@ export default function Header() {
 
       <AnimatePresence>
         {open && (
-          <motion.nav
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: EASE }}
-            className={[
-              "lg:hidden border-t overflow-hidden",
-              dark
-                ? "border-white/10 bg-black text-white"
-                : "border-black/5 bg-white text-(--figma-neutral-12)",
-            ].join(" ")}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: EASE }}
+            className="fixed inset-0 z-50 bg-black lg:hidden"
             aria-label="Mobile navigation"
           >
-            <motion.ul
+            {/* Top bar: logo + close */}
+            <div className="flex items-center justify-between h-12 px-(--figma-spacing-4) py-(--figma-spacing-3)">
+              <Link
+                href="/"
+                onClick={() => setOpen(false)}
+                aria-label="Arkive home"
+                className="shrink-0"
+              >
+                <Image
+                  src="/icons/logo.svg"
+                  alt="Arkive"
+                  width={40}
+                  height={32}
+                  priority
+                  className="invert"
+                  draggable={false}
+                />
+              </Link>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-center size-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded"
+                aria-label="Close menu"
+              >
+                <RiCloseLine size={24} className="text-white" />
+              </button>
+            </div>
+
+            {/* Menu items */}
+            <motion.div
               initial="hidden"
               animate="visible"
               exit="exit"
               variants={headerMobileContainer}
-              className="flex flex-col py-3 px-4 gap-1"
+              className="flex flex-col px-(--figma-spacing-4) mt-[37px]"
             >
-              {NAV_ITEMS.map((item) => (
-                <motion.li key={item.label} variants={headerMobileItem}>
+              {MOBILE_NAV_ITEMS.map((item, i) => (
+                <motion.div key={item.label} variants={headerMobileItem}>
                   {item.label === "Arkives & Practices" ? (
-                    <div>
+                    <div
+                      className={[
+                        "border-b border-[#2e3135]",
+                        i < MOBILE_NAV_ITEMS.length - 1 ? "" : "border-b-0",
+                      ].join(" ")}
+                    >
                       <button
                         type="button"
                         onClick={(e) => {
                           e.preventDefault();
                           setMobileDropdownOpen(!mobileDropdownOpen);
                         }}
-                        className={[
-                          "flex items-center justify-between w-full h-10 px-3 rounded-lg transition-colors duration-300 text-(length:--figma-font-size-2) leading-(--figma-line-height-2) font-normal",
-                          dark
-                            ? "text-white hover:bg-white/10"
-                            : "hover:bg-black/5 text-(--figma-neutral-12)",
-                        ].join(" ")}
+                        className="flex items-center justify-between py-(--figma-spacing-4) w-full text-left"
                       >
-                        <span>{item.label}</span>
+                        <span className="text-white text-(length:--figma-font-size-7) leading-(--figma-line-height-7) tracking-(--figma-letter-spacing-7) font-normal [font-family:var(--figma-font-text)]">
+                          {item.label}
+                        </span>
                         <RiArrowDownSLine
-                          size={16}
-                          aria-hidden="true"
+                          size={32}
                           className={[
-                            "transition-transform duration-200",
+                            "text-white transition-transform duration-200",
                             mobileDropdownOpen ? "rotate-180" : "",
                           ].join(" ")}
+                          aria-hidden="true"
                         />
                       </button>
                       <AnimatePresence>
@@ -357,32 +402,26 @@ export default function Header() {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="flex flex-col pl-4 gap-1 overflow-hidden"
+                            transition={{ duration: 0.25, ease: EASE }}
+                            className="overflow-hidden"
                           >
                             <Link
                               href="/arkives"
                               onClick={() => setOpen(false)}
-                              className={[
-                                "flex items-center w-full h-9 px-3 rounded-lg transition-colors duration-300 text-(length:--figma-font-size-2) font-normal",
-                                dark
-                                  ? "text-white/80 hover:bg-white/10"
-                                  : "text-(--figma-neutral-12)/80 hover:bg-black/5",
-                              ].join(" ")}
+                              className="flex items-center py-(--figma-spacing-4) w-full border-t border-[#2e3135]"
                             >
-                              Arkives
+                              <span className="text-white/70 text-(length:--figma-font-size-7) leading-(--figma-line-height-7) tracking-(--figma-letter-spacing-7) font-normal [font-family:var(--figma-font-text)]">
+                                Arkives
+                              </span>
                             </Link>
                             <Link
                               href="/practices"
                               onClick={() => setOpen(false)}
-                              className={[
-                                "flex items-center w-full h-9 px-3 rounded-lg transition-colors duration-300 text-(length:--figma-font-size-2) font-normal",
-                                dark
-                                  ? "text-white/80 hover:bg-white/10"
-                                  : "text-(--figma-neutral-12)/80 hover:bg-black/5",
-                              ].join(" ")}
+                              className="flex items-center py-(--figma-spacing-4) w-full border-t border-[#2e3135]"
                             >
-                              Practices
+                              <span className="text-white/70 text-(length:--figma-font-size-7) leading-(--figma-line-height-7) tracking-(--figma-letter-spacing-7) font-normal [font-family:var(--figma-font-text)]">
+                                Practices
+                              </span>
                             </Link>
                           </motion.div>
                         )}
@@ -393,15 +432,21 @@ export default function Header() {
                       href={item.href}
                       onClick={() => setOpen(false)}
                       className={[
-                        "flex items-center justify-between w-full h-10 px-3 rounded-lg transition-colors duration-300 text-(length:--figma-font-size-2) leading-(--figma-line-height-2) font-normal",
-                        dark
-                          ? "text-white hover:bg-white/10"
-                          : "text-(--figma-neutral-12) hover:bg-black/5",
+                        "flex items-center justify-between py-(--figma-spacing-4) w-full",
+                        i < MOBILE_NAV_ITEMS.length - 1
+                          ? "border-b border-[#2e3135]"
+                          : "",
                       ].join(" ")}
                     >
-                      <span>{item.label}</span>
+                      <span className="text-white text-(length:--figma-font-size-7) leading-(--figma-line-height-7) tracking-(--figma-letter-spacing-7) font-normal [font-family:var(--figma-font-text)]">
+                        {item.label}
+                      </span>
                       {item.hasDropdown && (
-                        <RiArrowDownSLine size={16} aria-hidden="true" />
+                        <RiArrowDownSLine
+                          size={32}
+                          className="text-white"
+                          aria-hidden="true"
+                        />
                       )}
                     </Link>
                   ) : (
@@ -409,44 +454,37 @@ export default function Header() {
                       type="button"
                       onClick={() => setOpen(false)}
                       className={[
-                        "flex items-center justify-between w-full h-10 px-3 rounded-lg transition-colors duration-300 text-(length:--figma-font-size-2) leading-(--figma-line-height-2) font-normal",
-                        dark
-                          ? "hover:bg-white/10"
-                          : "hover:bg-black/5 text-(--figma-neutral-12)",
+                        "flex items-center justify-between py-(--figma-spacing-4) w-full text-left",
+                        i < MOBILE_NAV_ITEMS.length - 1
+                          ? "border-b border-[#2e3135]"
+                          : "",
                       ].join(" ")}
                     >
-                      <span>{item.label}</span>
-                      {item.hasDropdown && (
-                        <RiArrowDownSLine size={16} aria-hidden="true" />
-                      )}
+                      <span className="text-white text-(length:--figma-font-size-7) leading-(--figma-line-height-7) tracking-(--figma-letter-spacing-7) font-normal [font-family:var(--figma-font-text)]">
+                        {item.label}
+                      </span>
                     </button>
                   )}
-                </motion.li>
+                </motion.div>
               ))}
-              <motion.li
-                variants={headerMobileItem}
-                className={
-                  dark
-                    ? "pt-1 border-t border-white/10 mt-1"
-                    : "pt-1 border-t border-black/5 mt-1"
-                }
-              >
-                <button
-                  type="button"
-                  className={[
-                    "flex items-center justify-between w-full h-10 px-3 rounded-lg transition-colors duration-300 text-(length:--figma-font-size-2) leading-(--figma-line-height-2) font-normal",
-                    dark
-                      ? "hover:bg-white/10"
-                      : "hover:bg-black/5 text-(--figma-neutral-12)",
-                  ].join(" ")}
-                  aria-label="Search"
+            </motion.div>
+
+            {/* Social icons */}
+            <div className="absolute bottom-8 left-(--figma-spacing-4) right-(--figma-spacing-4) flex items-center justify-between">
+              {SOCIAL_LINKS.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="flex items-center justify-center size-6 text-white/60 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded"
                 >
-                  <span>Search</span>
-                  <RiSearchLine size={16} aria-hidden="true" />
-                </button>
-              </motion.li>
-            </motion.ul>
-          </motion.nav>
+                  <Icon size={24} />
+                </a>
+              ))}
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </motion.header>

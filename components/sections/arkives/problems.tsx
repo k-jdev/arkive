@@ -71,7 +71,7 @@ export default function ArkivesProblems() {
       >
         <motion.h2
           variants={arkivesHeader}
-          className="font-[590] text-[48px] leading-[0.9] tracking-[-0.4px] text-(--figma-neutral-12) [font-family:var(--figma-font-text)]"
+          className="font-[590] text-[clamp(35px,4vw,48px)] leading-[0.9] tracking-[-0.4px] text-(--figma-neutral-12) [font-family:var(--figma-font-text)]"
         >
           Today&apos;s AI memory has 3 problems.
         </motion.h2>
@@ -97,7 +97,7 @@ export default function ArkivesProblems() {
                 />
 
                 <p
-                  className="font-[510] text-(length:--figma-font-size-7) leading-(--figma-line-height-7) tracking-(--figma-letter-spacing-7) [font-family:var(--figma-font-text)]"
+                  className="font-[510] text-[clamp(24px,4vw,28px)] leading-(--figma-line-height-7) tracking-(--figma-letter-spacing-7) [font-family:var(--figma-font-text)]"
                   style={{ color: "rgba(0,5,9,0.89)" }}
                 >
                   {card.title}
@@ -112,7 +112,7 @@ export default function ArkivesProblems() {
                   {card.number}
                 </span>
                 <p
-                  className="font-normal text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)]"
+                  className="font-normal text-(length:--figma-font-size-2) md:text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)]"
                   style={{ color: "rgba(0,5,29,0.45)" }}
                 >
                   {card.description}

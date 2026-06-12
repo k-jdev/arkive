@@ -101,13 +101,13 @@ export default function ArkivesJournal() {
       <div className="max-w-360 mx-auto px-4 md:px-0 py-16 md:py-40">
         <div className="flex flex-col items-center gap-4 mb-8 md:mb-10">
           <h2
-            className="font-[590] text-[32px] md:text-[48px] leading-[0.9] tracking-[-0.4px] text-center [font-family:var(--figma-font-text)]"
+            className="font-[590] text-[35px] md:text-[48px] leading-[0.9] tracking-[-0.4px] text-center [font-family:var(--figma-font-text)]"
             style={{ color: "var(--figma-neutral-12)" }}
           >
             The loop that compounds.
           </h2>
           <p
-            className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) text-center max-w-125 [font-family:var(--figma-font-text)]"
+            className="font-[510] text-(length:--figma-font-size-2) md:text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) text-center max-w-125 [font-family:var(--figma-font-text)]"
             style={{ color: "rgba(0,5,9,0.89)" }}
           >
             An Arkive&apos;s structure enables compounding intelligence.

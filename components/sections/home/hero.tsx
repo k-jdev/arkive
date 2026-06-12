@@ -72,7 +72,7 @@ export default function Hero() {
         >
           <motion.h1
             variants={reduced ? safeFade : heroFadeUp}
-            className="w-full text-center font-[590] text-[40px] md:text-[clamp(40px,5.5vw,72px)] leading-[0.9] tracking-[-0.4px] text-(--figma-neutral-12) [font-family:var(--figma-font-text)]"
+            className="w-full text-center font-[590] text-[42px] md:text-[clamp(42px,5.5vw,72px)] leading-[0.9] tracking-[-0.4px] text-(--figma-neutral-12) [font-family:var(--figma-font-text)]"
           >
             Universal language
             <br />

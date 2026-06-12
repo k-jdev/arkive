@@ -57,14 +57,13 @@ function FeatureBlock({
       <div className="flex flex-col gap-5">
         <h2
           className="font-[590] tracking-[-0.4px] text-(--figma-neutral-12) [font-family:var(--figma-font-text)]"
-          style={{ fontSize: "clamp(32px, 3.3vw, 48px)", lineHeight: 0.9 }}
+          style={{ fontSize: "clamp(35px, 3.3vw, 48px)", lineHeight: 0.9 }}
         >
           {heading}
         </h2>
         <p
-          className="font-regular text-(--figma-neutral-alpha-10) [font-family:var(--figma-font-text)]"
+          className="font-regular text-[14px] md:text-[16px] text-(--figma-neutral-alpha-10) [font-family:var(--figma-font-text)]"
           style={{
-            fontSize: "var(--figma-font-size-3)",
             lineHeight: "var(--figma-line-height-3)",
             letterSpacing: "var(--figma-letter-spacing-3)",
           }}
