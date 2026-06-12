@@ -37,14 +37,6 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Docs" },
 ];
 
-const MOBILE_NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Arkives & Practices", hasDropdown: true },
-  { label: "Trade Project" },
-  { label: "Research" },
-  { label: "Docs" },
-];
-
 const SOCIAL_LINKS = [
   { label: "Discord", href: "#", Icon: RiDiscordLine },
   { label: "Twitter", href: "#", Icon: RiTwitterXLine },
@@ -273,7 +265,7 @@ export default function Header() {
             variants={headerItem}
             type="button"
             className={[
-              "flex items-center justify-center h-8 rounded-full transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
+              "hidden lg:flex items-center justify-center h-8 rounded-full transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
               dark
                 ? "bg-white text-black hover:bg-[#e6e6e6] focus-visible:ring-white/30"
                 : "bg-(--figma-neutral-12) text-(--figma-neutral-1) hover:opacity-90 focus-visible:ring-black/30",
@@ -367,13 +359,13 @@ export default function Header() {
               variants={headerMobileContainer}
               className="flex flex-col px-(--figma-spacing-4) mt-[37px]"
             >
-              {MOBILE_NAV_ITEMS.map((item, i) => (
+              {NAV_ITEMS.map((item, i) => (
                 <motion.div key={item.label} variants={headerMobileItem}>
                   {item.label === "Arkives & Practices" ? (
                     <div
                       className={[
                         "border-b border-[#2e3135]",
-                        i < MOBILE_NAV_ITEMS.length - 1 ? "" : "border-b-0",
+                        i < NAV_ITEMS.length - 1 ? "" : "border-b-0",
                       ].join(" ")}
                     >
                       <button
@@ -433,7 +425,7 @@ export default function Header() {
                       onClick={() => setOpen(false)}
                       className={[
                         "flex items-center justify-between py-(--figma-spacing-4) w-full",
-                        i < MOBILE_NAV_ITEMS.length - 1
+                        i < NAV_ITEMS.length - 1
                           ? "border-b border-[#2e3135]"
                           : "",
                       ].join(" ")}
@@ -455,7 +447,7 @@ export default function Header() {
                       onClick={() => setOpen(false)}
                       className={[
                         "flex items-center justify-between py-(--figma-spacing-4) w-full text-left",
-                        i < MOBILE_NAV_ITEMS.length - 1
+                        i < NAV_ITEMS.length - 1
                           ? "border-b border-[#2e3135]"
                           : "",
                       ].join(" ")}

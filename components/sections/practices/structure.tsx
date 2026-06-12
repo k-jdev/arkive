@@ -110,14 +110,91 @@ export default function PracticesStructure() {
           </p>
         </motion.div>
 
+        {/* ── Mobile layout (per Figma 358px) ── */}
+        <motion.div
+          initial="hidden"
+          whileInView={reduced ? undefined : "visible"}
+          viewport={{ once: true, margin: "-60px" }}
+          variants={reduced ? { visible: {} } : containerVariants}
+          className="block md:hidden w-full"
+        >
+          {/* Header row — 3 folder icons */}
+          <motion.div
+            variants={
+              reduced
+                ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+                : rowVariants
+            }
+            className="flex items-stretch border-b border-[rgba(0,0,0,0.09)]"
+          >
+            <div className="w-[64px] shrink-0" />
+
+            {DOMAINS.map((d) => (
+              <div
+                key={d.key}
+                className="flex-1 flex flex-col items-center gap-2 py-4"
+              >
+                <Image
+                  src={d.img}
+                  alt={d.label}
+                  width={48}
+                  height={48}
+                  className="object-contain"
+                  draggable={false}
+                />
+                <span className="font-[510] text-[12px] leading-[15px] text-center [font-family:var(--figma-font-text)] text-[#1C2024]">
+                  {d.label}
+                </span>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Data rows */}
+          {ROWS.map((row) => (
+            <motion.div
+              key={row.label}
+              variants={
+                reduced
+                  ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+                  : rowVariants
+              }
+              className="flex items-center border-b border-[rgba(0,0,0,0.09)]"
+              style={{ height: 88 }}
+            >
+              <div className="w-[64px] shrink-0 flex items-center justify-center">
+                <span className="font-[510] text-[14px] leading-[20px] [font-family:var(--figma-font-text)] text-[#1C2024]">
+                  {row.label}
+                </span>
+              </div>
+
+              <div className="flex-1 flex items-center justify-center px-2">
+                <span className="text-center font-[400] text-[12px] leading-[16px] [font-family:var(--figma-font-text)] text-[rgba(0,5,29,0.45)]">
+                  {row.trading}
+                </span>
+              </div>
+              <div className="flex-1 flex items-center justify-center px-2">
+                <span className="text-center font-[400] text-[12px] leading-[16px] [font-family:var(--figma-font-text)] text-[rgba(0,5,29,0.45)]">
+                  {row.research}
+                </span>
+              </div>
+              <div className="flex-1 flex items-center justify-center px-2">
+                <span className="text-center font-[400] text-[12px] leading-[16px] [font-family:var(--figma-font-text)] text-[rgba(0,5,29,0.45)]">
+                  {row.health}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* ── Desktop layout ── */}
         <motion.div
           initial="hidden"
           whileInView={reduced ? undefined : "visible"}
           viewport={{ once: true, margin: "-100px" }}
           variants={reduced ? { visible: {} } : containerVariants}
-          className="w-full overflow-x-auto"
+          className="hidden md:block w-full"
         >
-          <div className="min-w-[640px] w-full max-w-[1280px] mx-auto">
+          <div className="w-full max-w-[1280px] mx-auto">
             <motion.div
               variants={
                 reduced

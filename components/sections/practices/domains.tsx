@@ -19,8 +19,8 @@ export default function PracticesDomains() {
   return (
     <section data-header-theme="white" className="w-full">
       <div className="w-full bg-[#f9f9fb]">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-[80px] py-[60px] md:py-[100px]">
-          <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center lg:items-center">
+        <div className="max-w-[1440px] mx-auto px-4 md:px-[80px] pt-16 md:py-[100px]">
+          <div className="flex flex-col lg:flex-row gap-8 md:gap-10 lg:gap-16 items-center lg:items-center">
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -57,12 +57,150 @@ export default function PracticesDomains() {
               </button>
             </motion.div>
 
+            {/* ── Mobile images layout — absolute overlays per Figma ── */}
             <motion.div
               initial="hidden"
               whileInView={reduced ? undefined : "visible"}
               viewport={{ once: true, margin: "-60px" }}
               variants={reduced ? safeContainer : domainsCardsContainer}
-              className="flex-1 relative w-full lg:h-[660px] min-h-[400px]"
+              className="md:hidden relative w-full h-[335px]"
+            >
+              {/* Graph — full width background layer */}
+              <motion.div
+                variants={reduced ? safeFade : domainsCard}
+                className="absolute pointer-events-none overflow-hidden"
+                style={{
+                  left: 0,
+                  top: "3%",
+                  width: "100%",
+                  height: "97%",
+                }}
+              >
+                <div className="relative w-full h-full">
+                  <Image
+                    src={DOMAINS_IMAGES.graphDomain}
+                    alt=""
+                    fill
+                    className="object-contain object-left-top"
+                    sizes="100vw"
+                    draggable={false}
+                  />
+                </div>
+              </motion.div>
+
+              {/* Gym card — top-right */}
+              <motion.div
+                variants={reduced ? safeFade : domainsCard}
+                className="absolute rounded-[8px] overflow-hidden shadow-lg z-10"
+                style={{
+                  left: "32.4%",
+                  top: "3.1%",
+                  width: "30.7%",
+                  aspectRatio: "1",
+                }}
+              >
+                <Image
+                  src={DOMAINS_IMAGES.gymDomain}
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="30vw"
+                  draggable={false}
+                />
+              </motion.div>
+
+              {/* Consistency chart — below-right, overlaps gym */}
+              <motion.div
+                variants={reduced ? safeFade : domainsCard}
+                className="absolute rounded-[8px] overflow-hidden shadow-lg z-20"
+                style={{
+                  left: "57.3%",
+                  top: "10%",
+                  width: "42.7%",
+                  aspectRatio: "1.27",
+                }}
+              >
+                <Image
+                  src={DOMAINS_IMAGES.consistencyDomain}
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="43vw"
+                  draggable={false}
+                />
+              </motion.div>
+
+              {/* Work card */}
+              <motion.div
+                variants={reduced ? safeFade : domainsCard}
+                className="absolute rounded-[8px] overflow-hidden shadow-lg z-30"
+                style={{
+                  left: "21.4%",
+                  top: "50.4%",
+                  width: "38.9%",
+                  aspectRatio: "1.28",
+                }}
+              >
+                <Image
+                  src={DOMAINS_IMAGES.workDomain}
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="39vw"
+                  draggable={false}
+                />
+              </motion.div>
+
+              {/* Watch card */}
+              <motion.div
+                variants={reduced ? safeFade : domainsCard}
+                className="absolute rounded-[8px] overflow-hidden shadow-lg z-40"
+                style={{
+                  left: "49.6%",
+                  top: "58.2%",
+                  width: "38.3%",
+                  aspectRatio: "1.34",
+                }}
+              >
+                <Image
+                  src={DOMAINS_IMAGES.watchDomain}
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="38vw"
+                  draggable={false}
+                />
+              </motion.div>
+
+              {/* Index card */}
+              <motion.div
+                variants={reduced ? safeFade : domainsCard}
+                className="absolute rounded-[8px] overflow-hidden shadow-2xl z-50"
+                style={{
+                  left: "31.7%",
+                  top: "31.9%",
+                  width: "52%",
+                  aspectRatio: "1.76",
+                }}
+              >
+                <Image
+                  src={DOMAINS_IMAGES.indexDomain}
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="44vw"
+                  draggable={false}
+                />
+              </motion.div>
+            </motion.div>
+
+            {/* ── Desktop images layout ── */}
+            <motion.div
+              initial="hidden"
+              whileInView={reduced ? undefined : "visible"}
+              viewport={{ once: true, margin: "-60px" }}
+              variants={reduced ? safeContainer : domainsCardsContainer}
+              className="hidden md:block flex-1 relative w-full h-[400px] lg:h-[660px]"
             >
               <motion.div
                 variants={reduced ? safeFade : domainsCard}

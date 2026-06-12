@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
+import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
 import { useSlider } from "@/lib/use-slider";
 import {
   sliderHeader,
@@ -96,6 +97,10 @@ export default function PracticesSlider() {
     onTouchMove,
     onTouchEnd,
     isDragging,
+    prev,
+    next,
+    step,
+    maxOffset,
   } = useSlider({
     slidesCount: SLIDES.length,
     cardWidth,
@@ -191,6 +196,30 @@ export default function PracticesSlider() {
           ))}
         </div>
       </motion.div>
+
+      {/* Nav buttons — right-aligned */}
+      <div className="px-6 md:pl-[15.694vw] md:pr-20 mt-8">
+        <div className="flex items-center justify-end gap-2">
+          <motion.button
+            type="button"
+            onClick={prev}
+            disabled={offset <= 0}
+            aria-label="Previous slide"
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) transition-colors hover:bg-[rgba(0,0,51,0.12)] disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
+          >
+            <RiArrowLeftSLine size={20} aria-hidden="true" />
+          </motion.button>
+          <motion.button
+            type="button"
+            onClick={next}
+            disabled={offset + step > maxOffset}
+            aria-label="Next slide"
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) transition-colors hover:bg-[rgba(0,0,51,0.12)] disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
+          >
+            <RiArrowRightSLine size={20} aria-hidden="true" />
+          </motion.button>
+        </div>
+      </div>
     </section>
   );
 }

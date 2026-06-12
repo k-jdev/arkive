@@ -74,13 +74,13 @@ function DockItem({
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className={`${cls} ${
         item.type === "jupiter"
-          ? "w-[88.363px] h-[88.363px]"
-          : "w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20"
+          ? "w-[66px] h-[66px] sm:w-[62px] sm:h-[62px] md:w-[72px] md:h-[72px] lg:w-[88.363px] lg:h-[88.363px]"
+          : "w-[60px] h-[60px] sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20"
       } ${
         item.type === "faded"
           ? "rounded-[14px] sm:rounded-2xl border border-neutral-200/40 bg-neutral-100/20"
           : item.type === "jupiter"
-            ? "rounded-[22.091px] bg-[#072622] aspect-square shadow-[0_96px_27px_0_rgba(0,0,0,0),0_61px_24px_0_rgba(0,0,0,0.01),0_34px_21px_0_rgba(0,0,0,0.05),0_15px_15px_0_rgba(0,0,0,0.09),0_4px_8px_0_rgba(0,0,0,0.10)]"
+            ? "rounded-[22px] sm:rounded-[15px] md:rounded-[17px] lg:rounded-[20.891px] bg-[#072622] shadow-[0_96px_27px_0_rgba(0,0,0,0),0_61px_24px_0_rgba(0,0,0,0.01),0_34px_21px_0_rgba(0,0,0,0.05),0_15px_15px_0_rgba(0,0,0,0.09),0_4px_8px_0_rgba(0,0,0,0.10)]"
             : item.type === "1inch"
               ? "rounded-[14px] sm:rounded-2xl bg-black border border-neutral-900 shadow-[0_4px_12px_rgba(0,0,0,0.15)] overflow-hidden"
               : "rounded-[14px] sm:rounded-2xl bg-white border border-neutral-100 shadow-[0_4px_12px_rgba(0,0,0,0.05)]"
@@ -121,29 +121,37 @@ function DockItem({
 
 export default function DefiPrompt() {
   const reduced = usePrefersReducedMotion();
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(6);
 
   return (
     <section
       data-header-theme="light"
-      className="w-full bg-white flex flex-col py-24 md:py-36 items-center justify-center overflow-hidden border-t border-neutral-100"
+      className="w-full bg-white flex flex-col py-24 md:py-36 items-center justify-center border-t border-neutral-100"
       style={{ contentVisibility: "auto", containIntrinsicSize: "auto 500px" }}
     >
       {/* Dock Container */}
-      <div
-        className="w-full max-w-6xl flex flex-row items-end justify-center gap-2 sm:gap-3 md:gap-4 px-4 mb-16 select-none h-32"
-        onMouseLeave={() => setHoveredIndex(null)}
-      >
-        {ITEMS.map((item, index) => (
-          <DockItem
-            key={item.id}
-            item={item}
-            index={index}
-            hoveredIndex={hoveredIndex}
-            setHoveredIndex={setHoveredIndex}
-            reduced={reduced}
-          />
-        ))}
+      <div className="w-full mb-16 select-none overflow-visible px-4">
+        <div
+          className="flex flex-row items-end justify-center mx-auto"
+          style={{
+            gap: "clamp(8px, 1vw, 16px)",
+            transform: "scale(clamp(0.18, 1vw, 1))",
+            transformOrigin: "center bottom",
+            height: "clamp(16px, 2vw, 128px)",
+          }}
+          onMouseLeave={() => setHoveredIndex(null)}
+        >
+          {ITEMS.map((item, index) => (
+            <DockItem
+              key={item.id}
+              item={item}
+              index={index}
+              hoveredIndex={hoveredIndex}
+              setHoveredIndex={setHoveredIndex}
+              reduced={reduced}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Headline */}
@@ -152,15 +160,18 @@ export default function DefiPrompt() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="text-center px-4 max-w-3xl flex flex-col items-center gap-3"
+        className="text-center px-4 max-w-3xl flex flex-col items-center gap-4 md:gap-3"
       >
-        <h2 className="text-[32px] md:text-[clamp(32px,4vw,56px)] font-[590] tracking-[-0.03em] [font-family:var(--figma-font-text)] leading-[1.05]">
+        <h2 className="text-[48px] md:text-[clamp(32px,4vw,56px)] font-[590] tracking-[-0.4px] [font-family:var(--figma-font-text)] leading-[0.9] md:leading-[1.05]">
           <span className="bg-linear-to-r from-[#1C2024] to-[#0080FF] text-transparent bg-clip-text">
             All of DeFi, one prompt away
           </span>
         </h2>
 
-        <p className="text-(--figma-neutral-alpha-10) font-normal text-sm sm:text-base md:text-lg tracking-[0.01em] [font-family:var(--figma-font-text)] max-w-xl mt-1">
+        <p
+          className="font-[510] text-[20px] leading-[28px] tracking-[-0.08px] md:text-base md:font-normal md:tracking-[0.01em] [font-family:var(--figma-font-text)] max-w-xl"
+          style={{ color: "rgba(0, 7, 27, 0.50)" }}
+        >
           Trade spot & perpetuals on EVM and Solana.
         </p>
       </motion.div>
