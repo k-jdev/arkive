@@ -16,6 +16,12 @@ const sfPro = localFont({
 export const metadata: Metadata = {
   title: "Arkive",
   description: "",
+  icons: {
+    icon: [
+      { url: "/icons/logo.svg", media: "(prefers-color-scheme: light)" },
+      { url: "/icons/logo-white.svg", media: "(prefers-color-scheme: dark)" },
+    ],
+  },
   other: {
     "format-detection": "telephone=no",
   },
