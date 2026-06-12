@@ -55,11 +55,11 @@ export default function ArkivesFaq() {
   return (
     <section data-header-theme="light" className="w-full bg-white">
       <div className="max-w-[1440px] mx-auto px-[clamp(16px,4.17vw,80px)] pt-20 md:pt-64 pb-16 md:pb-24">
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
-          <div className="flex flex-col items-start gap-6 lg:w-[380px] lg:shrink-0">
-            <div>
+        <div className="flex flex-col lg:flex-row gap-[25px] lg:gap-16">
+          <div className="flex flex-col items-center md:items-start gap-4 md:gap-6 lg:w-[380px] lg:shrink-0">
+            <div className="text-center md:text-left">
               <h2
-                className="font-[590] text-[48px] leading-[0.9] tracking-[-0.4px] text-[#1c2024]"
+                className="font-[590] text-[35px] md:text-[48px] leading-[1.0] tracking-[-0.4px] text-[#1c2024]"
                 style={{
                   fontFamily: "var(--figma-font-text)",
                   fontVariationSettings: '"wdth" 100',
@@ -68,7 +68,7 @@ export default function ArkivesFaq() {
                 Any questions?
               </h2>
               <h2
-                className="font-[590] text-[48px] leading-[0.9] tracking-[-0.4px] text-[#b9bbc6]"
+                className="font-[590] text-[35px] md:text-[48px] leading-[1.0] tracking-[-0.4px] text-[#b9bbc6]"
                 style={{
                   fontFamily: "var(--figma-font-text)",
                   fontVariationSettings: '"wdth" 100',
@@ -111,10 +111,10 @@ export default function ArkivesFaq() {
                   <button
                     type="button"
                     onClick={() => toggleItem(index)}
-                    className="w-full bg-[#f9f9fb] rounded-[18px] px-6 md:px-8 py-6 text-left group"
+                    className="w-full bg-[#f9f9fb] rounded-[18px] px-6 md:px-8 py-4 md:py-6 text-left group"
                   >
                     <div className="flex items-start gap-4 md:gap-[56px]">
-                      <div className="flex-1 min-w-0 flex flex-col gap-4">
+                      <div className="flex-1 min-w-0">
                         <span
                           className="font-[510] text-[20px] md:text-[28px] leading-[28px] md:leading-[36px] tracking-[-0.12px] text-[#1c2024]"
                           style={{
@@ -125,34 +125,36 @@ export default function ArkivesFaq() {
                           {item.question}
                         </span>
 
-                        <AnimatePresence initial={false}>
-                          {isOpen && hasAnswer && (
-                            <motion.p
-                              key="answer"
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{
-                                height: {
-                                  duration: 0.35,
-                                  ease: [0.25, 1, 0.5, 1],
-                                },
-                                opacity: { duration: 0.2 },
-                              }}
-                              className="overflow-hidden font-[510] text-[14px] md:text-base leading-5 md:leading-6 tracking-normal text-[#60646c] max-w-[601px]"
-                              style={{
-                                fontFamily: "var(--figma-font-text)",
-                                fontVariationSettings: '"wdth" 100',
-                              }}
-                            >
-                              {item.answer}
-                            </motion.p>
-                          )}
-                        </AnimatePresence>
+                        <div className="hidden md:block">
+                          <AnimatePresence initial={false}>
+                            {isOpen && hasAnswer && (
+                              <motion.p
+                                key="answer-desktop"
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{
+                                  height: {
+                                    duration: 0.35,
+                                    ease: [0.25, 1, 0.5, 1],
+                                  },
+                                  opacity: { duration: 0.2 },
+                                }}
+                                className="overflow-hidden font-[510] text-base leading-6 tracking-normal text-[#60646c] mt-4 max-w-[601px]"
+                                style={{
+                                  fontFamily: "var(--figma-font-text)",
+                                  fontVariationSettings: '"wdth" 100',
+                                }}
+                              >
+                                {item.answer}
+                              </motion.p>
+                            )}
+                          </AnimatePresence>
+                        </div>
                       </div>
 
                       <div
-                        className={`flex items-center justify-center size-10 shrink-0 transition-all duration-300 ${
+                        className={`flex items-center justify-center size-8 md:size-10 shrink-0 transition-all duration-300 ${
                           isOpen ? "bg-[#f0f0f3] rounded-full" : "rounded-[9px]"
                         }`}
                       >
@@ -162,6 +164,33 @@ export default function ArkivesFaq() {
                           <RiArrowDownSLine size={18} aria-hidden="true" />
                         )}
                       </div>
+                    </div>
+
+                    <div className="block md:hidden">
+                      <AnimatePresence initial={false}>
+                        {isOpen && hasAnswer && (
+                          <motion.p
+                            key="answer-mobile"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{
+                              height: {
+                                duration: 0.35,
+                                ease: [0.25, 1, 0.5, 1],
+                              },
+                              opacity: { duration: 0.2 },
+                            }}
+                            className="overflow-hidden w-full font-[510] text-[14px] leading-5 tracking-normal text-[#60646c] mt-4"
+                            style={{
+                              fontFamily: "var(--figma-font-text)",
+                              fontVariationSettings: '"wdth" 100',
+                            }}
+                          >
+                            {item.answer}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </button>
                 </motion.div>

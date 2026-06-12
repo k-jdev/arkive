@@ -114,7 +114,8 @@ export default function ArkivesJournal() {
           </p>
         </div>
 
-        <div className="relative md:h-137.5 rounded-[24px] overflow-clip bg-[#F9F9FB]">
+        <div className="relative md:h-137.5 h-125 rounded-[24px] overflow-clip bg-[#F9F9FB]">
+          {/* ── Background image ── */}
           <div className="absolute inset-0">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
@@ -166,6 +167,7 @@ export default function ArkivesJournal() {
             />
           )}
 
+          {/* ── Desktop arrows (left side) ── */}
           <div className="hidden md:flex absolute left-8 top-1/2 -translate-y-1/2 flex-col gap-4 z-10">
             <motion.button
               type="button"
@@ -191,113 +193,179 @@ export default function ArkivesJournal() {
             </motion.button>
           </div>
 
-          <div className="relative md:absolute md:left-22 md:top-1/2 md:-translate-y-1/2 px-4 md:px-0 py-10 md:py-0">
-            <div className="flex flex-col gap-3 items-start">
-              {JOURNAL_ITEMS.map((item, index) => {
-                const isActive = index === activeIndex;
-                return (
-                  <motion.div
-                    key={item.label}
-                    onClick={() => handleCardClick(index)}
-                    className={`bg-[#f0f0f3] overflow-hidden shrink-0 cursor-pointer ${isActive ? "w-full" : "w-full md:w-40"} rounded-[18px] transition-all duration-300`}
-                    animate={{
-                      borderRadius: isActive ? 18 : 18,
-                    }}
-                    transition={springs.layout}
-                    whileHover={!isActive ? { scale: 1.02 } : {}}
-                    whileTap={!isActive ? { scale: 0.98 } : {}}
-                  >
-                    <div
-                      className={`flex items-center gap-3 shrink-0 h-15 transition-[padding] duration-200  ${
-                        isActive ? "px-8 py-3" : "px-6 py-3"
-                      }`}
-                    >
-                      <Image
-                        src={item.icon}
-                        alt=""
-                        width={24}
-                        height={24}
-                        aria-hidden="true"
-                        className="shrink-0"
-                        draggable={false}
-                      />
-                      <p
-                        className="font-[510] text-(length:--figma-font-size-6) leading-(--figma-line-height-6) tracking-(--figma-letter-spacing-6) shrink-0 [font-family:var(--figma-font-text)]"
-                        style={{ color: "rgba(0,5,9,0.89)" }}
-                      >
-                        {item.label}
-                      </p>
-                    </div>
-
-                    <motion.div
-                      initial={false}
-                      animate={{
-                        maxHeight: isActive ? 120 : 0,
-                        opacity: isActive ? 1 : 0,
-                      }}
-                      transition={{
-                        maxHeight: {
-                          type: "spring",
-                          stiffness: 280,
-                          damping: 26,
-                        },
-                        opacity: {
-                          duration: isActive ? duration.normal : duration.fast,
-                          ease: easing.smooth,
-                          delay: isActive ? 0.06 : 0,
-                        },
-                      }}
-                      style={{ overflow: "hidden" }}
-                      aria-hidden={!isActive}
-                    >
-                      {item.description && (
+          {/* ── Mobile: card + separate arrows ── */}
+          <div className="flex md:hidden flex-col h-full">
+            <div className="relative z-10 px-4 pt-6">
+              <div className="flex items-start gap-3">
+                {(() => {
+                  const item = JOURNAL_ITEMS[activeIndex];
+                  return (
+                    <div className="flex-1 min-w-0 bg-[#f0f0f3] rounded-[18px] overflow-hidden shrink-0">
+                      <div className="flex items-center gap-2 md:gap-3 shrink-0 h-15 px-6 py-2 md:py-3">
+                        <Image
+                          src={item.icon}
+                          alt=""
+                          width={20}
+                          height={20}
+                          aria-hidden="true"
+                          className="shrink-0 md:w-6 md:h-6"
+                          draggable={false}
+                        />
                         <p
-                          className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) px-8 pb-6 [font-family:var(--figma-font-text)] w-full md:w-95"
-                          style={{ color: "rgba(0,7,27,0.5)" }}
+                          className="font-[510] text-[18px] md:text-(length:--figma-font-size-6) leading-(--figma-line-height-6) tracking-(--figma-letter-spacing-6) shrink-0 [font-family:var(--figma-font-text)]"
+                          style={{ color: "rgba(0,5,9,0.89)" }}
                         >
-                          {item.description.map((seg, i) => (
-                            <span
-                              key={i}
-                              style={
-                                seg.bold
-                                  ? { color: "rgba(0,5,9,0.89)" }
-                                  : undefined
-                              }
-                            >
-                              {seg.text}
-                            </span>
-                          ))}
+                          {item.label}
                         </p>
-                      )}
-                    </motion.div>
-                  </motion.div>
-                );
-              })}
-            </div>
+                      </div>
 
-            <div className="flex md:hidden justify-center gap-4 mt-6">
-              <motion.button
-                type="button"
-                aria-label="Previous step"
-                onClick={goUp}
-                className="flex items-center justify-center size-10 rounded-full bg-[#f0f0f3]"
-                whileHover={{ scale: 1.08, backgroundColor: "#e8e8ec" }}
-                whileTap={{ scale: 0.93 }}
-                transition={springs.snappy}
-              >
-                <RiArrowUpSLine size={18} aria-hidden="true" />
-              </motion.button>
-              <motion.button
-                type="button"
-                aria-label="Next step"
-                onClick={goDown}
-                className="flex items-center justify-center size-10 rounded-full bg-[#f0f0f3]"
-                whileHover={{ scale: 1.08, backgroundColor: "#e8e8ec" }}
-                whileTap={{ scale: 0.93 }}
-              >
-                <RiArrowDownSLine size={18} aria-hidden="true" />
-              </motion.button>
+                      <motion.div
+                        initial={false}
+                        animate={{ maxHeight: 120, opacity: 1 }}
+                        transition={{
+                          maxHeight: {
+                            type: "spring",
+                            stiffness: 280,
+                            damping: 26,
+                          },
+                          opacity: {
+                            duration: duration.normal,
+                            ease: easing.smooth,
+                            delay: 0.06,
+                          },
+                        }}
+                        style={{ overflow: "hidden" }}
+                      >
+                        {item.description && (
+                          <p
+                            className="font-[510] text-(length:--figma-font-size-2) md:text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) px-6 pb-5 [font-family:var(--figma-font-text)] w-full"
+                            style={{ color: "rgba(0,7,27,0.5)" }}
+                          >
+                            {item.description.map((seg, i) => (
+                              <span
+                                key={i}
+                                style={
+                                  seg.bold
+                                    ? { color: "rgba(0,5,9,0.89)" }
+                                    : undefined
+                                }
+                              >
+                                {seg.text}
+                              </span>
+                            ))}
+                          </p>
+                        )}
+                      </motion.div>
+                    </div>
+                  );
+                })()}
+
+                <div className="flex flex-col gap-2 shrink-0 justify-center self-center">
+                  <motion.button
+                    type="button"
+                    aria-label="Previous step"
+                    onClick={goUp}
+                    className="flex items-center justify-center size-10 rounded-full bg-[#f0f0f3]"
+                    whileHover={{ scale: 1.08, backgroundColor: "#e8e8ec" }}
+                    whileTap={{ scale: 0.93 }}
+                    transition={springs.snappy}
+                  >
+                    <RiArrowUpSLine size={18} aria-hidden="true" />
+                  </motion.button>
+                  <motion.button
+                    type="button"
+                    aria-label="Next step"
+                    onClick={goDown}
+                    className="flex items-center justify-center size-10 rounded-full bg-[#f0f0f3]"
+                    whileHover={{ scale: 1.08, backgroundColor: "#e8e8ec" }}
+                    whileTap={{ scale: 0.93 }}
+                    transition={springs.snappy}
+                  >
+                    <RiArrowDownSLine size={18} aria-hidden="true" />
+                  </motion.button>
+                </div>
+              </div>
             </div>
+          </div>
+
+          {/* ── Desktop: accordion ── */}
+          <div className="hidden md:flex md:absolute md:left-22 md:top-1/2 md:-translate-y-1/2 md:flex-col md:gap-3 md:items-start">
+            {JOURNAL_ITEMS.map((item, index) => {
+              const isActive = index === activeIndex;
+              return (
+                <motion.div
+                  key={item.label}
+                  onClick={() => handleCardClick(index)}
+                  className={`bg-[#f0f0f3] overflow-hidden shrink-0 cursor-pointer ${isActive ? "w-full" : "w-40"} rounded-[18px]`}
+                  animate={{ borderRadius: 18 }}
+                  transition={springs.layout}
+                  whileHover={!isActive ? { scale: 1.02 } : {}}
+                  whileTap={!isActive ? { scale: 0.98 } : {}}
+                >
+                  <div
+                    className={`flex items-center gap-3 shrink-0 h-15 transition-[padding] duration-200 ${isActive ? "px-8 py-3" : "px-6 py-3"}`}
+                  >
+                    <Image
+                      src={item.icon}
+                      alt=""
+                      width={24}
+                      height={24}
+                      aria-hidden="true"
+                      className="shrink-0"
+                      draggable={false}
+                    />
+                    <p
+                      className="font-[510] text-(length:--figma-font-size-6) leading-(--figma-line-height-6) tracking-(--figma-letter-spacing-6) shrink-0 [font-family:var(--figma-font-text)]"
+                      style={{ color: "rgba(0,5,9,0.89)" }}
+                    >
+                      {item.label}
+                    </p>
+                  </div>
+
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      maxHeight: isActive ? 120 : 0,
+                      opacity: isActive ? 1 : 0,
+                    }}
+                    transition={{
+                      maxHeight: {
+                        type: "spring",
+                        stiffness: 280,
+                        damping: 26,
+                      },
+                      opacity: {
+                        duration: isActive ? duration.normal : duration.fast,
+                        ease: easing.smooth,
+                        delay: isActive ? 0.06 : 0,
+                      },
+                    }}
+                    style={{ overflow: "hidden" }}
+                    aria-hidden={!isActive}
+                  >
+                    {item.description && (
+                      <p
+                        className="font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) px-8 pb-6 [font-family:var(--figma-font-text)] w-95"
+                        style={{ color: "rgba(0,7,27,0.5)" }}
+                      >
+                        {item.description.map((seg, i) => (
+                          <span
+                            key={i}
+                            style={
+                              seg.bold
+                                ? { color: "rgba(0,5,9,0.89)" }
+                                : undefined
+                            }
+                          >
+                            {seg.text}
+                          </span>
+                        ))}
+                      </p>
+                    )}
+                  </motion.div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>

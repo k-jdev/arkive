@@ -74,17 +74,17 @@ function AvatarStack() {
 
 export default function ArkivesModels() {
   return (
-    <section data-header-theme="white" className="w-full px-5 md:px-[80px]">
-      <div className="max-w-[1440px] rounded-[24px] bg-[#f9f9fb] w-full mx-auto px-6 lg:px-[80px] xl:px-[144px] py-[60px] md:py-[100px] flex flex-col gap-10">
+    <section data-header-theme="white" className="w-full px-4 md:px-[80px]">
+      <div className="max-w-[1440px] rounded-[24px] bg-[#f9f9fb] w-full mx-auto px-5 md:px-6 lg:px-[80px] xl:px-[144px] pt-[44px] pb-0 md:py-[60px] lg:py-[100px] flex flex-col gap-5 md:gap-10">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={arkivesHeader}
-          className="flex items-center justify-between w-full"
+          className="flex items-center justify-center md:justify-between w-full"
         >
           <h2
-            className="font-[590] text-[#1c2024] text-[clamp(32px,4vw,48px)] leading-[1.0] tracking-[-0.4px]"
+            className="font-[590] text-[#1c2024] text-[35px] md:text-[clamp(32px,4vw,48px)] leading-[1.0] tracking-[-0.4px] text-center md:text-left"
             style={{
               fontFamily: "var(--figma-font-text)",
               fontVariationSettings: '"wdth" 100',
@@ -170,7 +170,7 @@ export default function ArkivesModels() {
 
           <motion.div
             variants={arkivesCard}
-            className="flex-1 min-w-0 h-[280px] bg-white rounded-[18px] flex flex-col justify-between p-8 overflow-hidden"
+            className="w-full xl:flex-1 xl:min-w-0 h-[280px] bg-white rounded-[18px] flex flex-col justify-between p-8 overflow-hidden"
           >
             <div
               className="font-[510] text-[28px] leading-[36px] tracking-[-0.12px]"
@@ -227,32 +227,37 @@ export default function ArkivesModels() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={arkivesHeader}
-          className="flex flex-col lg:flex-row items-center justify-between gap-6 w-full bg-white rounded-[18px] px-6 sm:px-10 py-6"
+          className="flex items-center gap-[14px] md:gap-6 w-full bg-white rounded-[18px] p-4 md:px-6 lg:px-10 md:py-6"
         >
-          <div className="flex flex-col sm:flex-row items-center gap-6 w-full lg:w-auto">
+          <div className="flex items-center gap-2 md:gap-6 flex-1 min-w-0">
             <Image
               src="/sections/setup/install.webp"
               alt=""
-              width={64}
-              height={48}
-              className="h-[48px] w-[64px] rounded-lg object-cover shrink-0"
+              width={48}
+              height={36}
+              className="size-9 md:size-12 rounded-lg object-cover shrink-0"
               draggable={false}
             />
             <p
-              className="font-[510] text-base leading-6 tracking-[0px] text-[rgba(0,5,9,0.89)] w-full lg:max-w-[511px] flex-1 text-center sm:text-left"
+              className="font-[510] text-xs leading-4 md:text-base md:leading-6 tracking-[0.04px] md:tracking-normal text-[rgba(0,7,27,0.5)]"
               style={{
                 fontFamily: "var(--figma-font-text)",
                 fontVariationSettings: '"wdth" 100',
               }}
             >
-              Read our docs on how to transfer context from your model to the
-              new standard for context-capture.
+              <span className="inline md:hidden">
+                Read our docs on how to transfer context
+              </span>
+              <span className="hidden md:inline">
+                Read our docs on how to transfer context from your model to the
+                new standard for context-capture.
+              </span>
             </p>
           </div>
 
           <button
             type="button"
-            className="flex items-center justify-center gap-1 h-[48px] px-6 rounded-full bg-[#1c2024] text-[#fcfcfd] text-[18px] leading-[26px] tracking-[-0.04px] font-[510] whitespace-nowrap shrink-0 transition-colors hover:bg-[#2d3035]"
+            className="flex items-center justify-center gap-1 h-8 md:h-12 px-3 md:px-6 rounded-full bg-[#1c2024] text-[#fcfcfd] text-sm md:text-lg leading-5 md:leading-[26px] tracking-[-0.04px] font-[510] whitespace-nowrap shrink-0 transition-colors hover:bg-[#2d3035]"
             style={{
               fontFamily: "var(--figma-font-text)",
               fontVariationSettings: '"wdth" 100',
