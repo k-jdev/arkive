@@ -11,23 +11,27 @@ export default function ArkivesHero() {
       data-header-theme="dark"
       className="relative w-full min-h-svh flex flex-col items-center justify-center bg-black overflow-hidden"
     >
-      <HeroCanvas />
+      {/* Canvas — behind text, catches all mouse events, centered */}
+      <div className="absolute inset-0 z-0 pointer-events-auto overflow-hidden">
+        <HeroCanvas />
+      </div>
 
+      {/* Text overlay — passes events through to canvas */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
         className="relative z-10 flex flex-col items-center gap-6 w-[min(92vw,767px)] pointer-events-none"
       >
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center gap-2 pointer-events-none">
           <p
-            className="font-[590] text-[20px] leading-[--figma-line-height-5] tracking-[--figma-letter-spacing-5] text-white text-center whitespace-nowrap [font-family:var(--figma-font-text)]"
+            className="font-[590] text-[20px] leading-[--figma-line-height-5] tracking-[--figma-letter-spacing-5] text-white text-center whitespace-nowrap [font-family:var(--figma-font-text)] pointer-events-none"
             style={{ fontVariationSettings: "'wdth' 100" }}
           >
             Arkives
           </p>
           <h1
-            className="font-[590] text-[clamp(42px,6vw,60px)] leading-[0.9] tracking-[-0.4px] text-white text-center w-full [font-family:var(--figma-font-text)]"
+            className="font-[590] text-[clamp(42px,6vw,60px)] leading-[0.9] tracking-[-0.4px] text-white text-center w-full [font-family:var(--figma-font-text)] pointer-events-none"
             style={{ fontVariationSettings: "'wdth' 100" }}
           >
             Sharper reasoning for AI.

@@ -111,7 +111,7 @@ export default function DefiCreate() {
             variants={reduced ? safeFade : setupCard}
             className="w-full lg:w-[55%] shrink-0"
           >
-            <div className="w-full rounded-3xl overflow-hidden shadow-sm border border-black/5 bg-[#F9F9FB] ">
+            <div className="w-full rounded-3xl overflow-hidden  border border-black/5 bg-[#F9F9FB] ">
               <Image
                 src={cardMobileImg}
                 alt="Create your Arkive DeFi"
