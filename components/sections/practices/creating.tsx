@@ -196,16 +196,15 @@ export default function PracticesCreating() {
         >
           {/* Mobile layout */}
           <div className="block lg:hidden p-6 flex flex-col items-start gap-4">
-            <div className="shrink-0 size-12 rounded-xl bg-white border border-[#F1F1F1] flex items-center justify-center p-1.5 shadow-sm relative overflow-hidden">
-              <Image
-                src={projectImg}
-                alt="Project DeFi icon"
-                width={36}
-                height={36}
-                className="object-contain"
-                draggable={false}
-              />
-            </div>
+            <Image
+              src={projectImg}
+              alt="Project DeFi icon"
+              width={36}
+              height={36}
+              className="object-contain"
+              draggable={false}
+            />
+
             <p className="font-[510] text-[13px] leading-[18px] [font-family:var(--figma-font-text)] text-[rgba(0,5,9,0.89)]">
               Project DeFi is Arkive&rsquo;s first core practice, core practices
               are created by the Arkive team and are optimized for their
@@ -224,16 +223,14 @@ export default function PracticesCreating() {
           {/* Desktop layout */}
           <div className="hidden lg:flex px-6 md:px-10 py-6 flex-row justify-between items-start md:items-center gap-6">
             <div className="flex items-center gap-6">
-              <div className="shrink-0 size-16 rounded-xl bg-white border border-[#F1F1F1] flex items-center justify-center p-2 shadow-sm relative overflow-hidden">
-                <Image
-                  src={projectImg}
-                  alt="Project DeFi icon"
-                  width={48}
-                  height={48}
-                  className="object-contain"
-                  draggable={false}
-                />
-              </div>
+              <Image
+                src={projectImg}
+                alt="Project DeFi icon"
+                width={64}
+                height={64}
+                className="object-contain"
+                draggable={false}
+              />
 
               <p className="flex-1 font-[510] text-[16px] leading-[24px] [font-family:var(--figma-font-text)] max-w-[550px] text-[rgba(0,5,9,0.89)]">
                 Project DeFi{" "}

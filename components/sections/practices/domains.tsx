@@ -135,7 +135,7 @@ export default function PracticesDomains() {
               {/* Work card */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
-                className="absolute rounded-[8px] overflow-hidden shadow-lg z-30"
+                className="absolute rounded-[8px] overflow-hidden shadow-lg z-40"
                 style={{
                   left: "21.4%",
                   top: "50.4%",
@@ -156,7 +156,7 @@ export default function PracticesDomains() {
               {/* Watch card */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
-                className="absolute rounded-[8px] overflow-hidden shadow-lg z-40"
+                className="absolute rounded-[8px] overflow-hidden shadow-lg z-30"
                 style={{
                   left: "49.6%",
                   top: "58.2%",
@@ -256,7 +256,7 @@ export default function PracticesDomains() {
 
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
-                className="absolute rounded-[8px] overflow-hidden shadow-lg z-30"
+                className="absolute rounded-[8px] overflow-hidden shadow-lg z-40"
                 style={{ left: "21.4%", top: "50.4%", width: "38.9%" }}
               >
                 <Image
@@ -271,7 +271,7 @@ export default function PracticesDomains() {
 
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
-                className="absolute rounded-[8px] overflow-hidden shadow-lg z-40"
+                className="absolute rounded-[8px] overflow-hidden shadow-lg z-30"
                 style={{ left: "49.6%", top: "58.2%", width: "38.3%" }}
               >
                 <Image

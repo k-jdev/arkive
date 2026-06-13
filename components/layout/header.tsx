@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   RiArrowDownSLine,
@@ -30,10 +30,10 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Arkives & Practices", hasDropdown: true },
+  { label: "Arkives", href: "/arkives" },
+  { label: "Practices", href: "/practices" },
   { label: "Project DeFi", href: "project-defi" },
   { label: "Trade Project" },
-  { label: "Research" },
   { label: "Docs" },
 ];
 
@@ -47,28 +47,7 @@ const SOCIAL_LINKS = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-
-  useEffect(() => {
-    setDropdownOpen(false);
-    setMobileDropdownOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        setDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -133,77 +112,11 @@ export default function Header() {
                   variants={headerItem}
                   className="relative"
                 >
-                  {item.label === "Arkives & Practices" ? (
-                    <div ref={dropdownRef}>
-                      <button
-                        type="button"
-                        onClick={() => setDropdownOpen(!dropdownOpen)}
-                        className={[
-                          "flex items-center justify-center h-8 rounded-full transition-colors duration-300 gap-(--figma-spacing-2) px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
-                          dark
-                            ? "hover:bg-white/10 focus-visible:ring-white/30 text-white"
-                            : "hover:bg-black/5 focus-visible:ring-black/20 text-(--figma-neutral-12)",
-                          "focus-visible:outline-none focus-visible:ring-2",
-                        ].join(" ")}
-                      >
-                        <span className="whitespace-nowrap">{item.label}</span>
-                        <RiArrowDownSLine
-                          size={16}
-                          aria-hidden="true"
-                          className={[
-                            "transition-transform duration-200",
-                            dropdownOpen ? "rotate-180" : "",
-                          ].join(" ")}
-                        />
-                      </button>
-
-                      <AnimatePresence>
-                        {dropdownOpen && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 8, scale: 0.95 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 8, scale: 0.95 }}
-                            transition={{ duration: 0.15, ease: EASE }}
-                            className={[
-                              "absolute top-full left-1/2 -translate-x-1/2 mt-2 w-40 py-1.5 rounded-2xl shadow-xl border overflow-hidden backdrop-blur-md",
-                              dark
-                                ? "bg-black/90 border-white/10 text-white"
-                                : "bg-white/95 border-black/5 text-(--figma-neutral-12)",
-                            ].join(" ")}
-                          >
-                            <Link
-                              href="/arkives"
-                              onClick={() => setDropdownOpen(false)}
-                              className={[
-                                "flex items-center h-9 px-4 text-(length:--figma-font-size-2) font-normal transition-colors",
-                                dark
-                                  ? "hover:bg-white/10 text-white"
-                                  : "hover:bg-black/5 text-(--figma-neutral-12)",
-                              ].join(" ")}
-                            >
-                              Arkives
-                            </Link>
-                            <Link
-                              href="/practices"
-                              onClick={() => setDropdownOpen(false)}
-                              className={[
-                                "flex items-center h-9 px-4 text-(length:--figma-font-size-2) font-normal transition-colors",
-                                dark
-                                  ? "hover:bg-white/10 text-white"
-                                  : "hover:bg-black/5 text-(--figma-neutral-12)",
-                              ].join(" ")}
-                            >
-                              Practices
-                            </Link>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  ) : item.href ? (
+                  {item.href ? (
                     <Link
                       href={item.href}
                       className={[
-                        "flex items-center justify-center h-8 rounded-full transition-colors duration-300 gap-(--figma-spacing-2) px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
+                        "flex items-center justify-center h-8 rounded-full transition-colors duration-300 px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
                         dark
                           ? "text-white hover:bg-white/10 focus-visible:ring-white/30"
                           : "text-(--figma-neutral-12) hover:bg-black/5 focus-visible:ring-black/20",
@@ -211,15 +124,12 @@ export default function Header() {
                       ].join(" ")}
                     >
                       <span className="whitespace-nowrap">{item.label}</span>
-                      {item.hasDropdown && (
-                        <RiArrowDownSLine size={16} aria-hidden="true" />
-                      )}
                     </Link>
                   ) : (
                     <button
                       type="button"
                       className={[
-                        "flex items-center justify-center h-8 rounded-full transition-colors duration-300 gap-(--figma-spacing-2) px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
+                        "flex items-center justify-center h-8 rounded-full transition-colors duration-300 px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
                         dark
                           ? "hover:bg-white/10 focus-visible:ring-white/30"
                           : "hover:bg-black/5 focus-visible:ring-black/20",
@@ -227,9 +137,6 @@ export default function Header() {
                       ].join(" ")}
                     >
                       <span className="whitespace-nowrap">{item.label}</span>
-                      {item.hasDropdown && (
-                        <RiArrowDownSLine size={16} aria-hidden="true" />
-                      )}
                     </button>
                   )}
                 </motion.li>
@@ -361,65 +268,7 @@ export default function Header() {
             >
               {NAV_ITEMS.map((item, i) => (
                 <motion.div key={item.label} variants={headerMobileItem}>
-                  {item.label === "Arkives & Practices" ? (
-                    <div
-                      className={[
-                        "border-b border-[#2e3135]",
-                        i < NAV_ITEMS.length - 1 ? "" : "border-b-0",
-                      ].join(" ")}
-                    >
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setMobileDropdownOpen(!mobileDropdownOpen);
-                        }}
-                        className="flex items-center justify-between py-(--figma-spacing-4) w-full text-left"
-                      >
-                        <span className="text-white text-(length:--figma-font-size-7) leading-(--figma-line-height-7) tracking-(--figma-letter-spacing-7) font-normal [font-family:var(--figma-font-text)]">
-                          {item.label}
-                        </span>
-                        <RiArrowDownSLine
-                          size={32}
-                          className={[
-                            "text-white transition-transform duration-200",
-                            mobileDropdownOpen ? "rotate-180" : "",
-                          ].join(" ")}
-                          aria-hidden="true"
-                        />
-                      </button>
-                      <AnimatePresence>
-                        {mobileDropdownOpen && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.25, ease: EASE }}
-                            className="overflow-hidden"
-                          >
-                            <Link
-                              href="/arkives"
-                              onClick={() => setOpen(false)}
-                              className="flex items-center py-(--figma-spacing-4) w-full border-t border-[#2e3135]"
-                            >
-                              <span className="text-white/70 text-(length:--figma-font-size-7) leading-(--figma-line-height-7) tracking-(--figma-letter-spacing-7) font-normal [font-family:var(--figma-font-text)]">
-                                Arkives
-                              </span>
-                            </Link>
-                            <Link
-                              href="/practices"
-                              onClick={() => setOpen(false)}
-                              className="flex items-center py-(--figma-spacing-4) w-full border-t border-[#2e3135]"
-                            >
-                              <span className="text-white/70 text-(length:--figma-font-size-7) leading-(--figma-line-height-7) tracking-(--figma-letter-spacing-7) font-normal [font-family:var(--figma-font-text)]">
-                                Practices
-                              </span>
-                            </Link>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  ) : item.href ? (
+                  {item.href ? (
                     <Link
                       href={item.href}
                       onClick={() => setOpen(false)}
@@ -433,13 +282,6 @@ export default function Header() {
                       <span className="text-white text-(length:--figma-font-size-7) leading-(--figma-line-height-7) tracking-(--figma-letter-spacing-7) font-normal [font-family:var(--figma-font-text)]">
                         {item.label}
                       </span>
-                      {item.hasDropdown && (
-                        <RiArrowDownSLine
-                          size={32}
-                          className="text-white"
-                          aria-hidden="true"
-                        />
-                      )}
                     </Link>
                   ) : (
                     <button
