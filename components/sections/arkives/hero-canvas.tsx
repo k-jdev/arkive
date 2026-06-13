@@ -468,12 +468,14 @@ export default function HeroCanvas() {
   return (
     <div
       ref={containerRef}
-      className="absolute -top-[10%] md:top-0 left-1/2 -translate-x-1/2 overflow-hidden bg-black select-none pointer-events-auto"
+      className="absolute left-1/2 overflow-hidden bg-black select-none pointer-events-auto"
       style={{
         cursor: isDragging ? "grabbing" : "grab",
         opacity: 0.5,
         width: `${W}px`,
         height: `${H}px`,
+        top: "45%",
+        transform: "translate(-50%, -50%)",
       }}
     >
       <canvas
