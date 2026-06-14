@@ -86,9 +86,9 @@ function FeatureBlock({
   const imageCol = (
     <motion.div
       variants={reduced ? safeFade : featuresImage}
-      className={`relative w-full md:w-[58%] shrink-0 rounded-2xl ${imageOverlay ? "" : "overflow-hidden"}`}
+      className={`relative w-full md:w-[58%] shrink-0 rounded-3xl ${imageOverlay ? "" : "overflow-hidden"}`}
     >
-      <div className={imageOverlay ? "overflow-hidden rounded-2xl" : ""}>
+      <div className={imageOverlay ? "overflow-hidden rounded-3xl" : ""}>
         <Image
           src={imageSrc}
           alt={imageAlt}

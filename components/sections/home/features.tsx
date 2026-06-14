@@ -99,7 +99,7 @@ function FeatureBlock({
           className="hidden md:block w-full h-auto"
           draggable={false}
         />
-        {imageSrcMobile && (
+        {imageSrcMobile && !imageOverlay && (
           <Image
             src={imageSrcMobile}
             alt={imageAlt}
@@ -113,9 +113,22 @@ function FeatureBlock({
         )}
       </div>
       {imageOverlay && (
-        <div className="hidden md:flex absolute inset-0 items-center justify-center z-10 p-4">
-          {imageOverlay}
-        </div>
+        <>
+          <div className="hidden md:flex absolute inset-0 items-center justify-center z-10 p-4">
+            {imageOverlay}
+          </div>
+          <div className="flex md:hidden relative w-full justify-center items-center p-4 overflow-hidden rounded-2xl min-h-[540px]">
+            <Image
+              src="/sections/practices/mobile/bg-mobile.png"
+              alt=""
+              fill
+              className="object-contain"
+              aria-hidden="true"
+              priority
+            />
+            <div className="relative z-10">{imageOverlay}</div>
+          </div>
+        </>
       )}
     </motion.div>
   );

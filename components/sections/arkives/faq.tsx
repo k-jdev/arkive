@@ -135,7 +135,7 @@ export default function ArkivesFaq() {
 
             <button
               type="button"
-              className="flex items-center gap-1 h-10 px-1 rounded-full text-[#0022ff] text-base leading-6 tracking-normal font-normal whitespace-nowrap shrink-0 transition-colors hover:bg-[#0022ff]/5"
+              className="flex items-center gap-1 h-10 px-1 rounded-full text-[#0022ff] text-base leading-6 tracking-normal font-normal whitespace-nowrap shrink-0"
               style={{
                 fontFamily: "var(--figma-font-text)",
                 fontVariationSettings: '"wdth" 100',

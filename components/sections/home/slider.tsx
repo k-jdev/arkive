@@ -25,23 +25,23 @@ const SLIDES: SlideItem[] = [
   {
     id: 1,
     imageSrc: "/sections/slider/card.webp",
-    boldText: "Lorem ipsum dolortasd.",
+    boldText: "Bring Arkive into any AI model.",
     dimText:
-      "Trade with any frontier AI across on-chain markets, with full Arkive context behind every decision.",
+      "Connect via MCP and let your agent trade with full on-chain context behind every decision.",
   },
   {
     id: 2,
-    imageSrc: "/sections/slider/card2.webp",
-    boldText: "Lorem ipsum dolortasd.",
+    imageSrc: "/sections/slider/card2.png",
+    boldText: "Compound every trade.",
     dimText:
-      "Trade with any frontier AI across on-chain markets, with full Arkive context behind every decision.",
+      "Arkive compounds context across your activity, creating a second brain behind every decision.",
   },
   {
     id: 3,
     imageSrc: "/sections/slider/card3.webp",
-    boldText: "Lorem ipsum dolortasd.",
+    boldText: "All of DeFi, a prompt away.",
     dimText:
-      "Trade with any frontier AI across on-chain markets, with full Arkive context behind every decision.",
+      "Execute spot and perpetual strategies across EVM and Solana through a secure trading layer.",
   },
 ];
 

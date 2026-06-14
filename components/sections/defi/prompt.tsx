@@ -3,10 +3,27 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FloatingDock } from "@/components/ui/floating-dock";
+import {
+  jupiterIcon,
+  raydiumIcon,
+  uniswapIcon,
+  hyperliquidIcon,
+  oneInchIcon,
+  pancakeswapIcon,
+  solanaIcon,
+} from "@/public/sections/defiPrompt";
 
 // ── Types & Data ──────────────────────────────────────────────
 
-type ItemType = "faded" | "jupiter" | "1inch" | "uniswap" | "asteroid" | "blue";
+type ItemType =
+  | "faded"
+  | "jupiter"
+  | "raydium"
+  | "uniswap"
+  | "hyperliquid"
+  | "1inch"
+  | "pancakeswap"
+  | "solana";
 
 interface DockItemDef {
   id: number;
@@ -30,12 +47,12 @@ const ITEMS: DockItemDef[] = [
   { id: 9, type: "faded", hiddenOn: "md" },
   { id: 10, type: "faded" },
   { id: 11, type: "jupiter" },
-  { id: 12, type: "1inch" },
+  { id: 12, type: "raydium" },
   { id: 13, type: "uniswap" },
-  { id: 14, type: "asteroid" },
-  { id: 15, type: "blue" },
-  { id: 16, type: "jupiter" },
-  { id: 17, type: "1inch" },
+  { id: 14, type: "hyperliquid" },
+  { id: 15, type: "1inch" },
+  { id: 16, type: "pancakeswap" },
+  { id: 17, type: "solana" },
   { id: 18, type: "faded" },
   { id: 19, type: "faded", hiddenOn: "md" },
   { id: 20, type: "faded", hiddenOn: "lg" },
@@ -60,28 +77,14 @@ function getVisuals(type: ItemType) {
         border: "none",
       };
     case "jupiter":
-      return {
-        bg: "#072622",
-        border: "none",
-      };
-    case "1inch":
-      return {
-        bg: "#000",
-        border: "1px solid #171717",
-      };
+    case "raydium":
     case "uniswap":
+    case "hyperliquid":
+    case "1inch":
+    case "pancakeswap":
+    case "solana":
       return {
-        bg: "#fff",
-        border: "1px solid #f0f0f0",
-      };
-    case "asteroid":
-      return {
-        bg: "#1A1A2E",
-        border: "none",
-      };
-    case "blue":
-      return {
-        bg: "#0F142E",
+        bg: "transparent",
         border: "none",
       };
   }
@@ -120,49 +123,66 @@ export default function DefiPrompt() {
 
     const icon =
       item.type === "jupiter" ? (
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full hover:shadow-[0_12px_32px_rgba(0,0,0,0.18)] rounded-2xl transition-shadow duration-300">
           <Image
-            src="/sections/defiPrompt/jupiter.png"
+            src={jupiterIcon}
             alt="Jupiter"
             fill
-            className="object-contain"
-            style={{ padding: "11.045px 11.049px 12.426px 12.422px" }}
+            className="object-contain scale-[1.875]"
           />
         </div>
-      ) : item.type === "1inch" ? (
-        <div className="relative w-[70%] h-[70%]">
+      ) : item.type === "raydium" ? (
+        <div className="relative w-full h-full hover:shadow-[0_12px_32px_rgba(0,0,0,0.18)] rounded-2xl transition-shadow duration-300">
           <Image
-            src="/sections/defiPrompt/1inch.png"
-            alt="1inch"
+            src={raydiumIcon}
+            alt="Raydium"
             fill
-            className="object-contain"
+            className="object-contain scale-[1.875]"
           />
         </div>
       ) : item.type === "uniswap" ? (
-        <div className="relative w-[70%] h-[70%]">
+        <div className="relative w-full h-full hover:shadow-[0_12px_32px_rgba(0,0,0,0.18)] rounded-2xl transition-shadow duration-300">
           <Image
-            src="/sections/defiPrompt/uniswap.png"
+            src={uniswapIcon}
             alt="Uniswap"
             fill
-            className="object-contain"
+            className="object-contain scale-[1.875]"
           />
         </div>
-      ) : item.type === "asteroid" ? (
-        <div className="relative w-[70%] h-[70%]">
+      ) : item.type === "hyperliquid" ? (
+        <div className="relative w-full h-full hover:shadow-[0_12px_32px_rgba(0,0,0,0.18)] rounded-2xl transition-shadow duration-300">
           <Image
-            src="/sections/defiPrompt/asteroid.png"
-            alt="Asteroid"
+            src={hyperliquidIcon}
+            alt="Hyperliquid"
             fill
-            className="object-contain"
+            className="object-contain scale-[1.875]"
           />
         </div>
-      ) : item.type === "blue" ? (
-        <div className="relative w-[70%] h-[70%]">
+      ) : item.type === "1inch" ? (
+        <div className="relative w-full h-full hover:shadow-[0_12px_32px_rgba(0,0,0,0.18)] rounded-2xl transition-shadow duration-300">
           <Image
-            src="/sections/defiPrompt/blue.png"
-            alt="Blue"
+            src={oneInchIcon}
+            alt="1inch"
             fill
-            className="object-contain"
+            className="object-contain scale-[1.875]"
+          />
+        </div>
+      ) : item.type === "pancakeswap" ? (
+        <div className="relative w-full h-full hover:shadow-[0_12px_32px_rgba(0,0,0,0.18)] rounded-2xl transition-shadow duration-300">
+          <Image
+            src={pancakeswapIcon}
+            alt="PancakeSwap"
+            fill
+            className="object-contain scale-[1.875]"
+          />
+        </div>
+      ) : item.type === "solana" ? (
+        <div className="relative w-full h-full hover:shadow-[0_12px_32px_rgba(0,0,0,0.18)] rounded-2xl transition-shadow duration-300">
+          <Image
+            src={solanaIcon}
+            alt="Solana"
+            fill
+            className="object-contain scale-[1.875]"
           />
         </div>
       ) : null;
@@ -191,14 +211,31 @@ export default function DefiPrompt() {
     >
       {/* Dock */}
       <div className="w-full mb-16 select-none overflow-visible px-4">
+        {/* Desktop */}
         <div
-          className="flex flex-row items-end justify-center mx-auto"
+          className="hidden md:flex flex-row items-end justify-center mx-auto"
           style={{
             transform: "scale(clamp(0.18, 1vw, 1))",
             transformOrigin: "center bottom",
           }}
         >
-          <FloatingDock items={allItems} desktopClassName="bg-transparent" />
+          <FloatingDock
+            items={allItems}
+            desktopClassName="bg-transparent"
+            activeIndex={14}
+          />
+        </div>
+
+        {/* Mobile */}
+        <div className="flex md:hidden justify-center">
+          <Image
+            src="/sections/defiPrompt/mobilePrompt.png"
+            alt="DeFi protocols"
+            width={600}
+            height={140}
+            className="w-full max-w-md h-auto"
+            priority
+          />
         </div>
       </div>
 
@@ -220,7 +257,7 @@ export default function DefiPrompt() {
           </span>
         </h2>
         <p
-          className="font-[510] text-[20px] leading-[28px] tracking-[-0.08px] md:text-base md:font-normal md:tracking-[0.01em] [font-family:var(--figma-font-text)] max-w-xl"
+          className="font-[510] text-[20px] leading-7 tracking-[-0.08px] md:text-base md:font-normal md:tracking-[0.01em] [font-family:var(--figma-font-text)] max-w-xl"
           style={{ color: "rgba(0, 7, 27, 0.50)" }}
         >
           Trade spot & perpetuals on EVM and Solana.

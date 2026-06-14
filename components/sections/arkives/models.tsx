@@ -209,13 +209,13 @@ export default function ArkivesModels() {
               real time
             </p>
 
-            <div className="-ml-8 -mr-8 -mb-8 pr-8">
+            <div className="-ml-8 -mr-8 -mb-8 pr-8 mt-6 md:mt-0">
               <Image
                 src="/sections/models/uptodate.webp"
                 alt="Collaborative across users"
                 width={318}
                 height={135}
-                className="w-full h-auto"
+                className="w-full h-auto scale-[clamp(0.75,calc(0.8+(100vw-800px)/3000),1)] origin-bottom-left"
                 draggable={false}
               />
             </div>
@@ -227,7 +227,7 @@ export default function ArkivesModels() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={arkivesHeader}
-          className="flex flex-col md:flex-row md:items-center justify-between gap-6 w-full bg-white rounded-[18px] px-6 md:px-10 py-6"
+          className="flex flex-col md:flex-row md:items-center justify-between gap-6 w-full bg-white rounded-[18px] px-6 md:px-10 py-6 mb-4"
         >
           <div className="flex items-center gap-6">
             <div className="shrink-0 w-16 h-12 rounded-xl overflow-hidden">

@@ -17,6 +17,7 @@ export const FloatingDock = ({
   items,
   desktopClassName,
   mobileClassName,
+  activeIndex,
 }: {
   items: {
     title: string;
@@ -30,10 +31,15 @@ export const FloatingDock = ({
   }[];
   desktopClassName?: string;
   mobileClassName?: string;
+  activeIndex?: number;
 }) => {
   return (
     <>
-      <FloatingDockDesktop items={items} className={desktopClassName} />
+      <FloatingDockDesktop
+        items={items}
+        className={desktopClassName}
+        activeIndex={activeIndex}
+      />
       <FloatingDockMobile items={items} className={mobileClassName} />
     </>
   );
@@ -126,6 +132,7 @@ const FloatingDockMobile = ({
 const FloatingDockDesktop = ({
   items,
   className,
+  activeIndex,
 }: {
   items: {
     title: string;
@@ -138,8 +145,10 @@ const FloatingDockDesktop = ({
     isFaded?: boolean;
   }[];
   className?: string;
+  activeIndex?: number;
 }) => {
   let mouseX = useMotionValue(Infinity);
+
   return (
     <motion.div
       onMouseMove={(e) => mouseX.set(e.pageX)}
@@ -149,8 +158,14 @@ const FloatingDockDesktop = ({
         className,
       )}
     >
-      {items.map((item) => (
-        <IconContainer mouseX={mouseX} key={item.title} {...item} />
+      {items.map((item, idx) => (
+        <IconContainer
+          mouseX={mouseX}
+          key={item.title + idx}
+          {...item}
+          index={idx}
+          activeIndex={activeIndex}
+        />
       ))}
     </motion.div>
   );
@@ -166,6 +181,8 @@ function IconContainer({
   border,
   hiddenOn,
   isFaded,
+  index,
+  activeIndex,
 }: {
   mouseX: MotionValue;
   title: string;
@@ -176,12 +193,19 @@ function IconContainer({
   border?: string;
   hiddenOn?: "lg" | "md";
   isFaded?: boolean;
+  index: number;
+  activeIndex?: number;
 }) {
   let ref = useRef<HTMLDivElement>(null);
 
   let distance = useTransform(mouseX, (val) => {
+    if (val === Infinity && activeIndex !== undefined) {
+      const gap = 16; // Tailwind gap-4
+      const itemWidth = 80;
+      const idxDiff = index - activeIndex;
+      return idxDiff * (itemWidth + gap);
+    }
     let bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-
     return val - bounds.x - bounds.width / 2;
   });
 

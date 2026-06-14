@@ -171,16 +171,13 @@ export default function PracticesSlider() {
             >
               <div
                 className="rounded-[24px] overflow-hidden bg-[#f9f9fb] flex items-center justify-center relative border border-black/[0.04] w-full"
-                style={{ aspectRatio: "558 / 360" }}
+                style={{ aspectRatio: "598 / 360" }}
               >
                 <Image
                   src={slide.imageSrc}
                   alt={slide.boldText}
-                  fill
-                  sizes="558px"
-                  className="object-cover pointer-events-none"
+                  className="object-cover pointer-events-none w-full h-full"
                   draggable={false}
-                  unoptimized
                 />
               </div>
 

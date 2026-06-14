@@ -17,11 +17,18 @@ const duration = { fast: 0.18, normal: 0.35 };
 const easing = { smooth: [0.22, 1, 0.36, 1] as const };
 
 // ─── Data ───────────────────────────────────────────────────────────────────
+const JOURNAL_VIDEOS = [
+  "/sections/journal/bg-journal.mp4",
+  "/sections/journal/bg-journal.mp4",
+  "/sections/journal/bg-journal.mp4",
+  "/sections/journal/bg-journal2.mp4",
+];
+
 const JOURNAL_BACKGROUNDS = [
-  "/sections/journal/journal.webp",
-  "/sections/journal/insights.webp",
-  "/sections/journal/skills.webp",
-  "/sections/journal/mcp.webp",
+  "/sections/journal/journal.png",
+  "/sections/journal/insights.png",
+  "/sections/journal/skills.png",
+  "/sections/journal/mcp.png",
 ];
 
 interface JournalItem {
@@ -71,6 +78,9 @@ export default function ArkivesJournal() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState<"down" | "up">("down");
   const [isAnimating, setIsAnimating] = useState(false);
+  const [animationVersion, setAnimationVersion] = useState<"v1" | "v2" | "v3">(
+    "v1",
+  );
 
   useEffect(() => {
     setIsAnimating(true);
@@ -115,57 +125,157 @@ export default function ArkivesJournal() {
         </div>
 
         <div className="relative md:h-137.5 h-125 rounded-[24px] overflow-clip bg-[#F9F9FB]">
-          {/* ── Background image ── */}
-          <div className="absolute inset-0">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={activeIndex}
-                custom={direction}
-                className="absolute inset-0"
-                variants={{
-                  enter: (dir: "down" | "up") => ({
-                    translateX: dir === "down" ? 80 : -80,
-                    scale: 0.95,
-                    opacity: 0,
-                  }),
-                  center: { translateX: 0, scale: 1, opacity: 1 },
-                  exit: (dir: "down" | "up") => ({
-                    translateX: dir === "down" ? -400 : 400,
-                    scale: 0.85,
-                    opacity: 0,
-                  }),
-                }}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 26,
-                }}
-              >
-                <Image
-                  src={JOURNAL_BACKGROUNDS[activeIndex]}
-                  alt=""
-                  fill
-                  className="object-contain object-bottom-right"
-                  sizes="100vw"
-                  aria-hidden="true"
-                  priority
-                  draggable={false}
-                />
-              </motion.div>
-            </AnimatePresence>
+          {/* ── Version toggle ── */}
+          <div className="absolute top-4 right-4 z-20">
+            <button
+              type="button"
+              onClick={() =>
+                setAnimationVersion((v) =>
+                  v === "v1" ? "v2" : v === "v2" ? "v3" : "v1",
+                )
+              }
+              className="px-3 py-1.5 rounded-full bg-[#f0f0f3] font-[510] text-sm [font-family:var(--figma-font-text)] transition-colors hover:bg-[#e8e8ec]"
+              style={{ color: "rgba(0,5,9,0.89)" }}
+            >
+              {animationVersion}
+            </button>
           </div>
 
-          {isAnimating && (
-            <div
-              className="absolute inset-y-0 right-0 w-30 pointer-events-none z-10"
-              style={{
-                background: "linear-gradient(to right, transparent, #F9F9FB)",
-              }}
-            />
-          )}
+          {/* ── Static background video ── */}
+          <video
+            key={JOURNAL_VIDEOS[activeIndex]}
+            src={JOURNAL_VIDEOS[activeIndex]}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-contain object-bottom-right"
+            aria-hidden="true"
+            draggable={false}
+          />
+
+          {/* ── Foreground images (animated) ── */}
+          <div className="absolute left-0 right-0 top-[90px] -bottom-10">
+            {animationVersion === "v1" ? (
+              <AnimatePresence custom={direction}>
+                <motion.div
+                  key={activeIndex}
+                  custom={direction}
+                  className="absolute inset-0 scale-[1.1] origin-bottom-right"
+                  variants={{
+                    enter: (dir: "down" | "up") => ({
+                      y: dir === "down" ? 100 : -100,
+                      opacity: 0,
+                    }),
+                    center: { y: 0, opacity: 1 },
+                    exit: (dir: "down" | "up") => ({
+                      y: dir === "down" ? -100 : 100,
+                      opacity: 0,
+                    }),
+                  }}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    type: "spring",
+                    stiffness: 100,
+                    damping: 22,
+                  }}
+                >
+                  <Image
+                    src={JOURNAL_BACKGROUNDS[activeIndex]}
+                    alt=""
+                    fill
+                    className="object-contain object-bottom-right"
+                    sizes="100vw"
+                    aria-hidden="true"
+                    priority
+                    draggable={false}
+                  />
+                </motion.div>
+              </AnimatePresence>
+            ) : animationVersion === "v2" ? (
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={activeIndex}
+                  custom={direction}
+                  className="absolute inset-0 scale-[1.1] origin-bottom-right"
+                  variants={{
+                    enter: (dir: "down" | "up") => ({
+                      translateX: dir === "down" ? 80 : -80,
+                      scale: 0.95,
+                      opacity: 0,
+                    }),
+                    center: { translateX: 0, scale: 1, opacity: 1 },
+                    exit: (dir: "down" | "up") => ({
+                      translateX: dir === "down" ? -400 : 400,
+                      scale: 0.85,
+                      opacity: 0,
+                    }),
+                  }}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 26,
+                  }}
+                >
+                  <Image
+                    src={JOURNAL_BACKGROUNDS[activeIndex]}
+                    alt=""
+                    fill
+                    className="object-contain object-bottom-right"
+                    sizes="100vw"
+                    aria-hidden="true"
+                    priority
+                    draggable={false}
+                  />
+                </motion.div>
+              </AnimatePresence>
+            ) : (
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={activeIndex}
+                  custom={direction}
+                  className="absolute inset-0 scale-[1.1] origin-bottom-right"
+                  variants={{
+                    enter: (dir: "down" | "up") => ({
+                      translateY: dir === "down" ? 80 : -80,
+                      scale: 0.95,
+                      opacity: 0,
+                    }),
+                    center: { translateY: 0, scale: 1, opacity: 1 },
+                    exit: (dir: "down" | "up") => ({
+                      translateY: dir === "down" ? -400 : 400,
+                      scale: 0.85,
+                      opacity: 0,
+                    }),
+                  }}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 26,
+                  }}
+                >
+                  <Image
+                    src={JOURNAL_BACKGROUNDS[activeIndex]}
+                    alt=""
+                    fill
+                    className="object-contain object-bottom-right"
+                    sizes="100vw"
+                    aria-hidden="true"
+                    priority
+                    draggable={false}
+                  />
+                </motion.div>
+              </AnimatePresence>
+            )}
+          </div>
 
           {/* ── Desktop arrows (left side) ── */}
           <div className="hidden md:flex absolute left-8 top-1/2 -translate-y-1/2 flex-col gap-4 z-10">

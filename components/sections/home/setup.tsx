@@ -139,7 +139,7 @@ export default function Setup() {
               {/* Desktop: terminal */}
               <div className="hidden md:block relative md:absolute bottom-0 right-0 w-full md:w-[58%] z-10 shadow-xl md:rounded-tl-xl overflow-hidden">
                 <Image
-                  src="/sections/setup/terminal.webp"
+                  src="/sections/setup/setup.webp"
                   alt="Terminal"
                   width={500}
                   height={160}

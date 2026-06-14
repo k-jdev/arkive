@@ -171,11 +171,11 @@ export default function DefiSlider() {
             <motion.div
               key={slide.id}
               variants={reduced ? safeFade : sliderCard}
-              className="flex flex-col shrink-0 bg-white rounded-[32px] overflow-hidden border border-neutral-100 shadow-[0_6px_48px_0_#F3F3F5] h-[520px] md:h-[580px] hover:shadow-[0_12px_64px_0_#EAEAEF] transition-shadow duration-300"
+              className="flex flex-col shrink-0 bg-white rounded-[32px] overflow-hidden border border-neutral-100 shadow-[0_6px_48px_0_#F3F3F5] h-[500px] hover:shadow-[0_12px_64px_0_#EAEAEF] transition-shadow duration-300"
               style={{ width: `${cardWidth}px` }}
             >
               {/* Card Header Content */}
-              <div className="flex flex-col gap-3 px-8 pt-10 pb-4">
+              <div className="flex flex-col gap-3 px-8 pt-6 pb-10">
                 <h3 className="font-[590] text-2xl text-[#1C2024] [font-family:var(--figma-font-text)] tracking-tight">
                   {slide.title}
                 </h3>
@@ -185,7 +185,7 @@ export default function DefiSlider() {
               </div>
 
               {/* Card image container */}
-              <div className="relative w-full flex-1 mt-4">
+              <div className="relative w-full h-[296px]">
                 <Image
                   src={slide.imageSrc}
                   alt={slide.title}
