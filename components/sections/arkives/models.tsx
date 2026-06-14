@@ -217,6 +217,7 @@ export default function ArkivesModels() {
                 height={135}
                 className="w-full h-auto scale-[clamp(0.75,calc(0.8+(100vw-800px)/3000),1)] origin-bottom-left"
                 draggable={false}
+                unoptimized
               />
             </div>
           </motion.div>
