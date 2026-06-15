@@ -88,7 +88,7 @@ function AnswerContent({
       className={`overflow-hidden font-[510] text-[#60646c] ${
         isMobile
           ? "text-[14px] leading-5 tracking-normal"
-          : "text-base leading-6 tracking-normal max-w-[601px]"
+          : "text-base leading-6 tracking-normal w-150.25"
       }`}
       style={{
         fontFamily: "var(--figma-font-text)",
@@ -109,12 +109,12 @@ export default function ArkivesFaq() {
 
   return (
     <section data-header-theme="light" className="w-full bg-white">
-      <div className="max-w-[1440px] mx-auto px-[clamp(16px,4.17vw,80px)] pt-20 md:pt-64 pb-16 md:pb-24">
-        <div className="flex flex-col lg:flex-row gap-[25px] lg:gap-16">
-          <div className="flex flex-col items-center md:items-start gap-4 md:gap-6 lg:w-[380px] lg:shrink-0">
+      <div className="max-w-360 mx-auto px-[clamp(16px,4.17vw,80px)] pt-20 md:pt-64 pb-16 md:pb-24">
+        <div className="flex flex-col lg:flex-row gap-6.25 lg:gap-16">
+          <div className="flex flex-col items-center md:items-start gap-4 md:gap-6 lg:w-95 lg:shrink-0">
             <div className="text-center md:text-left">
               <h2
-                className="font-[590] text-[35px] md:text-[48px] leading-[1.0] tracking-[-0.4px] text-[#1c2024]"
+                className="font-[590] text-[35px] md:text-[48px] leading-none tracking-[-0.4px] text-[#1c2024]"
                 style={{
                   fontFamily: "var(--figma-font-text)",
                   fontVariationSettings: '"wdth" 100',
@@ -123,7 +123,7 @@ export default function ArkivesFaq() {
                 Any questions?
               </h2>
               <h2
-                className="font-[590] text-[35px] md:text-[48px] leading-[1.0] tracking-[-0.4px] text-[#b9bbc6]"
+                className="font-[590] text-[35px] md:text-[48px] leading-none tracking-[-0.4px] text-[#b9bbc6]"
                 style={{
                   fontFamily: "var(--figma-font-text)",
                   fontVariationSettings: '"wdth" 100',
@@ -166,12 +166,12 @@ export default function ArkivesFaq() {
                   <button
                     type="button"
                     onClick={() => toggleItem(index)}
-                    className="w-full bg-[#f9f9fb] rounded-[18px] px-6 md:px-8 py-4 md:py-6 text-left group"
+                    className="w-full bg-[#f9f9fb] rounded-[18px] px-6 md:px-8 py-4 text-left group "
                   >
-                    <div className="flex items-start gap-4 md:gap-[56px]">
-                      <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-4 md:gap-16.5">
+                      <div className="flex flex-col items-start min-w-0 w-full md:w-169.5">
                         <span
-                          className="font-[510] text-[20px] md:text-[28px] leading-[28px] md:leading-[36px] tracking-[-0.12px] text-[#1c2024]"
+                          className="font-[510] text-[20px] md:text-[24px] leading-7 md:leading-7.5 tracking-[-0.12px] md:tracking-[-0.1px] text-[#1c2024] whitespace-nowrap"
                           style={{
                             fontFamily: "var(--figma-font-text)",
                             fontVariationSettings: '"wdth" 100',
@@ -180,7 +180,7 @@ export default function ArkivesFaq() {
                           {item.question}
                         </span>
 
-                        <div className="hidden md:block">
+                        <div className="hidden md:block w-full">
                           <AnimatePresence mode="wait">
                             {isOpen && hasAnswer && (
                               <AnswerContent
@@ -192,16 +192,20 @@ export default function ArkivesFaq() {
                         </div>
                       </div>
 
-                      <div
-                        className={`flex items-center justify-center size-8 md:size-10 shrink-0 transition-all duration-300 ${
-                          isOpen ? "bg-[#f0f0f3] rounded-full" : "rounded-[9px]"
-                        }`}
-                      >
-                        {isOpen ? (
-                          <RiArrowUpSLine size={18} aria-hidden="true" />
-                        ) : (
-                          <RiArrowDownSLine size={18} aria-hidden="true" />
-                        )}
+                      <div className="flex items-start justify-center size-8 md:size-10 shrink-0 self-start">
+                        <div
+                          className={`flex items-center justify-center size-8 md:size-10 shrink-0 transition-all duration-300 ${
+                            isOpen
+                              ? "bg-[#f0f0f3] rounded-full"
+                              : "rounded-[9px]"
+                          }`}
+                        >
+                          {isOpen ? (
+                            <RiArrowUpSLine size={18} aria-hidden="true" />
+                          ) : (
+                            <RiArrowDownSLine size={18} aria-hidden="true" />
+                          )}
+                        </div>
                       </div>
                     </div>
 
