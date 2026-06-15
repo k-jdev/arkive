@@ -107,7 +107,7 @@ export default function Hero() {
         initial="hidden"
         animate="visible"
         variants={reduced ? safeFade : heroImageReveal}
-        className="absolute pointer-events-none top-[calc(100svh-clamp(200px,30svh,340px))] left-1/2 w-[92vw] md:w-[min(65vw,1200px)] z-10"
+        className="absolute pointer-events-none top-[calc(100svh-clamp(200px,30svh,340px))] left-1/2 w-screen md:w-[min(65vw,1200px)] z-10"
         style={{
           x: "-50%",
           y: reduced || isMobile ? 0 : p * 80,
@@ -134,14 +134,14 @@ export default function Hero() {
           fetchPriority="high"
           decoding="sync"
           sizes="100vw"
-          className="block md:hidden w-full h-auto rounded-xl "
+          className="block md:hidden w-full h-auto rounded-xl scale-125 origin-top-left -mt-[10svh]"
           draggable={false}
         />
       </motion.div>
 
       <section
         data-header-theme="dark"
-        className="relative w-full h-[120svh] bg-white overflow-hidden"
+        className="relative w-full h-[150svh] md:h-[120svh] bg-white overflow-hidden"
       >
         <motion.div
           className="absolute inset-0 bg-[#0A0A0A] overflow-hidden"
@@ -158,7 +158,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          className="absolute inset-0 pointer-events-none flex flex-col items-center justify-end pb-[max(8%,60px)]"
+          className="absolute inset-0 pointer-events-none flex flex-col items-center justify-end pb-[max(8%,60px)] pt-[56svh] md:pt-0"
           style={{
             opacity: reduced ? 1 : Math.max(0, (p - 0.7) / 0.3),
             transform: reduced
