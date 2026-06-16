@@ -54,7 +54,7 @@ export default function Hero() {
   const p = easeOutCubic(progress);
 
   return (
-    <div ref={sectionRef} className="relative w-full">
+    <div ref={sectionRef} className="relative w-full overflow-x-hidden">
       <section
         data-header-theme="light"
         className="relative w-full min-h-svh flex flex-col items-center justify-start pt-[calc(54px+25vh)] md:pt-[calc(54px+18vh)] bg-white px-4"

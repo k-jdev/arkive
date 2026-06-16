@@ -107,7 +107,7 @@ function FeatureBlock({
             height={844}
             loading="lazy"
             sizes="100vw"
-            className="block md:hidden w-full h-auto"
+            className="block md:hidden w-full h-auto rounded-[22px]"
             draggable={false}
           />
         )}
@@ -117,12 +117,12 @@ function FeatureBlock({
           <div className="hidden md:flex absolute inset-0 items-center justify-center z-10 p-4">
             {imageOverlay}
           </div>
-          <div className="flex md:hidden relative w-full justify-center items-center p-4 overflow-hidden rounded-2xl min-h-[540px]">
+          <div className="flex md:hidden relative w-full justify-center items-center p-4 overflow-hidden min-h-[540px]">
             <Image
               src="/sections/practices/mobile/bg-mobile.png"
               alt=""
               fill
-              className="object-contain"
+              className="object-contain rounded-[1000px]"
               aria-hidden="true"
               priority
             />

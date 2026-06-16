@@ -24,6 +24,13 @@ const JOURNAL_BACKGROUNDS = [
   "/sections/journal/mcp.png",
 ];
 
+const JOURNAL_BACKGROUNDS_MOBILE = [
+  "/sections/journal/journalMobile.png",
+  "/sections/journal/insightsMobile.png",
+  "/sections/journal/skillsMobile.png",
+  "/sections/journal/mcpMobile.png",
+];
+
 interface JournalItem {
   icon: string;
   label: string;
@@ -126,7 +133,19 @@ export default function ArkivesJournal() {
                 src={src}
                 alt=""
                 fill
-                className="object-cover"
+                className="object-cover hidden md:block"
+                sizes="100vw"
+                priority
+                draggable={false}
+              />
+            ))}
+            {JOURNAL_BACKGROUNDS_MOBILE.map((src) => (
+              <Image
+                key={src}
+                src={src}
+                alt=""
+                fill
+                className="object-cover block md:hidden"
                 sizes="100vw"
                 priority
                 draggable={false}
@@ -134,7 +153,8 @@ export default function ArkivesJournal() {
             ))}
           </div>
           {/* ── Foreground images (animated) ── */}
-          <div className="absolute left-0 -right-20 top-[128px] -bottom-40">
+          {/* Desktop images */}
+          <div className="hidden md:block absolute left-0 -right-20 top-[128px] -bottom-40">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={activeIndex}
@@ -167,6 +187,47 @@ export default function ArkivesJournal() {
                   alt=""
                   fill
                   className="object-contain object-bottom-right"
+                  sizes="100vw"
+                  aria-hidden="true"
+                  priority
+                  draggable={false}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Mobile images — contained inside block */}
+          <div className="block md:hidden absolute inset-x-0 bottom-0 top-[140px]">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={activeIndex}
+                custom={direction}
+                className="absolute inset-0"
+                variants={{
+                  enter: (dir: "down" | "up") => ({
+                    translateX: dir === "down" ? 40 : -40,
+                    opacity: 0,
+                  }),
+                  center: { translateX: 0, opacity: 1 },
+                  exit: (dir: "down" | "up") => ({
+                    translateX: dir === "down" ? -200 : 200,
+                    opacity: 0,
+                  }),
+                }}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 26,
+                }}
+              >
+                <Image
+                  src={JOURNAL_BACKGROUNDS_MOBILE[activeIndex]}
+                  alt=""
+                  fill
+                  className="object-contain object-bottom"
                   sizes="100vw"
                   aria-hidden="true"
                   priority
