@@ -86,9 +86,15 @@ function FeatureBlock({
   const imageCol = (
     <motion.div
       variants={reduced ? safeFade : featuresImage}
-      className={`relative w-full md:w-[58%] shrink-0 rounded-2xl ${imageOverlay ? "" : "overflow-hidden"}`}
+      className={`relative w-full md:w-[58%] shrink-0 rounded-[22px] md:rounded-2xl ${imageOverlay ? "" : "md:overflow-hidden"}`}
     >
-      <div className={imageOverlay ? "overflow-hidden rounded-2xl" : ""}>
+      <div
+        className={
+          imageOverlay
+            ? "md:overflow-hidden rounded-[22px] md:rounded-2xl"
+            : "rounded-[22px] md:rounded-2xl"
+        }
+      >
         <Image
           src={imageSrc}
           alt={imageAlt}
@@ -117,12 +123,12 @@ function FeatureBlock({
           <div className="hidden md:flex absolute inset-0 items-center justify-center z-10 p-4">
             {imageOverlay}
           </div>
-          <div className="flex md:hidden relative w-full justify-center items-center p-4 overflow-hidden min-h-[540px]">
+          <div className="flex md:hidden relative w-full justify-center items-center p-4 rounded-[22px] min-h-[540px]">
             <Image
               src="/sections/practices/mobile/bg-mobile.png"
               alt=""
               fill
-              className="object-contain rounded-[1000px]"
+              className="object-contain rounded-[22px]"
               aria-hidden="true"
               priority
             />
