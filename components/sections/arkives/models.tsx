@@ -230,7 +230,7 @@ export default function ArkivesModels() {
           variants={arkivesHeader}
           className="flex flex-col md:flex-row md:items-center justify-between gap-6 w-full bg-white rounded-[18px] px-6 md:px-10 py-6 mb-4"
         >
-          <div className="flex items-center gap-6">
+          <div className="flex flex-col md:flex-row md:items-center gap-6">
             <div className="shrink-0 w-16 h-12 rounded-xl overflow-hidden">
               <Image
                 src="/sections/setup/install.webp"

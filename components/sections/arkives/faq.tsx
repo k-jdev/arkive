@@ -171,7 +171,7 @@ export default function ArkivesFaq() {
                     <div className="flex items-center gap-4 md:gap-16.5">
                       <div className="flex flex-col items-start min-w-0 w-full md:w-169.5">
                         <span
-                          className="font-[510] text-[20px] md:text-[24px] leading-7 md:leading-7.5 tracking-[-0.12px] md:tracking-[-0.1px] text-[#1c2024] whitespace-nowrap"
+                          className="font-[510] text-[20px] md:text-[24px] leading-7 md:leading-7.5 tracking-[-0.12px] md:tracking-[-0.1px] text-[#1c2024] whitespace-normal md:whitespace-nowrap"
                           style={{
                             fontFamily: "var(--figma-font-text)",
                             fontVariationSettings: '"wdth" 100',

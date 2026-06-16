@@ -123,16 +123,19 @@ function FeatureBlock({
           <div className="hidden md:flex absolute inset-0 items-center justify-center z-10 p-4">
             {imageOverlay}
           </div>
-          <div className="flex md:hidden relative w-full justify-center items-center p-4 rounded-[22px] min-h-[540px]">
+          <div className="flex md:hidden relative w-full justify-center items-center rounded-[22px]">
             <Image
               src="/sections/practices/mobile/bg-mobile.png"
               alt=""
-              fill
-              className="object-contain rounded-[22px]"
+              width={390}
+              height={844}
+              className="w-full h-auto rounded-[22px]"
               aria-hidden="true"
               priority
             />
-            <div className="relative z-10">{imageOverlay}</div>
+            <div className="absolute inset-0 flex items-center justify-center z-10 p-4">
+              {imageOverlay}
+            </div>
           </div>
         </>
       )}
