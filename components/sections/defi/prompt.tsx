@@ -206,7 +206,7 @@ export default function DefiPrompt() {
   return (
     <section
       data-header-theme="light"
-      className="w-full bg-white flex flex-col py-24 md:py-36 items-center justify-center defi-dock-root"
+      className="w-full bg-white flex flex-col py-24 md:py-80 items-center justify-center defi-dock-root"
       style={{ contentVisibility: "auto", containIntrinsicSize: "auto 500px" }}
     >
       {/* Dock */}

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import compoundingImg from "@/public/sections/compounding/compounding.png";
+import mobileCompoundingImg from "@/public/sections/compounding/mobileCompounding.png";
 import { setupCard, safeFade } from "@/lib/animations";
 import { usePrefersReducedMotion } from "@/lib/motion-config";
 
@@ -32,11 +33,11 @@ export default function PracticesCompounding() {
             </p>
           </div>
 
-          <div className="block lg:hidden w-full">
+          <div className="block lg:hidden w-[calc(100%+2rem)] -ml-8 overflow-hidden">
             <Image
-              src={compoundingImg}
+              src={mobileCompoundingImg}
               alt="Person holding phone with Arkive app"
-              className="w-full h-auto block"
+              className="w-full h-auto block -translate-x-[10%]"
               priority
               draggable={false}
             />

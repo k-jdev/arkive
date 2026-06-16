@@ -195,28 +195,33 @@ export default function PracticesCreating() {
           className="w-full rounded-[18px] bg-[#F9F9FB]"
         >
           {/* Mobile layout */}
-          <div className="block lg:hidden p-6 flex flex-col items-start gap-4">
+          <div className="block lg:hidden p-6 flex flex-col items-start gap-6">
             <Image
               src={projectImg}
               alt="Project DeFi icon"
-              width={36}
-              height={36}
+              width={64}
+              height={48}
               className="object-contain"
               draggable={false}
             />
 
-            <p className="font-[510] text-[13px] leading-[18px] [font-family:var(--figma-font-text)] text-[rgba(0,5,9,0.89)]">
-              Project DeFi is Arkive&rsquo;s first core practice, core practices
-              are created by the Arkive team and are optimized for their
-              respective domain.
+            <p className="font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]">
+              <span className="font-[510] text-[rgba(0,5,9,0.89)]">
+                Project DeFi{" "}
+              </span>
+              <span style={{ color: "rgba(0, 7, 27, 0.5)" }}>
+                is Arkive&rsquo;s first core practice, core practices are
+                created by the Arkive team and are optimized for their
+                respective domain.
+              </span>
             </p>
             <motion.a
               href="#"
-              className="inline-flex items-center gap-1 mt-2 font-[400] text-[14px] leading-[20px] [font-family:var(--figma-font-text)] text-[#0022FF] hover:opacity-80 transition-opacity"
+              className="inline-flex items-center gap-1 font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)] text-[#0022FF] hover:opacity-80 transition-opacity"
               aria-label="Learn more about Project DeFi"
             >
               Learn more about Project DeFi
-              <RiArrowRightSLine size={16} aria-hidden="true" />
+              <RiArrowRightSLine size={18} aria-hidden="true" />
             </motion.a>
           </div>
 

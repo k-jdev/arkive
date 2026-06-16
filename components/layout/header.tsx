@@ -33,7 +33,6 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Arkives", href: "/arkives" },
   { label: "Practices", href: "/practices" },
   { label: "Project DeFi", href: "project-defi" },
-  { label: "Trade Project" },
   { label: "Docs" },
 ];
 
@@ -141,23 +140,6 @@ export default function Header() {
                   )}
                 </motion.li>
               ))}
-
-              <motion.li variants={headerItem}>
-                <button
-                  type="button"
-                  className={[
-                    "flex items-center justify-center h-8 rounded-full transition-colors duration-300 gap-(--figma-spacing-2) px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
-                    dark
-                      ? "hover:bg-white/10 focus-visible:ring-white/30"
-                      : "hover:bg-black/5 focus-visible:ring-black/20",
-                    "focus-visible:outline-none focus-visible:ring-2",
-                  ].join(" ")}
-                  aria-label="Search"
-                >
-                  <span className="whitespace-nowrap">Search</span>
-                  <RiSearchLine size={16} aria-hidden="true" />
-                </button>
-              </motion.li>
             </ul>
           </nav>
         </motion.div>
