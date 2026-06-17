@@ -154,7 +154,7 @@ export default function ArkivesJournal() {
           </div>
           {/* ── Foreground images (animated) ── */}
           {/* Desktop images */}
-          <div className="hidden md:block absolute left-0 -right-20 top-[128px] -bottom-40">
+          <div className="hidden md:block absolute left-0 -right-10 top-[128px] -bottom-40">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={activeIndex}
@@ -197,7 +197,7 @@ export default function ArkivesJournal() {
           </div>
 
           {/* Mobile images — contained inside block */}
-          <div className="block md:hidden absolute inset-x-0 bottom-0 top-[140px]">
+          <div className="block md:hidden absolute left-[28px] right-0 bottom-0 top-[140px]">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={activeIndex}
@@ -227,7 +227,7 @@ export default function ArkivesJournal() {
                   src={JOURNAL_BACKGROUNDS_MOBILE[activeIndex]}
                   alt=""
                   fill
-                  className="object-contain object-bottom"
+                  className="object-contain object-right"
                   sizes="100vw"
                   aria-hidden="true"
                   priority
