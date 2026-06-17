@@ -134,6 +134,7 @@ export default function HeroCanvas() {
     }
 
     function resize() {
+      if (!container || !canvas || !ctx) return;
       const rect = container.getBoundingClientRect();
       const w = rect.width;
       const h = rect.height;
@@ -171,6 +172,7 @@ export default function HeroCanvas() {
     }
 
     function updateMouseFromEvent(e: MouseEvent) {
+      if (!canvas) return;
       const r = canvas.getBoundingClientRect();
       if (r.width <= 0 || r.height <= 0) return;
       targetX = (e.clientX - r.left) * (canvas.width / DPR / r.width);
@@ -188,7 +190,7 @@ export default function HeroCanvas() {
         grabbed = null;
       }
       dragging = false;
-      container.style.cursor = "grab";
+      if (container) container.style.cursor = "grab";
       if (sim) sim.alphaTarget(0);
     }
     function onMouseMove(e: MouseEvent) {
@@ -197,7 +199,7 @@ export default function HeroCanvas() {
     function onMouseDown(e: MouseEvent) {
       updateMouseFromEvent(e);
       dragging = true;
-      container.style.cursor = "grabbing";
+      if (container) container.style.cursor = "grabbing";
 
       let best: SimNode | null = null;
       let bestD = Infinity;
@@ -220,7 +222,7 @@ export default function HeroCanvas() {
     }
     function onMouseUp() {
       dragging = false;
-      container.style.cursor = "grab";
+      if (container) container.style.cursor = "grab";
       if (grabbed) {
         grabbed.fx = null;
         grabbed.fy = null;
@@ -236,7 +238,7 @@ export default function HeroCanvas() {
     window.addEventListener("mouseup", onMouseUp);
 
     function render() {
-      if (!sim || !ctx || nodes.length === 0) {
+      if (!sim || !ctx || !canvas || nodes.length === 0) {
         rafId = requestAnimationFrame(render);
         return;
       }

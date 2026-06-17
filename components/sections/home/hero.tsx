@@ -158,7 +158,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          className="absolute inset-0 pointer-events-none flex flex-col items-center pt-[56svh] md:pt-[calc(41.8vw-clamp(200px,30svh,340px)+100px)]"
+          className="absolute inset-0 pointer-events-none flex flex-col items-start md:items-start pt-[56svh] md:pt-[calc(41.8vw-clamp(200px,30svh,340px)+100px)] pl-[4vw] md:pl-[17.5vw]"
           style={{
             opacity: reduced ? 1 : Math.max(0, (p - 0.7) / 0.3),
             transform: reduced
@@ -172,7 +172,7 @@ export default function Hero() {
             viewport={{ once: true, margin: "-100px" }}
             variants={reduced ? safeFade : heroDarkEnter}
             className="w-[92vw] md:w-[min(65vw,1200px)] text-white font-normal [font-family:var(--figma-font-text)] tracking-[-0.4px] text-[35px] md:text-[clamp(18px,5vw,48px)]"
-            style={{ lineHeight: 1.15 }}
+            style={{ lineHeight: 1.15, maxWidth: "min(65vw, 1100px)" }}
           >
             The future of AI is one where context is owned, compounding,
             portable, and understood across models. Arkive makes this possible.
