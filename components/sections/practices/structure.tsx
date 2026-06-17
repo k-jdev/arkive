@@ -105,8 +105,11 @@ export default function PracticesStructure() {
             className="font-[510] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]"
             style={{ color: "rgba(0, 5, 9, 0.89)" }}
           >
-            Every practice learns the same way. Four parts, shaped to what each
-            domain needs.
+            Every practice learns the same way. Four parts, shaped to{" "}
+            <span className="hidden md:inline">
+              <br />
+            </span>
+            what each domain needs.
           </p>
         </motion.div>
 

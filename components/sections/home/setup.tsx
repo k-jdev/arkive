@@ -52,7 +52,7 @@ export default function Setup() {
                 }}
               >
                 <span className="font-medium text-[rgba(0,5,9,0.89)]">
-                  {"Connect the Arkive MCP "}
+                  {"Connect the Arkive MCP "} <br />
                 </span>
                 <span className="font-medium text-[rgba(0,5,29,0.45)]">
                   to your model of choice in seconds.
@@ -71,7 +71,7 @@ export default function Setup() {
                   {AI_ICONS.map((icon, i) => (
                     <motion.div
                       key={icon.alt}
-                      className="relative shrink-0 size-8.5 rounded-full overflow-hidden"
+                      className="relative shrink-0 size-[34px] rounded-full overflow-hidden bg-white border border-[#bbbbbb42]"
                       initial={
                         reduced
                           ? { opacity: 1 }
@@ -87,7 +87,7 @@ export default function Setup() {
                         ease: EASE,
                       }}
                       animate={{
-                        marginRight: i < 3 ? "-10.665px" : "0",
+                        marginRight: i < 3 ? "-10.66px" : "0",
                         zIndex: 4 - i,
                       }}
                     >
@@ -97,8 +97,7 @@ export default function Setup() {
                         width={34}
                         height={34}
                         loading="lazy"
-                        sizes="34px"
-                        className="w-full h-full object-contain p-1"
+                        className="w-full h-full object-cover"
                         draggable={false}
                       />
                     </motion.div>
@@ -160,7 +159,7 @@ export default function Setup() {
             className="w-full rounded-[18px] bg-[#f9f9fb] p-6 md:px-10 md:py-6"
           >
             <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-6">
-              <div className="shrink-0 w-16 h-12 rounded-xl overflow-hidden">
+              <div className="w-16 h-12 ">
                 <Image
                   src="/sections/setup/install.webp"
                   alt="Arkive install"
@@ -181,7 +180,10 @@ export default function Setup() {
                   letterSpacing: "var(--figma-letter-spacing-3)",
                 }}
               >
-                Read our docs on how to transfer context from your model to the
+                Read our docs on how to transfer context from your model to the{" "}
+                <span className="hidden md:inline">
+                  <br />
+                </span>
                 new standard for context-capture.
               </p>
 

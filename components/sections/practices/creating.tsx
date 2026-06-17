@@ -103,7 +103,7 @@ export default function PracticesCreating() {
             variants={reduced ? safeFade : setupCard}
             className="w-full lg:w-[60%] shrink-0"
           >
-            <div className="w-full rounded-3xl overflow-hidden shadow-sm border border-black/5">
+            <div className="w-full ">
               <Image
                 src={cardImg}
                 alt="Creating a new practice in Arkive chat interface"

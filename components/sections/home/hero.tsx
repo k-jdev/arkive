@@ -141,7 +141,7 @@ export default function Hero() {
 
       <section
         data-header-theme="dark"
-        className="relative w-full h-[150svh] md:h-[120svh] bg-white overflow-hidden"
+        className="relative w-full h-[150svh] md:h-[clamp(100svh,60svh+40vw,160svh)] bg-white overflow-hidden"
       >
         <motion.div
           className="absolute inset-0 bg-[#0A0A0A] overflow-hidden"
@@ -158,7 +158,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          className="absolute inset-0 pointer-events-none flex flex-col items-center justify-end pb-[max(8%,60px)] pt-[56svh] md:pt-0"
+          className="absolute inset-0 pointer-events-none flex flex-col items-center pt-[56svh] md:pt-[calc(41.8vw-clamp(200px,30svh,340px)+100px)]"
           style={{
             opacity: reduced ? 1 : Math.max(0, (p - 0.7) / 0.3),
             transform: reduced
@@ -174,8 +174,8 @@ export default function Hero() {
             className="w-[92vw] md:w-[min(65vw,1200px)] text-white font-normal [font-family:var(--figma-font-text)] tracking-[-0.4px] text-[35px] md:text-[clamp(18px,5vw,48px)]"
             style={{ lineHeight: 1.15 }}
           >
-            The future of AI is one where context is owned, compounding, and
-            understood across models. Arkive makes this possible.
+            The future of AI is one where context is owned, compounding,
+            portable, and understood across models. Arkive makes this possible.
           </motion.p>
 
           <motion.div
@@ -183,7 +183,7 @@ export default function Hero() {
             whileInView={reduced || isMobile ? undefined : "visible"}
             viewport={{ once: true, margin: "-100px" }}
             variants={reduced ? safeFade : heroDarkEnter}
-            className="w-[92vw] md:w-[min(65vw,1200px)] mt-[280px] md:mt-[80px]"
+            className="w-[92vw] md:w-[min(65vw,1200px)] mt-[280px] md:mt-[clamp(120px,15vw,280px)]"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

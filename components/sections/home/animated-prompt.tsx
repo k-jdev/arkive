@@ -137,7 +137,7 @@ export default function AnimatedPrompt() {
   }, [categoryIndex, fullText, reduced]);
 
   return (
-    <div className="flex flex-col gap-3 md:gap-5 items-center w-full max-w-[640px] mx-auto">
+    <div className="relative flex flex-col items-center w-full max-w-[640px] mx-auto">
       <motion.div
         initial={reduced ? undefined : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -150,7 +150,7 @@ export default function AnimatedPrompt() {
                 ease: motionTokens.easing.smooth,
               }
         }
-        className="bg-[#111113] rounded-[14px] px-5 pt-3.5 pb-5 md:pt-3 md:pb-[14px] w-full flex flex-col gap-3 md:gap-[18px]"
+        className="bg-[#111113] rounded-[14px] px-5 pt-3.5 pb-5 md:pt-3 md:pb-[14px] w-full flex flex-col gap-3 md:gap-[18px] relative z-10"
       >
         <div className="flex flex-wrap gap-2 w-full pb-1">
           {categories.map((cat, i) => {
@@ -305,12 +305,10 @@ export default function AnimatedPrompt() {
 
       <motion.div
         animate={{
-          height: showThinking ? "auto" : 0,
           opacity: showThinking ? 1 : 0,
-          marginTop: showThinking ? 0 : -20,
         }}
-        transition={{ duration: 0.4, ease: motionTokens.easing.smooth }}
-        className="overflow-hidden w-full flex justify-center"
+        transition={{ duration: 0.3, ease: motionTokens.easing.smooth }}
+        className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+16px)] pointer-events-none z-0"
       >
         <div className="flex items-center gap-[9px] bg-[#121212] border border-[#2A2A2A] rounded-full px-[15px] py-[8px] w-fit">
           <ThinkingDots />

@@ -18,7 +18,7 @@ export default function PracticesCompounding() {
           whileInView={reduced ? undefined : "visible"}
           viewport={{ once: true, margin: "-60px" }}
           variants={reduced ? safeFade : setupCard}
-          className="rounded-[24px] overflow-hidden bg-[#F9F9FB] flex flex-col lg:flex-row lg:h-[580px]"
+          className="rounded-[24px] overflow-hidden bg-[#F9F9FB] flex flex-col lg:grid lg:grid-cols-2 lg:h-[580px]"
         >
           {/* ── Mobile: text on top, image bleeds below ── */}
           <div className="block lg:hidden px-[38px] pt-[38px] pb-0">
@@ -44,22 +44,19 @@ export default function PracticesCompounding() {
           </div>
 
           {/* ── Desktop: image left, text right ── */}
-          <div
-            className="hidden lg:block relative shrink-0"
-            style={{ flexBasis: "60%", minHeight: 580 }}
-          >
+          <div className="hidden lg:block relative w-full h-full min-w-0">
             <Image
               src={compoundingImg}
               alt="Person holding phone with Arkive app"
               fill
-              className="object-cover object-center"
-              sizes="60vw"
+              className="object-cover object-left-top"
+              sizes="50vw"
               priority
               draggable={false}
             />
           </div>
 
-          <div className="hidden lg:flex flex-1 items-center lg:pl-[58px] lg:pr-[106px]">
+          <div className="hidden lg:flex items-center px-10 lg:px-20">
             <p
               className="font-[510] [font-family:var(--figma-font-text)] text-[clamp(20px,1.94vw,28px)] leading-[1.286] tracking-[-0.43%]"
               style={{ color: "rgba(0, 5, 9, 0.89)" }}

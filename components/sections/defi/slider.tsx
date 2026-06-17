@@ -100,7 +100,7 @@ export default function DefiSlider() {
     slidesCount: SLIDES.length,
     cardWidth,
     cardGap: CARD_GAP,
-    peek: isMobile ? 0 : cardWidth,
+    peek: isMobile ? 0 : cardWidth * 2,
   });
 
   return (
@@ -123,13 +123,13 @@ export default function DefiSlider() {
         className="max-w-7xl mx-auto px-6 md:px-20"
       >
         {/* Header row */}
-        <div className="flex flex-col gap-3 mb-12">
-          <p className="font-semibold text-(--figma-accent-9) text-sm md:text-base tracking-wide uppercase [font-family:var(--figma-font-text)]">
+        <div className="flex flex-col gap-2 mb-12">
+          <p className="font-semibold text-(--figma-accent-9) text-sm md:text-[20px] tracking-wide  [font-family:var(--figma-font-text)]">
             Context that compounds
           </p>
           <h2
             className="font-[590] tracking-[-0.03em] text-(--figma-neutral-12) [font-family:var(--figma-font-text)] leading-[1.05]"
-            style={{ fontSize: "clamp(36px, 4vw, 64px)" }}
+            style={{ fontSize: "clamp(35px, 3.34vw, 64px)" }}
           >
             A second brain
             <br />
@@ -171,7 +171,7 @@ export default function DefiSlider() {
             <motion.div
               key={slide.id}
               variants={reduced ? safeFade : sliderCard}
-              className="flex flex-col shrink-0 bg-white rounded-[32px] overflow-hidden border border-neutral-100 shadow-[0_6px_48px_0_#F3F3F5] h-[500px] hover:shadow-[0_12px_64px_0_#EAEAEF] transition-shadow duration-300"
+              className="grid grid-rows-[auto_1fr] gap-10 shrink-0 bg-white rounded-[32px] overflow-hidden border border-neutral-100 shadow-[0_6px_48px_0_#F3F3F5] h-[540px] hover:shadow-[0_12px_64px_0_#EAEAEF] transition-shadow duration-300"
               style={{ width: `${cardWidth}px` }}
             >
               {/* Card Header Content */}
@@ -185,14 +185,14 @@ export default function DefiSlider() {
               </div>
 
               {/* Card image container */}
-              <div className="relative w-full h-[296px]">
+              <div className="relative w-full min-h-0">
                 <Image
                   src={slide.imageSrc}
                   alt={slide.title}
                   fill
                   loading="lazy"
                   sizes="(min-width: 768px) 380px, 100vw"
-                  className="w-full h-full object-contain object-bottom pointer-events-none"
+                  className="object-cover pointer-events-none"
                   draggable={false}
                   unoptimized
                 />

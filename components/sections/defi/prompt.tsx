@@ -240,8 +240,8 @@ export default function DefiPrompt() {
       </div>
 
       {/* Headline */}
-      <div className="text-center px-4 max-w-3xl flex flex-col items-center gap-4 md:gap-3">
-        <h2 className="text-[48px] md:text-[clamp(32px,4vw,56px)] font-[590] tracking-[-0.4px] [font-family:var(--figma-font-text)] leading-[0.9] md:leading-[1.05]">
+      <div className="text-center px-4 max-w-4xl flex flex-col items-center gap-4 md:gap-3">
+        <h2 className="text-[48px] md:text-[clamp(32px,4vw,60px)] font-[590] tracking-[-0.4px] [font-family:var(--figma-font-text)] leading-[0.9] md:leading-[1.05]">
           <span className="bg-linear-to-r from-[#1C2024] to-[#0080FF] text-transparent bg-clip-text">
             {displayedText}
           </span>
@@ -257,7 +257,7 @@ export default function DefiPrompt() {
           </span>
         </h2>
         <p
-          className="font-[510] text-[20px] leading-7 tracking-[-0.08px] md:text-base md:font-normal md:tracking-[0.01em] [font-family:var(--figma-font-text)] max-w-xl"
+          className="font-[510] text-[20px] md:text-[24px] leading-7 tracking-[-0.08px] md:text-base md:font-normal md:tracking-[0.01em] [font-family:var(--figma-font-text)] max-w-xl"
           style={{ color: "rgba(0, 7, 27, 0.50)" }}
         >
           Trade spot & perpetuals on EVM and Solana.

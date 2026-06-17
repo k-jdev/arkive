@@ -183,7 +183,7 @@ export default function Features() {
         heading="Portable knowledge trees understood by all models."
         description="An Arkive is a portable knowledge tree. It connects to any AI, compounding context and user memory across models."
         buttonLabel="Learn more"
-        imageSrc="/sections/arkives/card.webp"
+        imageSrc="/sections/arkives/card.png"
         imageSrcMobile="/sections/practices/mobile/arkive-mobile.webp"
         imageAlt="Arkive — portable knowledge tree UI"
         imageLeft={false}

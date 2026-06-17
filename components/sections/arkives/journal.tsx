@@ -42,7 +42,7 @@ const JOURNAL_ITEMS: JournalItem[] = [
     icon: SLIDER_ICONS.recordIcon,
     label: "Record",
     description: [
-      { text: "Raw data, conversations, & outcomes stored " },
+      { text: "Raw data, conversations, & outcomes stored in " },
       { text: "the journal.", bold: true },
     ],
   },
@@ -51,7 +51,7 @@ const JOURNAL_ITEMS: JournalItem[] = [
     label: "Notice",
     description: [
       {
-        text: "Patterns, anomalies, & previous reasoning from the journal, surfaced as ",
+        text: "Patterns, anomalies, & previous reasoning, surfaced as ",
       },
       { text: "insights.", bold: true },
     ],
@@ -60,7 +60,7 @@ const JOURNAL_ITEMS: JournalItem[] = [
     icon: SLIDER_ICONS.learnIcon,
     label: "Learn",
     description: [
-      { text: "Accepted insights become new " },
+      { text: "Accepted insights become new  " },
       { text: "skills,", bold: true },
       { text: " and update current " },
       { text: "context.", bold: true },
@@ -77,7 +77,7 @@ const JOURNAL_ITEMS: JournalItem[] = [
 export default function ArkivesJournal() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState<"down" | "up">("down");
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [, setIsAnimating] = useState(false);
 
   useEffect(() => {
     setIsAnimating(true);

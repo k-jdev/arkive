@@ -1,5 +1,5 @@
 import consistencyDomain from "./consistency.webp";
-import graphDomain from "./graph.webp";
+import graphDomain from "./graph.png";
 import gymDomain from "./gym.webp";
 import indexDomain from "./index.png";
 import watchDomain from "./watch.webp";
