@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import {
   RiArrowDownSLine,
@@ -133,17 +134,19 @@ export default function ArkivesFaq() {
               </h2>
             </div>
 
-            <button
-              type="button"
-              className="flex items-center gap-1 h-10 px-1 rounded-full text-[#0022ff] text-base leading-6 tracking-normal font-normal whitespace-nowrap shrink-0"
-              style={{
-                fontFamily: "var(--figma-font-text)",
-                fontVariationSettings: '"wdth" 100',
-              }}
-            >
-              Documentation
-              <RiArrowRightSLine size={18} aria-hidden="true" />
-            </button>
+            <Link href="#">
+              <button
+                type="button"
+                className="flex items-center gap-1 h-10 px-1 rounded-full text-[#0022ff] text-base leading-6 tracking-normal font-normal whitespace-nowrap shrink-0"
+                style={{
+                  fontFamily: "var(--figma-font-text)",
+                  fontVariationSettings: '"wdth" 100',
+                }}
+              >
+                Documentation
+                <RiArrowRightSLine size={18} aria-hidden="true" />
+              </button>
+            </Link>
           </div>
 
           <div className="flex-1 min-w-0 flex flex-col gap-4">

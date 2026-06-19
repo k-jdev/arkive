@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { motion } from "motion/react";
 
 const HeroCanvas = dynamic(() => import("./hero-canvas"), { ssr: false });
@@ -39,20 +40,24 @@ export default function ArkivesHero() {
         </div>
 
         <div className="flex gap-2 items-center pointer-events-auto">
-          <button
-            type="button"
-            className="flex items-center justify-center h-10 rounded-full transition-colors hover:bg-[#d9dadd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 px-6 bg-[#edeef0] text-[#111113] font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)]"
-            style={{ fontVariationSettings: "'wdth' 100" }}
-          >
-            Get started
-          </button>
-          <button
-            type="button"
-            className="flex items-center justify-center h-10 rounded-full transition-colors hover:bg-[rgba(221,234,248,0.14)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 px-6 bg-[rgba(221,234,248,0.08)] text-[#edeef0] font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)]"
-            style={{ fontVariationSettings: "'wdth' 100" }}
-          >
-            View docs
-          </button>
+          <Link href="/arkives">
+            <button
+              type="button"
+              className="flex items-center justify-center h-10 rounded-full transition-colors hover:bg-[#d9dadd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 px-6 bg-[#edeef0] text-[#111113] font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)]"
+              style={{ fontVariationSettings: "'wdth' 100" }}
+            >
+              Get started
+            </button>
+          </Link>
+          <Link href="#">
+            <button
+              type="button"
+              className="flex items-center justify-center h-10 rounded-full transition-colors hover:bg-[rgba(221,234,248,0.14)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 px-6 bg-[rgba(221,234,248,0.08)] text-[#edeef0] font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)]"
+              style={{ fontVariationSettings: "'wdth' 100" }}
+            >
+              View docs
+            </button>
+          </Link>
         </div>
       </motion.div>
     </section>

@@ -32,7 +32,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Arkives", href: "/arkives" },
   { label: "Practices", href: "/practices" },
-  { label: "Project DeFi", href: "project-defi" },
+  { label: "Project DeFi", href: "/project-defi" },
   { label: "Docs" },
 ];
 

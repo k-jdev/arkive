@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
 import {
   claudeIcon,
@@ -254,17 +255,19 @@ export default function ArkivesModels() {
             </p>
           </div>
 
-          <button
-            type="button"
-            className="inline-flex items-center gap-1 h-10 rounded-full bg-transparent font-[400] text-(--figma-accent-9) [font-family:var(--figma-font-text)] hover:opacity-90 transition-opacity shrink-0 self-start md:self-auto"
-            style={{
-              fontSize: "var(--figma-font-size-3)",
-              lineHeight: "var(--figma-line-height-3)",
-              letterSpacing: "var(--figma-letter-spacing-3)",
-            }}
-          >
-            Documentation
-          </button>
+          <Link href="#">
+            <button
+              type="button"
+              className="inline-flex items-center gap-1 h-10 rounded-full bg-transparent font-[400] text-(--figma-accent-9) [font-family:var(--figma-font-text)] hover:opacity-90 transition-opacity shrink-0 self-start md:self-auto"
+              style={{
+                fontSize: "var(--figma-font-size-3)",
+                lineHeight: "var(--figma-line-height-3)",
+                letterSpacing: "var(--figma-letter-spacing-3)",
+              }}
+            >
+              Documentation
+            </button>
+          </Link>
         </motion.div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { RiArrowRightSLine } from "@remixicon/react";
 import { claudeIcon, gptIcon, grokIcon, geminiIcon } from "@/public/icons";
@@ -60,12 +61,14 @@ export default function Setup() {
               </p>
 
               <div className="flex flex-wrap items-center gap-4">
-                <motion.button
-                  type="button"
-                  className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-(--figma-spacing-4) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-12) text-(--figma-neutral-1) font-regular [font-family:var(--figma-font-text)]"
-                >
-                  Get started
-                </motion.button>
+                <Link href="/arkives">
+                  <motion.button
+                    type="button"
+                    className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-(--figma-spacing-4) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-12) text-(--figma-neutral-1) font-regular [font-family:var(--figma-font-text)]"
+                  >
+                    Get started
+                  </motion.button>
+                </Link>
 
                 <div className="flex items-center">
                   {AI_ICONS.map((icon, i) => (

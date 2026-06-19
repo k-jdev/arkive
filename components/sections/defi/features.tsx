@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { RiArrowRightSLine } from "@remixicon/react";
 import {
@@ -17,6 +18,7 @@ interface FeatureBlockProps {
   heading: string;
   description: string;
   buttonLabel: string;
+  href: string;
   imageSrc: string;
   imageSrcMobile?: string;
   imageAlt: string;
@@ -29,6 +31,7 @@ function FeatureBlock({
   heading,
   description,
   buttonLabel,
+  href,
   imageSrc,
   imageSrcMobile,
   imageAlt,
@@ -72,14 +75,16 @@ function FeatureBlock({
         </p>
       </div>
 
-      <motion.button
-        type="button"
-        aria-label={`${buttonLabel}: ${heading}`}
-        className="flex items-center justify-center h-10 rounded-full w-fit transition-colors hover:bg-[rgba(0,0,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-medium [font-family:var(--figma-font-text)]"
-      >
-        {buttonLabel}
-        <RiArrowRightSLine size={18} aria-hidden="true" />
-      </motion.button>
+      <Link href={href}>
+        <motion.button
+          type="button"
+          aria-label={`${buttonLabel}: ${heading}`}
+          className="flex items-center justify-center h-10 rounded-full w-fit transition-colors hover:bg-[rgba(0,0,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-medium [font-family:var(--figma-font-text)]"
+        >
+          {buttonLabel}
+          <RiArrowRightSLine size={18} aria-hidden="true" />
+        </motion.button>
+      </Link>
     </motion.div>
   );
 
@@ -161,6 +166,7 @@ export default function DefiFeatures() {
         heading="Project DeFi is Arkive's first core practice."
         description="Whether it's trading, research, writing, or anything else, a practice connects to an Arkive's core, adapting it to that domain."
         buttonLabel="Get started"
+        href="/arkives"
         imageSrc="/sections/defiFeatures/card1.png"
         imageSrcMobile="/sections/defiFeatures/card1Mobile.png"
         imageAlt="Project DeFi is Arkive's first core practice"
@@ -172,6 +178,7 @@ export default function DefiFeatures() {
         heading="Stay in control of every AI transaction."
         description="A secure layer for your AI to interact with financial markets. You sign every transaction — nothing goes through without your approval."
         buttonLabel="Go to security"
+        href="/project-defi"
         imageSrc="/sections/defiFeatures/card2.png"
         imageSrcMobile="/sections/defiFeatures/card2Mobile.png"
         imageAlt="Stay in control of every AI transaction"

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { RiArrowRightSLine } from "@remixicon/react";
 import { claudeIcon, gptIcon, grokIcon, geminiIcon } from "@/public/icons";
@@ -53,12 +54,14 @@ export default function PracticesCreating() {
 
             {/* ── Mobile: Get started + AI icons, left-aligned ── */}
             <div className="flex flex-wrap items-center gap-4 w-full justify-start">
-              <motion.button
-                type="button"
-                className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-5 text-[16px] font-[510] bg-[#1C2024] text-[#FCFCFD] [font-family:var(--figma-font-text)]"
-              >
-                Get started
-              </motion.button>
+              <Link href="/arkives">
+                <motion.button
+                  type="button"
+                  className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-5 text-[16px] font-[510] bg-[#1C2024] text-[#FCFCFD] [font-family:var(--figma-font-text)]"
+                >
+                  Get started
+                </motion.button>
+              </Link>
 
               <div className="flex items-center">
                 {AI_ICONS.map((icon, i) => (
@@ -143,12 +146,14 @@ export default function PracticesCreating() {
             </div>
 
             <div className="flex flex-wrap items-center gap-4 mt-2">
-              <motion.button
-                type="button"
-                className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-5 text-[16px] font-[510] bg-[#1C2024] text-[#FCFCFD] [font-family:var(--figma-font-text)]"
-              >
-                Get started
-              </motion.button>
+              <Link href="/arkives">
+                <motion.button
+                  type="button"
+                  className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-5 text-[16px] font-[510] bg-[#1C2024] text-[#FCFCFD] [font-family:var(--figma-font-text)]"
+                >
+                  Get started
+                </motion.button>
+              </Link>
 
               <div className="flex items-center">
                 {AI_ICONS.map((icon, i) => (
@@ -215,14 +220,15 @@ export default function PracticesCreating() {
                 respective domain.
               </span>
             </p>
-            <motion.a
-              href="#"
-              className="inline-flex items-center gap-1 font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)] text-[#0022FF] hover:opacity-80 transition-opacity"
-              aria-label="Learn more about Project DeFi"
-            >
-              Learn more about Project DeFi
-              <RiArrowRightSLine size={18} aria-hidden="true" />
-            </motion.a>
+            <Link href="/project-defi">
+              <motion.a
+                className="inline-flex items-center gap-1 font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)] text-[#0022FF] hover:opacity-80 transition-opacity"
+                aria-label="Learn more about Project DeFi"
+              >
+                Learn more about Project DeFi
+                <RiArrowRightSLine size={18} aria-hidden="true" />
+              </motion.a>
+            </Link>
           </div>
 
           {/* Desktop layout */}
@@ -247,14 +253,15 @@ export default function PracticesCreating() {
               </p>
             </div>
 
-            <motion.a
-              href="#"
-              className="flex items-center gap-1 shrink-0 font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)] text-[#0022FF] hover:opacity-80 transition-opacity"
-              aria-label="Learn more about Project DeFi"
-            >
-              Learn more about Project DeFi
-              <RiArrowRightSLine size={18} aria-hidden="true" />
-            </motion.a>
+            <Link href="/project-defi">
+              <motion.a
+                className="flex items-center gap-1 shrink-0 font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)] text-[#0022FF] hover:opacity-80 transition-opacity"
+                aria-label="Learn more about Project DeFi"
+              >
+                Learn more about Project DeFi
+                <RiArrowRightSLine size={18} aria-hidden="true" />
+              </motion.a>
+            </Link>
           </div>
         </motion.div>
       </div>

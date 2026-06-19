@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { RiArrowRightSLine } from "@remixicon/react";
 import { claudeIcon, gptIcon, grokIcon, geminiIcon } from "@/public/icons";
@@ -56,17 +57,19 @@ export default function DefiCreate() {
             </div>
 
             <div className="flex flex-wrap items-center gap-4 mt-2">
-              <motion.button
-                type="button"
-                className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 pl-5 pr-3 gap-1 text-[16px] font-[510] bg-[#1C2024] text-[#FCFCFD] [font-family:var(--figma-font-text)]"
-              >
-                Get started
-                <RiArrowRightSLine
-                  size={18}
-                  className="text-white"
-                  aria-hidden="true"
-                />
-              </motion.button>
+              <Link href="/arkives">
+                <motion.button
+                  type="button"
+                  className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 pl-5 pr-3 gap-1 text-[16px] font-[510] bg-[#1C2024] text-[#FCFCFD] [font-family:var(--figma-font-text)]"
+                >
+                  Get started
+                  <RiArrowRightSLine
+                    size={18}
+                    className="text-white"
+                    aria-hidden="true"
+                  />
+                </motion.button>
+              </Link>
 
               <div className="flex items-center">
                 {AI_ICONS.map((icon, i) => (

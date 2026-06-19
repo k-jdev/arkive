@@ -28,9 +28,9 @@ const LINK_GROUPS: FooterLinkGroup[] = [
   {
     title: "Product",
     links: [
-      { label: "Arkives", href: "#" },
-      { label: "Practices", href: "#" },
-      { label: "Trade Projects", href: "#" },
+      { label: "Arkives", href: "/arkives" },
+      { label: "Practices", href: "/practices" },
+      { label: "Project DeFi", href: "/project-defi" },
       { label: "Research", href: "#" },
       { label: "Workspaces", href: "#" },
       { label: "Integrations", href: "#" },
