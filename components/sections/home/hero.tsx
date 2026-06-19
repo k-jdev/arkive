@@ -117,7 +117,7 @@ export default function Hero() {
         }}
       >
         <Image
-          src="/sections/hero/hero-main.webp"
+          src="/sections/hero/hero-main.png"
           alt="Arkive app view"
           width={860}
           height={553}
