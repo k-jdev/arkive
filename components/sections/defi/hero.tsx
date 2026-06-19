@@ -49,7 +49,7 @@ export default function ProjectDefiHero() {
               className="flex items-center justify-center h-10 rounded-full transition-colors hover:bg-[#d9dadd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 px-6 bg-[#edeef0] text-[#111113] font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)]"
               style={{ fontVariationSettings: "'wdth' 100" }}
             >
-              Get started
+              Coming soon
             </button>
           </Link>
 

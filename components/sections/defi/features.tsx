@@ -165,7 +165,7 @@ export default function DefiFeatures() {
         label="Frontier AI"
         heading="Project DeFi is Arkive's first core practice."
         description="Whether it's trading, research, writing, or anything else, a practice connects to an Arkive's core, adapting it to that domain."
-        buttonLabel="Get started"
+        buttonLabel="Coming soon"
         href="/arkives"
         imageSrc="/sections/defiFeatures/card1.png"
         imageSrcMobile="/sections/defiFeatures/card1Mobile.png"

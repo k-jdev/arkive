@@ -84,15 +84,13 @@ export default function Hero() {
             variants={reduced ? safeFade : heroFadeUpSmall}
             className="flex flex-wrap items-center justify-center gap-2"
           >
-            <Link href="/arkives">
-              <motion.button
-                variants={reduced ? safeFade : heroFadeUpSmall}
-                type="button"
-                className="flex items-center justify-center h-10 rounded-full transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-(--figma-spacing-4) gap-(--figma-spacing-3) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-12) text-(--figma-neutral-1) font-normal [font-family:var(--figma-font-text)]"
-              >
-                Get started
-              </motion.button>
-            </Link>
+            <motion.button
+              variants={reduced ? safeFade : heroFadeUpSmall}
+              type="button"
+              className="flex items-center justify-center h-10 rounded-full transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-(--figma-spacing-4) gap-(--figma-spacing-3) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-12) text-(--figma-neutral-1) font-normal [font-family:var(--figma-font-text)]"
+            >
+              Coming soon
+            </motion.button>
 
             <Link href="/project-defi">
               <motion.button

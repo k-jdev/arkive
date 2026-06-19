@@ -52,16 +52,13 @@ export default function PracticesCreating() {
               </p>
             </div>
 
-            {/* ── Mobile: Get started + AI icons, left-aligned ── */}
             <div className="flex flex-wrap items-center gap-4 w-full justify-start">
-              <Link href="/arkives">
-                <motion.button
-                  type="button"
-                  className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-5 text-[16px] font-[510] bg-[#1C2024] text-[#FCFCFD] [font-family:var(--figma-font-text)]"
-                >
-                  Get started
-                </motion.button>
-              </Link>
+              <motion.button
+                type="button"
+                className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-5 text-[16px] font-[510] bg-[#1C2024] text-[#FCFCFD] [font-family:var(--figma-font-text)]"
+              >
+                Coming soon
+              </motion.button>
 
               <div className="flex items-center">
                 {AI_ICONS.map((icon, i) => (
@@ -146,14 +143,12 @@ export default function PracticesCreating() {
             </div>
 
             <div className="flex flex-wrap items-center gap-4 mt-2">
-              <Link href="/arkives">
-                <motion.button
-                  type="button"
-                  className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-5 text-[16px] font-[510] bg-[#1C2024] text-[#FCFCFD] [font-family:var(--figma-font-text)]"
-                >
-                  Get started
-                </motion.button>
-              </Link>
+              <motion.button
+                type="button"
+                className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-5 text-[16px] font-[510] bg-[#1C2024] text-[#FCFCFD] [font-family:var(--figma-font-text)]"
+              >
+                Coming soon
+              </motion.button>
 
               <div className="flex items-center">
                 {AI_ICONS.map((icon, i) => (

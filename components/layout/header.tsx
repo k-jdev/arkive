@@ -160,7 +160,7 @@ export default function Header() {
                 : "bg-(--figma-neutral-12) text-(--figma-neutral-1) hover:opacity-90 focus-visible:ring-black/30",
             ].join(" ")}
           >
-            Get started
+            Coming soon
           </motion.button>
 
           <motion.button
