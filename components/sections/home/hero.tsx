@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { RiArrowRightSLine } from "@remixicon/react";
@@ -116,27 +115,21 @@ export default function Hero() {
           y: reduced || isMobile ? 0 : p * 80,
         }}
       >
-        <Image
+        <img
           src="/sections/hero/hero-main.png"
           alt="Arkive app view"
           width={860}
           height={553}
-          priority
           decoding="sync"
-          sizes="(min-width: 768px) 65vw, 92vw"
           className="hidden md:block w-full h-auto rounded-xl shadow-2xl"
-          unoptimized
           draggable={false}
         />
-        <Image
-          src="/sections/hero/hero-mobile.webp"
+        <img
+          src="/sections/hero/hero-mobile.png"
           alt="Arkive app view"
           width={390}
           height={844}
-          priority
-          fetchPriority="high"
           decoding="sync"
-          sizes="100vw"
           className="block md:hidden w-full h-auto rounded-xl scale-125 origin-top-left -mt-[10svh]"
           draggable={false}
         />
