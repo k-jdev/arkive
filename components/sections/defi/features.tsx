@@ -195,8 +195,9 @@ export default function DefiFeatures() {
         label="Secure Signing"
         heading="Stay in control of every AI transaction."
         description="A secure layer for your AI to interact with financial markets. You sign every transaction — nothing goes through without your approval."
-        buttonLabel="Go to security"
+        buttonLabel="Coming soon"
         href="/project-defi"
+        onButtonClick={openModal}
         imageSrc="/sections/defiFeatures/card2.png"
         imageSrcMobile="/sections/defiFeatures/card2Mobile.png"
         imageAlt="Stay in control of every AI transaction"

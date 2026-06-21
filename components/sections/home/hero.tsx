@@ -133,14 +133,14 @@ export default function Hero() {
           width={390}
           height={844}
           decoding="sync"
-          className="block md:hidden w-full h-auto rounded-xl scale-125 origin-top-left -mt-[10svh]"
+          className="block md:hidden w-full h-auto  scale-100  origin-top-left -mt-[10svh] "
           draggable={false}
         />
       </motion.div>
 
       <section
         data-header-theme="dark"
-        className="relative w-full h-[150svh] md:h-[clamp(100svh,60svh+40vw,160svh)] bg-white overflow-hidden"
+        className="relative w-full h-[clamp(100svh,80svh+60vw,150svh)] md:h-[clamp(100svh,60svh+40vw,160svh)] bg-white overflow-hidden"
       >
         <motion.div
           className="absolute inset-0 bg-[#0A0A0A] overflow-hidden"
@@ -157,7 +157,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          className="absolute inset-0 pointer-events-none flex flex-col items-start md:items-start pt-[56svh] md:pt-[calc(41.8vw-clamp(200px,30svh,340px)+100px)] pl-[4vw] md:pl-[17.5vw]"
+          className="absolute inset-0 pointer-events-none flex flex-col items-start md:items-start pt-[calc(41.8vw--30vw)] md:pt-[calc(41.8vw-clamp(200px,30svh,340px)+100px)] px-4 md:px-0 md:pl-[17.5vw]"
           style={{
             opacity: reduced ? 1 : Math.max(0, (p - 0.7) / 0.3),
             transform: reduced
@@ -182,7 +182,7 @@ export default function Hero() {
             whileInView={reduced || isMobile ? undefined : "visible"}
             viewport={{ once: true, margin: "-100px" }}
             variants={reduced ? safeFade : heroDarkEnter}
-            className="w-[92vw] md:w-[min(65vw,1200px)] mt-[280px] md:mt-[clamp(120px,15vw,280px)]"
+            className="w-[92vw] md:w-[min(65vw,1200px)] mt-16 md:mt-[clamp(120px,15vw,280px)]"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
