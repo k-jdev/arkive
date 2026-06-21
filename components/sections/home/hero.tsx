@@ -15,6 +15,7 @@ import {
   safeContainer,
 } from "@/lib/animations";
 import { usePrefersReducedMotion } from "@/lib/motion-config";
+import { useNewsletterModal } from "@/components/providers/newsletter-modal-provider";
 
 const HeroCanvas = dynamic(() => import("./hero-canvas"), { ssr: false });
 
@@ -23,6 +24,7 @@ export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(true);
   const reduced = usePrefersReducedMotion();
+  const { openModal } = useNewsletterModal();
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -86,6 +88,7 @@ export default function Hero() {
             <motion.button
               variants={reduced ? safeFade : heroFadeUpSmall}
               type="button"
+              onClick={openModal}
               className="flex items-center justify-center h-10 rounded-full transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-(--figma-spacing-4) gap-(--figma-spacing-3) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-12) text-(--figma-neutral-1) font-normal [font-family:var(--figma-font-text)]"
             >
               Coming soon

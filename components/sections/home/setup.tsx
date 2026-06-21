@@ -7,6 +7,7 @@ import { RiArrowRightSLine } from "@remixicon/react";
 import { claudeIcon, gptIcon, grokIcon, geminiIcon } from "@/public/icons";
 import { setupHeader, setupCard, EASE, safeFade } from "@/lib/animations";
 import { usePrefersReducedMotion } from "@/lib/motion-config";
+import { useNewsletterModal } from "@/components/providers/newsletter-modal-provider";
 
 const AI_ICONS = [
   { src: claudeIcon, alt: "Claude" },
@@ -17,6 +18,7 @@ const AI_ICONS = [
 
 export default function Setup() {
   const reduced = usePrefersReducedMotion();
+  const { openModal } = useNewsletterModal();
 
   return (
     <section
@@ -63,6 +65,7 @@ export default function Setup() {
               <div className="flex flex-wrap items-center gap-4">
                 <motion.button
                   type="button"
+                  onClick={openModal}
                   className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-(--figma-spacing-4) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-12) text-(--figma-neutral-1) font-regular [font-family:var(--figma-font-text)]"
                 >
                   Coming soon

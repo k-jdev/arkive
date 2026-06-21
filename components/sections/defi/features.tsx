@@ -12,6 +12,7 @@ import {
   safeContainer,
 } from "@/lib/animations";
 import { usePrefersReducedMotion } from "@/lib/motion-config";
+import { useNewsletterModal } from "@/components/providers/newsletter-modal-provider";
 
 interface FeatureBlockProps {
   label: string;
@@ -24,6 +25,7 @@ interface FeatureBlockProps {
   imageAlt: string;
   imageLeft?: boolean;
   imageOverlay?: React.ReactNode;
+  onButtonClick?: () => void;
 }
 
 function FeatureBlock({
@@ -37,6 +39,7 @@ function FeatureBlock({
   imageAlt,
   imageLeft = false,
   imageOverlay,
+  onButtonClick,
 }: FeatureBlockProps) {
   const reduced = usePrefersReducedMotion();
 
@@ -75,16 +78,28 @@ function FeatureBlock({
         </p>
       </div>
 
-      <Link href={href}>
+      {onButtonClick ? (
         <motion.button
           type="button"
+          onClick={onButtonClick}
           aria-label={`${buttonLabel}: ${heading}`}
           className="flex items-center justify-center h-10 rounded-full w-fit transition-colors hover:bg-[rgba(0,0,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-medium [font-family:var(--figma-font-text)]"
         >
           {buttonLabel}
           <RiArrowRightSLine size={18} aria-hidden="true" />
         </motion.button>
-      </Link>
+      ) : (
+        <Link href={href}>
+          <motion.button
+            type="button"
+            aria-label={`${buttonLabel}: ${heading}`}
+            className="flex items-center justify-center h-10 rounded-full w-fit transition-colors hover:bg-[rgba(0,0,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-medium [font-family:var(--figma-font-text)]"
+          >
+            {buttonLabel}
+            <RiArrowRightSLine size={18} aria-hidden="true" />
+          </motion.button>
+        </Link>
+      )}
     </motion.div>
   );
 
@@ -155,6 +170,8 @@ function FeatureBlock({
 }
 
 export default function DefiFeatures() {
+  const { openModal } = useNewsletterModal();
+
   return (
     <section
       data-header-theme="light"
@@ -167,6 +184,7 @@ export default function DefiFeatures() {
         description="Whether it's trading, research, writing, or anything else, a practice connects to an Arkive's core, adapting it to that domain."
         buttonLabel="Coming soon"
         href="/arkives"
+        onButtonClick={openModal}
         imageSrc="/sections/defiFeatures/card1.png"
         imageSrcMobile="/sections/defiFeatures/card1Mobile.png"
         imageAlt="Project DeFi is Arkive's first core practice"

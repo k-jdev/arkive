@@ -3,10 +3,13 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { motion } from "motion/react";
+import { useNewsletterModal } from "@/components/providers/newsletter-modal-provider";
 
 const HeroCanvas = dynamic(() => import("./hero-canvas"), { ssr: false });
 
 export default function ProjectDefiHero() {
+  const { openModal } = useNewsletterModal();
+
   return (
     <section
       data-header-theme="dark"
@@ -45,6 +48,7 @@ export default function ProjectDefiHero() {
         >
           <button
             type="button"
+            onClick={openModal}
             className="flex items-center justify-center h-10 rounded-full transition-colors hover:bg-[#d9dadd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 px-6 bg-[#edeef0] text-[#111113] font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)]"
             style={{ fontVariationSettings: "'wdth' 100" }}
           >

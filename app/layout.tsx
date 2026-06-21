@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import { NewsletterModalProvider } from "@/components/providers/newsletter-modal-provider";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -39,9 +40,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
-        <Header />
-        {children}
-        <Footer />
+        <NewsletterModalProvider>
+          <Header />
+          {children}
+          <Footer />
+        </NewsletterModalProvider>
       </body>
     </html>
   );

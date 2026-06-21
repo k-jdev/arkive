@@ -7,6 +7,7 @@ import { RiArrowRightSLine } from "@remixicon/react";
 import { claudeIcon, gptIcon, grokIcon, geminiIcon } from "@/public/icons";
 import { setupHeader, setupCard, EASE, safeFade } from "@/lib/animations";
 import { usePrefersReducedMotion } from "@/lib/motion-config";
+import { useNewsletterModal } from "@/components/providers/newsletter-modal-provider";
 
 import cardImg from "@/public/sections/defiCreate/card.png";
 import cardMobileImg from "@/public/sections/defiCreate/cardMobile.png";
@@ -20,6 +21,7 @@ const AI_ICONS = [
 
 export default function DefiCreate() {
   const reduced = usePrefersReducedMotion();
+  const { openModal } = useNewsletterModal();
 
   return (
     <section className="w-full bg-white py-[60px] md:py-[100px]">
@@ -59,6 +61,7 @@ export default function DefiCreate() {
             <div className="flex flex-wrap items-center gap-4 mt-2">
               <motion.button
                 type="button"
+                onClick={openModal}
                 className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 pl-5 pr-3 gap-1 text-[16px] font-[510] bg-[#1C2024] text-[#FCFCFD] [font-family:var(--figma-font-text)]"
               >
                 Coming soon

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useNewsletterModal } from "@/components/providers/newsletter-modal-provider";
 import {
   RiArrowDownSLine,
   RiSearchLine,
@@ -47,6 +48,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
   const pathname = usePathname();
+  const { openModal } = useNewsletterModal();
 
   useEffect(() => {
     const onScroll = () => {
@@ -153,6 +155,7 @@ export default function Header() {
           <motion.button
             variants={headerItem}
             type="button"
+            onClick={openModal}
             className={[
               "hidden lg:flex items-center justify-center h-8 rounded-full transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 px-(--figma-spacing-3) text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) font-normal",
               dark
