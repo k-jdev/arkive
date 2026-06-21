@@ -184,3 +184,11 @@ body.modal-open > header {
   transition: filter 0.2s ease;
   pointer-events: none;
 }
+
+@media (max-width: 767px) {
+  [data-sonner-toaster] {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+  }
+}

@@ -3,21 +3,32 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
+import { toast } from "sonner";
 
 interface Props {
   open: boolean;
   onClose: () => void;
 }
 
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbzZyntBPGZ41kOCTW8s7BV-NWGr4qsQQ0HYp5zU3k-d0f6kgTY-6_3O_oEJ-i_8IAa9ag/exec";
+
+function isValidEmail(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
 export default function NewsletterModal({ open, onClose }: Props) {
   const [mounted, setMounted] = useState(false);
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
 
   useEffect(() => setMounted(true), []);
 
   useLayoutEffect(() => {
     if (!open) return;
 
-    // compensate scrollbar width before hiding it to avoid layout shift
     const scrollbarWidth =
       window.innerWidth - document.documentElement.clientWidth;
     document.documentElement.style.setProperty(
@@ -39,6 +50,50 @@ export default function NewsletterModal({ open, onClose }: Props) {
       document.removeEventListener("keydown", onKey);
     };
   }, [open, onClose]);
+
+  useEffect(() => {
+    if (!open) {
+      setEmail("");
+      setStatus("idle");
+    }
+  }, [open]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isValidEmail(email)) {
+      toast.error("Please enter a valid email address", {
+        position: window.innerWidth < 768 ? "bottom-center" : "bottom-right",
+      });
+      return;
+    }
+
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email.trim(),
+          timestamp: new Date().toISOString(),
+        }),
+      });
+
+      if (!res.ok) throw new Error("Network response was not ok");
+      const data = (await res.json()) as { success?: boolean };
+      if (!data.success) throw new Error("Server returned failure");
+
+      setStatus("success");
+      toast.success("You're subscribed! We'll keep you posted.", {
+        position: window.innerWidth < 768 ? "bottom-center" : "bottom-right",
+      });
+      onClose();
+    } catch {
+      setStatus("error");
+      toast.error("Something went wrong. Please try again.", {
+        position: window.innerWidth < 768 ? "bottom-center" : "bottom-right",
+      });
+    }
+  };
 
   if (!mounted || !open) return null;
 
@@ -94,21 +149,28 @@ export default function NewsletterModal({ open, onClose }: Props) {
             </h2>
           </div>
 
-          {/* Email row (stacked on mobile) */}
-          <div className="flex w-full flex-col items-start gap-4 self-stretch md:flex-row md:items-stretch md:gap-4">
+          {/* Email form */}
+          <form
+            onSubmit={handleSubmit}
+            className="flex w-full flex-col items-start gap-4 self-stretch md:flex-row md:items-stretch md:gap-4"
+          >
             <input
               type="email"
               placeholder="Email address"
               aria-label="Email address"
-              className="h-10 w-full min-w-0 appearance-none self-stretch rounded-[9px] border border-[rgba(0,9,50,0.12)] bg-transparent px-4 font-normal text-[16px] leading-6 text-[rgba(0,5,9,0.89)] outline-none placeholder:text-[rgba(0,5,29,0.45)] focus-visible:ring-2 focus-visible:ring-black/20 md:flex-1 md:bg-white/90 [font-family:var(--figma-font-text)]"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={status === "loading"}
+              className="h-10 w-full min-w-0 appearance-none self-stretch rounded-[9px] border border-[rgba(0,9,50,0.12)] bg-transparent px-4 font-normal text-[16px] leading-6 text-[rgba(0,5,9,0.89)] outline-none placeholder:text-[rgba(0,5,29,0.45)] focus-visible:ring-2 focus-visible:ring-black/20 disabled:opacity-60 md:flex-1 md:bg-white/90 [font-family:var(--figma-font-text)]"
             />
             <button
-              type="button"
-              className="flex h-10 w-full shrink-0 items-center justify-center self-stretch rounded-[9px] bg-(--figma-neutral-12) px-4 font-[510] text-[16px] leading-6 text-(--figma-neutral-1) transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 md:w-auto [font-family:var(--figma-font-text)]"
+              type="submit"
+              disabled={status === "loading"}
+              className="flex h-10 w-full shrink-0 items-center justify-center self-stretch rounded-[9px] bg-(--figma-neutral-12) px-4 font-[510] text-[16px] leading-6 text-(--figma-neutral-1) transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 disabled:opacity-60 md:w-auto [font-family:var(--figma-font-text)]"
             >
-              Subscribe
+              {status === "loading" ? "Subscribing..." : "Subscribe"}
             </button>
-          </div>
+          </form>
 
           {/* Privacy */}
           <p className="mx-auto max-w-[249px] font-[510] text-[12px] leading-4 tracking-[0.0033em] text-(--figma-neutral-alpha-10) md:mx-0 md:max-w-none [font-family:var(--figma-font-text)]">

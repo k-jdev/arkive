@@ -7,6 +7,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { Toaster } from "sonner";
 import NewsletterModal from "@/components/sections/home/newsletter-modal";
 
 interface NewsletterModalContextValue {
@@ -38,6 +39,15 @@ export function NewsletterModalProvider({
     <NewsletterModalContext.Provider value={value}>
       {children}
       <NewsletterModal open={open} onClose={closeModal} />
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          className:
+            "data-[position=bottom-right]:!right-4 data-[position=bottom-right]:!bottom-4 data-[position=bottom-center]:!bottom-4",
+        }}
+        mobileOffset={{ bottom: 16 }}
+        closeButton
+      />
     </NewsletterModalContext.Provider>
   );
 }
