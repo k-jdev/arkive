@@ -172,11 +172,13 @@ export default function Hero() {
             whileInView={reduced || isMobile ? undefined : "visible"}
             viewport={{ once: true, margin: "-100px" }}
             variants={reduced ? safeFade : heroDarkEnter}
-            className="w-[92vw] md:w-[min(65vw,1200px)] md:max-w-[min(65vw,1200px)] text-white font-normal [font-family:var(--figma-font-text)] tracking-[-0.4px] text-[35px] md:text-[clamp(18px,5vw,48px)]"
+            className="w-[92vw] md:w-[min(65vw,1200px)] text-white font-normal [font-family:var(--figma-font-text)] tracking-[-0.4px] text-[35px] md:text-[clamp(18px,5vw,48px)]"
             style={{ lineHeight: 1.15 }}
           >
-            The future of AI is one where context is owned, compounding and
-            portable across models. Arkive makes this possible.
+            The future of AI is one where context is owned,
+            <br className="hidden xl:block" /> compounding and portable across
+            models.
+            <br className="hidden xl:block" /> Arkive makes this possible.
           </motion.p>
 
           <motion.div
