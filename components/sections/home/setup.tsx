@@ -185,11 +185,11 @@ export default function Setup() {
                   letterSpacing: "var(--figma-letter-spacing-3)",
                 }}
               >
-                Read our docs on how to transfer context from your model to the{" "}
+                Read our docs on how to import existing context{" "}
                 <span className="hidden md:inline">
                   <br />
                 </span>
-                new standard for context-capture.
+                from anywhere into your arkive.
               </p>
 
               <motion.a

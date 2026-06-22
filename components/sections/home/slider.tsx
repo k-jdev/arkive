@@ -35,14 +35,14 @@ const SLIDES: SlideItem[] = [
     imageSrc: "/sections/slider/card2.png",
     boldText: "Compound every trade.",
     dimText:
-      "Arkive compounds context across your activity, creating a second brain behind every decision.",
+      "Trade with any frontier AI across on-chain markets, with full Arkive context behind every decision.",
   },
   {
     id: 3,
     imageSrc: "/sections/slider/card3.webp",
     boldText: "All of DeFi, a prompt away.",
     dimText:
-      "Execute spot and perpetual strategies across EVM and Solana through a secure trading layer.",
+      "Execute spot and perpetual trades across EVM and Solana securely with your AI.",
   },
 ];
 
