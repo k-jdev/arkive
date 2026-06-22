@@ -35,8 +35,8 @@ export default function Setup() {
           className="font-[590] tracking-[-0.4px] text-(--figma-neutral-12) [font-family:var(--figma-font-text)]"
           style={{ fontSize: "clamp(35px, 3.3vw, 48px)", lineHeight: 0.9 }}
         >
-          Set up your Arkive
-          <br className="block md:hidden" /> in &lt; 1 minute.
+          Set up your Arkive <br className="block md:hidden" /> in &lt; 1
+          minute.
         </motion.h2>
 
         <div className="flex flex-col gap-5">
