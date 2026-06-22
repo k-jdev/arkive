@@ -59,7 +59,7 @@ export default function Hero() {
     <div ref={sectionRef} className="relative w-full overflow-x-hidden">
       <section
         data-header-theme="light"
-        className="relative w-full min-h-svh flex flex-col items-center justify-start pt-[calc(54px+20vh)] md:pt-[calc(54px+18vh)] bg-white px-4"
+        className="relative w-full min-h-svh flex flex-col items-center justify-start pt-[calc(54px+20vh)] md:pt-[calc(54px+27vh)] bg-white px-4"
       >
         <motion.div
           initial="hidden"
