@@ -130,6 +130,17 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [pathname]);
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <motion.header
       initial={{ y: -72, opacity: 0 }}
