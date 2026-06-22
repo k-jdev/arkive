@@ -3,6 +3,7 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
+import { RiCloseLine } from "@remixicon/react";
 import { toast } from "sonner";
 
 interface Props {
@@ -110,6 +111,15 @@ export default function NewsletterModal({ open, onClose }: Props) {
         className="relative flex w-full max-w-[1281px] flex-col overflow-hidden rounded-[24px] bg-[#F9F9FB] max-h-[90vh] md:h-[clamp(360px,40vw,550px)] md:max-h-none md:flex-row"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Close button */}
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close modal"
+          className="absolute right-4 top-4 z-10 flex size-10 items-center justify-center rounded-full bg-[#F9F9FB] md:bg-[rgba(0,0,51,0.06)] transition-colors hover:bg-[rgba(0,0,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
+        >
+          <RiCloseLine size={18} className="text-(--figma-neutral-12)" />
+        </button>
         {/* Mobile image (top, full-bleed) */}
         <div className="relative block aspect-[716/551] w-full shrink-0 md:hidden">
           <Image

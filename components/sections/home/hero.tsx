@@ -114,7 +114,7 @@ export default function Hero() {
         initial="hidden"
         animate="visible"
         variants={reduced ? safeFade : heroImageReveal}
-        className="absolute pointer-events-none top-[calc(100svh-clamp(200px,30svh,340px))] left-1/2 w-screen md:w-[min(65vw,1200px)] z-10"
+        className="absolute pointer-events-none top-[calc(105svh-clamp(200px,30svh,340px))] left-1/2 w-screen md:w-[min(65vw,1200px)] z-10"
         style={{
           x: "-50%",
           y: reduced || isMobile ? 0 : p * 80,
@@ -159,7 +159,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          className="absolute   inset-0 pointer-events-none flex flex-col items-start md:items-start pt-[calc(41.8vw--30vw)] md:pt-[calc(41.8vw-clamp(200px,30svh,340px)+100px)] px-4 md:px-0 md:pl-[17.5vw]"
+          className="absolute   inset-0 pointer-events-none flex flex-col items-start md:items-start pt-[calc(41.8vw--50vw)] md:pt-[calc(41.8vw-clamp(200px,30svh,340px)+100px)] px-4 md:px-0 md:pl-[17.5vw]"
           style={{
             opacity: reduced ? 1 : Math.max(0, (p - 0.7) / 0.3),
             transform: reduced
@@ -186,7 +186,7 @@ export default function Hero() {
             whileInView={reduced || isMobile ? undefined : "visible"}
             viewport={{ once: true, margin: "-100px" }}
             variants={reduced ? safeFade : heroDarkEnter}
-            className="w-[92vw] md:w-[min(65vw,1200px)] mt-16 md:mt-[clamp(120px,15vw,280px)]"
+            className="w-[92vw] md:w-[min(65vw,1200px)] mt-30 md:mt-[clamp(120px,15vw,280px)]"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

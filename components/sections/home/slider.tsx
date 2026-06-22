@@ -25,7 +25,7 @@ interface SlideItem {
 const SLIDES: SlideItem[] = [
   {
     id: 1,
-    imageSrc: "/sections/slider/card.webp",
+    imageSrc: "/sections/slider/card.png",
     boldText: "Arkive’s first core practice.",
     dimText:
       " Add our practice designed specifically for decentralized markets to your arkive.",
