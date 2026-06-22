@@ -26,9 +26,9 @@ const SLIDES: SlideItem[] = [
   {
     id: 1,
     imageSrc: "/sections/slider/card.webp",
-    boldText: "Bring Arkive into any AI model.",
+    boldText: "Arkive’s first core practice.",
     dimText:
-      "Connect via MCP and let your agent trade with full on-chain context behind every decision.",
+      " Add our practice designed specifically for decentralized markets to your arkive.",
   },
   {
     id: 2,
@@ -118,9 +118,6 @@ export default function Slider() {
         {/* Header row */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
           <div className="flex flex-col ">
-            <p className="font-[590] text-(--figma-accent-9) text-[14px] leading-[20px] [font-family:var(--figma-font-text)] md:hidden">
-              Practices
-            </p>
             <h2
               className="font-[590] tracking-[-0.4px] [font-family:var(--figma-font-text)] bg-linear-to-r from-[#1C2024] to-[#0080FF] bg-clip-text text-transparent whitespace-nowrap"
               style={{ fontSize: "clamp(48px, 4vw, 72px)" }}

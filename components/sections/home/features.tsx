@@ -185,8 +185,8 @@ export default function Features() {
     >
       <FeatureBlock
         label="Arkives"
-        heading="Portable knowledge trees understood by all models."
-        description="An Arkive is a portable knowledge tree. It connects to any AI, compounding context and user memory across models."
+        heading="Structure context that compounds."
+        description="Memory that builds on itself, providing any model it connects to with deeper, focused knowledge."
         buttonLabel="Learn more"
         href="/arkives"
         imageSrc="/sections/arkives/card.png"
@@ -198,7 +198,7 @@ export default function Features() {
       <FeatureBlock
         label="Practices"
         heading="Extend an Arkive into any domain."
-        description="Whether it's trading, research, writing, or anything else, a practice connects to an Arkive's core, adapting it to that domain."
+        description="Trading, Business, Health — wherever decisions compound and context matters."
         buttonLabel="Explore Practices"
         href="/practices"
         imageSrc="/sections/practices/card-bg.png"

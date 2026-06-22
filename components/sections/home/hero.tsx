@@ -59,13 +59,13 @@ export default function Hero() {
     <div ref={sectionRef} className="relative w-full overflow-x-hidden">
       <section
         data-header-theme="light"
-        className="relative w-full min-h-svh flex flex-col items-center justify-start pt-[calc(54px+25vh)] md:pt-[calc(54px+18vh)] bg-white px-4"
+        className="relative w-full min-h-svh flex flex-col items-center justify-start pt-[calc(54px+20vh)] md:pt-[calc(54px+18vh)] bg-white px-4"
       >
         <motion.div
           initial="hidden"
           animate="visible"
           variants={reduced ? safeContainer : heroContainer}
-          className="flex flex-col items-center gap-4 md:gap-6 text-center w-[92vw] md:w-[min(52vw,1080px)]"
+          className="flex flex-col items-center gap-4 md:gap-6 text-center w-[92vw] md:w-[min(65vw,1200px)]"
           style={{
             opacity: reduced || isMobile ? 1 : Math.max(0, 1 - p * 2),
             transform:
@@ -74,10 +74,12 @@ export default function Hero() {
         >
           <motion.h1
             variants={reduced ? safeFade : heroFadeUp}
-            className="w-full text-center font-[590] text-[42px] md:text-[clamp(42px,5.5vw,72px)] leading-[0.9] tracking-[-0.4px] text-(--figma-neutral-12) [font-family:var(--figma-font-text)]"
+            className="w-full text-center font-[590] text-[48px] md:text-[clamp(48px,5.5vw,72px)] leading-[0.9] tracking-[-0.4px] text-(--figma-neutral-12) [font-family:var(--figma-font-text)]"
           >
-            Universal language
-            <br />
+            The universal language
+            <span className="hidden md:inline">
+              <br />
+            </span>{" "}
             for AI context.
           </motion.h1>
 
@@ -140,7 +142,7 @@ export default function Hero() {
 
       <section
         data-header-theme="dark"
-        className="relative w-full h-[clamp(100svh,80svh+60vw,150svh)] md:h-[clamp(100svh,60svh+40vw,160svh)] bg-white overflow-hidden"
+        className="relative w-full h-[clamp(100svh,80svh+60vw,150svh)] md:h-[clamp(100svh,60svh+35vw,160svh)] bg-white overflow-hidden"
       >
         <motion.div
           className="absolute inset-0 bg-[#0A0A0A] overflow-hidden"
@@ -157,7 +159,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          className="absolute inset-0 pointer-events-none flex flex-col items-start md:items-start pt-[calc(41.8vw--30vw)] md:pt-[calc(41.8vw-clamp(200px,30svh,340px)+100px)] px-4 md:px-0 md:pl-[17.5vw]"
+          className="absolute   inset-0 pointer-events-none flex flex-col items-start md:items-start pt-[calc(41.8vw--30vw)] md:pt-[calc(41.8vw-clamp(200px,30svh,340px)+100px)] px-4 md:px-0 md:pl-[17.5vw]"
           style={{
             opacity: reduced ? 1 : Math.max(0, (p - 0.7) / 0.3),
             transform: reduced
@@ -170,11 +172,11 @@ export default function Hero() {
             whileInView={reduced || isMobile ? undefined : "visible"}
             viewport={{ once: true, margin: "-100px" }}
             variants={reduced ? safeFade : heroDarkEnter}
-            className="w-[92vw] md:w-[min(65vw,1200px)] text-white font-normal [font-family:var(--figma-font-text)] tracking-[-0.4px] text-[35px] md:text-[clamp(18px,5vw,48px)]"
-            style={{ lineHeight: 1.15, maxWidth: "min(65vw, 1100px)" }}
+            className="w-[92vw] md:w-[min(65vw,1200px)] md:max-w-[min(65vw,1200px)] text-white font-normal [font-family:var(--figma-font-text)] tracking-[-0.4px] text-[35px] md:text-[clamp(18px,5vw,48px)]"
+            style={{ lineHeight: 1.15 }}
           >
-            The future of AI is one where context is owned, compounding,
-            portable, and understood across models. Arkive makes this possible.
+            The future of AI is one where context is owned, compounding and
+            portable across models. Arkive makes this possible.
           </motion.p>
 
           <motion.div
