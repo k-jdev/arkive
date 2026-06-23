@@ -121,7 +121,7 @@ export default function ArkivesJournal() {
           </p>
         </div>
 
-        <div className="relative md:h-137.5 h-125 rounded-[24px] overflow-clip bg-[#F9F9FB]">
+        <div className="relative md:h-137.5 h-108 rounded-[24px] overflow-clip bg-[#F9F9FB]">
           {/* ── Hidden preload images (Next.js prefetch) ── */}
           <div
             aria-hidden="true"
@@ -197,7 +197,7 @@ export default function ArkivesJournal() {
           </div>
 
           {/* Mobile images — contained inside block */}
-          <div className="block md:hidden absolute left-[28px] right-0 bottom-0 top-[140px]">
+          <div className="block md:hidden absolute left-[28px] right-0 bottom-0 top-[100px]">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={activeIndex}
