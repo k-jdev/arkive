@@ -17,6 +17,7 @@ import logoWhite from "./logo-white.svg";
 import logoBlue from "./logo-blue.svg";
 
 import downloadIcon from "./download.svg";
+import downloadCard from "./download-card.svg";
 
 export { claudeIcon, gptIcon, grokIcon, geminiIcon };
 
@@ -26,4 +27,4 @@ export const SLIDER_ICONS = { focusIcon, noticeIcon, recordIcon, learnIcon };
 
 export const LOGO_COLORS = { logo, logoWhite, logoBlue };
 
-export { downloadIcon };
+export { downloadIcon, downloadCard };
