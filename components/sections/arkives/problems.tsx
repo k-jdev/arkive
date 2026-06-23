@@ -50,6 +50,7 @@ export default function ArkivesProblems() {
                   sizes="(max-width: 768px) 100vw, 400px"
                   aria-hidden="true"
                   draggable={false}
+                  unoptimized
                 />
               </div>
             </motion.div>

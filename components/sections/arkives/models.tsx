@@ -17,7 +17,7 @@ import {
   arkivesCardsContainer,
   arkivesCard,
 } from "@/lib/animations";
-import { RiAddFill, RiPlayListAddLine, RiShareLine } from "@remixicon/react";
+import { RiAddFill } from "@remixicon/react";
 
 const AI_AVATARS = [
   { icon: claudeIcon, alt: "Claude", z: 4, bg: "#d97757", delay: 0 },
@@ -218,7 +218,6 @@ export default function ArkivesModels() {
             </div>
 
             <div className="absolute inset-0 rounded-[18px] overflow-hidden xl:opacity-0 xl:group-hover:opacity-100 transition-opacity duration-300">
-              {/* Размытая копия front-контента */}
               <div className="absolute inset-0 bg-white/100 rounded-[18px] flex flex-col items-center justify-center gap-4 px-[55px] py-8 [filter:blur(17.5px)]">
                 <div className="grid grid-cols-1 grid-rows-1 place-items-start leading-none relative">
                   <div className="col-start-1 row-start-1 w-[188px] h-[92px] rounded-full border border-[#30a46c] opacity-10" />
@@ -258,7 +257,7 @@ export default function ArkivesModels() {
                   </p>
                 </div>
               </div>
-              {/* Текст back-стороны поверх */}
+
               <div className="absolute inset-0 p-8 flex flex-col gap-4">
                 <div className="bg-white/80 flex items-center p-3 rounded-[9px] shadow-[0px_8px_8px_rgba(0,0,0,0.05)] w-fit">
                   <Image
@@ -313,7 +312,6 @@ export default function ArkivesModels() {
             </div>
 
             <div className="absolute inset-0 rounded-[18px] overflow-hidden xl:opacity-0 xl:group-hover:opacity-100 transition-opacity duration-300">
-              {/* Размытая копия front-контента */}
               <div className="absolute inset-0 bg-white/100 rounded-[18px] flex flex-col justify-between p-8 [filter:blur(17.5px)]">
                 <div
                   className="font-[510] text-[28px] leading-[36px] tracking-[-0.12px]"
@@ -334,7 +332,7 @@ export default function ArkivesModels() {
                 </div>
                 <AvatarStack />
               </div>
-              {/* Текст back-стороны поверх */}
+
               <div className="absolute inset-0 p-8 flex flex-col gap-4">
                 <div className="bg-white/80 flex items-center p-3 rounded-[9px] shadow-[0px_8px_8px_rgba(0,0,0,0.05)] w-fit">
                   <svg
@@ -399,7 +397,6 @@ export default function ArkivesModels() {
             </div>
 
             <div className="absolute inset-0 rounded-[18px] overflow-hidden xl:opacity-0 xl:group-hover:opacity-100 transition-opacity duration-300">
-              {/* Размытая копия front-контента */}
               <div className="absolute inset-0 bg-white/100 rounded-[18px] flex flex-col justify-between pt-[54px] pb-8 px-8 [filter:blur(17.5px)]">
                 <p
                   className="font-[510] text-[24px] leading-[30px] tracking-[-0.1px] text-[rgba(0,5,9,0.89)]"
@@ -424,7 +421,7 @@ export default function ArkivesModels() {
                   />
                 </div>
               </div>
-              {/* Текст back-стороны поверх */}
+
               <div className="absolute inset-0 p-8 flex flex-col gap-4">
                 <div className="bg-white/80 flex items-center p-3 rounded-[9px] shadow-[0px_8px_8px_rgba(0,0,0,0.05)] w-fit">
                   <svg
