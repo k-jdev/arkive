@@ -91,26 +91,31 @@ function FlipCard({ children }: { children: React.ReactNode }) {
     target: ref,
     offset: ["start center", "end center"],
   });
-  const mobileRotateY = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [0, 180, 180],
-  );
+  const mobileBackOpacity = useTransform(scrollYProgress, [0.35, 0.6], [0, 1]);
+
+  const childrenArray = Array.isArray(children) ? children : [children];
+  const enhancedChildren = childrenArray.map((child, i) => {
+    if (i === 1 && isMobile) {
+      return (
+        <motion.div
+          key={i}
+          className="absolute inset-0"
+          style={{ opacity: mobileBackOpacity }}
+        >
+          {child}
+        </motion.div>
+      );
+    }
+    return child;
+  });
 
   return (
     <motion.div
       variants={arkivesCard}
       ref={ref}
-      className="w-full h-[280px] min-w-0"
+      className="group w-full h-[280px] min-w-0"
     >
-      <div className="group w-full h-full [perspective:1000px]">
-        <motion.div
-          className="relative w-full h-full [transform-style:preserve-3d] transition-transform duration-500 group-hover:[transform:rotateY(180deg)]"
-          style={isMobile ? { rotateY: mobileRotateY } : undefined}
-        >
-          {children}
-        </motion.div>
-      </div>
+      <div className="relative w-full h-full">{enhancedChildren}</div>
     </motion.div>
   );
 }
@@ -148,7 +153,7 @@ export default function ArkivesModels() {
           className="grid grid-cols-1 xl:grid-cols-3 gap-5 w-full"
         >
           <FlipCard>
-            <div className="absolute inset-0 [backface-visibility:hidden] bg-white rounded-[18px] overflow-hidden flex flex-col items-center justify-center gap-4 px-[55px] py-8">
+            <div className="absolute inset-0 bg-white rounded-[18px] overflow-hidden flex flex-col items-center justify-center gap-4 px-[55px] py-8">
               <div className="grid grid-cols-1 grid-rows-1 place-items-start leading-none relative">
                 <div className="col-start-1 row-start-1 w-[188px] h-[92px] rounded-full border border-[#30a46c] opacity-10" />
                 <div className="col-start-1 row-start-1 w-[170px] h-[78px] rounded-full border border-[#30a46c] opacity-[0.22] ml-[9px] mt-[7px]" />
@@ -212,7 +217,7 @@ export default function ArkivesModels() {
               </div>
             </div>
 
-            <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-[18px] overflow-hidden">
+            <div className="absolute inset-0 rounded-[18px] overflow-hidden xl:opacity-0 xl:group-hover:opacity-100 transition-opacity duration-300">
               {/* Размытая копия front-контента */}
               <div className="absolute inset-0 bg-white/100 rounded-[18px] flex flex-col items-center justify-center gap-4 px-[55px] py-8 [filter:blur(17.5px)]">
                 <div className="grid grid-cols-1 grid-rows-1 place-items-start leading-none relative">
@@ -285,7 +290,7 @@ export default function ArkivesModels() {
           </FlipCard>
 
           <FlipCard>
-            <div className="absolute inset-0 [backface-visibility:hidden] bg-white rounded-[18px] overflow-hidden flex flex-col justify-between p-8">
+            <div className="absolute inset-0 bg-white rounded-[18px] overflow-hidden flex flex-col justify-between p-8">
               <div
                 className="font-[510] text-[28px] leading-[36px] tracking-[-0.12px]"
                 style={{
@@ -307,7 +312,7 @@ export default function ArkivesModels() {
               <AvatarStack />
             </div>
 
-            <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-[18px] overflow-hidden">
+            <div className="absolute inset-0 rounded-[18px] overflow-hidden xl:opacity-0 xl:group-hover:opacity-100 transition-opacity duration-300">
               {/* Размытая копия front-контента */}
               <div className="absolute inset-0 bg-white/100 rounded-[18px] flex flex-col justify-between p-8 [filter:blur(17.5px)]">
                 <div
@@ -367,7 +372,7 @@ export default function ArkivesModels() {
           </FlipCard>
 
           <FlipCard>
-            <div className="absolute inset-0 [backface-visibility:hidden] bg-white rounded-[18px] overflow-hidden flex flex-col justify-between pt-[54px] pb-8 px-8">
+            <div className="absolute inset-0 bg-white rounded-[18px] overflow-hidden flex flex-col justify-between pt-[54px] pb-8 px-8">
               <p
                 className="font-[510] text-[24px] leading-[30px] tracking-[-0.1px] text-[rgba(0,5,9,0.89)]"
                 style={{
@@ -393,7 +398,7 @@ export default function ArkivesModels() {
               </div>
             </div>
 
-            <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-[18px] overflow-hidden">
+            <div className="absolute inset-0 rounded-[18px] overflow-hidden xl:opacity-0 xl:group-hover:opacity-100 transition-opacity duration-300">
               {/* Размытая копия front-контента */}
               <div className="absolute inset-0 bg-white/100 rounded-[18px] flex flex-col justify-between pt-[54px] pb-8 px-8 [filter:blur(17.5px)]">
                 <p

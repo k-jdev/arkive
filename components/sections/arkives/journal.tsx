@@ -227,7 +227,7 @@ export default function ArkivesJournal() {
                   src={JOURNAL_BACKGROUNDS_MOBILE[activeIndex]}
                   alt=""
                   fill
-                  className="object-contain object-right"
+                  className="object-contain object-bottom-right"
                   sizes="100vw"
                   aria-hidden="true"
                   priority
