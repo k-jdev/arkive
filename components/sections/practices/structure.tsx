@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
+import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
 import { usePrefersReducedMotion } from "@/lib/motion-config";
 import tradingFolderImg from "@/public/sections/structure/trading-folder.png";
 import researchFolderImg from "@/public/sections/structure/research-folder.png";
@@ -17,33 +19,36 @@ const DOMAINS = [
 const ROWS = [
   {
     label: "Journal",
-    trading: "trades, conversations",
-    research: "sources, notes",
-    health: "sleep, training",
+    trading: "Theses, trades, outcomes",
+    research: "Sources, notes, findings",
+    health: "Workouts, sleep, calories",
   },
   {
     label: "Insights",
-    trading: "surfaced patterns",
-    research: "surfaced patterns",
-    health: "surfaced patterns",
+    trading: "Watchlist adds, risk limit changes",
+    research: "New sourcing standards\n& citation rules",
+    health: "Adjusted recovery rules & targets",
   },
   {
     label: "Skills",
-    trading: "exit discipline",
-    research: "citation rules",
-    health: "recovery rules",
+    trading: "Sizing trades, timing entries",
+    research: "Vetting sources, checking claims",
+    health: "Planning workouts, scheduling rest",
   },
   {
     label: "Context",
-    trading: "rules, positions",
-    research: "open questions",
-    health: "goals, limits",
+    trading: "Positions, rules, watchlist",
+    research: "Open questions, current theses",
+    health: "Goals, limits, current program",
   },
 ] as const;
 
 /* ─── Shared style tokens (from Figma) ───────────────────────────── */
 const ROW_BORDER = "rgba(0, 0, 0, 0.09)";
-const CELL_COLOR = "rgba(0, 5, 29, 0.45)";
+const TRADING_CELL_COLOR = "rgba(0, 6, 46, 0.2)";
+const RESEARCH_CELL_COLOR = "rgba(0, 7, 20, 0.62)";
+const HEALTH_CELL_COLOR = "rgba(0, 6, 46, 0.2)";
+const RESEARCH_BG = "#fcfcfd";
 const LABEL_COL_W = 291; // px — Figma layout_100FRH width
 
 // ─── Animation variants ──────────────────────────────────────────
@@ -74,6 +79,8 @@ const rowVariants = {
 
 export default function PracticesStructure() {
   const reduced = usePrefersReducedMotion();
+  const [activeDomain, setActiveDomain] = useState<string>("trading");
+  const [hoveredDomain, setHoveredDomain] = useState<string | null>(null);
 
   return (
     <section className="w-full py-[60px] md:py-[100px]">
@@ -121,72 +128,98 @@ export default function PracticesStructure() {
           variants={reduced ? { visible: {} } : containerVariants}
           className="block md:hidden w-full"
         >
-          {/* Header row — 3 folder icons */}
+          {/* Navigation header — arrows + domain icon */}
           <motion.div
             variants={
               reduced
                 ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
                 : rowVariants
             }
-            className="flex items-stretch border-b border-[rgba(0,0,0,0.09)]"
+            className="flex items-center justify-between px-8 py-6 border-b border-[rgba(0,0,0,0.09)]"
           >
-            <div className="w-[64px] shrink-0" />
+            <button
+              onClick={() => {
+                const idx = DOMAINS.findIndex((d) => d.key === activeDomain);
+                const prev =
+                  DOMAINS[(idx - 1 + DOMAINS.length) % DOMAINS.length];
+                setActiveDomain(prev.key);
+              }}
+              disabled={activeDomain === "trading"}
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) transition-colors hover:bg-[rgba(0,0,51,0.12)] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 cursor-pointer disabled:cursor-default"
+              aria-label="Previous domain"
+            >
+              <RiArrowLeftSLine size={20} aria-hidden="true" />
+            </button>
 
-            {DOMAINS.map((d) => (
-              <div
-                key={d.key}
-                className="flex-1 flex flex-col items-center gap-2 py-4"
+            <div className="flex flex-col items-center gap-2">
+              <Image
+                src={DOMAINS.find((d) => d.key === activeDomain)!.img}
+                alt={DOMAINS.find((d) => d.key === activeDomain)!.label}
+                width={92}
+                height={92}
+                className="object-contain size-[92px]"
+                draggable={false}
+              />
+              <span
+                className="font-[510] text-[16px] leading-[24px] [font-family:var(--figma-font-text)] text-center"
+                style={{ color: "rgba(0, 5, 9, 0.89)" }}
               >
-                <Image
-                  src={d.img}
-                  alt={d.label}
-                  width={48}
-                  height={48}
-                  className="object-contain"
-                  draggable={false}
-                />
-                <span className="font-[510] text-[12px] leading-[15px] text-center [font-family:var(--figma-font-text)] text-[#1C2024]">
-                  {d.label}
-                </span>
-              </div>
-            ))}
+                {DOMAINS.find((d) => d.key === activeDomain)!.label}
+              </span>
+            </div>
+
+            <button
+              onClick={() => {
+                const idx = DOMAINS.findIndex((d) => d.key === activeDomain);
+                const next = DOMAINS[(idx + 1) % DOMAINS.length];
+                setActiveDomain(next.key);
+              }}
+              disabled={activeDomain === "health"}
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) transition-colors hover:bg-[rgba(0,0,51,0.12)] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 cursor-pointer disabled:cursor-default"
+              aria-label="Next domain"
+            >
+              <RiArrowRightSLine size={20} aria-hidden="true" />
+            </button>
           </motion.div>
 
-          {/* Data rows */}
-          {ROWS.map((row) => (
-            <motion.div
-              key={row.label}
-              variants={
-                reduced
-                  ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
-                  : rowVariants
-              }
-              className="flex items-center border-b border-[rgba(0,0,0,0.09)]"
-              style={{ height: 88 }}
-            >
-              <div className="w-[64px] shrink-0 flex items-center justify-center">
-                <span className="font-[510] text-[14px] leading-[20px] [font-family:var(--figma-font-text)] text-[#1C2024]">
+          {/* Data rows — vertical stacked layout */}
+          {(() => {
+            const domainKey = activeDomain;
+            return ROWS.map((row) => (
+              <motion.div
+                key={row.label}
+                variants={
+                  reduced
+                    ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+                    : rowVariants
+                }
+                className="flex flex-col gap-2 px-6 py-6 border-b border-[rgba(0,0,0,0.09)]"
+              >
+                <span
+                  className="font-[510] text-[24px] leading-[30px] [font-family:var(--figma-font-text)] text-[#1C2024]"
+                  style={{
+                    letterSpacing: "-0.1px",
+                    fontVariationSettings: '"wdth" 100',
+                  }}
+                >
                   {row.label}
                 </span>
-              </div>
-
-              <div className="flex-1 flex items-center justify-center px-2">
-                <span className="text-center font-[400] text-[12px] leading-[16px] [font-family:var(--figma-font-text)] text-[rgba(0,5,29,0.45)]">
-                  {row.trading}
+                <span
+                  className="font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]"
+                  style={{ color: "rgba(0, 7, 20, 0.62)" }}
+                >
+                  {row[domainKey as keyof typeof row]
+                    .split("\n")
+                    .map((line, i) => (
+                      <span key={i}>
+                        {i > 0 && <br />}
+                        {line}
+                      </span>
+                    ))}
                 </span>
-              </div>
-              <div className="flex-1 flex items-center justify-center px-2">
-                <span className="text-center font-[400] text-[12px] leading-[16px] [font-family:var(--figma-font-text)] text-[rgba(0,5,29,0.45)]">
-                  {row.research}
-                </span>
-              </div>
-              <div className="flex-1 flex items-center justify-center px-2">
-                <span className="text-center font-[400] text-[12px] leading-[16px] [font-family:var(--figma-font-text)] text-[rgba(0,5,29,0.45)]">
-                  {row.health}
-                </span>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ));
+          })()}
         </motion.div>
 
         {/* ── Desktop layout ── */}
@@ -212,7 +245,13 @@ export default function PracticesStructure() {
               {DOMAINS.map((d) => (
                 <div
                   key={d.key}
-                  className="flex-1 flex flex-col items-center justify-center gap-3 py-6 pr-8"
+                  onMouseEnter={() => setHoveredDomain(d.key)}
+                  onMouseLeave={() => setHoveredDomain(null)}
+                  className={`flex-1 flex flex-col items-center justify-center gap-3 py-6 pr-8 cursor-default transition-opacity duration-300 ${d.key === "research" ? "bg-linear-to-b from-white to-[#fcfcfd]" : ""}`}
+                  style={{
+                    opacity:
+                      hoveredDomain && hoveredDomain !== d.key ? 0.35 : 1,
+                  }}
                 >
                   <Image
                     src={d.img}
@@ -251,9 +290,9 @@ export default function PracticesStructure() {
                   style={{ width: LABEL_COL_W }}
                 >
                   <span
-                    className="font-[510] text-[clamp(20px,1.94vw,28px)] leading-[1.286] [font-family:var(--figma-font-text)] text-[#1C2024]"
+                    className="font-[510] text-[clamp(20px,1.94vw,28px)] leading-[36px] [font-family:var(--figma-font-text)] text-[#1C2024]"
                     style={{
-                      letterSpacing: "-0.43%",
+                      letterSpacing: "-0.12px",
                       fontVariationSettings: '"wdth" 100',
                     }}
                   >
@@ -261,30 +300,80 @@ export default function PracticesStructure() {
                   </span>
                 </div>
 
-                <div className="flex-1 flex items-center justify-center pr-8">
+                <div
+                  className="flex-1 flex items-center justify-center pr-8 transition-opacity duration-300"
+                  onMouseEnter={() => setHoveredDomain("trading")}
+                  onMouseLeave={() => setHoveredDomain(null)}
+                  style={{
+                    opacity:
+                      hoveredDomain && hoveredDomain !== "trading" ? 0.35 : 1,
+                  }}
+                >
                   <span
-                    className="text-center font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]"
-                    style={{ color: CELL_COLOR }}
+                    className="text-center font-[400] text-[16px] leading-[24px] transition-[color] duration-300 [font-family:var(--figma-font-text)]"
+                    style={{
+                      color:
+                        hoveredDomain === "trading"
+                          ? RESEARCH_CELL_COLOR
+                          : TRADING_CELL_COLOR,
+                    }}
                   >
-                    {row.trading}
+                    {row.trading.split("\n").map((line, i) => (
+                      <span key={i}>
+                        {i > 0 && <br />}
+                        {line}
+                      </span>
+                    ))}
                   </span>
                 </div>
 
-                <div className="flex-1 flex items-center justify-center pr-8">
+                <div
+                  className="flex-1 flex items-center justify-center pr-8 transition-opacity duration-300"
+                  onMouseEnter={() => setHoveredDomain("research")}
+                  onMouseLeave={() => setHoveredDomain(null)}
+                  style={{
+                    backgroundColor: RESEARCH_BG,
+                    opacity:
+                      hoveredDomain && hoveredDomain !== "research" ? 0.35 : 1,
+                  }}
+                >
                   <span
                     className="text-center font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]"
-                    style={{ color: CELL_COLOR }}
+                    style={{ color: RESEARCH_CELL_COLOR }}
                   >
-                    {row.research}
+                    {row.research.split("\n").map((line, i) => (
+                      <span key={i}>
+                        {i > 0 && <br />}
+                        {line}
+                      </span>
+                    ))}
                   </span>
                 </div>
 
-                <div className="flex-1 flex items-center justify-center pr-8">
+                <div
+                  className="flex-1 flex items-center justify-center pr-8 transition-opacity duration-300"
+                  onMouseEnter={() => setHoveredDomain("health")}
+                  onMouseLeave={() => setHoveredDomain(null)}
+                  style={{
+                    opacity:
+                      hoveredDomain && hoveredDomain !== "health" ? 0.35 : 1,
+                  }}
+                >
                   <span
-                    className="text-center font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]"
-                    style={{ color: CELL_COLOR }}
+                    className="text-center font-[400] text-[16px] leading-[24px] transition-[color] duration-300 [font-family:var(--figma-font-text)]"
+                    style={{
+                      color:
+                        hoveredDomain === "health"
+                          ? RESEARCH_CELL_COLOR
+                          : HEALTH_CELL_COLOR,
+                    }}
                   >
-                    {row.health}
+                    {row.health.split("\n").map((line, i) => (
+                      <span key={i}>
+                        {i > 0 && <br />}
+                        {line}
+                      </span>
+                    ))}
                   </span>
                 </div>
               </motion.div>

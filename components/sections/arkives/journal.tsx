@@ -62,14 +62,16 @@ const JOURNAL_ITEMS: JournalItem[] = [
     description: [
       { text: "Accepted insights become new  " },
       { text: "skills,", bold: true },
-      { text: " and update current " },
+      { text: " update existing ones, and make changes to the " },
       { text: "context.", bold: true },
     ],
   },
   {
     icon: SLIDER_ICONS.focusIcon,
     label: "Improve",
-    description: [{ text: "Sharper reasoning after every cycle." }],
+    description: [
+      { text: "Every cycle compounds memory, improving the AI’s reasoning." },
+    ],
   },
 ];
 

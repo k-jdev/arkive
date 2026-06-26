@@ -30,26 +30,23 @@ const SLIDES: SlideItem[] = [
   {
     id: 1,
     imageSrc: railImg,
-    boldText: "Finds your edge.",
-    dimText: "It learns what actually works for you, and what quietly doesn't",
+    boldText: "Built for the task. ",
+    dimText:
+      "Each practice shapes the AI to the task at hand, making it fluent in what you’re actually doing.",
   },
   {
     id: 2,
     imageSrc: opportuityImg,
-    boldText: "Sees the opportunity cost you miss.",
-    dimText: "It weighs what each decision really costs you.",
+    boldText: "Shaped around you.",
+    dimText:
+      "It adapts the AI to your way of doing things. Your standards, your preferences, your habits.",
   },
   {
     id: 3,
     imageSrc: statisticImg,
-    boldText: "Fixes your blind spots.",
-    dimText: "Highlights patterns in your behavior that you might be missing.",
-  },
-  {
-    id: 4,
-    imageSrc: trainingImg,
-    boldText: "Accelerates your learning.",
-    dimText: "Provides tailored insights to help you grow faster and smarter.",
+    boldText: "Designed to improve.",
+    dimText:
+      " The more you use a practice, the sharper the AI gets. It identifies what drives progress and what holds it back.",
   },
 ];
 

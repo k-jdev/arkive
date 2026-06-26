@@ -298,10 +298,10 @@ export default function ArkivesModels() {
                 }}
               >
                 <p className="leading-[36px] mb-0 text-[rgba(0,5,9,0.89)]">
-                  Understood
+                  Portable
                 </p>
                 <p className="leading-[36px] mb-0 text-[rgba(0,5,29,0.45)]">
-                  by any of the
+                  across any of the
                 </p>
                 <p className="leading-[36px] text-[rgba(0,5,29,0.45)]">
                   leading models
