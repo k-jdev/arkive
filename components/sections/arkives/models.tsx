@@ -141,7 +141,7 @@ export default function ArkivesModels() {
               fontVariationSettings: '"wdth" 100',
             }}
           >
-            Built into the standard.
+            Designed as a standard.
           </h2>
         </motion.div>
 
@@ -451,7 +451,7 @@ export default function ArkivesModels() {
                   <span className="leading-6">
                     {" "}
                     with controlled permissions. Every change is recorded and
-                    attributed to the users.
+                    attributed to the user who made it.
                   </span>
                 </p>
               </div>

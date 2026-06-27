@@ -185,7 +185,7 @@ export default function Features() {
     >
       <FeatureBlock
         label="Arkives"
-        heading="Structure context that compounds."
+        heading="Structured context that compounds."
         description="Memory that builds on itself, providing any model it connects to with deeper, focused knowledge."
         buttonLabel="Learn more"
         href="/arkives"

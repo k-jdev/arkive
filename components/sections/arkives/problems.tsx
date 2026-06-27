@@ -61,9 +61,9 @@ export default function ArkivesProblems() {
             >
               <p className="relative z-10 font-[510] text-[24px] leading-[30px] tracking-[-0.1px] [font-family:var(--figma-font-text)]">
                 <span className="text-[#1c2024]">
-                  Arkives bring a memory structure that{" "}
+                  <span className="text-[#02f]">Arkives </span> bring a memory
+                  structure that compounds to any model.{" "}
                 </span>
-                <span className="text-[#02f]">compounds to any model.</span>
               </p>
 
               <div className="absolute inset-x-0 bottom-0 h-[60%] top-37">

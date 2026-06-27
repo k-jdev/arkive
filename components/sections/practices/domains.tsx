@@ -96,7 +96,7 @@ export default function PracticesDomains() {
               {/* Gym card — top-right */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
-                className="absolute rounded-[8px] overflow-hidden shadow-lg z-10"
+                className="absolute rounded-[8px] overflow-hidden  z-10"
                 style={{
                   left: "32.4%",
                   top: "3.1%",
@@ -117,7 +117,7 @@ export default function PracticesDomains() {
               {/* Consistency chart — below-right, overlaps gym */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
-                className="absolute rounded-[8px] overflow-hidden shadow-lg z-20"
+                className="absolute rounded-[8px] overflow-hidden  z-20"
                 style={{
                   left: "57.3%",
                   top: "10%",
@@ -138,7 +138,7 @@ export default function PracticesDomains() {
               {/* Work card */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
-                className="absolute rounded-[8px] overflow-hidden shadow-lg z-40"
+                className="absolute rounded-[8px] overflow-hidden  z-40"
                 style={{
                   left: "21.4%",
                   top: "50.4%",
@@ -159,7 +159,7 @@ export default function PracticesDomains() {
               {/* Watch card */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
-                className="absolute rounded-[8px] overflow-hidden shadow-lg z-30"
+                className="absolute rounded-[8px] overflow-hidden  z-30"
                 style={{
                   left: "49.6%",
                   top: "58.2%",
@@ -229,7 +229,7 @@ export default function PracticesDomains() {
 
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
-                className="absolute aspect-square rounded-[8px] overflow-hidden shadow-lg z-10"
+                className="absolute aspect-square rounded-[8px] overflow-hidden  z-10"
                 style={{ left: "30.4%", top: "12.4%", width: "27.5%" }}
               >
                 <Image
@@ -244,7 +244,7 @@ export default function PracticesDomains() {
 
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
-                className="absolute rounded-[8px] overflow-hidden shadow-lg z-20"
+                className="absolute rounded-[8px] overflow-hidden  z-20"
                 style={{ left: "52.8%", top: "17.7%", width: "38.3%" }}
               >
                 <Image
@@ -259,7 +259,7 @@ export default function PracticesDomains() {
 
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
-                className="absolute rounded-[8px] overflow-hidden shadow-lg z-40"
+                className="absolute rounded-[8px] overflow-hidden  z-40"
                 style={{ left: "21.4%", top: "50.4%", width: "38.9%" }}
               >
                 <Image
@@ -274,7 +274,7 @@ export default function PracticesDomains() {
 
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
-                className="absolute rounded-[8px] overflow-hidden shadow-lg z-30"
+                className="absolute rounded-[8px] overflow-hidden  z-30"
                 style={{ left: "49.6%", top: "58.2%", width: "38.3%" }}
               >
                 <Image

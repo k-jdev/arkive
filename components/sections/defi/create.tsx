@@ -37,7 +37,7 @@ export default function DefiCreate() {
           >
             <div className="flex flex-col gap-2">
               <span className="font-[590] text-[#0022FF] [font-family:var(--figma-font-text)] text-[20px] leading-[28px] tracking-[-0.004em]">
-                Project DeFi
+                Get Started
               </span>
               <h2
                 className="font-[590] text-[#1C2024] [font-family:var(--figma-font-text)] mt-2"
@@ -47,14 +47,14 @@ export default function DefiCreate() {
                   letterSpacing: "-0.83%",
                 }}
               >
-                Create your Arkive
+                Start trading with AI.
               </h2>
               <p
                 className="font-[510] text-[16px] leading-[24px] [font-family:var(--figma-font-text)] mt-2 max-w-[480px]"
                 style={{ color: "rgba(0, 7, 27, 0.5)" }}
               >
-                Create your account and connect Arkive to any model in a minute.
-                Begin trading with frontier AI behind your every move.
+                Create your account and connect Arkive to any model in under a
+                minute. Start trading with frontier AI behind every decision.
               </p>
             </div>
 

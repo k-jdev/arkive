@@ -179,27 +179,27 @@ export default function DefiFeatures() {
       style={{ contentVisibility: "auto", containIntrinsicSize: "auto 500px" }}
     >
       <FeatureBlock
-        label="Frontier AI"
-        heading="Project DeFi is Arkive's first core practice."
-        description="Whether it's trading, research, writing, or anything else, a practice connects to an Arkive's core, adapting it to that domain."
+        label="Purpose Built"
+        heading="Project DeFi is Arkive’s first core practice."
+        description="The first practice Arkive built and maintains itself - purpose-built for on-chain trading, connected to your arkive’s full context."
         buttonLabel="Coming soon"
         href="/arkives"
         onButtonClick={openModal}
         imageSrc="/sections/defiFeatures/card1.png"
-        imageSrcMobile="/sections/defiFeatures/card1Mobile.png"
+        imageSrcMobile="/sections/defiFeatures/card1.png"
         imageAlt="Project DeFi is Arkive's first core practice"
         imageLeft={false}
       />
 
       <FeatureBlock
-        label="Secure Signing"
-        heading="Stay in control of every AI transaction."
-        description="A secure layer for your AI to interact with financial markets. You sign every transaction — nothing goes through without your approval."
+        label="Self Custodial"
+        heading="Trade securely, in plain conversation."
+        description="Ask your AI to open, close, or manage positions for you. You sign every transaction — nothing goes through without your approval."
         buttonLabel="Coming soon"
         href="/project-defi"
         onButtonClick={openModal}
         imageSrc="/sections/defiFeatures/card2.png"
-        imageSrcMobile="/sections/defiFeatures/card2Mobile.png"
+        imageSrcMobile="/sections/defiFeatures/card2.png"
         imageAlt="Stay in control of every AI transaction"
         imageLeft={true}
       />

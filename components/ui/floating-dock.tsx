@@ -1,9 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
 import {
-  AnimatePresence,
   MotionValue,
   motion,
   useMotionValue,
@@ -61,70 +59,38 @@ const FloatingDockMobile = ({
   }[];
   className?: string;
 }) => {
-  const [open, setOpen] = useState(false);
   return (
-    <div className={cn("relative block md:hidden", className)}>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            layoutId="nav"
-            className="absolute inset-x-0 bottom-full mb-2 flex flex-col gap-2"
+    <div
+      className={cn(
+        "flex flex-row flex-wrap justify-center gap-2 md:hidden",
+        className,
+      )}
+    >
+      {items.map((item, idx) => {
+        return (
+          <div
+            key={item.title + idx}
+            className="flex items-center justify-center bg-gray-50 dark:bg-neutral-900"
+            style={{
+              width: "80px",
+              height: "80px",
+              borderRadius: "22px",
+              opacity: item.opacity !== undefined ? item.opacity : 1,
+              backgroundColor: item.bg,
+              border: item.border,
+            }}
           >
-            {items.map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  y: 10,
-                  transition: {
-                    delay: idx * 0.05,
-                  },
-                }}
-                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
-              >
-                <a
-                  href={item.href}
-                  key={item.title}
-                  className="flex items-center justify-center bg-gray-50 dark:bg-neutral-900"
-                  style={{
-                    width: "80px",
-                    height: "80px",
-                    borderRadius: "22px",
-                    opacity: item.opacity !== undefined ? item.opacity : 1,
-                    backgroundColor: item.bg,
-                    border: item.border,
-                  }}
-                >
-                  <div
-                    style={{
-                      width: item.isFaded ? "100%" : "40px",
-                      height: item.isFaded ? "100%" : "40px",
-                    }}
-                  >
-                    {item.icon}
-                  </div>
-                </a>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex items-center justify-center bg-gray-50 dark:bg-neutral-800"
-        style={{
-          width: "80px",
-          height: "80px",
-          borderRadius: "22px",
-        }}
-      >
-        <IconLayoutNavbarCollapse className="h-8 w-8 text-neutral-500 dark:text-neutral-400" />
-      </button>
+            <div
+              style={{
+                width: item.isFaded ? "100%" : "40px",
+                height: item.isFaded ? "100%" : "40px",
+              }}
+            >
+              {item.icon}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 };
@@ -252,7 +218,7 @@ function IconContainer({
         : "";
 
   return (
-    <a href={href} className={visibilityClass}>
+    <div className={visibilityClass}>
       <motion.div
         ref={ref}
         style={{
@@ -280,6 +246,6 @@ function IconContainer({
           {icon}
         </motion.div>
       </motion.div>
-    </a>
+    </div>
   );
 }

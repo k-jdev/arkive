@@ -24,26 +24,26 @@ interface SlideItem {
 const SLIDES: SlideItem[] = [
   {
     id: 1,
-    title: "Knows where you win.",
-    desc: "Surfaces your edge through the noise so you can repeat what works.",
+    title: "Remembers every trade.",
+    desc: "Knows your live positions, past trades, and the ones you plan to make.",
     imageSrc: "/sections/defiSlider/card1.png",
   },
   {
     id: 2,
-    title: "Sees what you don't.",
+    title: "Sees what you don’t.",
     desc: "Connects the dots across your trade history, showing you patterns you'd never catch.",
     imageSrc: "/sections/defiSlider/card2.png",
   },
   {
     id: 3,
     title: "Holds you to your rules.",
-    desc: "Keeps you on plan when the moment tries to pull you off.",
+    desc: "Catches trades that break your rules, keeping you disciplined when emotions are running high. ",
     imageSrc: "/sections/defiSlider/card3.png",
   },
   {
     id: 4,
-    title: "Learns from every move.",
-    desc: "Automatically extracts insights from your portfolio, adapting to your style.",
+    title: "Spots it first.",
+    desc: "Catches what aligns with your best trades before you.",
     imageSrc: "/sections/defiSlider/card4.png",
   },
 ];

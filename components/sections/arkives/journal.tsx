@@ -51,7 +51,7 @@ const JOURNAL_ITEMS: JournalItem[] = [
     label: "Notice",
     description: [
       {
-        text: "Patterns, anomalies, & previous reasoning, surfaced as ",
+        text: "Patterns, anomalies, & previous reasoning are surfaced as ",
       },
       { text: "insights.", bold: true },
     ],

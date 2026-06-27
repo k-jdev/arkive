@@ -50,7 +50,7 @@ export default function PracticesCreating() {
                 className="font-[510] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]"
                 style={{ color: "rgba(0, 7, 27, 0.5)" }}
               >
-                A single prompt is all you need to add a new practice to Arkive.
+                Add a new practice to your arkive with a single prompt.
               </p>
             </div>
 
@@ -141,7 +141,7 @@ export default function PracticesCreating() {
                 className="font-[510] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]"
                 style={{ color: "rgba(0, 7, 27, 0.5)" }}
               >
-                A single prompt is all you need to add a new practice to Arkive.
+                Add a new practice to your arkive with a single prompt.
               </p>
             </div>
 
