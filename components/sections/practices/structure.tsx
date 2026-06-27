@@ -229,84 +229,31 @@ export default function PracticesStructure() {
           className="hidden md:block w-full"
           onMouseLeave={() => setLastActiveDomain(null)}
         >
-          <div className="w-full max-w-[1280px] mx-auto relative">
-            {/* Active column background overlay */}
-            {(() => {
-              if (lastActiveDomain === null) return null;
-              const colIdx = DOMAINS.findIndex(
-                (d) => d.key === lastActiveDomain,
-              );
-              const colW = `calc((100% - ${LABEL_COL_W}px) / ${DOMAINS.length})`;
-              return (
-                <div
-                  className="absolute inset-y-0 pointer-events-none transition-all duration-300 -z-10"
-                  style={{
-                    left: `calc(${LABEL_COL_W}px + ${colIdx} * ${colW})`,
-                    width: colW,
-                    background: ACTIVE_BG,
-                  }}
-                />
-              );
-            })()}
-
-            {/* Border strip across full width for header bottom */}
-            <div
-              className="flex"
-              style={{ borderBottom: `1px solid ${ROW_BORDER}` }}
+          <div className="w-full max-w-[1280px] mx-auto flex">
+            {/* ── Labels column ── */}
+            <motion.div
+              variants={
+                reduced
+                  ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+                  : rowVariants
+              }
+              className="flex flex-col shrink-0"
+              style={{ width: LABEL_COL_W }}
             >
-              <div style={{ width: LABEL_COL_W, flexShrink: 0 }} />
-
-              {DOMAINS.map((d) => (
-                <div
-                  key={d.key}
-                  onMouseEnter={() => setLastActiveDomain(d.key)}
-                  className="flex-1 flex flex-col items-center justify-end pb-6 transition-all duration-300"
-                  style={{
-                    minHeight: 164,
-                    opacity:
-                      lastActiveDomain === null
-                        ? 0.9
-                        : lastActiveDomain === d.key
-                          ? 1
-                          : 0.5,
-                  }}
-                >
-                  <Image
-                    src={d.img}
-                    alt={d.label}
-                    width={92}
-                    height={92}
-                    className="object-contain"
-                    draggable={false}
-                  />
-                  <span
-                    className="font-[510] text-[16px] leading-[24px] [font-family:var(--figma-font-text)] mt-3"
-                    style={{ color: "rgba(0, 5, 9, 0.89)" }}
-                  >
-                    {d.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* Data rows */}
-            {ROWS.map((row) => (
-              <motion.div
-                key={row.label}
-                variants={
-                  reduced
-                    ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
-                    : rowVariants
-                }
-                className="flex items-center"
+              <div
                 style={{
-                  height: 88,
+                  minHeight: 164,
                   borderBottom: `1px solid ${ROW_BORDER}`,
                 }}
-              >
+              />
+              {ROWS.map((row) => (
                 <div
-                  className="shrink-0 flex items-center pr-8"
-                  style={{ width: LABEL_COL_W }}
+                  key={row.label}
+                  className="flex items-center pr-8"
+                  style={{
+                    height: 88,
+                    borderBottom: `1px solid ${ROW_BORDER}`,
+                  }}
                 >
                   <span
                     className="font-[510] text-[clamp(20px,1.94vw,28px)] leading-[36px] [font-family:var(--figma-font-text)] text-[#1C2024]"
@@ -318,12 +265,36 @@ export default function PracticesStructure() {
                     {row.label}
                   </span>
                 </div>
+              ))}
+            </motion.div>
 
-                {DOMAINS.map((d) => (
+            {/* ── Domain columns ── */}
+            {DOMAINS.map((d) => (
+              <motion.div
+                key={d.key}
+                variants={
+                  reduced
+                    ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+                    : rowVariants
+                }
+                className="flex-1 flex flex-col"
+                onMouseEnter={() => setLastActiveDomain(d.key)}
+                style={{
+                  backgroundColor:
+                    lastActiveDomain === d.key ? ACTIVE_BG : "transparent",
+                  transition: "all 0.3s",
+                }}
+              >
+                {/* Domain header */}
+                <div
+                  className="flex flex-col items-center justify-end pb-6"
+                  style={{
+                    minHeight: 164,
+                    borderBottom: `1px solid ${ROW_BORDER}`,
+                  }}
+                >
                   <div
-                    key={d.key}
-                    className="flex-1 flex items-center justify-center pr-8 transition-all duration-300"
-                    onMouseEnter={() => setLastActiveDomain(d.key)}
+                    className="flex flex-col items-center gap-3 transition-all duration-300"
                     style={{
                       opacity:
                         lastActiveDomain === null
@@ -333,9 +304,44 @@ export default function PracticesStructure() {
                             : 0.5,
                     }}
                   >
+                    <Image
+                      src={d.img}
+                      alt={d.label}
+                      width={92}
+                      height={92}
+                      className="object-contain"
+                      draggable={false}
+                    />
                     <span
-                      className="text-center font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]"
-                      style={{ color: CELL_TEXT_COLOR }}
+                      className="font-[510] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]"
+                      style={{ color: "rgba(0, 5, 9, 0.89)" }}
+                    >
+                      {d.label}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Data rows */}
+                {ROWS.map((row) => (
+                  <div
+                    key={row.label}
+                    className="flex items-center justify-center pr-8"
+                    style={{
+                      height: 88,
+                      borderBottom: `1px solid ${ROW_BORDER}`,
+                    }}
+                  >
+                    <span
+                      className="text-center font-[400] text-[16px] leading-[24px] transition-all duration-300 [font-family:var(--figma-font-text)]"
+                      style={{
+                        color: CELL_TEXT_COLOR,
+                        opacity:
+                          lastActiveDomain === null
+                            ? 0.9
+                            : lastActiveDomain === d.key
+                              ? 1
+                              : 0.5,
+                      }}
                     >
                       {row[d.key as keyof typeof row]
                         .split("\n")
