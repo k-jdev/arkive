@@ -1,7 +1,3 @@
-// ── Motion token system (motion-foundations skill) ──────────────
-// Every duration, easing, distance, and scale must come from here.
-// Hardcoded values in component files are forbidden.
-
 export const motionTokens = {
   duration: {
     instant: 0.08,
@@ -15,7 +11,6 @@ export const motionTokens = {
     sharp: [0.4, 0, 0.2, 1] as const,
     bounce: [0.34, 1.56, 0.64, 1] as const,
     linear: [0, 0, 1, 1] as const,
-    // Legacy ease from animations.ts — kept for compatibility
     legacy: [0.25, 1, 0.5, 1] as const,
   },
   distance: {

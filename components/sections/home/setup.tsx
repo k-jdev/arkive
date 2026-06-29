@@ -112,7 +112,6 @@ export default function Setup() {
             </div>
 
             <div className="relative md:absolute right-0 top-0 md:h-full w-full md:w-[55%]">
-              {/* Mobile: single combined image */}
               <div className="block md:hidden px-6 pt-6">
                 <Image
                   src="/sections/setup/mobileMac.png"
@@ -126,7 +125,6 @@ export default function Setup() {
                 />
               </div>
 
-              {/* Desktop: macbook */}
               <div className="hidden md:block relative md:absolute px-6 md:px-0 md:top-1/2 md:-translate-y-1/2 md:right-[clamp(12px,1.7vw,32px)] w-full md:w-[90%] max-w-140 mx-auto md:mx-0">
                 <Image
                   src="/sections/setup/macbook.webp"
@@ -140,7 +138,6 @@ export default function Setup() {
                 />
               </div>
 
-              {/* Desktop: terminal */}
               <div className="hidden md:block relative md:absolute bottom-0 right-0 w-full md:w-[58%] z-10 shadow-xl md:rounded-tl-xl overflow-hidden">
                 <Image
                   src="/sections/setup/setup.webp"

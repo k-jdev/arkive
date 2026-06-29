@@ -1,9 +1,7 @@
 import type { Variants } from "motion/react";
 
-// ── Shared easing curve ──────────────────────────────────
 export const EASE = [0.25, 1, 0.5, 1] as const;
 
-// ── Header ───────────────────────────────────────────────
 export const headerContainer: Variants = {
   hidden: {},
   visible: {
@@ -39,7 +37,6 @@ export const headerMobileItem: Variants = {
   exit: { x: -12, opacity: 0, transition: { duration: 0.15 } },
 };
 
-// ── Hero ─────────────────────────────────────────────────
 export const heroContainer: Variants = {
   hidden: {},
   visible: {
@@ -83,7 +80,6 @@ export const heroDarkEnter: Variants = {
   },
 };
 
-// ── Features ─────────────────────────────────────────────
 export const featuresContainer: Variants = {
   hidden: {},
   visible: {
@@ -109,7 +105,6 @@ export const featuresImage: Variants = {
   },
 };
 
-// ── Slider ───────────────────────────────────────────────
 export const sliderHeader: Variants = {
   hidden: { y: 28, opacity: 0 },
   visible: {
@@ -136,7 +131,6 @@ export const sliderCard: Variants = {
   },
 };
 
-// ── Setup ────────────────────────────────────────────────
 export const setupHeader: Variants = {
   hidden: { y: 28, opacity: 0 },
   visible: {
@@ -156,7 +150,6 @@ export const setupCard: Variants = {
   },
 };
 
-// ── Footer ───────────────────────────────────────────────
 export const footerContainer: Variants = {
   hidden: {},
   visible: {
@@ -173,7 +166,6 @@ export const footerItem: Variants = {
   },
 };
 
-// ── Arkives ──────────────────────────────────────────────
 export const arkivesHeader: Variants = {
   hidden: { y: 32, opacity: 0 },
   visible: {
@@ -200,7 +192,6 @@ export const arkivesCard: Variants = {
   },
 };
 
-// ── Arkives Journal ─────────────────────────────────────
 export const journalContainer: Variants = {
   hidden: {},
   visible: {
@@ -217,7 +208,6 @@ export const journalCard: Variants = {
   },
 };
 
-// ── Domains ─────────────────────────────────────────────
 export const domainsHeader: Variants = {
   hidden: { y: 32, opacity: 0 },
   visible: {
@@ -244,10 +234,8 @@ export const domainsCard: Variants = {
   },
 };
 
-// ── Reduced motion (accessibility) ───────────────────────
 import { motionTokens } from "./motion-tokens";
 
-/** Item-level safe variant — opacity-only, fast, no transforms */
 export const safeFade: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -256,7 +244,6 @@ export const safeFade: Variants = {
   },
 };
 
-/** Container-level safe variant — instant, no stagger */
 export const safeContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {

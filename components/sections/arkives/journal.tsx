@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "motion/react";
 import { RiArrowUpSLine, RiArrowDownSLine } from "@remixicon/react";
 import { SLIDER_ICONS } from "@/public/icons";
 
-// ─── Motion tokens (inline, no external file needed) ───────────────────────
 const springs = {
   snappy: { type: "spring", stiffness: 300, damping: 30 } as const,
   gentle: { type: "spring", stiffness: 120, damping: 14 } as const,
@@ -16,7 +15,6 @@ const springs = {
 const duration = { fast: 0.18, normal: 0.35 };
 const easing = { smooth: [0.22, 1, 0.36, 1] as const };
 
-// ─── Data ───────────────────────────────────────────────────────────────────
 const JOURNAL_BACKGROUNDS = [
   "/sections/journal/journal.png",
   "/sections/journal/insights.png",
@@ -60,7 +58,7 @@ const JOURNAL_ITEMS: JournalItem[] = [
     icon: SLIDER_ICONS.learnIcon,
     label: "Learn",
     description: [
-      { text: "Accepted insights become new  " },
+      { text: "Accepted insights create new " },
       { text: "skills,", bold: true },
       { text: " update existing ones, and make changes to the " },
       { text: "context.", bold: true },
@@ -75,7 +73,6 @@ const JOURNAL_ITEMS: JournalItem[] = [
   },
 ];
 
-// ─── Main component ──────────────────────────────────────────────────────────
 export default function ArkivesJournal() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState<"down" | "up">("down");
@@ -124,7 +121,6 @@ export default function ArkivesJournal() {
         </div>
 
         <div className="relative md:h-137.5 h-108 rounded-[24px] overflow-clip bg-[#F9F9FB]">
-          {/* ── Hidden preload images (Next.js prefetch) ── */}
           <div
             aria-hidden="true"
             className="absolute inset-0 -z-50 opacity-0 pointer-events-none"
@@ -154,8 +150,6 @@ export default function ArkivesJournal() {
               />
             ))}
           </div>
-          {/* ── Foreground images (animated) ── */}
-          {/* Desktop images */}
           <div className="hidden md:block absolute left-0 -right-10 top-[128px] -bottom-40">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
@@ -198,7 +192,6 @@ export default function ArkivesJournal() {
             </AnimatePresence>
           </div>
 
-          {/* Mobile images — contained inside block */}
           <div className="block md:hidden absolute left-[28px] right-0 bottom-0 top-[100px]">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
@@ -239,7 +232,6 @@ export default function ArkivesJournal() {
             </AnimatePresence>
           </div>
 
-          {/* ── Desktop arrows (left side) ── */}
           <div className="hidden md:flex absolute left-8 top-1/2 -translate-y-1/2 flex-col gap-4 z-10">
             <motion.button
               type="button"
@@ -265,7 +257,6 @@ export default function ArkivesJournal() {
             </motion.button>
           </div>
 
-          {/* ── Mobile: card + separate arrows ── */}
           <div className="flex md:hidden flex-col h-full">
             <div className="relative z-10 px-4 pt-6">
               <div className="flex items-start gap-3">
@@ -360,7 +351,6 @@ export default function ArkivesJournal() {
             </div>
           </div>
 
-          {/* ── Desktop: accordion ── */}
           <div className="hidden md:flex md:absolute md:left-22 md:top-1/2 md:-translate-y-1/2 md:flex-col md:gap-3 md:items-start">
             {JOURNAL_ITEMS.map((item, index) => {
               const isActive = index === activeIndex;

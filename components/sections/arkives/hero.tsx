@@ -15,12 +15,10 @@ export default function ArkivesHero() {
       data-header-theme="dark"
       className="relative w-full min-h-svh flex flex-col items-center justify-center bg-black overflow-hidden"
     >
-      {/* Canvas — behind text, catches all mouse events, centered */}
       <div className="absolute inset-0 z-0 pointer-events-auto overflow-hidden">
         <HeroCanvas />
       </div>
 
-      {/* Text overlay — passes events through to canvas */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
@@ -38,7 +36,7 @@ export default function ArkivesHero() {
             className="font-[590] text-[clamp(42px,6vw,60px)] leading-[0.9] tracking-[-0.4px] text-white text-center w-full [font-family:var(--figma-font-text)] pointer-events-none"
             style={{ fontVariationSettings: "'wdth' 100" }}
           >
-            Sharper reasoning for AI.
+            Memory that builds on itself.
           </h1>
         </div>
 

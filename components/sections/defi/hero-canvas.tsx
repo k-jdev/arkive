@@ -3,8 +3,6 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import p5 from "p5";
 
-// ── Pattern matrices ──────────────────────────────────────────
-
 const BW: number[][][] = [
   [
     [0, 0, 0, 0],
@@ -131,17 +129,12 @@ const BLUE_PAT: number[][][] = [
   ],
 ];
 
-// ── Config ────────────────────────────────────────────────────
-
 const TARGET_SLOT = 53;
 const PIXEL = 4;
 const FPS = 30;
 
-// ── Pre-computed RGB triples for each pattern cell ─────────────
-
 type RGB = [number, number, number];
 
-// tileCache[level][row][col] = [r,g,b] or null (black)
 const tileCacheBW: (RGB | null)[][][] = BW.map((pat) =>
   pat.map((row) => row.map((v) => (v ? ([255, 255, 255] as RGB) : null))),
 );
@@ -150,14 +143,10 @@ const tileCacheBlue: (RGB | null)[][][] = BLUE_PAT.map((pat) =>
   pat.map((row) => row.map((v) => (v ? ([7, 8, 255] as RGB) : null))),
 );
 
-// ── Helpers ───────────────────────────────────────────────────
-
 function rand01(i: number): number {
   const s = Math.sin(i * 127.1 + 311.7) * 43758.5453;
   return s - Math.floor(s);
 }
-
-// ── Component ─────────────────────────────────────────────────
 
 export default function DefiHeroCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -190,7 +179,6 @@ export default function DefiHeroCanvas() {
     let breathT = 0;
     let lastMouseX = -1;
 
-    // Reusable image data
     let imageData: ImageData | null = null;
     let pixels: Uint8ClampedArray | null = null;
     let frameSkip = 0;
@@ -251,8 +239,6 @@ export default function DefiHeroCanvas() {
       buildCols();
     };
 
-    // ── Fast pixel writer ────────────────────────────────────
-
     function writeBlock(
       px: number,
       py: number,
@@ -275,17 +261,13 @@ export default function DefiHeroCanvas() {
       }
     }
 
-    // ── Draw ─────────────────────────────────────────────────
-
     p.draw = function () {
-      // Frame skipping — only render every other frame when idle
       frameSkip++;
-      if (!mouseActive && frameSkip < 2) return; // 15fps when idle
+      if (!mouseActive && frameSkip < 2) return;
       frameSkip = 0;
 
-      breathT += 0.014; // doubled to match 30fps
+      breathT += 0.014;
 
-      // Mouse tracking
       if (p.mouseX !== lastMouseX && p.mouseX >= 0 && p.mouseX <= W) {
         lastMouseX = p.mouseX;
         mouseX = p.mouseX;
@@ -293,25 +275,21 @@ export default function DefiHeroCanvas() {
         mouseIdleFrames = 0;
       } else if (mouseActive) {
         mouseIdleFrames++;
-        if (mouseIdleFrames > 60) mouseActive = false; // 2s at 30fps
+        if (mouseIdleFrames > 60) mouseActive = false;
       }
 
-      // Allocate image buffer
       const ctx = p.drawingContext as CanvasRenderingContext2D;
       if (!imageData || imageData.width !== W || imageData.height !== H) {
         imageData = ctx.createImageData(W, H);
         pixels = imageData.data;
       }
 
-      // Clear to black
       pixels!.fill(0);
 
-      // Draw columns
       for (let ci = 0; ci < cols.length; ci++) {
         const col = cols[ci];
         const colCenterX = col.x + col.w * 0.5;
 
-        // Target height
         let targetH: number;
         if (mouseActive) {
           const dist = Math.abs(colCenterX - mouseX);
@@ -336,19 +314,16 @@ export default function DefiHeroCanvas() {
           Math.min(MAX_COL_H, Math.round(col.currentH)),
         );
 
-        // Skip if too small
         if (colH <= MIN_COL_H) continue;
 
         const colTop = H - colH;
 
-        // Number of bands
         const heightRatio = (colH - MIN_COL_H) / (MAX_COL_H - MIN_COL_H);
         const numBands = Math.max(
           2,
           Math.round(2 + (BW.length - 2) * heightRatio),
         );
 
-        // Accent range
         let accentStart = 0,
           accentEnd = 0;
         if (col.accentType === 1) {
@@ -359,7 +334,6 @@ export default function DefiHeroCanvas() {
           accentEnd = numBands;
         }
 
-        // Draw bands
         for (let bi = 0; bi < numBands; bi++) {
           const levelT = bi / (numBands - 1);
           let lvl = Math.round(levelT * (BW.length - 1));
@@ -385,7 +359,6 @@ export default function DefiHeroCanvas() {
 
             for (let px = col.x; px < col.x + col.w; px += PIXEL) {
               const col4 = Math.floor(px / PIXEL) & 3;
-              // Blue overrides white (same as original: if blue → blue, else if white → white)
               if (blueTile) {
                 const b = blueTile[row][col4];
                 if (b) {
@@ -404,7 +377,6 @@ export default function DefiHeroCanvas() {
 
       ctx.putImageData(imageData!, 0, 0);
 
-      // Black ceiling overlay
       p.fill(0);
       p.noStroke();
       p.rect(0, 0, W, CEILING);

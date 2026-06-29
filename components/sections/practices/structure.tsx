@@ -9,7 +9,6 @@ import tradingFolderImg from "@/public/sections/structure/trading-folder.png";
 import researchFolderImg from "@/public/sections/structure/research-folder.png";
 import healthFolderImg from "@/public/sections/structure/health-folder.png";
 
-/* ─── Table data ─────────────────────────────────────────────────── */
 const DOMAINS = [
   { key: "trading", label: "Trading", img: tradingFolderImg },
   { key: "research", label: "Research", img: researchFolderImg },
@@ -43,13 +42,11 @@ const ROWS = [
   },
 ] as const;
 
-/* ─── Shared style tokens (from Figma) ───────────────────────────── */
 const ROW_BORDER = "rgba(0, 0, 0, 0.09)";
 const CELL_TEXT_COLOR = "rgba(0, 7, 20, 0.62)";
 const ACTIVE_BG = "#FCFCFD";
 const LABEL_COL_W = 291; // px — Figma layout_100FRH width
 
-// ─── Animation variants ──────────────────────────────────────────
 const containerVariants = {
   hidden: {},
   visible: {
@@ -118,7 +115,6 @@ export default function PracticesStructure() {
           </p>
         </motion.div>
 
-        {/* ── Mobile layout (per Figma 358px) ── */}
         <motion.div
           initial="hidden"
           whileInView={reduced ? undefined : "visible"}
@@ -126,7 +122,6 @@ export default function PracticesStructure() {
           variants={reduced ? { visible: {} } : containerVariants}
           className="block md:hidden w-full"
         >
-          {/* Navigation header — arrows + domain icon */}
           <motion.div
             variants={
               reduced
@@ -180,7 +175,6 @@ export default function PracticesStructure() {
             </button>
           </motion.div>
 
-          {/* Data rows — vertical stacked layout */}
           {(() => {
             const domainKey = activeDomain;
             return ROWS.map((row) => (
@@ -220,7 +214,6 @@ export default function PracticesStructure() {
           })()}
         </motion.div>
 
-        {/* ── Desktop layout ── */}
         <motion.div
           initial="hidden"
           whileInView={reduced ? undefined : "visible"}
@@ -230,7 +223,6 @@ export default function PracticesStructure() {
           onMouseLeave={() => setLastActiveDomain(null)}
         >
           <div className="w-full max-w-[1280px] mx-auto flex">
-            {/* ── Labels column ── */}
             <motion.div
               variants={
                 reduced
@@ -268,7 +260,6 @@ export default function PracticesStructure() {
               ))}
             </motion.div>
 
-            {/* ── Domain columns ── */}
             {DOMAINS.map((d) => (
               <motion.div
                 key={d.key}
@@ -285,7 +276,6 @@ export default function PracticesStructure() {
                   transition: "all 0.3s",
                 }}
               >
-                {/* Domain header */}
                 <div
                   className="flex flex-col items-center justify-end pb-6"
                   style={{
@@ -321,7 +311,6 @@ export default function PracticesStructure() {
                   </div>
                 </div>
 
-                {/* Data rows */}
                 {ROWS.map((row) => (
                   <div
                     key={row.label}

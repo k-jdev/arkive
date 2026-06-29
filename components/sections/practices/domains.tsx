@@ -62,7 +62,6 @@ export default function PracticesDomains() {
               </div>
             </motion.div>
 
-            {/* ── Mobile images layout — absolute overlays per Figma ── */}
             <motion.div
               initial="hidden"
               whileInView={reduced ? undefined : "visible"}
@@ -70,7 +69,6 @@ export default function PracticesDomains() {
               variants={reduced ? safeContainer : domainsCardsContainer}
               className="md:hidden relative w-full h-[335px]"
             >
-              {/* Graph — full width background layer */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
                 className="absolute pointer-events-none overflow-hidden"
@@ -93,7 +91,6 @@ export default function PracticesDomains() {
                 </div>
               </motion.div>
 
-              {/* Gym card — top-right */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
                 className="absolute rounded-[8px] overflow-hidden  z-10"
@@ -114,7 +111,6 @@ export default function PracticesDomains() {
                 />
               </motion.div>
 
-              {/* Consistency chart — below-right, overlaps gym */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
                 className="absolute rounded-[8px] overflow-hidden  z-20"
@@ -135,7 +131,6 @@ export default function PracticesDomains() {
                 />
               </motion.div>
 
-              {/* Work card */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
                 className="absolute rounded-[8px] overflow-hidden  z-40"
@@ -156,7 +151,6 @@ export default function PracticesDomains() {
                 />
               </motion.div>
 
-              {/* Watch card */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
                 className="absolute rounded-[8px] overflow-hidden  z-30"
@@ -177,7 +171,6 @@ export default function PracticesDomains() {
                 />
               </motion.div>
 
-              {/* Index card */}
               <motion.div
                 variants={reduced ? safeFade : domainsCard}
                 className="absolute rounded-[8px] overflow-hidden shadow-2xl z-50"
@@ -199,7 +192,6 @@ export default function PracticesDomains() {
               </motion.div>
             </motion.div>
 
-            {/* ── Desktop images layout ── */}
             <motion.div
               initial="hidden"
               whileInView={reduced ? undefined : "visible"}

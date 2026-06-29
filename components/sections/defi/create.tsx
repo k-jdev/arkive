@@ -27,7 +27,6 @@ export default function DefiCreate() {
     <section className="w-full bg-white py-[60px] md:py-[100px]">
       <div className="max-w-[1440px] mx-auto px-[clamp(16px,4.17vw,80px)] flex flex-col gap-10">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
-          {/* Text Content */}
           <motion.div
             initial="hidden"
             whileInView={reduced ? undefined : "visible"}
@@ -107,7 +106,6 @@ export default function DefiCreate() {
             </div>
           </motion.div>
 
-          {/* Image Content */}
           <motion.div
             initial="hidden"
             whileInView={reduced ? undefined : "visible"}

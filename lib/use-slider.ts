@@ -6,7 +6,6 @@ interface UseSliderOptions {
   slidesCount: number;
   cardWidth: number;
   cardGap: number;
-  /** How much extra of the next card to show (px) — default = cardWidth */
   peek?: number;
 }
 
@@ -21,7 +20,6 @@ export function useSlider({
 
   const [offset, setOffset] = useState(0);
 
-  // Drag state
   const dragStartX = useRef<number | null>(null);
   const dragBaseOffset = useRef(0);
 
@@ -39,7 +37,6 @@ export function useSlider({
     [clamp, step],
   );
 
-  // ── Mouse ──
   const onMouseDown = (clientX: number) => {
     dragStartX.current = clientX;
     dragBaseOffset.current = offset;
@@ -63,7 +60,6 @@ export function useSlider({
     dragStartX.current = null;
   };
 
-  // ── Touch ──
   const touchStartX = useRef<number | null>(null);
   const onTouchStart = (clientX: number) => {
     touchStartX.current = clientX;

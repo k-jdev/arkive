@@ -13,8 +13,6 @@ import {
   solanaIcon,
 } from "@/public/sections/defiPrompt";
 
-// ── Types & Data ──────────────────────────────────────────────
-
 type ItemType =
   | "faded"
   | "jupiter"
@@ -67,8 +65,6 @@ const ITEMS: DockItemDef[] = [
   { id: 28, type: "faded" },
 ];
 
-// ── Helpers ───────────────────────────────────────────────────
-
 function getVisuals(type: ItemType) {
   switch (type) {
     case "faded":
@@ -90,8 +86,6 @@ function getVisuals(type: ItemType) {
   }
 }
 
-// ── Section ───────────────────────────────────────────────────
-
 const TYPEWRITER_TEXT = "All of DeFi, one prompt away";
 const TYPEWRITER_SPEED = 60; // ms per character
 
@@ -99,7 +93,6 @@ export default function DefiPrompt() {
   const [displayedText, setDisplayedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
 
-  // Typing effect
   useEffect(() => {
     if (displayedText.length >= TYPEWRITER_TEXT.length) return;
 
@@ -110,7 +103,6 @@ export default function DefiPrompt() {
     return () => clearTimeout(timeout);
   }, [displayedText]);
 
-  // Cursor blink
   useEffect(() => {
     const interval = setInterval(() => {
       setShowCursor((prev) => !prev);
@@ -199,8 +191,6 @@ export default function DefiPrompt() {
     };
   });
 
-  // Filter items based on responsive breakpoints
-  // We'll render all items and let CSS handle the visibility
   const allItems = dockItems;
 
   return (
@@ -209,9 +199,7 @@ export default function DefiPrompt() {
       className="w-full bg-white flex flex-col py-24 md:py-80 items-center justify-center defi-dock-root"
       style={{ contentVisibility: "auto", containIntrinsicSize: "auto 500px" }}
     >
-      {/* Dock */}
       <div className="w-full mb-16 select-none overflow-visible px-4">
-        {/* Desktop */}
         <div
           className="hidden md:flex flex-row items-end justify-center mx-auto"
           style={{
@@ -226,7 +214,6 @@ export default function DefiPrompt() {
           />
         </div>
 
-        {/* Mobile */}
         <div className="flex md:hidden justify-center">
           <Image
             src="/sections/defiPrompt/mobilePrompt.png"
@@ -239,7 +226,6 @@ export default function DefiPrompt() {
         </div>
       </div>
 
-      {/* Headline */}
       <div className="text-center px-4 max-w-4xl flex flex-col items-center gap-4 md:gap-3">
         <h2 className="text-[48px] md:text-[clamp(32px,4vw,60px)] font-[590] tracking-[-0.4px] [font-family:var(--figma-font-text)] leading-[0.9] md:leading-[1.05]">
           <span className="bg-linear-to-r from-[#1C2024] to-[#0080FF] text-transparent bg-clip-text">

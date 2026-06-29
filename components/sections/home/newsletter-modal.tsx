@@ -111,7 +111,6 @@ export default function NewsletterModal({ open, onClose }: Props) {
         className="relative flex w-full max-w-[1281px] flex-col overflow-hidden rounded-[24px] bg-[#F9F9FB] max-h-[90vh] md:h-[clamp(360px,40vw,550px)] md:max-h-none md:flex-row"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
         <button
           type="button"
           onClick={onClose}
@@ -120,7 +119,6 @@ export default function NewsletterModal({ open, onClose }: Props) {
         >
           <RiCloseLine size={18} className="text-(--figma-neutral-12)" />
         </button>
-        {/* Mobile image (top, full-bleed) */}
         <div className="relative block aspect-[716/551] w-full shrink-0 md:hidden">
           <Image
             src="/sections/modal/mobile-card.png"
@@ -132,7 +130,6 @@ export default function NewsletterModal({ open, onClose }: Props) {
           />
         </div>
 
-        {/* Desktop image (left) */}
         <div className="relative hidden w-[54.6%] shrink-0 md:block">
           <Image
             src="/sections/modal/card.png"
@@ -144,9 +141,7 @@ export default function NewsletterModal({ open, onClose }: Props) {
           />
         </div>
 
-        {/* Content */}
         <div className="flex flex-1 flex-col justify-center gap-6 px-6 pb-8 pt-4 text-center md:px-0 md:py-10 md:pl-[clamp(32px,4.7vw,60px)] md:pr-[clamp(24px,7.7vw,99px)] md:text-left">
-          {/* Label + heading */}
           <div className="flex flex-col gap-2">
             <p className="font-[590] text-[16px] leading-[28px] tracking-[-0.005em] text-(--figma-accent-9) md:text-[20px] md:tracking-[-0.004em] [font-family:var(--figma-font-text)]">
               Coming soon
@@ -159,7 +154,6 @@ export default function NewsletterModal({ open, onClose }: Props) {
             </h2>
           </div>
 
-          {/* Email form */}
           <form
             onSubmit={handleSubmit}
             className="flex w-full flex-col items-start gap-4 self-stretch md:flex-row md:items-stretch md:gap-4"
@@ -182,7 +176,6 @@ export default function NewsletterModal({ open, onClose }: Props) {
             </button>
           </form>
 
-          {/* Privacy */}
           <p className="mx-auto max-w-[249px] font-[510] text-[12px] leading-4 tracking-[0.0033em] text-(--figma-neutral-alpha-10) md:mx-0 md:max-w-none [font-family:var(--figma-font-text)]">
             By signing up, you agree to{" "}
             <a href="#" className="underline">

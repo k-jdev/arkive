@@ -20,7 +20,6 @@ export default function PracticesCompounding() {
           variants={reduced ? safeFade : setupCard}
           className="rounded-[24px] overflow-hidden bg-[#F9F9FB] flex flex-col lg:flex-row lg:min-h-[580px]"
         >
-          {/* ── Mobile: text on top, image bleeds below ── */}
           <div className="block lg:hidden px-[38px] pt-[38px] pb-10">
             <p className="font-[510] text-[#60646C] [font-family:var(--figma-font-text)] text-[clamp(20px,1.94vw,28px)] leading-[1.286] tracking-[-0.43%]">
               <span>Practices are collaborative.</span>
@@ -38,7 +37,6 @@ export default function PracticesCompounding() {
             />
           </div>
 
-          {/* ── Desktop: image left, text right ── */}
           <div className="hidden lg:flex shrink-0">
             <Image
               src={compoundingImg}

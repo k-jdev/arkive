@@ -285,7 +285,6 @@ export default function Header() {
             className="fixed inset-0 z-50 bg-black lg:hidden"
             aria-label="Mobile navigation"
           >
-            {/* Top bar: logo + close */}
             <div className="flex items-center justify-between h-12 px-(--figma-spacing-4) py-(--figma-spacing-3)">
               <Link
                 href="/"
@@ -313,7 +312,6 @@ export default function Header() {
               </button>
             </div>
 
-            {/* Menu items */}
             <motion.div
               initial="hidden"
               animate="visible"
@@ -358,7 +356,6 @@ export default function Header() {
               ))}
             </motion.div>
 
-            {/* Social icons */}
             <div className="absolute bottom-8 left-(--figma-spacing-4) right-(--figma-spacing-4) flex items-center justify-between">
               {SOCIAL_LINKS.map(({ label, href, icon }) => (
                 <a

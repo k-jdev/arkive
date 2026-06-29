@@ -27,7 +27,6 @@ export default function PracticesCreating() {
     <section className="w-full bg-white py-[60px] md:py-[100px]">
       <div className="max-w-[1440px] mx-auto px-[clamp(16px,4.17vw,80px)] flex flex-col gap-10">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
-          {/* ── Mobile: text on top ── */}
           <motion.div
             initial="hidden"
             whileInView={reduced ? undefined : "visible"}
@@ -98,7 +97,6 @@ export default function PracticesCreating() {
             </div>
           </motion.div>
 
-          {/* ── Image (always in flow) ── */}
           <motion.div
             initial="hidden"
             whileInView={reduced ? undefined : "visible"}
@@ -118,7 +116,6 @@ export default function PracticesCreating() {
             </div>
           </motion.div>
 
-          {/* ── Desktop: text on right ── */}
           <motion.div
             initial="hidden"
             whileInView={reduced ? undefined : "visible"}
@@ -190,7 +187,6 @@ export default function PracticesCreating() {
           </motion.div>
         </div>
 
-        {/* ── Bottom card (mobile per Figma) ── */}
         <motion.div
           initial="hidden"
           whileInView={reduced ? undefined : "visible"}
@@ -198,7 +194,6 @@ export default function PracticesCreating() {
           variants={reduced ? safeFade : setupCard}
           className="w-full rounded-[18px] bg-[#F9F9FB]"
         >
-          {/* Mobile layout */}
           <div className="block lg:hidden p-6 flex flex-col items-start gap-6">
             <Image
               src={projectImg}
@@ -214,9 +209,8 @@ export default function PracticesCreating() {
                 Project DeFi{" "}
               </span>
               <span style={{ color: "rgba(0, 7, 27, 0.5)" }}>
-                is Arkive&rsquo;s first core practice, core practices are
-                created by the Arkive team and are optimized for their
-                respective domain.
+                is Arkive’s first core practice. Core practices are created by
+                the Arkive team and are optimized for their respective domain.
               </span>
             </p>
             <Link href="/project-defi">
@@ -230,7 +224,6 @@ export default function PracticesCreating() {
             </Link>
           </div>
 
-          {/* Desktop layout */}
           <div className="hidden lg:flex px-6 md:px-10 py-6 flex-row justify-between items-start md:items-center gap-6">
             <div className="flex items-center gap-6">
               <Image
@@ -245,9 +238,8 @@ export default function PracticesCreating() {
               <p className="flex-1 font-[510] text-[16px] leading-[24px] [font-family:var(--figma-font-text)] max-w-[550px] text-[rgba(0,5,9,0.89)]">
                 Project DeFi{" "}
                 <span style={{ color: "rgba(0,7,27,0.5)" }}>
-                  is Arkive&rsquo;s first core practice, core practices are
-                  created by the Arkive team and are optimized for their
-                  respective domain.
+                  is Arkive’s first core practice. Core practices are created by
+                  the Arkive team and are optimized for their respective domain.
                 </span>
               </p>
             </div>

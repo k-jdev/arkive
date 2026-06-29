@@ -3,8 +3,6 @@
 import { useRef, useEffect, useCallback, useState } from "react";
 import * as d3 from "d3";
 
-// ── Types ─────────────────────────────────────────────────────
-
 interface Node {
   id: number;
   level: number;
@@ -24,8 +22,6 @@ interface Link {
   source: number | Node;
   target: number | Node;
 }
-
-// ── Config ────────────────────────────────────────────────────
 
 const W = 1920;
 const H = 1080;
@@ -74,8 +70,6 @@ const CENTER_GRAVITY = 0.015;
 
 const HOVER_RADIUS = 24;
 const PICK_RADIUS = 36;
-
-// ── Helpers ───────────────────────────────────────────────────
 
 function makeNode(nodes: Node[], level: number): Node {
   const id = nodes.length;
@@ -168,7 +162,6 @@ function buildGraph(): { nodes: Node[]; links: Link[] } {
     }
   }
 
-  // Detached clusters
   for (let c = 0; c < DETACHED_CLUSTERS; c++) {
     const ang = Math.random() * Math.PI * 2;
     const dist =
@@ -190,7 +183,6 @@ function buildGraph(): { nodes: Node[]; links: Link[] } {
     }
   }
 
-  // Accent
   for (const n of nodes) {
     if (n.level === 0) continue;
     if (Math.random() < ACCENT_FRACTION) {
@@ -202,8 +194,6 @@ function buildGraph(): { nodes: Node[]; links: Link[] } {
 
   return { nodes, links };
 }
-
-// ── Component ─────────────────────────────────────────────────
 
 export default function HeroCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -219,8 +209,6 @@ export default function HeroCanvas() {
   const hoveringRef = useRef(false);
   const sizeRef = useRef({ w: W, h: H });
   const [isDragging, setIsDragging] = useState(false);
-
-  // ── Pick ──────────────────────────────────────────────────
 
   const pickNode = useCallback(
     (x: number, y: number, radius: number): Node | null => {
@@ -240,15 +228,12 @@ export default function HeroCanvas() {
     [],
   );
 
-  // ── Rendering ─────────────────────────────────────────────
-
   const render = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Track dragged node with mouse
     if (draggingRef.current && grabbedRef.current) {
       grabbedRef.current.fx = mouseRef.current.x;
       grabbedRef.current.fy = mouseRef.current.y;
@@ -286,8 +271,6 @@ export default function HeroCanvas() {
     rafRef.current = requestAnimationFrame(render);
   }, []);
 
-  // ── Setup ─────────────────────────────────────────────────
-
   useEffect(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
@@ -297,7 +280,6 @@ export default function HeroCanvas() {
     nodesRef.current = nodes;
     linksRef.current = links;
 
-    // High-DPI
     const dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
     canvas.width = W * dpr;
     canvas.height = H * dpr;
@@ -311,7 +293,6 @@ export default function HeroCanvas() {
 
     sizeRef.current = { w: W, h: H };
 
-    // Radial pull-back
     function radialPullBack(alpha: number) {
       const cx = W / 2;
       const cy = H / 2;
@@ -374,8 +355,6 @@ export default function HeroCanvas() {
     center.fy = H / 2;
 
     simRef.current = sim;
-
-    // ── Mouse handlers ─────────────────────────────────────
 
     function mouseFromEvent(e: MouseEvent) {
       const r = canvas!.getBoundingClientRect();
