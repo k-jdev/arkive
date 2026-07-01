@@ -51,7 +51,7 @@ const SOCIAL_LINKS = [
   },
   {
     label: "X",
-    href: "#",
+    href: "https://x.com/arkivexyz",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@ const SOCIAL_LINKS = [
   },
   {
     label: "GitHub",
-    href: "#",
+    href: "https://github.com/",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"

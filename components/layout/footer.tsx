@@ -16,7 +16,7 @@ const LINK_GROUPS: FooterLinkGroup[] = [
   {
     title: "Arkive",
     links: [
-      { label: "Home", href: "/" },
+      { label: "Home", href: "https://arkive.xyz/" },
       { label: "Arkives", href: "/arkives" },
       { label: "Practices", href: "/practices" },
       { label: "Project DeFi", href: "/project-defi" },
@@ -26,11 +26,11 @@ const LINK_GROUPS: FooterLinkGroup[] = [
   {
     title: "Resources",
     links: [
-      { label: "Docs", href: "#" },
+      { label: "Docs", href: "https://docs.arkive.xyz/" },
       { label: "Whitepaper", href: "#" },
       { label: "Roadmap", href: "#" },
-      { label: "FAQs", href: "#" },
-      { label: "GitHub", href: "#" },
+      { label: "FAQs", href: "/#faq" },
+      { label: "GitHub", href: "https://github.com/" },
       { label: "Partnerships", href: "#" },
       { label: "Changelog", href: "#" },
       { label: "Brand kit", href: "#" },
@@ -39,9 +39,9 @@ const LINK_GROUPS: FooterLinkGroup[] = [
   {
     title: "Connect",
     links: [
-      { label: "X / Twitter", href: "#" },
-      { label: "Telegram", href: "#" },
-      { label: "Email", href: "#" },
+      { label: "X / Twitter", href: "https://x.com/arkivexyz" },
+      { label: "Telegram", href: "https://t.me/arkivexyz" },
+      { label: "Email", href: "mailto:contact@arkive.xyz" },
       { label: "Support", href: "#" },
       { label: "Enterprise inquiries", href: "#" },
       { label: "Partner with us", href: "#" },
@@ -124,9 +124,9 @@ function GitHubIcon(props: SVGProps<SVGSVGElement>) {
 }
 
 const SOCIAL_ICONS = [
-  { label: "X / Twitter", icon: XIcon, href: "#" },
-  { label: "Telegram", icon: TelegramIcon, href: "#" },
-  { label: "GitHub", icon: GitHubIcon, href: "#" },
+  { label: "X / Twitter", icon: XIcon, href: "https://x.com/arkivexyz" },
+  { label: "Telegram", icon: TelegramIcon, href: "https://t.me/arkivexyz" },
+  { label: "GitHub", icon: GitHubIcon, href: "https://github.com/" },
 ];
 
 export default function Footer() {
@@ -167,6 +167,8 @@ export default function Footer() {
                   <a
                     key={label}
                     href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={label}
                     className="flex items-center justify-center size-10 rounded-full bg-(--figma-neutral-alpha-3) hover:opacity-70 transition-opacity"
                   >
@@ -192,7 +194,12 @@ export default function Footer() {
 
                       return (
                         <li key={link.label}>
-                          <Tag href={link.href} className={linkTextClass}>
+                          <Tag
+                            href={link.href}
+                            target={isInternal ? undefined : "_blank"}
+                            rel={isInternal ? undefined : "noopener noreferrer"}
+                            className={linkTextClass}
+                          >
                             {link.label}
                           </Tag>
                         </li>
@@ -258,6 +265,8 @@ export default function Footer() {
               <a
                 key={label}
                 href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={label}
                 className="flex items-center justify-center size-10 rounded-full bg-(--figma-neutral-alpha-3) hover:opacity-70 transition-opacity"
               >
@@ -282,7 +291,12 @@ export default function Footer() {
 
                     return (
                       <li key={link.label}>
-                        <Tag href={link.href} className={linkTextClass}>
+                        <Tag
+                          href={link.href}
+                          target={isInternal ? undefined : "_blank"}
+                          rel={isInternal ? undefined : "noopener noreferrer"}
+                          className={linkTextClass}
+                        >
                           {link.label}
                         </Tag>
                       </li>
