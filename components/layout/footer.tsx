@@ -28,11 +28,10 @@ const LINK_GROUPS: FooterLinkGroup[] = [
     links: [
       { label: "Docs", href: "https://docs.arkive.xyz/" },
       { label: "Whitepaper", href: "#" },
-      { label: "Roadmap", href: "#" },
+
       { label: "FAQs", href: "/#faq" },
       { label: "GitHub", href: "https://github.com/" },
-      { label: "Partnerships", href: "#" },
-      { label: "Changelog", href: "#" },
+
       { label: "Brand kit", href: "#" },
     ],
   },
@@ -44,7 +43,6 @@ const LINK_GROUPS: FooterLinkGroup[] = [
       { label: "Email", href: "mailto:contact@arkive.xyz" },
       { label: "Support", href: "#" },
       { label: "Enterprise inquiries", href: "#" },
-      { label: "Partner with us", href: "#" },
     ],
   },
 ];
