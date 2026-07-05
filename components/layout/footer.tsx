@@ -232,6 +232,12 @@ export default function Footer() {
                 >
                   Terms of service
                 </Link>
+                <Link
+                  href="/litepaper"
+                  className="text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) text-[#80838d] [font-family:var(--figma-font-text)] hover:opacity-60 transition-opacity whitespace-nowrap"
+                >
+                  Litepaper
+                </Link>
               </div>
               <div className="w-47.5" aria-hidden="true" />
               <div className="w-47.5" aria-hidden="true" />
@@ -340,6 +346,12 @@ export default function Footer() {
               className="text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) text-[#80838d] [font-family:var(--figma-font-text)] hover:opacity-60 transition-opacity whitespace-nowrap"
             >
               Terms of service
+            </Link>
+            <Link
+              href="/litepaper"
+              className="text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) text-[#80838d] [font-family:var(--figma-font-text)] hover:opacity-60 transition-opacity whitespace-nowrap"
+            >
+              Litepaper
             </Link>
           </motion.div>
 
