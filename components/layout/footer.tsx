@@ -220,18 +220,18 @@ export default function Footer() {
               role="presentation"
             >
               <div className="w-47.5 flex items-center gap-8">
-                <a
-                  href="#"
+                <Link
+                  href="/privacy"
                   className="text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) text-[#80838d] [font-family:var(--figma-font-text)] hover:opacity-60 transition-opacity whitespace-nowrap"
                 >
                   Privacy policy
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="/terms"
                   className="text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) text-[#80838d] [font-family:var(--figma-font-text)] hover:opacity-60 transition-opacity whitespace-nowrap"
                 >
                   Terms of service
-                </a>
+                </Link>
               </div>
               <div className="w-47.5" aria-hidden="true" />
               <div className="w-47.5" aria-hidden="true" />
@@ -329,18 +329,18 @@ export default function Footer() {
             variants={footerItem}
             className="flex items-center gap-8 mb-6"
           >
-            <a
-              href="#"
+            <Link
+              href="/privacy"
               className="text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) text-[#80838d] [font-family:var(--figma-font-text)] hover:opacity-60 transition-opacity whitespace-nowrap"
             >
               Privacy policy
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="/terms"
               className="text-(length:--figma-font-size-2) leading-(--figma-line-height-2) tracking-(--figma-letter-spacing-2) text-[#80838d] [font-family:var(--figma-font-text)] hover:opacity-60 transition-opacity whitespace-nowrap"
             >
               Terms of service
-            </a>
+            </Link>
           </motion.div>
 
           <motion.div variants={footerItem}>
