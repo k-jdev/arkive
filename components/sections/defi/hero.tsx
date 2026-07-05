@@ -56,7 +56,7 @@ export default function ProjectDefiHero() {
               Coming soon
             </button>
 
-            <Link href="#">
+            <Link href="https://docs.arkive.xyz">
               <button
                 type="button"
                 className="flex items-center justify-center h-10 rounded-full transition-colors hover:bg-[rgba(221,234,248,0.14)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 px-6 bg-[rgba(221,234,248,0.08)] text-[#edeef0] font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)]"

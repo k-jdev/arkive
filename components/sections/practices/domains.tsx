@@ -49,7 +49,7 @@ export default function PracticesDomains() {
                   domain.
                 </h2>
 
-                <Link href="/practices">
+                <Link href="https://docs.arkive.xyz">
                   <button
                     type="button"
                     className="flex items-center justify-center gap-1 h-10 rounded-full w-fit px-(--figma-spacing-4) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-[510] text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) [font-family:var(--figma-font-text)] transition-colors hover:bg-[rgba(0,0,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"

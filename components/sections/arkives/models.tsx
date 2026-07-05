@@ -493,7 +493,7 @@ export default function ArkivesModels() {
             </p>
           </div>
 
-          <Link href="#">
+          <Link href="https://docs.arkive.xyz">
             <button
               type="button"
               className="inline-flex items-center gap-1 h-12 rounded-full bg-[#1c2024] font-[510] text-[#fcfcfd] [font-family:var(--figma-font-text)] hover:opacity-90 transition-opacity shrink-0 self-start md:self-auto px-6"
@@ -504,7 +504,7 @@ export default function ArkivesModels() {
                 fontVariationSettings: '"wdth" 100',
               }}
             >
-              Get started
+              View docs
             </button>
           </Link>
         </motion.div>

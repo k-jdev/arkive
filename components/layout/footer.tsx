@@ -16,7 +16,7 @@ const LINK_GROUPS: FooterLinkGroup[] = [
   {
     title: "Arkive",
     links: [
-      { label: "Home", href: "https://arkive.xyz/" },
+      { label: "Home", href: "/" },
       { label: "Arkives", href: "/arkives" },
       { label: "Practices", href: "/practices" },
       { label: "Project DeFi", href: "/project-defi" },
@@ -27,11 +27,9 @@ const LINK_GROUPS: FooterLinkGroup[] = [
     title: "Resources",
     links: [
       { label: "Docs", href: "https://docs.arkive.xyz/" },
-      { label: "Whitepaper", href: "#" },
-
+      { label: "Pitch deck", href: "/deck" },
       { label: "FAQs", href: "/#faq" },
       { label: "GitHub", href: "https://github.com/" },
-
       { label: "Brand kit", href: "#" },
     ],
   },
@@ -41,8 +39,8 @@ const LINK_GROUPS: FooterLinkGroup[] = [
       { label: "X / Twitter", href: "https://x.com/arkivexyz" },
       { label: "Telegram", href: "https://t.me/arkivexyz" },
       { label: "Email", href: "mailto:contact@arkive.xyz" },
-      { label: "Support", href: "#" },
-      { label: "Enterprise inquiries", href: "#" },
+      { label: "Support", href: "https://t.me/arkivexyz" },
+      { label: "Enterprise inquiries", href: "mailto:team@arkive.xyz" },
     ],
   },
 ];

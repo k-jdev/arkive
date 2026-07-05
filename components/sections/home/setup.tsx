@@ -190,7 +190,7 @@ export default function Setup() {
               </p>
 
               <motion.a
-                href="#"
+                href="https://docs.arkive.xyz"
                 className="inline-flex items-center gap-1 h-10 px-0 md:px-4 rounded-full bg-transparent font-[400] text-(--figma-accent-9) [font-family:var(--figma-font-text)] hover:opacity-90 transition-opacity shrink-0"
                 style={{
                   fontSize: "var(--figma-font-size-3)",

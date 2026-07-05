@@ -1,0 +1,52 @@
+/* Minimal annotation layer styles for react-pdf (without yellow highlights) */
+
+:root {
+  --react-pdf-annotation-layer: 1;
+}
+
+.annotationLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transform-origin: 0 0;
+  z-index: 3;
+}
+
+.annotationLayer section {
+  position: absolute;
+  text-align: initial;
+  pointer-events: auto;
+  box-sizing: border-box;
+  margin: 0;
+  transform-origin: 0 0;
+}
+
+.annotationLayer .linkAnnotation {
+  outline: none;
+}
+
+.annotationLayer .linkAnnotation > a {
+  position: absolute;
+  font-size: 1em;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.annotationLayer canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.annotationLayer .buttonWidgetAnnotation.pushButton > a {
+  position: absolute;
+  font-size: 1em;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

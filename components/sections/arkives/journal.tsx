@@ -40,7 +40,7 @@ const JOURNAL_ITEMS: JournalItem[] = [
     icon: SLIDER_ICONS.recordIcon,
     label: "Record",
     description: [
-      { text: "Raw data, conversations, & outcomes stored in " },
+      { text: "Raw data, conversations, & outcomes are stored in " },
       { text: "the journal.", bold: true },
     ],
   },

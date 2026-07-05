@@ -33,7 +33,7 @@ const FAQ_ITEMS: FaqItem[] = [
   {
     question: "How many practices can I have?",
     answer:
-      "As many as you want. A single Arkive can hold infinite practices — there is no limit.",
+      "Up to 10 practices in the free tier. The pro tier allows for unlimited practices to be added to your arkive.",
   },
   {
     question: "Do I need technical knowledge to use Arkive?",
@@ -105,7 +105,11 @@ export default function HomeFaq() {
   };
 
   return (
-    <section data-header-theme="light" className="w-full bg-white">
+    <section
+      id="faq"
+      data-header-theme="light"
+      className="w-full bg-white scroll-mt-18"
+    >
       <div className="max-w-360 mx-auto px-[clamp(16px,4.17vw,80px)] pt-20 md:pt-0 pb-16 md:pb-24">
         <div className="flex flex-col lg:flex-row gap-6.25 lg:gap-16">
           <div className="flex flex-col items-center md:items-start gap-4 md:gap-6 lg:w-95 lg:shrink-0">
