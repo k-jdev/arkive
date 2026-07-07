@@ -69,7 +69,7 @@ function getVisuals(type: ItemType) {
   switch (type) {
     case "faded":
       return {
-        bg: "rgba(245,245,245,1)",
+        bg: "#E5E5E5",
         border: "none",
       };
     case "jupiter":
@@ -183,7 +183,6 @@ export default function DefiPrompt() {
       title: item.type,
       icon,
       href: item.href ?? "#",
-      opacity: item.opacity,
       hiddenOn: item.hiddenOn,
       bg: visuals.bg,
       border: visuals.border,

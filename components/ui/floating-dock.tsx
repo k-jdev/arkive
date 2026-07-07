@@ -217,6 +217,19 @@ function IconContainer({
         ? "hidden md:flex"
         : "";
 
+  // Compute opacity for faded items: proportional to distance from active index
+  const computedOpacity =
+    opacity !== undefined
+      ? opacity
+      : isFaded && activeIndex !== undefined
+        ? (() => {
+            const dist = Math.abs(index - activeIndex);
+            const maxDist = 14;
+            const t = Math.min(1, dist / maxDist);
+            return Math.round(0.7 * (1 - t) * 100) / 160;
+          })()
+        : undefined;
+
   return (
     <div className={visibilityClass}>
       <motion.div
@@ -224,7 +237,7 @@ function IconContainer({
         style={{
           width,
           height,
-          opacity: opacity !== undefined ? opacity : 1,
+          opacity: computedOpacity !== undefined ? computedOpacity : 1,
           backgroundColor: bg,
           border: border,
           borderRadius: "22px",

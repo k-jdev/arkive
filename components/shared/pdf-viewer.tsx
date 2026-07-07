@@ -181,10 +181,14 @@ export default function PdfViewer({ file, title }: PdfViewerProps) {
   return (
     <div
       ref={containerRef}
-      className="relative flex flex-col bg-neutral-950 min-h-dvh select-none pt-12"
+      className="relative flex flex-col h-screen h-dvh select-none pt-12"
+      style={{ backgroundColor: "#18191B" }}
     >
       {/* Top bar */}
-      <div className="sticky top-12 z-40 bg-neutral-950/90 backdrop-blur-md ">
+      <div
+        className="sticky top-12 z-40 backdrop-blur-md"
+        style={{ backgroundColor: "rgba(24,25,27,0.9)" }}
+      >
         <div className="max-w-360 mx-auto flex items-center justify-between px-[clamp(16px,4.17vw,80px)] py-4">
           <div className="flex items-center gap-3">
             {title && (
@@ -320,7 +324,10 @@ export default function PdfViewer({ file, title }: PdfViewerProps) {
       </div>
 
       {/* Bottom nav bar */}
-      <div className="sticky bottom-0 bg-neutral-950/90 backdrop-blur-md border-t border-white/5">
+      <div
+        className="sticky bottom-0 backdrop-blur-md border-t border-white/5"
+        style={{ backgroundColor: "rgba(24,25,27,0.9)" }}
+      >
         <div className="max-w-360 mx-auto flex items-center justify-center gap-4 px-[clamp(16px,4.17vw,80px)] py-2">
           <button
             onClick={goToPrevPage}
@@ -359,6 +366,17 @@ export default function PdfViewer({ file, title }: PdfViewerProps) {
             <span className="text-sm hidden sm:inline">Next</span>
             <RiArrowRightSLine size={20} />
           </button>
+
+          <div className="w-px h-5 bg-white/10 mx-1" />
+
+          <a
+            href={file}
+            download
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/5 transition-all"
+            aria-label="Download PDF"
+          >
+            <span className="text-sm">Download</span>
+          </a>
         </div>
       </div>
     </div>
