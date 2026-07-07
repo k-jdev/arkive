@@ -7,7 +7,7 @@ export default function DeckLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-dvh flex flex-col bg-neutral-950">
+    <div className="h-dvh h-screen flex flex-col bg-neutral-950">
       <NewsletterModalProvider>
         <Header />
         {children}
