@@ -87,7 +87,7 @@ export default function DefiSlider() {
               fill
               loading="lazy"
               sizes="(min-width: 768px) 380px, 100vw"
-              className="object-cover pointer-events-none"
+              className="object-cover object-top pointer-events-none"
               draggable={false}
               unoptimized
             />
