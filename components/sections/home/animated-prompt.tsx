@@ -91,6 +91,9 @@ export default function AnimatedPrompt() {
     if (switchTimeoutRef.current !== null)
       clearTimeout(switchTimeoutRef.current);
 
+    // Resets are keyed on categoryIndex/fullText changing — this effect owns the
+    // typing timers below, so it must also own the state those timers drive.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDisplayText("");
     setIsTyping(true);
     setShowThinking(true);

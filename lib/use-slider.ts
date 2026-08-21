@@ -20,6 +20,7 @@ export function useSlider({
   const maxOffset = step * (slidesCount - 1) - peek;
 
   const [offset, setOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
 
   // Drag state
   const dragStartX = useRef<number | null>(null);
@@ -43,6 +44,7 @@ export function useSlider({
   const onMouseDown = (clientX: number) => {
     dragStartX.current = clientX;
     dragBaseOffset.current = offset;
+    setIsDragging(true);
   };
   const onMouseMove = (clientX: number) => {
     if (dragStartX.current === null) return;
@@ -56,11 +58,13 @@ export function useSlider({
       clamp(Math.round((dragBaseOffset.current + delta) / step) * step),
     );
     dragStartX.current = null;
+    setIsDragging(false);
   };
   const onMouseLeave = () => {
     if (dragStartX.current === null) return;
     setOffset(clamp(Math.round(offset / step) * step));
     dragStartX.current = null;
+    setIsDragging(false);
   };
 
   // ── Touch ──
@@ -68,6 +72,7 @@ export function useSlider({
   const onTouchStart = (clientX: number) => {
     touchStartX.current = clientX;
     dragBaseOffset.current = offset;
+    setIsDragging(true);
   };
   const onTouchMove = (clientX: number) => {
     if (touchStartX.current === null) return;
@@ -81,9 +86,8 @@ export function useSlider({
       clamp(Math.round((dragBaseOffset.current + delta) / step) * step),
     );
     touchStartX.current = null;
+    setIsDragging(false);
   };
-
-  const isDragging = dragStartX.current !== null;
 
   return {
     offset,

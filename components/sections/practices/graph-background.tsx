@@ -3,6 +3,19 @@
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
+interface GraphNode extends d3.SimulationNodeDatum {
+  id: number;
+  level: number;
+  label: string | null;
+  r: number;
+}
+
+type LinkKind = "primary" | "secondary" | "backlink";
+
+interface GraphLink extends d3.SimulationLinkDatum<GraphNode> {
+  kind: LinkKind;
+}
+
 export default function GraphBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -16,7 +29,6 @@ export default function GraphBackground() {
     if (!ctx) return;
 
     let rAF: number;
-    let sim: d3.Simulation<any, any>;
 
     // -------- config --------
     const W = 1920;
@@ -53,8 +65,6 @@ export default function GraphBackground() {
     const LEAVES_PER_SUB_MAX = 3;
 
     const BG_COLOR = '#000000';
-    const CENTER_FILL = '#0E0E10';
-    const CENTER_STROKE = '#E8E8EA';
     const PRACTICE_COLOR = '#D8D9DD';
     const PRACTICE_TEXT = '#F2F2F4';
     const SUB_COLOR = '#4E4F53';
@@ -93,10 +103,9 @@ export default function GraphBackground() {
     ctx.textRendering = 'geometricPrecision';
 
     let mouseX = -9999, mouseY = -9999;
-    let hovering = false;
     let dragging = false;
-    let grabbed: any = null;
-    let hoverNode: any = null;
+    let grabbed: GraphNode | null = null;
+    let hoverNode: GraphNode | null = null;
 
     function mouseFromEvent(e: MouseEvent | TouchEvent) {
       if (!canvas) return;
@@ -108,20 +117,20 @@ export default function GraphBackground() {
       mouseY = (clientY - r.top) * (H / r.height);
     }
 
-    const nodes: any[] = [];
-    const links: any[] = [];
+    const nodes: GraphNode[] = [];
+    const links: GraphLink[] = [];
 
-    function makeNode(level: number, label: string | null) {
+    function makeNode(level: number, label: string | null): GraphNode {
       const id = nodes.length;
-      const node = {
+      const node: GraphNode = {
         id, level, label: label || null,
         x: W / 2 + (Math.random() - 0.5) * 200,
         y: H / 2 + (Math.random() - 0.5) * 200,
         r: level === 0 ? R_CENTER :
           level === 1 ? R_PRACTICE :
             level === 2 ? R_SUB : R_LEAF,
-        fx: null as number | null,
-        fy: null as number | null,
+        fx: null,
+        fy: null,
         vx: 0,
         vy: 0
       };
@@ -133,7 +142,7 @@ export default function GraphBackground() {
     center.fx = W / 2;
     center.fy = H / 2;
 
-    const subByName: Record<string, any> = {};
+    const subByName: Record<string, GraphNode> = {};
     PRACTICES.forEach((p, i) => {
       const ang = (i / PRACTICES.length) * Math.PI * 2 - Math.PI / 2;
       const practice = makeNode(1, p.name);
@@ -171,52 +180,56 @@ export default function GraphBackground() {
       const cx = W / 2, cy = H / 2;
       for (const n of nodes) {
         if (n.fx !== null && n.fx !== undefined) continue;
-        const dx = cx - n.x, dy = cy - n.y;
+        const dx = cx - (n.x ?? cx), dy = cy - (n.y ?? cy);
         const d = Math.sqrt(dx * dx + dy * dy);
         if (d < 0.001) continue;
         const excess = Math.max(0, d - RADIAL_SOFT_ZONE);
         const k = RADIAL_STRENGTH * Math.pow(excess / RADIAL_SOFT_ZONE, RADIAL_EXPONENT) * alpha;
-        n.vx += (dx / d) * k * d;
-        n.vy += (dy / d) * k * d;
+        n.vx = (n.vx ?? 0) + (dx / d) * k * d;
+        n.vy = (n.vy ?? 0) + (dy / d) * k * d;
       }
     }
 
-    sim = d3.forceSimulation(nodes)
+    function resolveNode(ref: string | number | GraphNode): GraphNode {
+      return typeof ref === 'object' ? ref : nodes[ref as number];
+    }
+
+    const sim = d3.forceSimulation<GraphNode>(nodes)
       .force('link',
-        d3.forceLink(links)
-          .id((d: any) => d.id)
-          .distance((d: any) => {
-            const srcLvl = nodes[d.source.id ?? d.source].level;
+        d3.forceLink<GraphNode, GraphLink>(links)
+          .id((d) => d.id)
+          .distance((d) => {
+            const srcLvl = resolveNode(d.source).level;
             if (srcLvl === 0) return LINK_DISTANCE * 0.65;
             if (srcLvl === 1) return LINK_DISTANCE * 1.0;
             if (srcLvl === 2) return LINK_DISTANCE * 0.45;
             return LINK_DISTANCE;
           })
-          .strength((d: any) => {
+          .strength((d) => {
             if (d.kind === 'backlink') return 0.05;
-            if (nodes[d.source.id ?? d.source].level === 0) return 1.0;
+            if (resolveNode(d.source).level === 0) return 1.0;
             return 0.6;
           })
       )
       .force('charge',
-        d3.forceManyBody()
-          .strength((d: any) => {
+        d3.forceManyBody<GraphNode>()
+          .strength((d) => {
             if (d.level === 0) return -30;
             if (d.level === 1) return -180;
             if (d.level === 2) return -120;
             return -40;
           })
       )
-      .force('collide', d3.forceCollide((d: any) => d.r + (d.level <= 2 ? 18 : 4)))
+      .force('collide', d3.forceCollide<GraphNode>((d) => d.r + (d.level <= 2 ? 18 : 4)))
       .force('radial', radialPullBack)
       .velocityDecay(VELOCITY_DECAY)
       .alpha(1)
       .alphaDecay(0.02);
 
-    function pickNode(x: number, y: number, radius: number) {
-      let best = null, bestD = radius * radius;
+    function pickNode(x: number, y: number, radius: number): GraphNode | null {
+      let best: GraphNode | null = null, bestD = radius * radius;
       for (const n of nodes) {
-        const dx = n.x - x, dy = n.y - y;
+        const dx = (n.x ?? 0) - x, dy = (n.y ?? 0) - y;
         const rad = (n.level === 0 ? R_CENTER : 0) + radius;
         const d2 = dx * dx + dy * dy;
         if (d2 < rad * rad && d2 < bestD) { bestD = d2; best = n; }
@@ -225,9 +238,8 @@ export default function GraphBackground() {
     }
 
     // Interaction handlers
-    const onMouseEnter = () => { hovering = true; };
+    const onMouseEnter = () => {};
     const onMouseLeave = () => {
-      hovering = false;
       if (grabbed && grabbed !== center) { grabbed.fx = null; grabbed.fy = null; }
       grabbed = null;
       hoverNode = null;
@@ -274,7 +286,7 @@ export default function GraphBackground() {
     window.addEventListener('mouseup', onMouseUp);
     window.addEventListener('touchend', onMouseUp);
 
-    function isLinkOnNode(l: any, node: any) {
+    function isLinkOnNode(l: GraphLink, node: GraphNode | null) {
       if (!node) return false;
       return l.source === node || l.target === node;
     }
@@ -289,7 +301,7 @@ export default function GraphBackground() {
       ctx.fillStyle = BG_COLOR;
       ctx.fillRect(0, 0, W, H);
 
-      const order = ['backlink', 'secondary', 'primary'];
+      const order: LinkKind[] = ['backlink', 'secondary', 'primary'];
       for (const kind of order) {
         ctx.lineWidth = kind === 'primary' ? 1.2 : (kind === 'backlink' ? 1.0 : 0.9);
         for (const l of links) {
@@ -299,17 +311,19 @@ export default function GraphBackground() {
           if (hl) {
             color = LINK_HOVER;
           } else if (kind === 'primary') {
-            const srcLvl = l.source.level;
+            const srcLvl = resolveNode(l.source).level;
             color = srcLvl === 0 ? LINK_PRIMARY : LINK_BRANCH;
           } else if (kind === 'backlink') {
             color = LINK_BACKLINK;
           } else {
             color = LINK_SECONDARY;
           }
+          const source = resolveNode(l.source);
+          const target = resolveNode(l.target);
           ctx.strokeStyle = color;
           ctx.beginPath();
-          ctx.moveTo(l.source.x, l.source.y);
-          ctx.lineTo(l.target.x, l.target.y);
+          ctx.moveTo(source.x ?? 0, source.y ?? 0);
+          ctx.lineTo(target.x ?? 0, target.y ?? 0);
           ctx.stroke();
         }
       }
@@ -319,7 +333,7 @@ export default function GraphBackground() {
         const isHovered = (n === hoverNode) || (n === grabbed);
         ctx.fillStyle = isHovered ? HOVER_COLOR : LEAF_COLOR;
         ctx.beginPath();
-        ctx.arc(n.x, n.y, isHovered ? n.r * 1.5 : n.r, 0, Math.PI * 2);
+        ctx.arc(n.x ?? 0, n.y ?? 0, isHovered ? n.r * 1.5 : n.r, 0, Math.PI * 2);
         ctx.fill();
       }
       for (const n of nodes) {
@@ -327,7 +341,7 @@ export default function GraphBackground() {
         const isHovered = (n === hoverNode) || (n === grabbed);
         ctx.fillStyle = isHovered ? HOVER_COLOR : SUB_COLOR;
         ctx.beginPath();
-        ctx.arc(n.x, n.y, isHovered ? n.r * 1.3 : n.r, 0, Math.PI * 2);
+        ctx.arc(n.x ?? 0, n.y ?? 0, isHovered ? n.r * 1.3 : n.r, 0, Math.PI * 2);
         ctx.fill();
       }
       for (const n of nodes) {
@@ -335,28 +349,29 @@ export default function GraphBackground() {
         const isHovered = (n === hoverNode) || (n === grabbed);
         ctx.fillStyle = isHovered ? HOVER_COLOR : PRACTICE_COLOR;
         ctx.beginPath();
-        ctx.arc(n.x, n.y, isHovered ? n.r * 1.25 : n.r, 0, Math.PI * 2);
+        ctx.arc(n.x ?? 0, n.y ?? 0, isHovered ? n.r * 1.25 : n.r, 0, Math.PI * 2);
         ctx.fill();
       }
 
       // white dot (larger)
       ctx.fillStyle = '#FFFFFF';
       ctx.beginPath();
-      ctx.arc(center.x, center.y, 8, 0, Math.PI * 2);
+      ctx.arc(center.x ?? 0, center.y ?? 0, 8, 0, Math.PI * 2);
       ctx.fill();
 
       ctx.textBaseline = 'middle';
 
-      function placeLabel(n: any, font: string, color: string, gap: number) {
-        if (!ctx) return;
+      function placeLabel(n: GraphNode, font: string, color: string, gap: number) {
+        if (!ctx || !n.label) return;
         ctx.font = font;
         ctx.fillStyle = color;
-        const dx = n.x - W / 2;
-        const dy = n.y - H / 2;
+        const nx = n.x ?? W / 2, ny = n.y ?? H / 2;
+        const dx = nx - W / 2;
+        const dy = ny - H / 2;
         const d = Math.sqrt(dx * dx + dy * dy) || 1;
         const ox = dx / d, oy = dy / d;
-        const lx = n.x + ox * (n.r + gap);
-        const ly = n.y + oy * (n.r + gap);
+        const lx = nx + ox * (n.r + gap);
+        const ly = ny + oy * (n.r + gap);
         ctx.textAlign = ox > 0.2 ? 'left' : ox < -0.2 ? 'right' : 'center';
         const baseline = oy < -0.5 ? 'bottom' : oy > 0.5 ? 'top' : 'middle';
         ctx.textBaseline = baseline;

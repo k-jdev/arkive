@@ -1,17 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
-import { useEffect, useState, useRef } from "react";
+import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 import { usePrefersReducedMotion } from "@/lib/motion-config";
 
 // Custom SVG path for the Jupiter Logo (Teal Bowtie)
-const JupiterLogo = ({ className = "w-full h-full text-[#4ef0d2]" }: { className?: string }) => (
-  <svg
-    viewBox="0 0 100 100"
-    fill="none"
-    className={className}
-  >
+const JupiterLogo = ({
+  className = "w-full h-full text-[#4ef0d2]",
+}: {
+  className?: string;
+}) => (
+  <svg viewBox="0 0 100 100" fill="none" className={className}>
     <path
       d="M16 50C16 35 28 28 42 42C46 46 48 49 50 50C52 49 54 46 58 42C72 28 84 35 84 50C84 65 72 72 58 58C54 54 52 51 50 50C48 51 46 54 42 58C28 72 16 65 16 50Z"
       fill="currentColor"
@@ -58,7 +58,8 @@ function DockItem({
   reduced: boolean;
 }) {
   // Determine distance from hovered item
-  const distance = hoveredIndex !== null ? Math.abs(hoveredIndex - index) : Infinity;
+  const distance =
+    hoveredIndex !== null ? Math.abs(hoveredIndex - index) : Infinity;
 
   // Calculate scale and margin based on distance to replicate macOS dock
   let scale = 1;
@@ -88,26 +89,41 @@ function DockItem({
 
   if (item.type === "faded") {
     baseClasses += "border border-neutral-200/40 bg-neutral-100/20";
-    content = <div style={{ opacity: item.opacity }} className="w-full h-full" />;
+    content = (
+      <div style={{ opacity: item.opacity }} className="w-full h-full" />
+    );
   } else if (item.type === "jupiter") {
-    baseClasses += "bg-[#03201e] border border-[#093d3a] shadow-[0_4px_12px_rgba(3,32,30,0.15)]";
+    baseClasses +=
+      "bg-[#03201e] border border-[#093d3a] shadow-[0_4px_12px_rgba(3,32,30,0.15)]";
     content = (
       <div className="w-[60%] h-[60%]">
         <JupiterLogo />
       </div>
     );
   } else if (item.type === "1inch") {
-    baseClasses += "bg-black border border-neutral-900 shadow-[0_4px_12px_rgba(0,0,0,0.15)] overflow-hidden";
+    baseClasses +=
+      "bg-black border border-neutral-900 shadow-[0_4px_12px_rgba(0,0,0,0.15)] overflow-hidden";
     content = (
       <div className="relative w-[70%] h-[70%]">
-        <Image src="/sections/defiPrompt/1inch.png" alt="1inch" fill className="object-contain" />
+        <Image
+          src="/sections/defiPrompt/1inch.png"
+          alt="1inch"
+          fill
+          className="object-contain"
+        />
       </div>
     );
   } else if (item.type === "uniswap") {
-    baseClasses += "bg-white border border-neutral-100 shadow-[0_4px_12px_rgba(0,0,0,0.05)]";
+    baseClasses +=
+      "bg-white border border-neutral-100 shadow-[0_4px_12px_rgba(0,0,0,0.05)]";
     content = (
       <div className="relative w-[70%] h-[70%]">
-        <Image src="/sections/defiPrompt/uniswap.png" alt="Uniswap" fill className="object-contain" />
+        <Image
+          src="/sections/defiPrompt/uniswap.png"
+          alt="Uniswap"
+          fill
+          className="object-contain"
+        />
       </div>
     );
   }
@@ -189,7 +205,12 @@ export default function DefiPrompt() {
           {/* Blinking blue cursor bar */}
           <motion.span
             animate={{ opacity: [1, 0] }}
-            transition={{ repeat: Infinity, duration: 0.8, repeatType: "reverse", ease: "linear" }}
+            transition={{
+              repeat: Infinity,
+              duration: 0.8,
+              repeatType: "reverse",
+              ease: "linear",
+            }}
             className="inline-block relative top-[4px] md:top-[6px] ml-[2px] w-[3px] md:w-[4px] h-[0.85em] bg-[#0080FF]"
           />
         </h2>

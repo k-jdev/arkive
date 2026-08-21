@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { motion } from "motion/react";
 import { useSlider } from "@/lib/use-slider";
 import {
@@ -20,7 +20,7 @@ import trainingImg from "@/public/sections/slider2/training.png";
 
 interface SlideItem {
   id: number;
-  imageSrc: any;
+  imageSrc: StaticImageData;
   boldText: string;
   dimText: string;
 }

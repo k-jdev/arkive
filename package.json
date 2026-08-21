@@ -2,6 +2,12 @@
   "name": "arkive",
   "version": "0.1.0",
   "private": true,
+  "description": "Marketing site for Arkive, a universal context layer for AI models.",
+  "homepage": "https://www.arkive.xyz/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/k-jdev/arkive.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

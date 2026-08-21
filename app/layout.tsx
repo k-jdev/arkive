@@ -14,8 +14,24 @@ const sfPro = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Arkive",
-  description: "",
+  metadataBase: new URL("https://www.arkive.xyz"),
+  title: "Arkive — Universal language for AI context",
+  description:
+    "Arkive is a universal context layer for AI models, keeping project context, decisions, and history understood across Claude, GPT, Gemini, and Grok.",
+  openGraph: {
+    title: "Arkive — Universal language for AI context",
+    description:
+      "Arkive is a universal context layer for AI models, keeping project context, decisions, and history understood across Claude, GPT, Gemini, and Grok.",
+    url: "https://www.arkive.xyz",
+    siteName: "Arkive",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Arkive — Universal language for AI context",
+    description:
+      "Arkive is a universal context layer for AI models, keeping project context, decisions, and history understood across Claude, GPT, Gemini, and Grok.",
+  },
   other: {
     "format-detection": "telephone=no",
   },

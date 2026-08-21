@@ -73,6 +73,8 @@ export default function ArkivesJournal() {
   const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
+    // Re-trigger the transition animation each time the active item changes.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsAnimating(true);
     const timer = setTimeout(() => setIsAnimating(false), 600);
     return () => clearTimeout(timer);
