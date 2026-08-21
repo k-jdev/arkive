@@ -6,8 +6,10 @@ import { RiArrowRightSLine } from "@remixicon/react";
 import { claudeIcon, gptIcon, grokIcon, geminiIcon } from "@/public/icons";
 import { setupHeader, setupCard, EASE, safeFade } from "@/lib/animations";
 import { usePrefersReducedMotion } from "@/lib/motion-config";
+import { useNewsletterModal } from "@/components/providers/newsletter-modal-provider";
 
 import cardImg from "@/public/sections/defiCreate/card.png";
+import cardMobileImg from "@/public/sections/defiCreate/cardMobile.png";
 
 const AI_ICONS = [
   { src: claudeIcon, alt: "Claude" },
@@ -18,13 +20,12 @@ const AI_ICONS = [
 
 export default function DefiCreate() {
   const reduced = usePrefersReducedMotion();
+  const { openModal } = useNewsletterModal();
 
   return (
     <section className="w-full bg-white py-[60px] md:py-[100px]">
       <div className="max-w-[1440px] mx-auto px-[clamp(16px,4.17vw,80px)] flex flex-col gap-10">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
-          
-          {/* Text Content */}
           <motion.div
             initial="hidden"
             whileInView={reduced ? undefined : "visible"}
@@ -33,10 +34,8 @@ export default function DefiCreate() {
             className="flex flex-col gap-6 w-full lg:w-auto flex-1"
           >
             <div className="flex flex-col gap-2">
-              <span 
-                className="font-[590] text-[#0022FF] [font-family:var(--figma-font-text)] text-[20px] leading-[28px] tracking-[-0.004em]"
-              >
-                Project DeFi
+              <span className="font-[590] text-[#0022FF] [font-family:var(--figma-font-text)] text-[20px] leading-[28px] tracking-[-0.004em]">
+                Get Started
               </span>
               <h2
                 className="font-[590] text-[#1C2024] [font-family:var(--figma-font-text)] mt-2"
@@ -46,23 +45,29 @@ export default function DefiCreate() {
                   letterSpacing: "-0.83%",
                 }}
               >
-                Create your Arkive
+                Start trading with AI.
               </h2>
               <p
                 className="font-[510] text-[16px] leading-[24px] [font-family:var(--figma-font-text)] mt-2 max-w-[480px]"
                 style={{ color: "rgba(0, 7, 27, 0.5)" }}
               >
-                Create your account and connect Arkive to any model in a minute. Begin trading with frontier AI behind your every move.
+                Create your account and connect Arkive to any model in under a
+                minute. Start trading with frontier AI behind every decision.
               </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-4 mt-2">
               <motion.button
                 type="button"
+                onClick={openModal}
                 className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 pl-5 pr-3 gap-1 text-[16px] font-[510] bg-[#1C2024] text-[#FCFCFD] [font-family:var(--figma-font-text)]"
               >
-                Get started
-                <RiArrowRightSLine size={18} className="text-white" aria-hidden="true" />
+                Coming soon
+                <RiArrowRightSLine
+                  size={18}
+                  className="text-white"
+                  aria-hidden="true"
+                />
               </motion.button>
 
               <div className="flex items-center">
@@ -100,7 +105,6 @@ export default function DefiCreate() {
             </div>
           </motion.div>
 
-          {/* Image Content */}
           <motion.div
             initial="hidden"
             whileInView={reduced ? undefined : "visible"}
@@ -108,18 +112,26 @@ export default function DefiCreate() {
             variants={reduced ? safeFade : setupCard}
             className="w-full lg:w-[55%] shrink-0"
           >
-            <div className="w-full rounded-3xl overflow-hidden shadow-sm border border-black/5 bg-[#F9F9FB] p-2">
+            <div className="w-full rounded-3xl overflow-hidden  border border-black/5 bg-[#F9F9FB] ">
+              <Image
+                src={cardMobileImg}
+                alt="Create your Arkive DeFi"
+                className="w-full h-auto object-cover rounded-2xl lg:hidden"
+                sizes="100vw"
+                priority
+                draggable={false}
+                unoptimized
+              />
               <Image
                 src={cardImg}
                 alt="Create your Arkive DeFi"
-                className="w-full h-auto object-cover rounded-2xl"
+                className="hidden w-full h-auto object-cover rounded-2xl lg:block"
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 priority
                 draggable={false}
               />
             </div>
           </motion.div>
-          
         </div>
       </div>
     </section>

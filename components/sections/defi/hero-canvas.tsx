@@ -1,341 +1,404 @@
-"use client";
+﻿"use client";
 
-import { useEffect, useRef } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import p5 from "p5";
 
-export default function HeroCanvas() {
+const BW: number[][][] = [
+  [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    [1, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    [1, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 1, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    [1, 0, 0, 0],
+    [0, 0, 1, 0],
+    [0, 1, 0, 0],
+    [0, 0, 0, 1],
+  ],
+  [
+    [1, 0, 1, 0],
+    [0, 0, 0, 0],
+    [0, 1, 0, 1],
+    [1, 0, 0, 0],
+  ],
+  [
+    [1, 0, 1, 0],
+    [0, 1, 0, 1],
+    [1, 0, 1, 0],
+    [0, 1, 0, 1],
+  ],
+  [
+    [1, 1, 0, 1],
+    [1, 0, 1, 1],
+    [0, 1, 1, 0],
+    [1, 1, 0, 1],
+  ],
+  [
+    [1, 1, 1, 0],
+    [1, 0, 1, 1],
+    [1, 1, 0, 1],
+    [0, 1, 1, 1],
+  ],
+  [
+    [1, 1, 1, 1],
+    [1, 0, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 0, 1],
+  ],
+  [
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+  ],
+];
+
+const BLUE_PAT: number[][][] = [
+  [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    [0, 0, 0, 0],
+    [0, 0, 1, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    [0, 0, 1, 0],
+    [0, 0, 0, 0],
+    [1, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    [0, 0, 1, 0],
+    [1, 0, 0, 0],
+    [0, 0, 0, 0],
+    [1, 0, 0, 0],
+  ],
+  [
+    [0, 1, 0, 0],
+    [1, 0, 0, 0],
+    [1, 0, 0, 0],
+    [0, 0, 0, 1],
+  ],
+  [
+    [0, 1, 0, 1],
+    [1, 0, 1, 0],
+    [0, 1, 0, 1],
+    [1, 0, 1, 0],
+  ],
+  [
+    [0, 0, 1, 0],
+    [0, 1, 0, 0],
+    [1, 0, 0, 1],
+    [0, 0, 1, 0],
+  ],
+  [
+    [0, 0, 0, 1],
+    [0, 1, 0, 0],
+    [0, 0, 1, 0],
+    [1, 0, 0, 0],
+  ],
+  [
+    [0, 0, 0, 0],
+    [0, 1, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 1, 0],
+  ],
+  [
+    [0, 0, 0, 0],
+    [0, 1, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 1],
+  ],
+];
+
+const TARGET_SLOT = 53;
+const PIXEL = 4;
+const FPS = 30;
+
+type RGB = [number, number, number];
+
+const tileCacheBW: (RGB | null)[][][] = BW.map((pat) =>
+  pat.map((row) => row.map((v) => (v ? ([255, 255, 255] as RGB) : null))),
+);
+
+const tileCacheBlue: (RGB | null)[][][] = BLUE_PAT.map((pat) =>
+  pat.map((row) => row.map((v) => (v ? ([7, 8, 255] as RGB) : null))),
+);
+
+function rand01(i: number): number {
+  const s = Math.sin(i * 127.1 + 311.7) * 43758.5453;
+  return s - Math.floor(s);
+}
+
+export default function DefiHeroCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const instanceRef = useRef<p5 | null>(null);
+  const sketchRef = useRef<p5 | null>(null);
+  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+  const sketch = useCallback((p: p5) => {
+    let W = 0,
+      H = 0,
+      CEILING = 0,
+      AVAIL_H = 0,
+      MAX_COL_H = 0,
+      MIN_COL_H = 0;
 
-    const sketch = (p: p5) => {
-      let W = 0;
-      let H = 0;
-      let CEILING = 0;
-      let AVAIL_H = 0;
-      let MAX_COL_H = 0;
-      let MIN_COL_H = 0;
+    interface Col {
+      x: number;
+      w: number;
+      baseH: number;
+      currentH: number;
+      phaseOffset: number;
+      breathAmp: number;
+      accentType: number;
+      prevH: number;
+    }
 
-      const TARGET_SLOT = 53;
-      const PIXEL = 4;
+    let cols: Col[] = [];
+    let mouseX = 0;
+    let mouseActive = false;
+    let mouseIdleFrames = 0;
+    let breathT = 0;
+    let lastMouseX = -1;
 
-      const BW: number[][][] = [
-        [
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-        ],
-        [
-          [1, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-        ],
-        [
-          [1, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 1, 0],
-          [0, 0, 0, 0],
-        ],
-        [
-          [1, 0, 0, 0],
-          [0, 0, 1, 0],
-          [0, 1, 0, 0],
-          [0, 0, 0, 1],
-        ],
-        [
-          [1, 0, 1, 0],
-          [0, 0, 0, 0],
-          [0, 1, 0, 1],
-          [1, 0, 0, 0],
-        ],
-        [
-          [1, 0, 1, 0],
-          [0, 1, 0, 1],
-          [1, 0, 1, 0],
-          [0, 1, 0, 1],
-        ],
-        [
-          [1, 1, 0, 1],
-          [1, 0, 1, 1],
-          [0, 1, 1, 0],
-          [1, 1, 0, 1],
-        ],
-        [
-          [1, 1, 1, 0],
-          [1, 0, 1, 1],
-          [1, 1, 0, 1],
-          [0, 1, 1, 1],
-        ],
-        [
-          [1, 1, 1, 1],
-          [1, 0, 1, 1],
-          [1, 1, 1, 1],
-          [1, 1, 0, 1],
-        ],
-        [
-          [1, 1, 1, 1],
-          [1, 1, 1, 1],
-          [1, 1, 1, 1],
-          [1, 1, 1, 1],
-        ],
-      ];
+    let imageData: ImageData | null = null;
+    let pixels: Uint8ClampedArray | null = null;
+    let frameSkip = 0;
 
-      const BLUE_PAT: number[][][] = [
-        [
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-        ],
-        [
-          [0, 0, 0, 0],
-          [0, 0, 1, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-        ],
-        [
-          [0, 0, 1, 0],
-          [0, 0, 0, 0],
-          [1, 0, 0, 0],
-          [0, 0, 0, 0],
-        ],
-        [
-          [0, 0, 1, 0],
-          [1, 0, 0, 0],
-          [0, 0, 0, 0],
-          [1, 0, 0, 0],
-        ],
-        [
-          [0, 1, 0, 0],
-          [1, 0, 0, 0],
-          [1, 0, 0, 0],
-          [0, 0, 0, 1],
-        ],
-        [
-          [0, 1, 0, 1],
-          [1, 0, 1, 0],
-          [0, 1, 0, 1],
-          [1, 0, 1, 0],
-        ],
-        [
-          [0, 0, 1, 0],
-          [0, 1, 0, 0],
-          [1, 0, 0, 1],
-          [0, 0, 1, 0],
-        ],
-        [
-          [0, 0, 0, 1],
-          [0, 1, 0, 0],
-          [0, 0, 1, 0],
-          [1, 0, 0, 0],
-        ],
-        [
-          [0, 0, 0, 0],
-          [0, 1, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 1, 0],
-        ],
-        [
-          [0, 0, 0, 0],
-          [0, 1, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 1],
-        ],
-      ];
+    function computeDims() {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      CEILING = Math.floor(H / 3);
+      AVAIL_H = H - CEILING;
+      MAX_COL_H = AVAIL_H;
+      MIN_COL_H = Math.floor(AVAIL_H * 0.04);
+    }
 
-      interface Col {
-        x: number;
-        w: number;
-        baseH: number;
-        currentH: number;
-        phaseOffset: number;
-        breathAmp: number;
-        accentType: number;
+    function buildCols() {
+      cols = [];
+      const numCols = Math.max(1, Math.round(W / TARGET_SLOT));
+      const slotW = W / numCols;
+      for (let i = 0; i < numCols; i++) {
+        const r = rand01(i);
+        const r2 = rand01(i + 100);
+        const t = i / Math.max(1, numCols - 1);
+        let profile = 0.3 + 0.7 * Math.pow(Math.sin(t * Math.PI), 0.4);
+        profile += (r - 0.5) * 0.35;
+        profile = Math.max(0.12, Math.min(1.0, profile));
+        const baseH = MIN_COL_H + (MAX_COL_H - MIN_COL_H) * profile;
+        const xStart = Math.round(i * slotW);
+        const xEnd = i === numCols - 1 ? W : Math.round((i + 1) * slotW);
+        const cw = Math.max(PIXEL, xEnd - xStart);
+        let accentType = 0;
+        if (r2 < 0.15) accentType = 2;
+        else if (r2 < 0.42) accentType = 1;
+        cols.push({
+          x: xStart,
+          w: cw,
+          baseH,
+          currentH: baseH,
+          prevH: baseH,
+          phaseOffset: r * Math.PI * 2,
+          breathAmp: 0.01 + r * 0.015,
+          accentType,
+        });
       }
+    }
 
-      let cols: Col[] = [];
-      let mouseX = 0;
-      let mouseActive = false;
-      let mouseIdleFrames = 0;
-      let breathT = 0;
-      let lastMouseX = -1;
+    p.setup = function () {
+      computeDims();
+      p.createCanvas(W, H);
+      p.pixelDensity(1);
+      p.frameRate(FPS);
+      mouseX = W / 2;
+      buildCols();
+    };
 
-      function rand01(i: number): number {
-        const s = Math.sin(i * 127.1 + 311.7) * 43758.5453;
-        return s - Math.floor(s);
-      }
+    p.windowResized = function () {
+      computeDims();
+      p.resizeCanvas(W, H);
+      imageData = null; // force realloc
+      buildCols();
+    };
 
-      function computeDims() {
-        if (!container) return;
-        W = container.clientWidth;
-        H = container.clientHeight;
-        CEILING = Math.floor(H / 3);
-        AVAIL_H = H - CEILING;
-        MAX_COL_H = AVAIL_H;
-        MIN_COL_H = Math.floor(AVAIL_H * 0.04);
-      }
-
-      function buildCols() {
-        cols = [];
-        const numCols = Math.max(1, Math.round(W / TARGET_SLOT));
-        const slotW = W / numCols;
-
-        for (let i = 0; i < numCols; i++) {
-          const r = rand01(i);
-          const r2 = rand01(i + 100);
-          const t = i / Math.max(1, numCols - 1);
-          let profile = 0.3 + 0.7 * Math.pow(Math.sin(t * Math.PI), 0.4);
-          profile += (r - 0.5) * 0.35;
-          profile = Math.max(0.12, Math.min(1.0, profile));
-          const baseH = MIN_COL_H + (MAX_COL_H - MIN_COL_H) * profile;
-
-          const xStart = Math.round(i * slotW);
-          const xEnd = i === numCols - 1 ? W : Math.round((i + 1) * slotW);
-          const cw = Math.max(PIXEL, xEnd - xStart);
-
-          let accentType = 0;
-          if (r2 < 0.15) accentType = 2;
-          else if (r2 < 0.42) accentType = 1;
-
-          cols.push({
-            x: xStart,
-            w: cw,
-            baseH,
-            currentH: baseH,
-            phaseOffset: r * Math.PI * 2,
-            breathAmp: 0.01 + r * 0.015,
-            accentType,
-          });
+    function writeBlock(
+      px: number,
+      py: number,
+      r: number,
+      g: number,
+      b: number,
+    ) {
+      if (!pixels) return;
+      const rowBase = py * W * 4 + px * 4;
+      const stride = W * 4;
+      for (let dy = 0; dy < PIXEL; dy++) {
+        const off = rowBase + dy * stride;
+        for (let dx = 0; dx < PIXEL; dx++) {
+          const i = off + dx * 4;
+          pixels[i] = r;
+          pixels[i + 1] = g;
+          pixels[i + 2] = b;
+          pixels[i + 3] = 255;
         }
       }
+    }
 
-      p.setup = function () {
-        computeDims();
-        p.createCanvas(W, H);
-        p.pixelDensity(1);
-        p.noSmooth();
-        mouseX = W / 2;
-        buildCols();
-      };
+    p.draw = function () {
+      frameSkip++;
+      if (!mouseActive && frameSkip < 2) return;
+      frameSkip = 0;
 
-      p.windowResized = function () {
-        computeDims();
-        p.resizeCanvas(W, H);
-        buildCols();
-      };
+      breathT += 0.014;
 
-      p.draw = function () {
-        breathT += 0.007;
+      if (p.mouseX !== lastMouseX && p.mouseX >= 0 && p.mouseX <= W) {
+        lastMouseX = p.mouseX;
+        mouseX = p.mouseX;
+        mouseActive = true;
+        mouseIdleFrames = 0;
+      } else if (mouseActive) {
+        mouseIdleFrames++;
+        if (mouseIdleFrames > 60) mouseActive = false;
+      }
 
-        if (p.mouseX !== lastMouseX && p.mouseX >= 0 && p.mouseX <= W) {
-          lastMouseX = p.mouseX;
-          mouseX = p.mouseX;
-          mouseActive = true;
-          mouseIdleFrames = 0;
-        } else if (mouseActive) {
-          mouseIdleFrames++;
-          if (mouseIdleFrames > 120) mouseActive = false;
+      const ctx = p.drawingContext as CanvasRenderingContext2D;
+      if (!imageData || imageData.width !== W || imageData.height !== H) {
+        imageData = ctx.createImageData(W, H);
+        pixels = imageData.data;
+      }
+
+      pixels!.fill(0);
+
+      for (let ci = 0; ci < cols.length; ci++) {
+        const col = cols[ci];
+        const colCenterX = col.x + col.w * 0.5;
+
+        let targetH: number;
+        if (mouseActive) {
+          const dist = Math.abs(colCenterX - mouseX);
+          const t = Math.min(dist / (W * 0.5), 1.0);
+          const influence = Math.pow(1.0 - t, 4);
+          const restFloor = col.baseH * 0.5;
+          targetH = restFloor + (col.baseH - restFloor) * influence;
+        } else {
+          const phase = breathT * 0.9 - colCenterX * 0.006;
+          const wave = Math.sin(phase);
+          const swell = Math.sin(
+            breathT * 0.4 - colCenterX * 0.0022 + col.phaseOffset,
+          );
+          const amp = 0.08 + 0.04 * swell;
+          targetH = col.baseH * (1.0 + wave * amp);
         }
 
-        const ctx = p.drawingContext as CanvasRenderingContext2D;
+        col.prevH = col.currentH;
+        col.currentH += (targetH - col.currentH) * 0.06;
+        const colH = Math.max(
+          MIN_COL_H,
+          Math.min(MAX_COL_H, Math.round(col.currentH)),
+        );
 
-        // Fast native clear
-        ctx.fillStyle = "#000000";
-        ctx.fillRect(0, 0, W, H);
+        if (colH <= MIN_COL_H) continue;
 
-        for (let ci = 0; ci < cols.length; ci++) {
-          const col = cols[ci];
-          const colCenterX = col.x + col.w * 0.5;
+        const colTop = H - colH;
 
-          let targetH: number;
-          if (mouseActive) {
-            const dist = Math.abs(colCenterX - mouseX);
-            const t = Math.min(dist / (W * 0.5), 1.0);
-            const influence = Math.pow(1.0 - t, 4);
-            const restFloor = col.baseH * 0.5;
-            targetH = restFloor + (col.baseH - restFloor) * influence;
-          } else {
-            const phase = breathT * 0.9 - colCenterX * 0.006;
-            const wave = Math.sin(phase);
-            const swell = Math.sin(
-              breathT * 0.4 - colCenterX * 0.0022 + col.phaseOffset,
-            );
-            const amp = 0.08 + 0.04 * swell;
-            targetH = col.baseH * (1.0 + wave * amp);
-          }
+        const heightRatio = (colH - MIN_COL_H) / (MAX_COL_H - MIN_COL_H);
+        const numBands = Math.max(
+          2,
+          Math.round(2 + (BW.length - 2) * heightRatio),
+        );
 
-          col.currentH += (targetH - col.currentH) * 0.06;
-          const colH = Math.max(
-            MIN_COL_H,
-            Math.min(MAX_COL_H, Math.round(col.currentH)),
-          );
-          const colTop = H - colH;
+        let accentStart = 0,
+          accentEnd = 0;
+        if (col.accentType === 1) {
+          accentStart = 0;
+          accentEnd = Math.floor(numBands * 0.35);
+        } else if (col.accentType === 2) {
+          accentStart = Math.floor(numBands * 0.65);
+          accentEnd = numBands;
+        }
 
-          const heightRatio = (colH - MIN_COL_H) / (MAX_COL_H - MIN_COL_H);
-          const numBands = Math.max(
-            2,
-            Math.round(2 + (BW.length - 2) * heightRatio),
-          );
+        for (let bi = 0; bi < numBands; bi++) {
+          const levelT = bi / (numBands - 1);
+          let lvl = Math.round(levelT * (BW.length - 1));
+          lvl = Math.max(0, Math.min(BW.length - 1, lvl));
 
-          let accentBandStart = 0;
-          let accentBandEnd = 0;
-          if (col.accentType === 1) {
-            accentBandStart = 0;
-            accentBandEnd = Math.floor(numBands * 0.35);
-          } else if (col.accentType === 2) {
-            accentBandStart = Math.floor(numBands * 0.65);
-            accentBandEnd = numBands;
-          }
+          const bandTop = colTop + Math.floor((bi * colH) / numBands);
+          const bandBot =
+            bi === numBands - 1
+              ? H
+              : colTop + Math.floor(((bi + 1) * colH) / numBands);
 
-          const colEnd = Math.min(col.x + col.w, W);
+          const useAccent =
+            col.accentType !== 0 && bi >= accentStart && bi < accentEnd;
 
-          for (let bi = 0; bi < numBands; bi++) {
-            const levelT = bi / (numBands - 1);
-            let levelIdx = Math.round(levelT * (BW.length - 1));
-            levelIdx = Math.max(0, Math.min(BW.length - 1, levelIdx));
-            const bwPat = BW[levelIdx];
-            const bluePat = BLUE_PAT[levelIdx];
+          const bwTile = tileCacheBW[lvl];
+          const blueTile = useAccent ? tileCacheBlue[lvl] : null;
 
-            const bandTop = colTop + Math.floor((bi * colH) / numBands);
-            const bandBot =
-              bi === numBands - 1
-                ? H
-                : colTop + Math.floor(((bi + 1) * colH) / numBands);
+          const btAligned = Math.floor(bandTop / PIXEL) * PIXEL;
+          const bbAligned = Math.ceil(bandBot / PIXEL) * PIXEL;
 
-            const useAccent =
-              col.accentType !== 0 &&
-              bi >= accentBandStart &&
-              bi < accentBandEnd;
+          for (let py = btAligned; py < bbAligned; py += PIXEL) {
+            const row = Math.floor(py / PIXEL) & 3;
 
-            for (let py = bandTop; py < bandBot; py += PIXEL) {
-              for (let px = col.x; px < colEnd; px += PIXEL) {
-                const row = ((py / PIXEL) | 0) % 4;
-                const col4 = ((px / PIXEL) | 0) % 4;
-                if (useAccent && bluePat[row][col4]) {
-                  ctx.fillStyle = "#0708ff";
-                  ctx.fillRect(px, py, PIXEL, PIXEL);
-                } else if (bwPat[row][col4]) {
-                  ctx.fillStyle = "#ffffff";
-                  ctx.fillRect(px, py, PIXEL, PIXEL);
+            for (let px = col.x; px < col.x + col.w; px += PIXEL) {
+              const col4 = Math.floor(px / PIXEL) & 3;
+              if (blueTile) {
+                const b = blueTile[row][col4];
+                if (b) {
+                  writeBlock(px, py, b[0], b[1], b[2]);
+                  continue;
                 }
+              }
+              const w = bwTile[row][col4];
+              if (w) {
+                writeBlock(px, py, w[0], w[1], w[2]);
               }
             }
           }
         }
-      };
-    };
+      }
 
-    instanceRef.current = new p5(sketch, container);
+      ctx.putImageData(imageData!, 0, 0);
 
-    return () => {
-      instanceRef.current?.remove();
+      p.fill(0);
+      p.noStroke();
+      p.rect(0, 0, W, CEILING);
     };
   }, []);
 
-  return <div ref={containerRef} className="absolute inset-0" />;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted || !containerRef.current) return;
+    sketchRef.current = new p5(sketch, containerRef.current);
+    return () => {
+      sketchRef.current?.remove();
+    };
+  }, [mounted, sketch]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="absolute inset-0 overflow-hidden pointer-events-none"
+    />
+  );
 }

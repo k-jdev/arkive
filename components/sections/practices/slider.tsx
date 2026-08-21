@@ -1,25 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image, { type StaticImageData } from "next/image";
-import { motion } from "motion/react";
-import { useSlider } from "@/lib/use-slider";
-import {
-  sliderHeader,
-  sliderCardsContainer,
-  sliderCard,
-  safeFade,
-  safeContainer,
-} from "@/lib/animations";
-import { usePrefersReducedMotion } from "@/lib/motion-config";
+import { Slider } from "@/components/ui/slider";
 
 import opportuityImg from "@/public/sections/slider2/opportuity.png";
 import railImg from "@/public/sections/slider2/rail.png";
 import statisticImg from "@/public/sections/slider2/statistic.png";
-import trainingImg from "@/public/sections/slider2/training.png";
+import tradingImg from "@/public/sections/slider2/trading.png";
 
 interface SlideItem {
-  id: number;
   imageSrc: StaticImageData;
   boldText: string;
   dimText: string;
@@ -27,170 +16,80 @@ interface SlideItem {
 
 const SLIDES: SlideItem[] = [
   {
-    id: 1,
     imageSrc: railImg,
-    boldText: "Finds your edge.",
-    dimText: "It learns what actually works for you, and what quietly doesn't",
+    boldText: "Built for the task. ",
+    dimText:
+      "Each practice shapes the AI to the task at hand, making it fluent in what you’re actually doing.",
   },
   {
-    id: 2,
     imageSrc: opportuityImg,
-    boldText: "Sees the opportunity cost you miss.",
-    dimText: "It weighs what each decision really costs you.",
+    boldText: "Shaped around you.",
+    dimText:
+      "It adapts the AI to your way of doing things. Your standards, your preferences, your habits.",
   },
   {
-    id: 3,
     imageSrc: statisticImg,
-    boldText: "Fixes your blind spots.",
-    dimText: "Highlights patterns in your behavior that you might be missing.",
+    boldText: "Designed to improve.",
+    dimText:
+      " The more you use a practice, the sharper the AI gets. It identifies what drives progress and what holds it back.",
   },
   {
-    id: 4,
-    imageSrc: trainingImg,
-    boldText: "Accelerates your learning.",
-    dimText: "Provides tailored insights to help you grow faster and smarter.",
+    imageSrc: tradingImg,
+    boldText: "Connected across everything.",
+    dimText:
+      " What one practice learns informs the rest, so your whole context works together.",
   },
 ];
 
-const DESKTOP_CARD_WIDTH = 558;
-const CARD_GAP = 20;
-
 export default function PracticesSlider() {
-  const reduced = usePrefersReducedMotion();
-
-  const [cardWidth, setCardWidth] = useState(DESKTOP_CARD_WIDTH);
-  const [paddingLeft, setPaddingLeft] = useState(24);
-  const [paddingRight, setPaddingRight] = useState(24);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const update = () => {
-      const w = window.innerWidth;
-      const mobile = w < 768;
-      setIsMobile(mobile);
-      if (mobile) {
-        const cw = Math.min(DESKTOP_CARD_WIDTH, Math.max(280, w - 48));
-        setCardWidth(cw);
-        const pl = (w - cw) / 2;
-        setPaddingLeft(pl);
-        setPaddingRight(pl);
-      } else {
-        setCardWidth(DESKTOP_CARD_WIDTH);
-        const pl = (15.694 * w) / 100;
-        setPaddingLeft(pl);
-        setPaddingRight(24);
-      }
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-
-  const {
-    offset,
-    onMouseDown,
-    onMouseMove,
-    onMouseUp,
-    onMouseLeave,
-    onTouchStart,
-    onTouchMove,
-    onTouchEnd,
-    isDragging,
-  } = useSlider({
-    slidesCount: SLIDES.length,
-    cardWidth,
-    cardGap: CARD_GAP,
-    peek: isMobile ? 0 : cardWidth,
-  });
-
   return (
-    <section
-      data-header-theme="light"
-      className="w-full bg-white pt-[120px] pb-[120px] overflow-hidden"
-      role="region"
-      aria-label="Features slider"
+    <Slider<SlideItem>
+      slides={SLIDES}
+      className="bg-white pt-30 pb-30"
+      sectionAriaLabel="Features slider"
       style={{ contentVisibility: "auto", containIntrinsicSize: "auto 500px" }}
-    >
-      <motion.div
-        initial="hidden"
-        whileInView={reduced ? undefined : "visible"}
-        viewport={{ once: true, margin: "-60px" }}
-        variants={reduced ? safeFade : sliderHeader}
-        className="px-6 md:pl-[15.694vw]"
-      >
-        <div className="flex items-end justify-between mb-10">
-          <h2
-            className="font-[590] tracking-[-0.4px] [font-family:var(--figma-font-text)] text-[#1C2024]"
-            style={{ fontSize: "clamp(36px, 4vw, 48px)" }}
-          >
-            Fluent in whatever you do.
-          </h2>
-        </div>
-      </motion.div>
-
-      <motion.div
-        initial="hidden"
-        whileInView={reduced ? undefined : "visible"}
-        viewport={{ once: true, margin: "-60px" }}
-        variants={reduced ? safeContainer : sliderCardsContainer}
-        className="select-none cursor-grab active:cursor-grabbing"
-        style={{
-          paddingLeft: `${paddingLeft}px`,
-          paddingRight: `${paddingRight}px`,
-        }}
-        onMouseDown={(e) => onMouseDown(e.clientX)}
-        onMouseMove={(e) => onMouseMove(e.clientX)}
-        onMouseUp={(e) => onMouseUp(e.clientX)}
-        onMouseLeave={onMouseLeave}
-        onTouchStart={(e) => onTouchStart(e.touches[0].clientX)}
-        onTouchMove={(e) => onTouchMove(e.touches[0].clientX)}
-        onTouchEnd={(e) => onTouchEnd(e.changedTouches[0].clientX)}
-      >
-        <div
-          className="flex"
-          style={{
-            gap: `${CARD_GAP}px`,
-            transform: `translateX(-${offset}px)`,
-            transition: isDragging
-              ? "none"
-              : "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)",
-            willChange: "transform",
-          }}
-        >
-          {SLIDES.map((slide) => (
-            <motion.div
-              key={slide.id}
-              variants={reduced ? safeFade : sliderCard}
-              className="flex flex-col gap-4 shrink-0"
-              style={{ width: `${cardWidth}px` }}
+      paddingLeft={(w, isMobile) =>
+        isMobile
+          ? (w - Math.min(558, Math.max(280, w - 48))) / 2
+          : (15.694 * w) / 100
+      }
+      paddingRight={(w, isMobile) =>
+        isMobile ? (w - Math.min(558, Math.max(280, w - 48))) / 2 : 24
+      }
+      header={
+        <div className="px-6 md:pl-[15.694vw]">
+          <div className="flex items-end justify-between mb-10">
+            <h2
+              className="font-[590] tracking-[-0.4px] [font-family:var(--figma-font-text)] text-[#1C2024]"
+              style={{ fontSize: "clamp(36px, 4vw, 48px)" }}
             >
-              <div
-                className="rounded-[24px] overflow-hidden bg-[#f9f9fb] flex items-center justify-center relative border border-black/[0.04] w-full"
-                style={{ aspectRatio: "558 / 360" }}
-              >
-                <Image
-                  src={slide.imageSrc}
-                  alt={slide.boldText}
-                  fill
-                  sizes="558px"
-                  className="object-cover pointer-events-none"
-                  draggable={false}
-                  unoptimized
-                />
-              </div>
-
-              <p className="px-1 font-[400] text-[16px] leading-[24px] [font-family:var(--figma-font-text)]">
-                <span style={{ color: "rgba(0,5,9,0.89)", fontWeight: 510 }}>
-                  {slide.boldText}{" "}
-                </span>
-                <span style={{ color: "rgba(0,5,29,0.45)" }}>
-                  {slide.dimText}
-                </span>
-              </p>
-            </motion.div>
-          ))}
+              Fluent in whatever you do.
+            </h2>
+          </div>
         </div>
-      </motion.div>
-    </section>
+      }
+      renderCard={(slide) => (
+        <div className="flex flex-col gap-4">
+          <div
+            className="rounded-[24px] overflow-hidden bg-[#f9f9fb] flex items-center justify-center relative border border-black/4 w-full"
+            style={{ aspectRatio: "598 / 360" }}
+          >
+            <Image
+              src={slide.imageSrc}
+              alt={slide.boldText}
+              className="object-cover pointer-events-none w-full h-full"
+              draggable={false}
+            />
+          </div>
+
+          <p className="px-1 font-normal text-[16px] leading-6 [font-family:var(--figma-font-text)]">
+            <span style={{ color: "rgba(0,5,9,0.89)", fontWeight: 510 }}>
+              {slide.boldText}{" "}
+            </span>
+            <span style={{ color: "rgba(0,5,29,0.45)" }}>{slide.dimText}</span>
+          </p>
+        </div>
+      )}
+    />
   );
 }

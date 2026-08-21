@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import compoundingImg from "@/public/sections/compounding/compounding.png";
+import mobileCompoundingImg from "@/public/sections/compounding/mobileCompounding.png";
 import { setupCard, safeFade } from "@/lib/animations";
 import { usePrefersReducedMotion } from "@/lib/motion-config";
 
@@ -17,32 +18,40 @@ export default function PracticesCompounding() {
           whileInView={reduced ? undefined : "visible"}
           viewport={{ once: true, margin: "-60px" }}
           variants={reduced ? safeFade : setupCard}
-          className="rounded-[24px] overflow-hidden bg-[#F9F9FB] flex flex-col lg:flex-row lg:h-[580px]"
+          className="rounded-[24px] overflow-hidden bg-[#F9F9FB] flex flex-col lg:flex-row lg:min-h-[580px]"
         >
-          <div
-            className="relative h-[300px] lg:h-auto shrink-0"
-            style={{ flexBasis: "60%" }}
-          >
+          <div className="block lg:hidden px-[38px] pt-[38px] pb-10">
+            <p className="font-[510] text-[#60646C] [font-family:var(--figma-font-text)] text-[clamp(20px,1.94vw,28px)] leading-[1.286] tracking-[-0.43%]">
+              <span>Practices are collaborative.</span>
+              They can be shared across users in real time.
+            </p>
+          </div>
+
+          <div className="block lg:hidden w-full overflow-hidden">
             <Image
-              src={compoundingImg}
+              src={mobileCompoundingImg}
               alt="Person holding phone with Arkive app"
-              fill
-              className="object-cover object-center"
-              sizes="(max-width: 1024px) 100vw, 60vw"
+              className="w-full h-auto block"
               priority
               draggable={false}
             />
           </div>
 
-          <div className="flex-1 flex items-center px-10 py-12 lg:py-0 lg:pl-[58px] lg:pr-[106px]">
-            <p
-              className="font-[510] [font-family:var(--figma-font-text)] text-[clamp(20px,1.94vw,28px)] leading-[1.286] tracking-[-0.43%]"
-              style={{ color: "rgba(0, 5, 9, 0.89)" }}
-            >
-              <span style={{ color: "#0022FF" }}>
-                Compounding intelligence,{" "}
-              </span>
-              built into whatever matters most for you.
+          <div className="hidden lg:flex shrink-0">
+            <Image
+              src={compoundingImg}
+              alt="Person holding phone with Arkive app"
+              className="h-[580px] w-auto max-w-none object-scale-down object-left"
+              priority
+              draggable={false}
+            />
+          </div>
+
+          <div className="hidden lg:flex items-center px-10 pb-20 lg:py-0 ">
+            <p className="font-[510] text-[#60646C] [font-family:var(--figma-font-text)] text-[clamp(20px,1.94vw,28px)] leading-[1.286] tracking-[-0.43%]">
+              Practices are collaborative. <br /> They can be shared across{" "}
+              <br />
+              users in real time.
             </p>
           </div>
         </motion.div>

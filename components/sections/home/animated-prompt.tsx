@@ -140,7 +140,7 @@ export default function AnimatedPrompt() {
   }, [categoryIndex, fullText, reduced]);
 
   return (
-    <div className="flex flex-col gap-5 items-start w-full max-w-[640px]">
+    <div className="relative flex flex-col items-center w-full max-w-[640px] mx-auto">
       <motion.div
         initial={reduced ? undefined : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -153,7 +153,7 @@ export default function AnimatedPrompt() {
                 ease: motionTokens.easing.smooth,
               }
         }
-        className="bg-[#111113] rounded-[14px] px-5 pt-3 pb-[14px] w-full flex flex-col gap-[18px]"
+        className="bg-[#111113] rounded-[14px] px-5 pt-3.5 pb-5 md:pt-3 md:pb-[14px] w-full flex flex-col gap-3 md:gap-[18px] relative z-10"
       >
         <div className="flex flex-wrap gap-2 w-full pb-1">
           {categories.map((cat, i) => {
@@ -176,7 +176,7 @@ export default function AnimatedPrompt() {
                 }
                 whileHover={reduced ? undefined : { scale: 1.05, opacity: 1 }}
                 whileTap={reduced ? undefined : { scale: 0.96 }}
-                className="px-[13px] py-[5px] rounded-[20px] text-xs leading-none font-medium border border-transparent transition-all duration-150 cursor-pointer"
+                className="px-2 py-1 md:px-[13px] md:py-[5px] rounded-[20px] text-xs leading-none font-medium border border-transparent transition-all duration-150 cursor-pointer"
                 style={{
                   fontFamily: "var(--figma-font-text)",
                   background: isActive ? cat.bg : "#2a2a2e",
@@ -190,7 +190,7 @@ export default function AnimatedPrompt() {
           })}
         </div>
         <p
-          className="text-[15px] leading-[1.55] text-[#e0e0e0] font-normal min-h-[54px]"
+          className="text-sm md:text-[15px] leading-[1.55] md:leading-[1.55] text-[#e0e0e0] font-normal min-h-[48px] md:min-h-[54px]"
           style={{ fontFamily: "var(--figma-font-text)" }}
         >
           {displayText}
@@ -213,7 +213,7 @@ export default function AnimatedPrompt() {
           <button
             type="button"
             aria-label="attach"
-            className="flex items-center justify-center size-[34px] rounded-full text-[#B4B4B4] border border-[#2A2A2A] leading-[0]"
+            className="flex items-center justify-center size-[30px] md:size-[34px] rounded-full text-[#B4B4B4] border border-[#2A2A2A] leading-[0]"
           >
             <PlusIcon />
           </button>
@@ -221,7 +221,7 @@ export default function AnimatedPrompt() {
           <button
             type="button"
             aria-label="web"
-            className="flex items-center justify-center size-[34px] rounded-full text-[#B4B4B4] border border-[#2A2A2A] leading-[0]"
+            className="flex items-center justify-center size-[30px] md:size-[34px] rounded-full text-[#B4B4B4] border border-[#2A2A2A] leading-[0]"
           >
             <WebIcon />
           </button>
@@ -229,7 +229,7 @@ export default function AnimatedPrompt() {
           <motion.button
             type="button"
             whileHover={reduced ? undefined : { scale: 1.03 }}
-            className="flex items-center gap-1.5 px-[14px] h-[34px] rounded-[20px] bg-[#212121] text-[#F2F2F2] text-[13px] border border-[#2A2A2A]"
+            className="hidden md:flex items-center gap-1.5 px-[14px] h-[34px] rounded-[20px] bg-[#212121] text-[#F2F2F2] text-[13px] border border-[#2A2A2A]"
           >
             <BlocksIcon />
             <span
@@ -266,7 +266,7 @@ export default function AnimatedPrompt() {
             </svg>
           </div>
 
-          <div className="relative size-[36px] shrink-0">
+          <div className="relative size-[30px] md:size-[36px] shrink-0">
             <AnimatePresence mode="wait">
               {!showStop ? (
                 <motion.button
@@ -280,7 +280,7 @@ export default function AnimatedPrompt() {
                     duration: 0.25,
                     ease: motionTokens.easing.smooth,
                   }}
-                  className="absolute inset-0 flex items-center justify-center size-[36px] rounded-full bg-[#F2F2F2] text-[#121212] border-none"
+                  className="absolute inset-0 flex items-center justify-center size-[30px] md:size-[36px] rounded-full bg-[#F2F2F2] text-[#121212] border-none"
                 >
                   <SendIcon />
                 </motion.button>
@@ -296,7 +296,7 @@ export default function AnimatedPrompt() {
                     duration: 0.25,
                     ease: motionTokens.easing.smooth,
                   }}
-                  className="absolute inset-0 flex items-center justify-center size-[36px] rounded-full bg-white border-none"
+                  className="absolute inset-0 flex items-center justify-center size-[30px] md:size-[36px] rounded-full bg-white border-none"
                 >
                   <StopIcon />
                 </motion.button>
@@ -308,12 +308,10 @@ export default function AnimatedPrompt() {
 
       <motion.div
         animate={{
-          height: showThinking ? "auto" : 0,
           opacity: showThinking ? 1 : 0,
-          marginTop: showThinking ? 0 : -20,
         }}
-        transition={{ duration: 0.4, ease: motionTokens.easing.smooth }}
-        className="overflow-hidden w-full flex justify-center"
+        transition={{ duration: 0.3, ease: motionTokens.easing.smooth }}
+        className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+16px)] pointer-events-none z-0"
       >
         <div className="flex items-center gap-[9px] bg-[#121212] border border-[#2A2A2A] rounded-full px-[15px] py-[8px] w-fit">
           <ThinkingDots />

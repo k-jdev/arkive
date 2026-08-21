@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { RiArrowRightSLine } from "@remixicon/react";
 import {
@@ -11,17 +12,20 @@ import {
   safeContainer,
 } from "@/lib/animations";
 import { usePrefersReducedMotion } from "@/lib/motion-config";
+import { useNewsletterModal } from "@/components/providers/newsletter-modal-provider";
 
 interface FeatureBlockProps {
   label: string;
   heading: string;
   description: string;
   buttonLabel: string;
+  href: string;
   imageSrc: string;
   imageSrcMobile?: string;
   imageAlt: string;
   imageLeft?: boolean;
   imageOverlay?: React.ReactNode;
+  onButtonClick?: () => void;
 }
 
 function FeatureBlock({
@@ -29,11 +33,13 @@ function FeatureBlock({
   heading,
   description,
   buttonLabel,
+  href,
   imageSrc,
   imageSrcMobile,
   imageAlt,
   imageLeft = false,
   imageOverlay,
+  onButtonClick,
 }: FeatureBlockProps) {
   const reduced = usePrefersReducedMotion();
 
@@ -72,23 +78,37 @@ function FeatureBlock({
         </p>
       </div>
 
-      <motion.button
-        type="button"
-        aria-label={`${buttonLabel}: ${heading}`}
-        className="flex items-center justify-center h-10 rounded-full w-fit transition-colors hover:bg-[rgba(0,0,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-medium [font-family:var(--figma-font-text)]"
-      >
-        {buttonLabel}
-        <RiArrowRightSLine size={18} aria-hidden="true" />
-      </motion.button>
+      {onButtonClick ? (
+        <motion.button
+          type="button"
+          onClick={onButtonClick}
+          aria-label={`${buttonLabel}: ${heading}`}
+          className="flex items-center justify-center h-10 rounded-full w-fit transition-colors hover:bg-[rgba(0,0,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-medium [font-family:var(--figma-font-text)]"
+        >
+          {buttonLabel}
+          <RiArrowRightSLine size={18} aria-hidden="true" />
+        </motion.button>
+      ) : (
+        <Link href={href}>
+          <motion.button
+            type="button"
+            aria-label={`${buttonLabel}: ${heading}`}
+            className="flex items-center justify-center h-10 rounded-full w-fit transition-colors hover:bg-[rgba(0,0,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 px-(--figma-spacing-4) gap-1 text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-alpha-3) text-(--figma-neutral-12) font-medium [font-family:var(--figma-font-text)]"
+          >
+            {buttonLabel}
+            <RiArrowRightSLine size={18} aria-hidden="true" />
+          </motion.button>
+        </Link>
+      )}
     </motion.div>
   );
 
   const imageCol = (
     <motion.div
       variants={reduced ? safeFade : featuresImage}
-      className={`relative w-full md:w-[58%] shrink-0 rounded-2xl ${imageOverlay ? "" : "overflow-hidden"}`}
+      className={`relative w-full md:w-[58%] shrink-0 rounded-3xl ${imageOverlay ? "" : "overflow-hidden"}`}
     >
-      <div className={imageOverlay ? "overflow-hidden rounded-2xl" : ""}>
+      <div className={imageOverlay ? "overflow-hidden rounded-3xl" : ""}>
         <Image
           src={imageSrc}
           alt={imageAlt}
@@ -150,6 +170,8 @@ function FeatureBlock({
 }
 
 export default function DefiFeatures() {
+  const { openModal } = useNewsletterModal();
+
   return (
     <section
       data-header-theme="light"
@@ -157,21 +179,27 @@ export default function DefiFeatures() {
       style={{ contentVisibility: "auto", containIntrinsicSize: "auto 500px" }}
     >
       <FeatureBlock
-        label="Frontier AI"
-        heading="Project DeFi is Arkive's first core practice."
-        description="Whether it's trading, research, writing, or anything else, a practice connects to an Arkive's core, adapting it to that domain."
-        buttonLabel="Get started"
+        label="Purpose Built"
+        heading="Project DeFi is Arkive’s first core practice."
+        description="The first practice Arkive built and maintains itself - purpose-built for on-chain trading, connected to your arkive’s full context."
+        buttonLabel="Coming soon"
+        href="/arkives"
+        onButtonClick={openModal}
         imageSrc="/sections/defiFeatures/card1.png"
+        imageSrcMobile="/sections/defiFeatures/card1.png"
         imageAlt="Project DeFi is Arkive's first core practice"
         imageLeft={false}
       />
 
       <FeatureBlock
-        label="Secure Signing"
-        heading="Stay in control of every AI transaction."
-        description="A secure layer for your AI to interact with financial markets. You sign every transaction — nothing goes through without your approval."
-        buttonLabel="Go to security"
+        label="Self Custodial"
+        heading="Trade securely, in plain conversation."
+        description="Ask your AI to open, close, or manage positions for you. You sign every transaction — nothing goes through without your approval."
+        buttonLabel="Coming soon"
+        href="/project-defi"
+        onButtonClick={openModal}
         imageSrc="/sections/defiFeatures/card2.png"
+        imageSrcMobile="/sections/defiFeatures/card2.png"
         imageAlt="Stay in control of every AI transaction"
         imageLeft={true}
       />

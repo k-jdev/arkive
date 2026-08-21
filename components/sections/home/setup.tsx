@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { RiArrowRightSLine } from "@remixicon/react";
 import { claudeIcon, gptIcon, grokIcon, geminiIcon } from "@/public/icons";
 import { setupHeader, setupCard, EASE, safeFade } from "@/lib/animations";
 import { usePrefersReducedMotion } from "@/lib/motion-config";
+import { useNewsletterModal } from "@/components/providers/newsletter-modal-provider";
 
 const AI_ICONS = [
   { src: claudeIcon, alt: "Claude" },
@@ -16,6 +18,7 @@ const AI_ICONS = [
 
 export default function Setup() {
   const reduced = usePrefersReducedMotion();
+  const { openModal } = useNewsletterModal();
 
   return (
     <section
@@ -30,9 +33,10 @@ export default function Setup() {
           viewport={{ once: true, margin: "-60px" }}
           variants={reduced ? safeFade : setupHeader}
           className="font-[590] tracking-[-0.4px] text-(--figma-neutral-12) [font-family:var(--figma-font-text)]"
-          style={{ fontSize: "clamp(32px, 3.3vw, 48px)", lineHeight: 0.9 }}
+          style={{ fontSize: "clamp(35px, 3.3vw, 48px)", lineHeight: 0.9 }}
         >
-          {`Set up your Arkive in < 1 minute.`}
+          Set up your Arkive <br className="block md:hidden" /> in &lt; 1
+          minute.
         </motion.h2>
 
         <div className="flex flex-col gap-5">
@@ -45,14 +49,14 @@ export default function Setup() {
           >
             <div className="relative md:absolute md:left-[clamp(40px,7.5vw,144px)] md:top-1/2 md:-translate-y-1/2 flex flex-col gap-6 md:gap-8 px-6 md:px-0 pt-8 md:pt-0 pb-6 md:pb-0 md:w-[clamp(290px,18.75vw,360px)]">
               <p
-                className="[font-family:var(--figma-font-text)] text-[clamp(20px,5vw,28px)]"
+                className="[font-family:var(--figma-font-text)] text-[clamp(24px,5vw,28px)]"
                 style={{
                   lineHeight: "1.3",
                   letterSpacing: "-0.12px",
                 }}
               >
                 <span className="font-medium text-[rgba(0,5,9,0.89)]">
-                  {"Connect the Arkive MCP "}
+                  {"Connect the Arkive MCP "} <br />
                 </span>
                 <span className="font-medium text-[rgba(0,5,29,0.45)]">
                   to your model of choice in seconds.
@@ -62,16 +66,17 @@ export default function Setup() {
               <div className="flex flex-wrap items-center gap-4">
                 <motion.button
                   type="button"
+                  onClick={openModal}
                   className="flex items-center justify-center h-10 rounded-full shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 px-(--figma-spacing-4) text-(length:--figma-font-size-3) leading-(--figma-line-height-3) tracking-(--figma-letter-spacing-3) bg-(--figma-neutral-12) text-(--figma-neutral-1) font-regular [font-family:var(--figma-font-text)]"
                 >
-                  Get started
+                  Coming soon
                 </motion.button>
 
                 <div className="flex items-center">
                   {AI_ICONS.map((icon, i) => (
                     <motion.div
                       key={icon.alt}
-                      className="relative shrink-0 size-8.5 rounded-full overflow-hidden"
+                      className="relative shrink-0 size-[34px] rounded-full overflow-hidden bg-white border border-[#bbbbbb42]"
                       initial={
                         reduced
                           ? { opacity: 1 }
@@ -87,7 +92,7 @@ export default function Setup() {
                         ease: EASE,
                       }}
                       animate={{
-                        marginRight: i < 3 ? "-10.665px" : "0",
+                        marginRight: i < 3 ? "-10.66px" : "0",
                         zIndex: 4 - i,
                       }}
                     >
@@ -97,8 +102,7 @@ export default function Setup() {
                         width={34}
                         height={34}
                         loading="lazy"
-                        sizes="34px"
-                        className="w-full h-full object-contain p-1"
+                        className="w-full h-full object-cover"
                         draggable={false}
                       />
                     </motion.div>
@@ -108,7 +112,20 @@ export default function Setup() {
             </div>
 
             <div className="relative md:absolute right-0 top-0 md:h-full w-full md:w-[55%]">
-              <div className="relative md:absolute px-6 md:px-0 md:top-1/2 md:-translate-y-1/2 md:right-[clamp(12px,1.7vw,32px)] w-full md:w-[90%] max-w-140 mx-auto md:mx-0">
+              <div className="block md:hidden px-6 pt-6">
+                <Image
+                  src="/sections/setup/mobileMac.png"
+                  alt="MacBook with terminal"
+                  width={390}
+                  height={360}
+                  loading="lazy"
+                  sizes="100vw"
+                  className="w-full h-auto"
+                  draggable={false}
+                />
+              </div>
+
+              <div className="hidden md:block relative md:absolute px-6 md:px-0 md:top-1/2 md:-translate-y-1/2 md:right-[clamp(12px,1.7vw,32px)] w-full md:w-[90%] max-w-140 mx-auto md:mx-0">
                 <Image
                   src="/sections/setup/macbook.webp"
                   alt="MacBook"
@@ -121,9 +138,9 @@ export default function Setup() {
                 />
               </div>
 
-              <div className="relative md:absolute bottom-0 right-0 w-full md:w-[58%] z-10 shadow-xl md:rounded-tl-xl overflow-hidden">
+              <div className="hidden md:block relative md:absolute bottom-0 right-0 w-full md:w-[58%] z-10 shadow-xl md:rounded-tl-xl overflow-hidden">
                 <Image
-                  src="/sections/setup/terminal.webp"
+                  src="/sections/setup/setup.webp"
                   alt="Terminal"
                   width={500}
                   height={160}
@@ -141,47 +158,53 @@ export default function Setup() {
             whileInView={reduced ? undefined : "visible"}
             viewport={{ once: true, margin: "-60px" }}
             variants={reduced ? safeFade : setupCard}
-            className="w-full rounded-3xl bg-[#f9f9fb] px-5 md:px-6 py-5 flex flex-wrap justify-between items-center gap-3 md:gap-4"
+            className="w-full rounded-[18px] bg-[#f9f9fb] p-6 md:px-10 md:py-6"
           >
-            <div className="flex items-center gap-4 md:gap-6">
-              <div className="shrink-0 size-10 rounded-xl overflow-hidden">
+            <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-6">
+              <div className="w-16 h-12 ">
                 <Image
                   src="/sections/setup/install.webp"
                   alt="Arkive install"
-                  width={40}
-                  height={40}
+                  width={64}
+                  height={48}
                   loading="lazy"
-                  sizes="40px"
+                  sizes="64px"
                   className="w-full h-full object-cover"
                   draggable={false}
                 />
               </div>
 
               <p
-                className="flex-1 font-normal text-(--figma-neutral-12) [font-family:var(--figma-font-text)] max-w-xl"
+                className="flex-1 font-[510] text-[rgba(0,5,9,0.89)] [font-family:var(--figma-font-text)]"
                 style={{
                   fontSize: "var(--figma-font-size-3)",
                   lineHeight: "var(--figma-line-height-3)",
                   letterSpacing: "var(--figma-letter-spacing-3)",
                 }}
               >
-                Read our docs on how to transfer context from your model to the
-                new standard for context-capture.
+                Read our docs on how to import existing context{" "}
+                <span className="hidden md:inline">
+                  <br />
+                </span>
+                from anywhere into your arkive.
               </p>
-            </div>
 
-            <motion.a
-              href="#"
-              className="flex items-center gap-0.5 shrink-0 font-regular text-(--figma-accent-9) [font-family:var(--figma-font-text)] hover:text-(--figma-accent-10) transition-colors"
-              style={{
-                fontSize: "var(--figma-font-size-3)",
-                lineHeight: "var(--figma-line-height-3)",
-              }}
-              aria-label="Documentation"
-            >
-              Documentation
-              <RiArrowRightSLine size={18} aria-hidden="true" />
-            </motion.a>
+              <motion.a
+                href="https://docs.arkive.xyz"
+                className="inline-flex items-center gap-1 h-10 px-0 md:px-4 rounded-full bg-transparent font-[400] text-(--figma-accent-9) [font-family:var(--figma-font-text)] hover:opacity-90 transition-opacity shrink-0"
+                style={{
+                  fontSize: "var(--figma-font-size-3)",
+                  lineHeight: "var(--figma-line-height-3)",
+                  letterSpacing: "var(--figma-letter-spacing-3)",
+                }}
+                aria-label="Documentation"
+              >
+                Documentation
+                <div className="relative shrink-0 w-[18px] h-[18px] overflow-hidden">
+                  <RiArrowRightSLine size={18} aria-hidden="true" />
+                </div>
+              </motion.a>
+            </div>
           </motion.div>
         </div>
       </div>
